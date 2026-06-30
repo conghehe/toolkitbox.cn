@@ -87,6 +87,13 @@ const TOOL_DISPLAY = {
     tags: [{ text: 'AI', cls: 'tag' }, { text: '导航', cls: 'tag' }, { text: '32款', cls: 'tag-green' }],
     sourceDir: 'ai-tools-directory', targetSubdir: 'ai-tools'
   },
+  tokencalc01: {
+    icon: '💰', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: 'AI Token 计算器',
+    desc: '支持12款大模型API费用实时计算。输入文本自动估算Token，对比模型成本，预算规划。',
+    tags: [{text:'AI',cls:'tag'},{text:'成本',cls:'tag-orange'},{text:'新赛道',cls:'tag-green'}],
+    sourceDir: 'token-calculator', targetSubdir: 'token-calculator'
+  },
 };
 
 // 新增工具时的默认模板

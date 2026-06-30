@@ -278,5 +278,36 @@
       "AI编程",
       "免费AI工具"
     ]
+  },
+  {
+    "id": "tokencalc01",
+    "name": "AI Token 计算器",
+    "desc": "支持12款大模型API费用实时计算。输入文本自动估算Token，对比模型成本，预算规划。",
+    "icon": "💰",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "AI",
+        "cls": "tag"
+      },
+      {
+        "text": "成本",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "新赛道",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/token-calculator/",
+    "niche": "ai_ml_tools",
+    "keywords": [
+      "AI费用计算",
+      "token计算",
+      "API费用",
+      "GPT费用",
+      "Claude价格"
+    ]
   }
 ]
