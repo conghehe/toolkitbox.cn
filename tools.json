@@ -244,5 +244,39 @@
       "cron schedule",
       "crontab guru"
     ]
+  },
+  {
+    "id": "aitools01",
+    "name": "AI 工具导航",
+    "desc": "收录32款实用AI工具，覆盖对话/写作/图像/视频/编程/办公7大分类。搜索筛选，每日更新。",
+    "icon": "🤖",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "AI",
+        "cls": "tag"
+      },
+      {
+        "text": "导航",
+        "cls": "tag"
+      },
+      {
+        "text": "32款",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/ai-tools/",
+    "niche": "ai_tools",
+    "keywords": [
+      "AI工具导航",
+      "AI工具",
+      "人工智能工具",
+      "AI写作",
+      "AI绘画",
+      "AI视频",
+      "AI编程",
+      "免费AI工具"
+    ]
   }
 ]

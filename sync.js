@@ -80,6 +80,13 @@ const TOOL_DISPLAY = {
     tags: [{ text: 'Cron', cls: 'tag' }, { text: 'Crontab', cls: 'tag' }, { text: 'DevOps', cls: 'tag-green' }],
     sourceDir: 'cron-generator', targetSubdir: 'cron'
   },
+  aitools01: {
+    icon: '🤖', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: 'AI 工具导航',
+    desc: '收录32款实用AI工具，覆盖对话/写作/图像/视频/编程/办公7大分类。搜索筛选，每日更新。',
+    tags: [{ text: 'AI', cls: 'tag' }, { text: '导航', cls: 'tag' }, { text: '32款', cls: 'tag-green' }],
+    sourceDir: 'ai-tools-directory', targetSubdir: 'ai-tools'
+  },
 };
 
 // 新增工具时的默认模板
