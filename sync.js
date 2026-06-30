@@ -20,7 +20,8 @@ const CONFIG = {
   toolsiteDir: path.join(PROJECT_ROOT, 'outputs', 'toolsite'),
   targetDir: __dirname, // outputs/toolkitbox.cn
   adsScript: '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>',
-  adUnit: '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
+  // 审核中不显示广告内容：min-height:0 让审核通过前不占空间
+  adUnit: '<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>',
 };
 
 const args = process.argv.slice(2);
@@ -265,7 +266,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC'
 .tag-orange { background: #fff8e1; color: #e17055; }
 .tag-green { background: #e6fff5; color: #00b894; }
 .tag-red { background: #ffeaea; color: #ff6b6b; }
-.ad-banner { max-width: 1100px; margin: 20px auto; padding: 0 20px; }
+.ad-banner { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 .footer { text-align: center; padding: 30px; color: var(--text-secondary); font-size: 0.8rem; }
 @media (max-width: 700px) { .hero h1 { font-size: 1.8rem; } .tools-grid { grid-template-columns: 1fr; padding: 0 12px; } }
 </style>
