@@ -1,0 +1,248 @@
+[
+  {
+    "id": "jsonfmt01",
+    "name": "JSON 格式化工具",
+    "desc": "JSON 美化、校验、压缩、转CSV。支持语法高亮和错误定位，开发者高频工具。",
+    "icon": "{ }",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "JSON",
+        "cls": "tag"
+      },
+      {
+        "text": "格式化",
+        "cls": "tag"
+      },
+      {
+        "text": "50万月搜",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/json/",
+    "niche": "developer_tools",
+    "keywords": [
+      "json格式化",
+      "json美化",
+      "json校验",
+      "json压缩",
+      "在线json工具"
+    ]
+  },
+  {
+    "id": "base64enc01",
+    "name": "Base64 编解码",
+    "desc": "文本/图片 Base64 互转，支持 URL 安全编码，文件拖拽上传，实时编解码。",
+    "icon": "64",
+    "iconBg": "#e6fff5",
+    "iconColor": "#00b894",
+    "tags": [
+      {
+        "text": "Base64",
+        "cls": "tag"
+      },
+      {
+        "text": "编码",
+        "cls": "tag-green"
+      },
+      {
+        "text": "解码",
+        "cls": "tag"
+      }
+    ],
+    "url": "/base64/",
+    "niche": "developer_tools",
+    "keywords": [
+      "base64编码",
+      "base64解码",
+      "base64在线",
+      "图片转base64",
+      "base64转图片",
+      "base64 encode decode",
+      "URL安全base64",
+      "在线base64工具"
+    ]
+  },
+  {
+    "id": "contrast01",
+    "name": "WCAG 对比度检测",
+    "desc": "实时检测文字/背景色彩对比度，WCAG 2.1 AA/AAA 等级判定，无障碍合规必备。",
+    "icon": "👁️",
+    "iconBg": "#ffeaea",
+    "iconColor": "#ff6b6b",
+    "tags": [
+      {
+        "text": "WCAG",
+        "cls": "tag"
+      },
+      {
+        "text": "无障碍",
+        "cls": "tag-red"
+      },
+      {
+        "text": "合规",
+        "cls": "tag"
+      }
+    ],
+    "url": "/contrast/",
+    "niche": "accessibility_tools",
+    "keywords": [
+      "wcag对比度检测",
+      "色彩对比度检查",
+      "无障碍检测",
+      "color contrast checker",
+      "WCAG AA",
+      "WCAG AAA",
+      "对比度计算器",
+      "网页无障碍",
+      "EAA合规",
+      "ADA合规"
+    ]
+  },
+  {
+    "id": "palette01",
+    "name": "配色方案生成器",
+    "desc": "互补色、类似色、三角色等6种配色模式。一键复制HEX，导出CSS变量。",
+    "icon": "🎨",
+    "iconBg": "#fff8e1",
+    "iconColor": "#e17055",
+    "tags": [
+      {
+        "text": "配色",
+        "cls": "tag"
+      },
+      {
+        "text": "设计",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "CSS",
+        "cls": "tag"
+      }
+    ],
+    "url": "/palette/",
+    "niche": "design_tools",
+    "keywords": [
+      "配色方案生成器",
+      "调色板生成器",
+      "色彩搭配",
+      "color palette generator",
+      "配色工具",
+      "在线调色板",
+      "互补色",
+      "类似色",
+      "色彩灵感",
+      "color scheme",
+      "HEX颜色"
+    ]
+  },
+  {
+    "id": "meta01",
+    "name": "Meta 标签生成器",
+    "desc": "HTML Meta / Open Graph / Twitter Card 三合一标签生成。实时预览搜索结果。",
+    "icon": "🏷️",
+    "iconBg": "#e6fff5",
+    "iconColor": "#00b894",
+    "tags": [
+      {
+        "text": "SEO",
+        "cls": "tag"
+      },
+      {
+        "text": "Meta",
+        "cls": "tag-green"
+      },
+      {
+        "text": "OG",
+        "cls": "tag"
+      }
+    ],
+    "url": "/meta/",
+    "niche": "seo_tools",
+    "keywords": [
+      "meta标签生成器",
+      "meta tag generator",
+      "SEO meta标签",
+      "Open Graph生成",
+      "Twitter Card生成",
+      "meta标签",
+      "seo工具",
+      "og标签",
+      "twitter卡片",
+      "HTML meta",
+      "网站SEO优化"
+    ]
+  },
+  {
+    "id": "hash01",
+    "name": "哈希生成器",
+    "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 五合一哈希。支持文本和文件哈希校验。",
+    "icon": "#",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "MD5",
+        "cls": "tag"
+      },
+      {
+        "text": "SHA256",
+        "cls": "tag"
+      },
+      {
+        "text": "安全",
+        "cls": "tag-red"
+      }
+    ],
+    "url": "/hash/",
+    "niche": "security_tools",
+    "keywords": [
+      "哈希生成器",
+      "MD5生成器",
+      "SHA256在线",
+      "hash generator",
+      "MD5 hash",
+      "SHA256 hash",
+      "文件校验",
+      "在线哈希工具",
+      "加密工具",
+      "数据校验",
+      "哈希加密",
+      "SHA-512",
+      "文件哈希"
+    ]
+  },
+  {
+    "id": "cron01",
+    "name": "Cron 表达式生成器",
+    "desc": "可视化构建Crontab定时任务，实时预览执行时间，内置常用模板。DevOps/SRE必备。",
+    "icon": "⏰",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "Cron",
+        "cls": "tag"
+      },
+      {
+        "text": "Crontab",
+        "cls": "tag"
+      },
+      {
+        "text": "DevOps",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/cron/",
+    "niche": "devops_tools",
+    "keywords": [
+      "cron表达式",
+      "crontab",
+      "定时任务",
+      "计划任务",
+      "cron schedule",
+      "crontab guru"
+    ]
+  }
+]
