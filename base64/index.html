@@ -899,11 +899,11 @@
                         document.getElementById('b64-file-info').textContent = mime + ' | ' + (b64.length / 1024).toFixed(1) + 'KB Base64';
                         showToast('✅ 图片预览成功');
                     };
-                    img.onerror = function() { continue; };
+                    img.onerror = function() {};
                     img.src = dataUri;
                     found = true;
                     break;
-                } catch(e) { continue; }
+                } catch(e) {}
             }
             if (!found) {
                 document.getElementById('b64-preview-img').style.display = 'none';
