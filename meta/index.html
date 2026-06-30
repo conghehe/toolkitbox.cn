@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta标签生成器 - 免费在线SEO Meta/OG/Twitter标签一键生成 | SEO优化工具</title>
+<meta name="description" content="免费在线Meta标签生成器，一键生成HTML Meta、Open Graph、Twitter Card标签。支持Google搜索结果预览、Facebook分享预览、Twitter卡片预览。SEO优化必备工具。">
+<meta name="keywords" content="meta标签生成器,meta tag generator,SEO meta标签,Open Graph生成,Twitter Card生成,meta标签,seo工具,og标签,twitter卡片,HTML meta,网站SEO优化,搜索引擎优化">
+<meta name="author" content="FreeOnlineTools">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://freetools.online/meta-tag-generator">
+<meta property="og:title" content="Meta标签生成器 - 免费在线SEO Meta/OG/Twitter标签一键生成">
+<meta property="og:description" content="免费在线Meta标签生成器，一键生成HTML Meta、Open Graph、Twitter Card标签。包含实时预览和代码复制功能。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FreeOnlineTools">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meta标签生成器 - 免费在线SEO Meta/OG/Twitter标签一键生成">
+<meta name="twitter:description" content="免费在线Meta标签生成器，支持Google预览、Facebook预览、Twitter预览。SEO必备工具。">
+<style>
+:root {
+    --bg: #ffffff;
+    --bg2: #f8f9fa;
+    --bg3: #e9ecef;
+    --text: #212529;
+    --text2: #495057;
+    --text3: #6c757d;
+    --border: #dee2e6;
+    --primary: #4361ee;
+    --primary-hover: #3a56d4;
+    --primary-light: #eef0ff;
+    --success: #2ec4b6;
+    --warning: #ff9f1c;
+    --danger: #e71d36;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-lg: 0 4px 24px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: all 0.2s ease;
+}
+
+[data-theme="dark"] {
+    --bg: #1a1a2e;
+    --bg2: #16213e;
+    --bg3: #0f3460;
+    --text: #e0e0e0;
+    --text2: #a0a0b8;
+    --text3: #6c6c8a;
+    --border: #2a2a4a;
+    --primary: #7c8aff;
+    --primary-hover: #6670e0;
+    --primary-light: #1a1a3e;
+    --shadow: 0 2px 8px rgba(0,0,0,0.3);
+    --shadow-lg: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+    background: var(--bg2);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+}
+
+.header-left { display: flex; align-items: center; gap: 12px; }
+.logo-icon { font-size: 28px; }
+.logo-text { font-size: 20px; font-weight: 700; color: var(--primary); }
+.logo-sub { font-size: 12px; color: var(--text3); }
+
+.header-right { display: flex; align-items: center; gap: 12px; }
+.theme-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--bg);
+    font-size: 18px; cursor: pointer; transition: var(--transition);
+    display: flex; align-items: center; justify-content: center;
+}
+.theme-btn:hover { background: var(--bg2); }
+
+/* Container */
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+/* Hero */
+.hero { text-align: center; padding: 32px 20px 16px; }
+.hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+.hero h1 span { background: linear-gradient(135deg, var(--primary), #7209b7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text2); font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+/* Main tool area */
+.tool-wrapper {
+    background: var(--bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+/* Tab bar */
+.tab-bar {
+    display: flex; border-bottom: 2px solid var(--border);
+    background: var(--bg2); overflow-x: auto;
+}
+.tab-btn {
+    padding: 14px 24px; border: none; background: none;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    color: var(--text3); white-space: nowrap;
+    border-bottom: 2px solid transparent; margin-bottom: -2px;
+    transition: var(--transition);
+}
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+.tab-btn:hover { color: var(--text); }
+
+.tab-content { display: none; padding: 24px; }
+.tab-content.active { display: block; }
+
+/* Input form */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-grid.col3 { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 768px) { .form-grid, .form-grid.col3 { grid-template-columns: 1fr; } }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+    font-size: 13px; font-weight: 600; color: var(--text2);
+    display: flex; align-items: center; gap: 4px;
+}
+.form-group label .badge {
+    font-size: 10px; padding: 2px 6px; border-radius: 4px;
+    font-weight: 700;
+}
+.badge-required { background: #ffe0e0; color: #c0392b; }
+.badge-recommended { background: #fff3cd; color: #856404; }
+.badge-og { background: #d4edda; color: #155724; }
+.badge-twitter { background: #d1ecf1; color: #0c5460; }
+
+.form-group input, .form-group textarea, .form-group select {
+    padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 14px;
+    background: var(--bg); color: var(--text);
+    transition: var(--transition); font-family: inherit;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    outline: none; border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+
+/* Char counter */
+.char-counter { font-size: 11px; color: var(--text3); text-align: right; }
+.char-counter.warn { color: var(--warning); }
+.char-counter.danger { color: var(--danger); }
+
+/* Preview cards */
+.preview-section { margin-top: 24px; }
+.preview-section h3 {
+    font-size: 15px; font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+}
+.preview-section h3 .icon { font-size: 20px; }
+
+/* Google Preview */
+.google-preview {
+    max-width: 600px; font-family: Arial, sans-serif;
+}
+.google-preview .gp-title {
+    color: #1a0dab; font-size: 18px; line-height: 1.3;
+    cursor: pointer; margin-bottom: 3px;
+    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;
+}
+.google-preview .gp-url {
+    color: #006621; font-size: 13px; line-height: 1.4;
+    margin-bottom: 2px; word-break: break-all;
+}
+.google-preview .gp-desc {
+    color: #545454; font-size: 13px; line-height: 1.4;
+    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+
+/* Facebook Preview */
+.fb-preview {
+    border: 1px solid #dadde1; border-radius: 0; max-width: 500px;
+    font-family: Helvetica, Arial, sans-serif;
+}
+.fb-preview .fb-img {
+    width: 100%; height: 261px; background: #f0f2f5;
+    display: flex; align-items: center; justify-content: center;
+    color: #65676b; font-size: 13px; border-bottom: 1px solid #dadde1;
+    overflow: hidden;
+}
+.fb-preview .fb-img img { width: 100%; height: 100%; object-fit: cover; }
+.fb-preview .fb-body { padding: 10px 12px 12px; }
+.fb-preview .fb-domain {
+    color: #65676b; font-size: 12px; text-transform: uppercase;
+    margin-bottom: 3px;
+}
+.fb-preview .fb-title {
+    font-size: 16px; font-weight: 600; color: #1c1e21;
+    margin-bottom: 3px; line-height: 1.2;
+}
+.fb-preview .fb-desc {
+    font-size: 14px; color: #606770; line-height: 1.3;
+    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+
+/* Twitter Preview */
+.tw-preview {
+    border: 1px solid #cfd9de; border-radius: 16px; overflow: hidden;
+    max-width: 500px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.tw-preview .tw-img {
+    width: 100%; height: 250px; background: #f7f9f9;
+    display: flex; align-items: center; justify-content: center;
+    color: #536471; font-size: 13px; overflow: hidden;
+}
+.tw-preview .tw-img img { width: 100%; height: 100%; object-fit: cover; }
+.tw-preview .tw-body { padding: 12px; }
+.tw-preview .tw-domain {
+    color: #536471; font-size: 13px; margin-bottom: 2px;
+}
+.tw-preview .tw-title {
+    font-size: 15px; font-weight: 400; color: #0f1419;
+    margin-bottom: 2px; line-height: 1.3;
+}
+.tw-preview .tw-desc {
+    font-size: 13px; color: #536471; line-height: 1.3;
+    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+
+/* Generated code */
+.code-output {
+    margin-top: 24px;
+}
+.code-output-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+}
+.code-output-header h3 { font-size: 15px; font-weight: 700; }
+.copy-btn {
+    padding: 8px 20px; background: var(--primary); color: #fff;
+    border: none; border-radius: var(--radius-sm); font-size: 13px;
+    font-weight: 600; cursor: pointer; transition: var(--transition);
+}
+.copy-btn:hover { background: var(--primary-hover); }
+.copy-btn.copied { background: var(--success); }
+
+.code-block {
+    background: #1e1e2e; color: #cdd6f4; padding: 20px;
+    border-radius: var(--radius-sm); font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px; line-height: 1.7; overflow-x: auto;
+    max-height: 400px; overflow-y: auto; white-space: pre;
+}
+.code-block .tag { color: #cba6f7; }
+.code-block .attr { color: #89b4fa; }
+.code-block .val { color: #a6e3a1; }
+.code-block .comment { color: #6c7086; }
+
+/* Info boxes */
+.info-box {
+    background: var(--primary-light); border: 1px solid rgba(67, 97, 238, 0.2);
+    border-radius: var(--radius-sm); padding: 14px 18px;
+    margin-bottom: 16px; font-size: 13px; color: var(--text2);
+}
+.info-box strong { color: var(--primary); }
+
+/* Ad placeholders */
+.ad-banner {
+    background: var(--bg3); border: 1px dashed var(--border);
+    border-radius: var(--radius-sm); padding: 20px;
+    text-align: center; color: var(--text3); font-size: 13px;
+    margin: 24px 0;
+}
+.ad-sidebar {
+    background: var(--bg3); border: 1px dashed var(--border);
+    border-radius: var(--radius-sm); padding: 16px;
+    text-align: center; color: var(--text3); font-size: 12px;
+    min-height: 250px; display: flex; align-items: center; justify-content: center;
+}
+
+/* Layout two-col */
+.tool-layout { display: flex; gap: 24px; }
+.tool-main { flex: 1; min-width: 0; }
+.tool-sidebar { width: 300px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; }
+@media (max-width: 900px) {
+    .tool-layout { flex-direction: column; }
+    .tool-sidebar { width: 100%; }
+}
+
+/* SEO education section */
+.edu-section {
+    background: var(--bg); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 32px;
+    margin-top: 24px;
+}
+.edu-section h2 {
+    font-size: 24px; font-weight: 700; margin-bottom: 16px;
+}
+.edu-section h3 {
+    font-size: 18px; font-weight: 700; margin: 24px 0 12px;
+    color: var(--primary);
+}
+.edu-section p, .edu-section li {
+    font-size: 14px; color: var(--text2); line-height: 1.8;
+}
+.edu-section ul { padding-left: 24px; margin-bottom: 16px; }
+.edu-section table {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    font-size: 13px;
+}
+.edu-section th, .edu-section td {
+    border: 1px solid var(--border); padding: 10px 14px; text-align: left;
+}
+.edu-section th { background: var(--bg2); font-weight: 700; color: var(--text); }
+.edu-section td code {
+    background: var(--bg2); padding: 2px 6px; border-radius: 4px;
+    font-size: 12px; color: var(--primary);
+}
+
+/* Footer */
+.footer {
+    text-align: center; padding: 32px 20px;
+    color: var(--text3); font-size: 13px;
+    border-top: 1px solid var(--border); margin-top: 40px;
+}
+
+/* Preview row */
+.preview-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+.preview-card {
+    background: var(--bg2); border-radius: var(--radius-sm);
+    padding: 16px; border: 1px solid var(--border);
+}
+.preview-card h4 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--text3); margin-bottom: 12px;
+}
+
+/* Toast */
+.toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #333; color: #fff; padding: 12px 24px;
+    border-radius: 24px; font-size: 14px; font-weight: 600;
+    z-index: 9999; opacity: 0; transition: opacity 0.3s;
+    pointer-events: none;
+}
+.toast.show { opacity: 1; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .hero h1 { font-size: 24px; }
+    .tab-btn { padding: 10px 16px; font-size: 13px; }
+    .tab-content { padding: 16px; }
+    .preview-row { grid-template-columns: 1fr; }
+    .edu-section { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <span class="logo-icon">🏷️</span>
+        <div>
+            <div class="logo-text">Meta标签生成器</div>
+            <div class="logo-sub">SEO优化必备工具</div>
+        </div>
+    </div>
+    <div class="header-right">
+        <button class="theme-btn" id="themeToggle" aria-label="切换主题" title="切换深色/浅色主题">🌓</button>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Hero -->
+    <section class="hero">
+        <h1>免费在线 <span>Meta标签生成器</span></h1>
+        <p>一键生成标准HTML Meta标签、Open Graph标签和Twitter Card标签，提升网站在搜索引擎和社交媒体上的展示效果</p>
+    </section>
+
+    <!-- Ad banner top -->
+    <div class="ad-banner">📢 广告位 — Google AdSense / Ezoic Banner (728×90)</div>
+
+    <div class="tool-layout">
+        <div class="tool-main">
+            <!-- Tool tabs -->
+            <div class="tool-wrapper">
+                <div class="tab-bar">
+                    <button class="tab-btn active" data-tab="form">📝 填写信息</button>
+                    <button class="tab-btn" data-tab="preview">👁️ 实时预览</button>
+                    <button class="tab-btn" data-tab="code">📋 生成代码</button>
+                </div>
+
+                <!-- Form tab -->
+                <div class="tab-content active" id="tab-form">
+                    <div class="info-box">
+                        <strong>💡 提示：</strong>填写下方信息，即可一键生成标准Meta标签。带 <span class="badge badge-required">必填</span> 的字段建议填写，其他可选。
+                    </div>
+
+                    <h3 style="margin-bottom: 16px;">📄 基本信息 (HTML Meta)</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>网站标题 <span class="badge badge-required">必填</span></label>
+                            <input type="text" id="title" placeholder="我的网站 - 最佳在线工具" maxlength="60" oninput="updatePreview()">
+                            <div class="char-counter" id="titleCounter">0 / 60</div>
+                        </div>
+                        <div class="form-group">
+                            <label>网站描述 <span class="badge badge-recommended">推荐</span></label>
+                            <textarea id="description" placeholder="描述你的网站，吸引用户点击..." maxlength="160" oninput="updatePreview()" rows="2"></textarea>
+                            <div class="char-counter" id="descCounter">0 / 160</div>
+                        </div>
+                        <div class="form-group">
+                            <label>关键词</label>
+                            <input type="text" id="keywords" placeholder="关键词1, 关键词2, 关键词3" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>网站URL</label>
+                            <input type="url" id="url" placeholder="https://example.com" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>作者</label>
+                            <input type="text" id="author" placeholder="你的名字或品牌" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>Robots设置</label>
+                            <select id="robots" onchange="updatePreview()">
+                                <option value="index, follow">index, follow (允许收录)</option>
+                                <option value="noindex, nofollow">noindex, nofollow (禁止收录)</option>
+                                <option value="index, nofollow">index, nofollow</option>
+                                <option value="noindex, follow">noindex, follow</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 24px 0 16px;">🔵 Open Graph 标签 (Facebook / LinkedIn)</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>OG标题</label>
+                            <input type="text" id="ogTitle" placeholder="与网站标题相同或不同" maxlength="95" oninput="updatePreview()">
+                            <div class="char-counter" id="ogTitleCounter">0 / 95</div>
+                        </div>
+                        <div class="form-group">
+                            <label>OG描述</label>
+                            <textarea id="ogDescription" placeholder="分享到社交媒体时的描述..." maxlength="200" oninput="updatePreview()" rows="2"></textarea>
+                            <div class="char-counter" id="ogDescCounter">0 / 200</div>
+                        </div>
+                        <div class="form-group">
+                            <label>OG图片URL</label>
+                            <input type="url" id="ogImage" placeholder="https://example.com/og-image.jpg" oninput="updatePreview()">
+                            <div style="font-size:11px;color:var(--text3);">推荐尺寸: 1200×630px</div>
+                        </div>
+                        <div class="form-group">
+                            <label>OG类型</label>
+                            <select id="ogType" onchange="updatePreview()">
+                                <option value="website">website</option>
+                                <option value="article">article</option>
+                                <option value="product">product</option>
+                                <option value="video.movie">video.movie</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>站点名称</label>
+                            <input type="text" id="ogSiteName" placeholder="我的网站" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>OG语言</label>
+                            <select id="ogLocale" onchange="updatePreview()">
+                                <option value="zh_CN">zh_CN (简体中文)</option>
+                                <option value="zh_TW">zh_TW (繁体中文)</option>
+                                <option value="en_US">en_US (英语)</option>
+                                <option value="ja_JP">ja_JP (日语)</option>
+                                <option value="ko_KR">ko_KR (韩语)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <h3 style="margin: 24px 0 16px;">🐦 Twitter Card 标签</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Twitter卡片类型</label>
+                            <select id="twitterCard" onchange="updatePreview()">
+                                <option value="summary_large_image">summary_large_image (大图卡片)</option>
+                                <option value="summary">summary (小图卡片)</option>
+                                <option value="app">app (应用卡片)</option>
+                                <option value="player">player (视频卡片)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter标题</label>
+                            <input type="text" id="twitterTitle" placeholder="Twitter上的标题" maxlength="70" oninput="updatePreview()">
+                            <div class="char-counter" id="twTitleCounter">0 / 70</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter描述</label>
+                            <textarea id="twitterDescription" placeholder="Twitter卡片描述..." maxlength="200" oninput="updatePreview()" rows="2"></textarea>
+                            <div class="char-counter" id="twDescCounter">0 / 200</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter图片URL</label>
+                            <input type="url" id="twitterImage" placeholder="https://example.com/twitter-card.jpg" oninput="updatePreview()">
+                            <div style="font-size:11px;color:var(--text3);">推荐尺寸: 1200×600px</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter用户名</label>
+                            <input type="text" id="twitterSite" placeholder="@yourhandle" oninput="updatePreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter创作者</label>
+                            <input type="text" id="twitterCreator" placeholder="@creatorhandle" oninput="updatePreview()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview tab -->
+                <div class="tab-content" id="tab-preview">
+                    <div class="info-box">
+                        <strong>👁️ 实时预览：</strong>查看你的标签在各大平台上的展示效果。填写表单后切换到此标签查看。
+                    </div>
+                    <div class="preview-row">
+                        <div class="preview-card">
+                            <h4>🔍 Google 搜索结果</h4>
+                            <div class="google-preview" id="googlePreview">
+                                <div class="gp-title">在此填写标题...</div>
+                                <div class="gp-url">https://example.com › 页面路径</div>
+                                <div class="gp-desc">在此填写描述，最多160个字符...</div>
+                            </div>
+                        </div>
+                        <div class="preview-card">
+                            <h4>📘 Facebook 分享</h4>
+                            <div class="fb-preview" id="fbPreview">
+                                <div class="fb-img" id="fbImg">🖼️ 图片预览区</div>
+                                <div class="fb-body">
+                                    <div class="fb-domain">DOMAIN.COM</div>
+                                    <div class="fb-title">在此填写标题...</div>
+                                    <div class="fb-desc">在此填写描述...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="preview-card">
+                            <h4>🐦 Twitter 卡片</h4>
+                            <div class="tw-preview" id="twPreview">
+                                <div class="tw-img" id="twImg">🖼️ 图片预览区</div>
+                                <div class="tw-body">
+                                    <div class="tw-domain">来自 domain.com</div>
+                                    <div class="tw-title">在此填写标题...</div>
+                                    <div class="tw-desc">在此填写描述...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Code tab -->
+                <div class="tab-content" id="tab-code">
+                    <div class="code-output-header">
+                        <h3>📋 生成的 Meta 标签代码</h3>
+                        <button class="copy-btn" id="copyBtn" onclick="copyCode()">📋 一键复制</button>
+                    </div>
+                    <div class="code-block" id="codeBlock">
+<span class="comment">&lt;!-- 基本 Meta 标签 --&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+
+<span class="comment">&lt;!-- 在此填写信息后自动生成 --&gt;</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick presets -->
+            <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="preset-btn" onclick="loadPreset('blog')" style="padding:8px 16px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--text);cursor:pointer;font-size:13px;">📝 博客示例</button>
+                <button class="preset-btn" onclick="loadPreset('shop')" style="padding:8px 16px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--text);cursor:pointer;font-size:13px;">🛒 电商示例</button>
+                <button class="preset-btn" onclick="loadPreset('app')" style="padding:8px 16px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--text);cursor:pointer;font-size:13px;">📱 应用示例</button>
+                <button class="preset-btn" onclick="clearForm()" style="padding:8px 16px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--danger);cursor:pointer;font-size:13px;">🗑️ 清空</button>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="tool-sidebar">
+            <div class="ad-sidebar">📢 广告位<br>AdSense Sidebar<br>300×250</div>
+
+            <!-- Stats card -->
+            <div style="background:var(--bg);border-radius:var(--radius-sm);padding:16px;border:1px solid var(--border);">
+                <h4 style="font-size:13px;margin-bottom:12px;color:var(--text2);">📊 标签统计</h4>
+                <div id="tagStats" style="font-size:13px;color:var(--text3);">
+                    <div>HTML Meta: <strong id="statMeta">0</strong></div>
+                    <div>Open Graph: <strong id="statOG">0</strong></div>
+                    <div>Twitter Card: <strong id="statTwitter">0</strong></div>
+                    <div style="margin-top:4px;">总计: <strong id="statTotal" style="color:var(--primary);">0</strong> 个标签</div>
+                </div>
+            </div>
+
+            <div class="ad-sidebar">📢 广告位<br>AdSense Sidebar<br>300×600</div>
+        </div>
+    </div>
+
+    <!-- SEO Education Section -->
+    <section class="edu-section">
+        <h2>📚 什么是Meta标签？为什么它对SEO至关重要？</h2>
+        <p>Meta标签是HTML文档头部(&lt;head&gt;)中的元数据，它们不直接显示在页面上，但对搜索引擎和社交媒体平台至关重要。合理的Meta标签可以显著提升点击率和搜索排名。</p>
+
+        <h3>🔍 HTML Meta 标签</h3>
+        <p>标准的HTML Meta标签帮助搜索引擎理解你的网页内容：</p>
+        <table>
+            <tr><th>标签</th><th>作用</th><th>长度建议</th></tr>
+            <tr><td><code>title</code></td><td>网页标题，搜索引擎结果中最重要的元素</td><td>50-60 字符</td></tr>
+            <tr><td><code>description</code></td><td>网页描述，影响点击率</td><td>150-160 字符</td></tr>
+            <tr><td><code>keywords</code></td><td>关键词（现代搜索引擎权重较低但仍有用）</td><td>5-10 个</td></tr>
+            <tr><td><code>robots</code></td><td>控制搜索引擎爬虫行为</td><td>—</td></tr>
+            <tr><td><code>viewport</code></td><td>移动端响应式必备</td><td>—</td></tr>
+            <tr><td><code>canonical</code></td><td>指定页面的规范URL，避免重复内容</td><td>完整URL</td></tr>
+        </table>
+
+        <h3>🔵 Open Graph 协议</h3>
+        <p>Open Graph是由Facebook推出的协议，用于控制在社交平台上分享链接时的展示效果。LinkedIn、WhatsApp、Telegram等也支持OG标签。</p>
+        <ul>
+            <li><strong>og:title</strong> — 分享标题，建议40-95字符</li>
+            <li><strong>og:description</strong> — 分享描述，建议150-200字符</li>
+            <li><strong>og:image</strong> — 分享图片，推荐1200×630px，最大5MB</li>
+            <li><strong>og:url</strong> — 规范URL</li>
+            <li><strong>og:type</strong> — 内容类型（website/article/product等）</li>
+        </ul>
+
+        <h3>🐦 Twitter Card</h3>
+        <p>Twitter Card控制你的链接在Twitter/X上的展示方式：</p>
+        <ul>
+            <li><strong>summary_large_image</strong> — 大图卡片，280×150px图片 + 标题描述（推荐）</li>
+            <li><strong>summary</strong> — 小图卡片，左侧小缩略图</li>
+            <li>图片推荐1200×600px，文件小于5MB</li>
+            <li>添加 <code>twitter:site</code> 和 <code>twitter:creator</code> 建立品牌关联</li>
+        </ul>
+
+        <h3>💡 SEO最佳实践建议</h3>
+        <ul>
+            <li>标题长度控制在50-60字符，确保在搜索结果中完整显示</li>
+            <li>描述要吸引人且包含目标关键词，控制在150-160字符</li>
+            <li>OG图片尺寸1200×630px是黄金标准，确保在各平台完美显示</li>
+            <li>每个页面都应有独特的title和description，避免重复</li>
+            <li>使用结构化数据(Schema.org)进一步增强搜索展示</li>
+            <li>对多语言网站使用 <code>hreflang</code> 标签</li>
+            <li>定期用Google Search Console和Facebook Sharing Debugger验证标签效果</li>
+        </ul>
+    </section>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>© 2026 Meta标签生成器 — 免费在线SEO工具 | 无需注册 | 纯前端处理，数据不上传</p>
+</footer>
+
+<script>
+// Theme toggle
+const themeBtn = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('metaGenTheme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌓';
+
+themeBtn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    themeBtn.textContent = next === 'dark' ? '☀️' : '🌓';
+    localStorage.setItem('metaGenTheme', next);
+});
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        if (btn.dataset.tab === 'preview') updatePreview();
+        if (btn.dataset.tab === 'code') generateCode();
+    });
+});
+
+// Auto-fill OG and Twitter from basic info
+['title', 'description', 'url'].forEach(field => {
+    document.getElementById(field).addEventListener('input', () => {
+        const val = document.getElementById(field).value;
+        if (!document.getElementById(field === 'title' ? 'ogTitle' : field === 'description' ? 'ogDescription' : 'url').value) {
+            const ogField = field === 'title' ? 'ogTitle' : field === 'description' ? 'ogDescription' : 'url';
+            document.getElementById(ogField).value = val;
+        }
+        if (!document.getElementById(field === 'title' ? 'twitterTitle' : field === 'description' ? 'twitterDescription' : 'ogImage').value) {
+            const twField = field === 'title' ? 'twitterTitle' : field === 'description' ? 'twitterDescription' : 'ogImage';
+            if (field !== 'url') document.getElementById(twField).value = val;
+        }
+        updatePreview();
+    });
+});
+
+// Char counters
+['title', 'description', 'keywords', 'ogTitle', 'ogDescription', 'twitterTitle', 'twitterDescription'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+        const el = document.getElementById(id);
+        const counter = document.getElementById(id + 'Counter');
+        if (!counter) return;
+        const max = parseInt(el.maxLength);
+        const len = el.value.length;
+        counter.textContent = len + ' / ' + max;
+        counter.className = 'char-counter';
+        if (len > max * 0.9) counter.classList.add('warn');
+        if (len >= max) counter.classList.add('danger');
+    });
+});
+
+// Update previews
+function updatePreview() {
+    const title = document.getElementById('title').value || '在此填写标题...';
+    const desc = document.getElementById('description').value || '在此填写描述，最多160个字符...';
+    const url = document.getElementById('url').value || 'https://example.com';
+    const siteName = document.getElementById('ogSiteName').value || 'EXAMPLE.COM';
+    const ogImage = document.getElementById('ogImage').value;
+    const twitterImage = document.getElementById('twitterImage').value || ogImage;
+    const twitterCard = document.getElementById('twitterCard').value;
+    const ogTitle = document.getElementById('ogTitle').value || title;
+    const ogDesc = document.getElementById('ogDescription').value || desc;
+    const twTitle = document.getElementById('twitterTitle').value || ogTitle;
+    const twDesc = document.getElementById('twitterDescription').value || ogDesc;
+
+    let displayUrl = url.replace(/^https?:\/\//, '');
+    if (displayUrl.endsWith('/')) displayUrl = displayUrl.slice(0, -1);
+    const parts = displayUrl.split('/');
+    const domain = parts[0];
+    const breadcrumb = parts.length > 1 ? ' › ' + parts.slice(1).join(' › ') : '';
+
+    // Google Preview
+    document.getElementById('googlePreview').innerHTML = `
+        <div class="gp-title">${escapeHTML(title)}</div>
+        <div class="gp-url">${escapeHTML(domain)}${escapeHTML(breadcrumb)}</div>
+        <div class="gp-desc">${escapeHTML(desc)}</div>
+    `;
+
+    // Facebook Preview
+    const fbImg = document.getElementById('fbImg');
+    if (ogImage) {
+        fbImg.innerHTML = `<img src="${escapeHTML(ogImage)}" alt="OG Image" onerror="this.parentElement.innerHTML='🖼️ 图片加载失败'">`;
+    } else {
+        fbImg.innerHTML = '🖼️ 图片预览区<br><small style="font-size:11px;">请填写OG图片URL</small>';
+    }
+    document.querySelector('#fbPreview .fb-domain').textContent = domain.toUpperCase();
+    document.querySelector('#fbPreview .fb-title').textContent = ogTitle;
+    document.querySelector('#fbPreview .fb-desc').textContent = ogDesc;
+
+    // Twitter Preview
+    const twImg = document.getElementById('twImg');
+    if (twitterCard !== 'summary' && twitterImage) {
+        twImg.style.display = 'flex';
+        twImg.innerHTML = `<img src="${escapeHTML(twitterImage)}" alt="Twitter Card" onerror="this.parentElement.innerHTML='🖼️ 图片加载失败'">`;
+    } else if (twitterCard === 'summary') {
+        twImg.style.display = 'none';
+    } else {
+        twImg.style.display = 'flex';
+        twImg.innerHTML = '🖼️ 图片预览区<br><small style="font-size:11px;">请填写Twitter图片URL</small>';
+    }
+    document.querySelector('#twPreview .tw-domain').textContent = '来自 ' + domain;
+    document.querySelector('#twPreview .tw-title').textContent = twTitle;
+    document.querySelector('#twPreview .tw-desc').textContent = twDesc;
+
+    // Update stats
+    updateStats();
+}
+
+function escapeHTML(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function updateStats() {
+    let meta = 0, og = 0, tw = 0;
+    if (document.getElementById('title').value) meta++;
+    if (document.getElementById('description').value) meta++;
+    if (document.getElementById('keywords').value) meta++;
+    if (document.getElementById('author').value) meta++;
+    meta++; // charset
+    meta++; // viewport
+    meta++; // robots always present
+
+    if (document.getElementById('ogTitle').value) og++;
+    if (document.getElementById('ogDescription').value) og++;
+    if (document.getElementById('ogImage').value) og++;
+    og += 3; // og:type, og:url, og:site_name always present
+
+    if (document.getElementById('twitterTitle').value) tw++;
+    if (document.getElementById('twitterDescription').value) tw++;
+    tw++; // twitter:card always present
+    if (document.getElementById('twitterImage').value) tw++;
+
+    document.getElementById('statMeta').textContent = meta;
+    document.getElementById('statOG').textContent = og;
+    document.getElementById('statTwitter').textContent = tw;
+    document.getElementById('statTotal').textContent = meta + og + tw;
+}
+
+// Generate code
+function generateCode() {
+    const title = document.getElementById('title').value;
+    const desc = document.getElementById('description').value;
+    const keywords = document.getElementById('keywords').value;
+    const url = document.getElementById('url').value;
+    const author = document.getElementById('author').value;
+    const robots = document.getElementById('robots').value;
+    const ogTitle = document.getElementById('ogTitle').value || title;
+    const ogDesc = document.getElementById('ogDescription').value || desc;
+    const ogImage = document.getElementById('ogImage').value;
+    const ogType = document.getElementById('ogType').value;
+    const ogSiteName = document.getElementById('ogSiteName').value;
+    const ogLocale = document.getElementById('ogLocale').value;
+    const twitterCard = document.getElementById('twitterCard').value;
+    const twTitle = document.getElementById('twitterTitle').value || ogTitle;
+    const twDesc = document.getElementById('twitterDescription').value || ogDesc;
+    const twImage = document.getElementById('twitterImage').value || ogImage;
+    const twitterSite = document.getElementById('twitterSite').value;
+    const twitterCreator = document.getElementById('twitterCreator').value;
+
+    let code = [];
+
+    // Basic meta
+    code.push(`<!-- 基本 HTML Meta 标签 -->`);
+    code.push(`<meta charset="UTF-8">`);
+    code.push(`<meta name="viewport" content="width=device-width, initial-scale=1.0">`);
+    if (title) code.push(`<title>${escapeHTML(title)}</title>`);
+    if (desc) code.push(`<meta name="description" content="${escapeHTML(desc)}">`);
+    if (keywords) code.push(`<meta name="keywords" content="${escapeHTML(keywords)}">`);
+    if (author) code.push(`<meta name="author" content="${escapeHTML(author)}">`);
+    code.push(`<meta name="robots" content="${escapeHTML(robots)}">`);
+    if (url) {
+        code.push(`<link rel="canonical" href="${escapeHTML(url)}">`);
+    }
+
+    // Open Graph
+    if (ogTitle || ogDesc || ogImage) {
+        code.push(``);
+        code.push(`<!-- Open Graph 标签 (Facebook, LinkedIn, WhatsApp) -->`);
+    }
+    if (ogTitle) code.push(`<meta property="og:title" content="${escapeHTML(ogTitle)}">`);
+    if (ogDesc) code.push(`<meta property="og:description" content="${escapeHTML(ogDesc)}">`);
+    if (ogImage) code.push(`<meta property="og:image" content="${escapeHTML(ogImage)}">`);
+    if (url) code.push(`<meta property="og:url" content="${escapeHTML(url)}">`);
+    code.push(`<meta property="og:type" content="${escapeHTML(ogType)}">`);
+    if (ogSiteName) code.push(`<meta property="og:site_name" content="${escapeHTML(ogSiteName)}">`);
+    if (ogLocale) code.push(`<meta property="og:locale" content="${escapeHTML(ogLocale)}">`);
+
+    // Twitter Card
+    code.push(``);
+    code.push(`<!-- Twitter Card 标签 -->`);
+    code.push(`<meta name="twitter:card" content="${escapeHTML(twitterCard)}">`);
+    if (twTitle) code.push(`<meta name="twitter:title" content="${escapeHTML(twTitle)}">`);
+    if (twDesc) code.push(`<meta name="twitter:description" content="${escapeHTML(twDesc)}">`);
+    if (twImage) code.push(`<meta name="twitter:image" content="${escapeHTML(twImage)}">`);
+    if (twitterSite) code.push(`<meta name="twitter:site" content="${escapeHTML(twitterSite)}">`);
+    if (twitterCreator) code.push(`<meta name="twitter:creator" content="${escapeHTML(twitterCreator)}">`);
+
+    // Format with syntax highlighting
+    const highlighted = code.map(line => {
+        if (line.trim().startsWith('<!--')) {
+            return `<span class="comment">${escapeHTML(line)}</span>`;
+        }
+        return escapeHTML(line)
+            .replace(/(&lt;meta|&lt;title|&lt;link)/g, '<span class="tag">$1</span>')
+            .replace(/(name|property|content|rel|href|charset)=/g, ' <span class="attr">$1</span>=')
+            .replace(/="([^"]+)"/g, '=<span class="val">"$1"</span>');
+    });
+
+    document.getElementById('codeBlock').innerHTML = highlighted.join('\n');
+    updateStats();
+}
+
+// Copy code
+function copyCode() {
+    generateCode();
+    const codeBlock = document.getElementById('codeBlock');
+    const text = codeBlock.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = '✅ 已复制!';
+        btn.classList.add('copied');
+        showToast('✅ Meta标签代码已复制到剪贴板！');
+        setTimeout(() => {
+            btn.textContent = '📋 一键复制';
+            btn.classList.remove('copied');
+        }, 2000);
+    }).catch(() => {
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast('✅ 已复制！');
+    });
+}
+
+// Toast
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// Presets
+const presets = {
+    blog: {
+        title: '我的技术博客 — 分享编程与AI前沿知识',
+        description: '专注前端开发、Python编程和人工智能技术的个人博客。每周更新高质量技术文章，涵盖React、Vue、机器学习等热门话题。',
+        keywords: '技术博客,前端开发,Python,AI,编程教程',
+        url: 'https://myblog.com',
+        author: '张三',
+        ogTitle: '我的技术博客 — 编程与AI知识分享',
+        ogDescription: '专注前端开发和AI技术的个人博客，每周更新高质量技术文章。',
+        ogImage: 'https://myblog.com/og-cover.jpg',
+        ogSiteName: 'TechBlog',
+        twitterTitle: '我的技术博客 — 编程与AI知识分享',
+        twitterDescription: '前端开发、Python和AI技术文章，每周更新。',
+        twitterImage: 'https://myblog.com/twitter-cover.jpg',
+        twitterSite: '@techblogger',
+        twitterCreator: '@zhangsan'
+    },
+    shop: {
+        title: '潮流服饰旗舰店 — 2026夏季新品首发 | 全场满300减50',
+        description: '潮流服饰品牌旗舰店，2026夏季新品首发上市。全场满300减50，品质保证，7天无理由退换。T恤、连衣裙、牛仔裤等千款新品。',
+        keywords: '潮流服饰,夏季新品,品牌服装,女装,男装,折扣',
+        url: 'https://shop.example.com',
+        author: '潮流品牌',
+        ogTitle: '潮流服饰旗舰店 — 2026夏季新品首发',
+        ogDescription: '全场满300减50，品质保证，7天无理由退换。千款新品等你来选！',
+        ogImage: 'https://shop.example.com/summer-sale.jpg',
+        ogType: 'product',
+        ogSiteName: '潮流服饰旗舰店',
+        twitterTitle: '夏季新品首发 | 全场满300减50',
+        twitterDescription: '品质潮流服饰，千款新品上市，满300立减50。',
+        twitterImage: 'https://shop.example.com/tw-summer.jpg',
+        twitterSite: '@fashionshop'
+    },
+    app: {
+        title: 'FitTracker — 你的智能健身伴侣 | 下载App',
+        description: 'FitTracker是一款智能健身追踪应用，支持AI动作识别、个性化训练计划和营养建议。已帮助10万+用户实现健身目标。免费下载！',
+        keywords: '健身App,运动追踪,AI教练,训练计划,健康管理',
+        url: 'https://fittracker.app',
+        author: 'FitTracker Team',
+        ogTitle: 'FitTracker — 智能健身伴侣，AI驱动的私人教练',
+        ogDescription: 'AI动作识别 + 个性化训练计划。已帮助10万+用户实现健身目标。免费下载！',
+        ogImage: 'https://fittracker.app/og-banner.jpg',
+        ogSiteName: 'FitTracker',
+        twitterTitle: 'FitTracker — 你的AI健身教练',
+        twitterDescription: '智能健身追踪，个性化训练计划。免费下载体验！',
+        twitterImage: 'https://fittracker.app/tw-banner.jpg',
+        twitterSite: '@fittracker',
+        twitterCreator: '@fittracker'
+    }
+};
+
+function loadPreset(type) {
+    const data = presets[type];
+    if (!data) return;
+    Object.keys(data).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) {
+            el.value = data[key];
+            el.dispatchEvent(new Event('input'));
+        }
+    });
+    updatePreview();
+    generateCode();
+    // Switch to preview tab
+    document.querySelector('[data-tab="preview"]').click();
+    showToast('✅ 已加载 ' + (type === 'blog' ? '博客' : type === 'shop' ? '电商' : '应用') + ' 示例数据');
+}
+
+function clearForm() {
+    document.querySelectorAll('input[type="text"], input[type="url"], textarea').forEach(el => {
+        el.value = '';
+        el.dispatchEvent(new Event('input'));
+    });
+    document.getElementById('robots').value = 'index, follow';
+    document.getElementById('ogType').value = 'website';
+    document.getElementById('ogLocale').value = 'zh_CN';
+    document.getElementById('twitterCard').value = 'summary_large_image';
+    updatePreview();
+    generateCode();
+    showToast('🗑️ 已清空所有表单');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    generateCode();
+    updatePreview();
+    updateStats();
+});
+</script>
+</body>
+</html>
