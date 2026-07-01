@@ -122,6 +122,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'电商',cls:'tag-orange'},{text:'利润',cls:'tag'},{text:'5平台',cls:'tag-green'}],
     sourceDir: 'profit-calculator', targetSubdir: 'profit', cat:'business'
   },
+  fbacalc01: {
+    icon: '📦', iconBg: '#fff3e0', iconColor: '#ff9900',
+    title: '亚马逊FBA费用计算器',
+    desc: '基于官方费率表实时计算FBA配送费+仓储费+佣金。含费率表、选品指南，跨境卖家必备。',
+    tags: [{text:'FBA',cls:'tag-orange'},{text:'亚马逊',cls:'tag'},{text:'选品',cls:'tag-green'}],
+    sourceDir: 'fba-calculator', targetSubdir: 'fba', cat:'business'
+  },
 };
 
 // 新增工具时的默认模板
@@ -224,7 +231,15 @@ async function main() {
     log('生成首页');
   }
 
-  // 5. 确保 CNAME 和 ads.txt 存在
+  // 5. 生成 sitemap.xml
+  const sitemap = generateSitemap(toolList);
+  const sitemapPath = path.join(CONFIG.targetDir, 'sitemap.xml');
+  if (!DRY_RUN) {
+    fs.writeFileSync(sitemapPath, sitemap);
+    log('生成 sitemap.xml');
+  }
+
+  // 6. 确保 CNAME 和 ads.txt 存在
   if (!DRY_RUN) {
     fs.writeFileSync(path.join(CONFIG.targetDir, 'CNAME'), CONFIG.domain + '\n');
     fs.writeFileSync(path.join(CONFIG.targetDir, 'ads.txt'), `google.com, ${CONFIG.adsClient.replace('ca-', 'pub-')}, DIRECT, f08c47fec0942fa0\n`);
@@ -383,6 +398,27 @@ document.querySelectorAll('.cat-btn').forEach((btn, i) => {
 </script>
 </body>
 </html>`;
+}
+
+// ─── Sitemap 生成 ──────────────────────────────────────
+function generateSitemap(toolList) {
+  const domain = CONFIG.domain;
+  const now = new Date().toISOString().split('T')[0];
+  
+  const urls = [
+    { loc: `https://${domain}/`, priority: '1.0', changefreq: 'daily' },
+    ...toolList.map(t => ({
+      loc: `https://${domain}${t.url}`,
+      priority: '0.8',
+      changefreq: 'weekly'
+    }))
+  ];
+
+  const urlElements = urls.map(u => 
+    `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${now}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
+  ).join('\n');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlElements}\n</urlset>\n`;
 }
 
 // ─── 执行 ──────────────────────────────────────────────

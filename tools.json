@@ -411,6 +411,43 @@
     "cat": "business"
   },
   {
+    "id": "fbacalc01",
+    "name": "亚马逊FBA费用计算器",
+    "desc": "基于官方费率表实时计算FBA配送费+仓储费+佣金。含费率表、选品指南，跨境卖家必备。",
+    "icon": "📦",
+    "iconBg": "#fff3e0",
+    "iconColor": "#ff9900",
+    "tags": [
+      {
+        "text": "FBA",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "亚马逊",
+        "cls": "tag"
+      },
+      {
+        "text": "选品",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/fba/",
+    "niche": "ecommerce_tools",
+    "keywords": [
+      "亚马逊FBA费用",
+      "FBA计算器",
+      "Amazon FBA calculator",
+      "FBA利润计算",
+      "亚马逊费用计算",
+      "FBA fee calculator",
+      "跨境电商工具",
+      "亚马逊选品工具",
+      "amazon referral fee",
+      "FBA配送费"
+    ],
+    "cat": "business"
+  },
+  {
     "id": "profit01",
     "name": "电商利润计算器",
     "desc": "淘宝/拼多多/抖音/京东/亚马逊五平台利润核算。自动计算佣金+运费+推广，ROI一目了然。",
