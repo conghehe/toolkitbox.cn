@@ -122,6 +122,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'电商',cls:'tag-orange'},{text:'利润',cls:'tag'},{text:'5平台',cls:'tag-green'}],
     sourceDir: 'profit-calculator', targetSubdir: 'profit', cat:'business'
   },
+  affiliate01: {
+    icon: '💰', iconBg: '#fff8e1', iconColor: '#e65100',
+    title: '联盟营销选品指南',
+    desc: '2026年15个低竞争高佣金细分赛道。AI软件佣金20-50%、宠物智能设备、绿色能源。附佣金率和入门难度。',
+    tags: [{text:'联盟营销',cls:'tag-orange'},{text:'选品',cls:'tag'},{text:'电商',cls:'tag-green'}],
+    sourceDir: 'affiliate-niches', targetSubdir: 'affiliate', cat:'business'
+  },
   fbacalc01: {
     icon: '📦', iconBg: '#fff3e0', iconColor: '#ff9900',
     title: '亚马逊FBA费用计算器',
@@ -141,6 +148,23 @@ const DEFAULT_DISPLAY = {
 function log(msg) { console.log(`[sync] ${msg}`); }
 function warn(msg) { console.warn(`[sync] ⚠️ ${msg}`); }
 
+function fixJSON(filepath) {
+  if (!fs.existsSync(filepath)) return;
+  try {
+    let t = fs.readFileSync(filepath, 'utf8');
+    // Auto-fix common JSON issues
+    t = t.replace(/,\s*\n\s*\]/g, '\n    ]');        // trailing comma before ]
+    t = t.replace(/,\s*\n\s*\}/g, '\n    }');         // trailing comma before }
+    t = t.replace(/: (\d+\.\d+-\d+\.\d+)/g, ': "$1"'); // unquoted ranges like 0.30-0.32
+    try {
+      JSON.parse(t);
+      fs.writeFileSync(filepath, t);
+    } catch(e) {
+      warn(`JSON修复失败: ${path.basename(filepath)} - ${e.message.substring(0,60)}`);
+    }
+  } catch(e) {}
+}
+
 function injectAds(html) {
   // Add AdSense script after canonical link
   if (!html.includes('adsbygoogle.js')) {
@@ -157,6 +181,12 @@ function injectAds(html) {
 async function main() {
   log('开始同步...');
   if (DRY_RUN) log('DRY RUN 模式 - 不会写入文件');
+
+  // 0. 自动修复JSON
+  const knowledgePath = path.join(PROJECT_ROOT, 'evolve_agent', 'data', 'money_knowledge.json');
+  const portfolioPath2 = path.join(PROJECT_ROOT, 'evolve_agent', 'data', 'portfolio.json');
+  fixJSON(knowledgePath);
+  fixJSON(portfolioPath2);
 
   // 1. 读取 portfolio.json
   log('读取 portfolio.json...');

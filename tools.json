@@ -477,5 +477,36 @@
       "淘宝利润"
     ],
     "cat": "business"
+  },
+  {
+    "id": "affiliate01",
+    "name": "联盟营销选品指南",
+    "desc": "2026年15个低竞争高佣金细分赛道。AI软件佣金20-50%、宠物智能设备、绿色能源。附佣金率和入门难度。",
+    "icon": "💰",
+    "iconBg": "#fff8e1",
+    "iconColor": "#e65100",
+    "tags": [
+      {
+        "text": "联盟营销",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "选品",
+        "cls": "tag"
+      },
+      {
+        "text": "电商",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/affiliate/",
+    "niche": "affiliate_marketing",
+    "keywords": [
+      "联盟营销",
+      "affiliate",
+      "选品",
+      "被动收入"
+    ],
+    "cat": "business"
   }
 ]
