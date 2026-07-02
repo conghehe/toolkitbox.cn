@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>在线表单生成器 — 可视化HTML表单构建工具 | ToolkitBox</title>
+<meta name="description" content="免费在线表单生成器，拖拽式可视化构建HTML表单。支持文本/邮箱/数字/下拉/单选/多选等12种字段类型，一键导出HTML代码。SEO友好，移动响应式。">
+<meta name="keywords" content="表单生成器,HTML表单生成,在线表单,form builder,form generator,HTML form,联系表单,拖放表单,免费表单工具">
+<link rel="canonical" href="https://toolkitbox.cn/form-builder/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{
+  --bg:#ffffff;--bg2:#f8f9fa;--bg3:#e9ecef;--t:#1a1a2e;--t2:#636e72;--t3:#adb5bd;
+  --p:#6c5ce7;--p2:#5a4bd1;--ph:#f0edff;--s:#2ecc71;--w:#f39c12;--d:#e74c3c;
+  --b:#dee2e6;--br:12px;--sh:0 2px 12px rgba(0,0,0,.06);--sh2:0 4px 20px rgba(0,0,0,.1);
+}
+.dark{
+  --bg:#1a1a2e;--bg2:#16213e;--bg3:#0f3460;--t:#e0e0e0;--t2:#a0a0b0;--t3:#606070;
+  --p:#7c6cf0;--p2:#6a5acd;--ph:#1a1535;--b:#2a2a4a;--sh:0 2px 12px rgba(0,0,0,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg2);color:var(--t);min-height:100vh}
+
+/* Header */
+header{background:var(--bg);border-bottom:1px solid var(--b);padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
+.h-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{display:flex;align-items:center;gap:10px;font-size:1.15rem;font-weight:700;color:var(--p)}
+.logo svg{width:32px;height:32px}
+.h-actions{display:flex;gap:8px;align-items:center}
+.btn{padding:8px 16px;border-radius:8px;border:1px solid var(--b);background:var(--bg);color:var(--t);cursor:pointer;font-size:.82rem;transition:.2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{background:var(--bg2);border-color:var(--p)}
+.btn-p{background:var(--p);color:#fff;border-color:var(--p)}
+.btn-p:hover{background:var(--p2)}
+.btn-o{background:var(--ph);color:var(--p);border-color:var(--p)}
+.theme-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--b);background:var(--bg);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+.theme-btn:hover{background:var(--bg2)}
+
+/* Main Layout */
+main{max-width:1400px;margin:0 auto;padding:16px 20px}
+.builder{display:grid;grid-template-columns:240px 1fr 280px;gap:16px;min-height:calc(100vh - 140px)}
+
+/* Panels */
+.panel{background:var(--bg);border-radius:var(--br);border:1px solid var(--b);overflow:hidden;display:flex;flex-direction:column}
+.panel-h{padding:14px 16px;border-bottom:1px solid var(--b);font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:8px;color:var(--t)}
+.panel-h .ph-icon{font-size:1rem}
+.panel-body{flex:1;overflow-y:auto;padding:12px}
+
+/* Field Palette */
+.field-types{display:flex;flex-direction:column;gap:4px}
+.ft-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;cursor:pointer;transition:.15s;border:1px solid transparent;font-size:.82rem;color:var(--t)}
+.ft-item:hover{background:var(--ph);border-color:var(--p)}
+.ft-item:active{transform:scale(.98)}
+.ft-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;background:var(--bg2)}
+.ft-label{flex:1}
+.ft-drag{cursor:grab;opacity:.4;font-size:.8rem}
+
+/* Preview Area */
+.preview-area{display:flex;flex-direction:column;align-items:center}
+.preview-wrapper{width:100%;max-width:600px;background:var(--bg);border-radius:var(--br);border:2px dashed var(--b);padding:32px;min-height:300px;position:relative}
+.preview-wrapper .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;color:var(--t3);gap:12px}
+.preview-wrapper .empty-state .es-icon{font-size:3rem;opacity:.5}
+.preview-wrapper .empty-state p{font-size:.85rem}
+
+.form-field{margin-bottom:20px;padding:12px;border-radius:8px;border:2px solid transparent;cursor:pointer;transition:.2s;position:relative}
+.form-field:hover{border-color:var(--b)}
+.form-field.selected{border-color:var(--p);background:var(--ph)}
+.form-field .ff-label{display:block;font-size:.82rem;font-weight:600;margin-bottom:6px;color:var(--t)}
+.form-field .ff-label .required-star{color:var(--d);margin-left:2px}
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field input[type="number"],
+.form-field input[type="date"],
+.form-field input[type="url"],
+.form-field input[type="tel"],
+.form-field input[type="password"],
+.form-field input[type="file"]{width:100%;padding:10px 12px;border:1px solid var(--b);border-radius:6px;font-size:.85rem;background:var(--bg2);color:var(--t);transition:.2s}
+.form-field input:focus,.form-field textarea:focus,.form-field select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(108,92,231,.15)}
+.form-field textarea{width:100%;padding:10px 12px;border:1px solid var(--b);border-radius:6px;font-size:.85rem;background:var(--bg2);color:var(--t);resize:vertical;min-height:80px;font-family:inherit}
+.form-field select{width:100%;padding:10px 12px;border:1px solid var(--b);border-radius:6px;font-size:.85rem;background:var(--bg2);color:var(--t)}
+.form-field .ff-options{display:flex;flex-direction:column;gap:6px}
+.form-field .ff-opt{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--t2)}
+.form-field .ff-actions{position:absolute;top:8px;right:8px;display:none;gap:4px}
+.form-field:hover .ff-actions,.form-field.selected .ff-actions{display:flex}
+.ff-act{width:26px;height:26px;border-radius:6px;border:1px solid var(--b);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.75rem;transition:.15s;color:var(--t2)}
+.ff-act:hover{background:var(--bg2)}
+.ff-act.del:hover{background:#fde8e8;color:var(--d);border-color:var(--d)}
+.ff-act.up:hover,.ff-act.down:hover{background:var(--ph);color:var(--p);border-color:var(--p)}
+
+/* Properties Panel */
+.prop-section{margin-bottom:16px}
+.prop-section h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--b)}
+.prop-row{margin-bottom:10px}
+.prop-row label{display:block;font-size:.78rem;color:var(--t2);margin-bottom:4px}
+.prop-row input[type="text"],
+.prop-row input[type="number"],
+.prop-row textarea,
+.prop-row select{width:100%;padding:8px 10px;border:1px solid var(--b);border-radius:6px;font-size:.8rem;background:var(--bg2);color:var(--t);transition:.2s;font-family:inherit}
+.prop-row input:focus,.prop-row textarea:focus,.prop-row select:focus{outline:none;border-color:var(--p)}
+.prop-row textarea{min-height:60px;resize:vertical}
+.prop-row .toggle-row{display:flex;align-items:center;justify-content:space-between}
+.toggle{position:relative;width:40px;height:22px;cursor:pointer}
+.toggle input{display:none}
+.toggle .slider{position:absolute;top:0;left:0;right:0;bottom:0;background:var(--b);border-radius:11px;transition:.3s}
+.toggle .slider:before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}
+.toggle input:checked+.slider{background:var(--p)}
+.toggle input:checked+.slider:before{transform:translateX(18px)}
+.no-select{color:var(--t3);font-size:.82rem;text-align:center;padding:40px 0}
+
+/* Export Bar */
+.export-bar{background:var(--bg);border-radius:var(--br);border:1px solid var(--b);padding:12px 16px;display:flex;align-items:center;gap:12px;margin-top:12px}
+.export-bar .eb-info{flex:1;font-size:.82rem;color:var(--t2)}
+.export-bar .eb-info strong{color:var(--p)}
+.code-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:999;display:none;align-items:center;justify-content:center;padding:20px}
+.code-modal.show{display:flex}
+.code-modal .cm-content{background:var(--bg);border-radius:var(--br);max-width:700px;width:100%;max-height:80vh;display:flex;flex-direction:column}
+.cm-header{padding:16px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:center}
+.cm-header h3{font-size:1rem}
+.cm-close{width:30px;height:30px;border-radius:50%;border:none;background:var(--bg2);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;color:var(--t)}
+.cm-body{flex:1;overflow:auto;padding:16px}
+.cm-body pre{background:var(--bg2);border-radius:8px;padding:16px;font-size:.78rem;overflow:auto;white-space:pre-wrap;word-break:break-all;color:var(--t);font-family:'SF Mono','Fira Code','Consolas',monospace;line-height:1.6;max-height:400px}
+.cm-footer{padding:12px 16px;border-top:1px solid var(--b);display:flex;gap:8px;justify-content:flex-end}
+
+/* Toast */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--s);color:#fff;padding:10px 24px;border-radius:20px;font-size:.82rem;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+
+/* SEO Content */
+.seo{max-width:900px;margin:40px auto 0;padding:0 20px 40px}
+.seo h2{font-size:1.5rem;margin:32px 0 12px;color:var(--t)}
+.seo h3{font-size:1.15rem;margin:24px 0 8px;color:var(--t)}
+.seo p{font-size:.88rem;color:var(--t2);line-height:1.8;margin-bottom:12px}
+.seo ul{list-style:disc;padding-left:20px;margin-bottom:16px}
+.seo li{font-size:.85rem;color:var(--t2);line-height:1.7;margin-bottom:4px}
+.seo code{background:var(--bg3);padding:2px 6px;border-radius:4px;font-size:.8rem}
+.seo table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.82rem}
+.seo th,.seo td{padding:10px 12px;border:1px solid var(--b);text-align:left}
+.seo th{background:var(--bg3);font-weight:600;color:var(--t)}
+.seo td{color:var(--t2)}
+
+/* Footer */
+footer{text-align:center;padding:24px;color:var(--t3);font-size:.75rem;border-top:1px solid var(--b);margin-top:40px}
+
+/* Responsive */
+@media(max-width:1100px){
+  .builder{grid-template-columns:200px 1fr 240px;gap:12px}
+}
+@media(max-width:860px){
+  .builder{grid-template-columns:1fr}
+  .panel.left-panel{display:none}
+  .panel.right-panel{display:none}
+  .panel.right-panel.mobile-show{display:flex;position:fixed;top:56px;right:0;bottom:0;width:300px;z-index:200;box-shadow:var(--sh2);border-radius:0}
+  .mobile-tabs{display:flex;gap:4px;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--b)}
+  .mobile-tab{padding:6px 14px;border-radius:6px;border:1px solid var(--b);background:var(--bg2);cursor:pointer;font-size:.78rem;flex:1;text-align:center}
+  .mobile-tab.active{background:var(--p);color:#fff;border-color:var(--p)}
+}
+@media(min-width:861px){
+  .mobile-tabs{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="h-inner">
+  <div class="logo">
+    <svg viewBox="0 0 32 32" fill="none"><rect x="4" y="2" width="24" height="28" rx="3" stroke="#6c5ce7" stroke-width="2" fill="none"/><line x1="10" y1="8" x2="22" y2="8" stroke="#6c5ce7" stroke-width="1.5"/><line x1="10" y1="13" x2="22" y2="13" stroke="#6c5ce7" stroke-width="1.5"/><line x1="10" y1="18" x2="18" y2="18" stroke="#6c5ce7" stroke-width="1.5"/><circle cx="26" cy="24" r="5" fill="#6c5ce7"/><line x1="24" y1="24" x2="28" y2="24" stroke="#fff" stroke-width="1.5"/><line x1="26" y1="22" x2="26" y2="26" stroke="#fff" stroke-width="1.5"/></svg>
+    表单生成器
+  </div>
+  <div class="h-actions">
+    <button class="btn btn-o" onclick="clearAll()" title="清空所有字段">🗑 清空</button>
+    <button class="btn" onclick="exportCode()">📋 导出HTML</button>
+    <button class="btn btn-p" onclick="exportCode()">⚡ 生成代码</button>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  </div>
+</div>
+</header>
+
+<main>
+<!-- Mobile tabs -->
+<div class="mobile-tabs" id="mobileTabs">
+  <button class="mobile-tab active" onclick="showMobileTab('builder')">📝 构建器</button>
+  <button class="mobile-tab" onclick="showMobileTab('fields')">➕ 字段</button>
+  <button class="mobile-tab" onclick="showMobileTab('props')">⚙ 属性</button>
+</div>
+
+<div class="builder" id="builderGrid">
+  <!-- Left: Field Palette -->
+  <div class="panel left-panel" id="leftPanel">
+    <div class="panel-h"><span class="ph-icon">➕</span> 字段类型</div>
+    <div class="panel-body">
+      <div class="field-types" id="fieldTypes"></div>
+    </div>
+  </div>
+
+  <!-- Center: Preview -->
+  <div class="panel" id="centerPanel">
+    <div class="panel-h"><span class="ph-icon">👁</span> 表单预览 (<span id="fieldCount">0</span> 个字段)</div>
+    <div class="panel-body">
+      <div class="preview-area">
+        <div class="preview-wrapper" id="previewWrapper">
+          <div class="empty-state" id="emptyState">
+            <div class="es-icon">📋</div>
+            <p>点击左侧字段类型添加到表单</p>
+            <p style="font-size:.75rem;color:var(--t3)">支持12种HTML表单字段</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Properties -->
+  <div class="panel right-panel" id="rightPanel">
+    <div class="panel-h"><span class="ph-icon">⚙</span> 字段属性</div>
+    <div class="panel-body" id="propsPanel">
+      <div class="no-select">← 点击预览中的字段编辑属性</div>
+    </div>
+  </div>
+</div>
+
+<!-- Export Bar -->
+<div class="export-bar">
+  <div class="eb-info">已添加 <strong id="ebCount">0</strong> 个字段 · 纯浏览器本地处理，数据不上传</div>
+  <button class="btn btn-o" onclick="copyToClipboard()">📋 复制代码</button>
+  <button class="btn btn-p" onclick="exportCode()">⚡ 导出HTML</button>
+</div>
+</main>
+
+<!-- Code Modal -->
+<div class="code-modal" id="codeModal">
+  <div class="cm-content">
+    <div class="cm-header">
+      <h3>📄 生成的HTML代码</h3>
+      <button class="cm-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="cm-body">
+      <pre id="codeOutput"></pre>
+    </div>
+    <div class="cm-footer">
+      <button class="btn" onclick="closeModal()">关闭</button>
+      <button class="btn btn-p" onclick="copyCodeFromModal()">📋 复制代码</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- SEO Content -->
+<div class="seo">
+<h2>HTML表单生成器 — 无需编码，可视化构建专业表单</h2>
+<p>免费在线HTML表单生成器，提供拖拽式可视化界面，支持12种常用表单字段类型。无需编写任何HTML代码，即可快速创建联系表单、注册表单、调查问卷、反馈表等。生成的代码符合W3C标准，支持HTML5表单验证，SEO友好，移动端响应式。</p>
+
+<h3>支持的表单字段类型</h3>
+<table>
+  <tr><th>字段类型</th><th>HTML标签</th><th>适用场景</th></tr>
+  <tr><td>文本输入</td><td><code>&lt;input type="text"&gt;</code></td><td>姓名、地址、关键词</td></tr>
+  <tr><td>邮箱</td><td><code>&lt;input type="email"&gt;</code></td><td>邮件订阅、联系表单</td></tr>
+  <tr><td>数字</td><td><code>&lt;input type="number"&gt;</code></td><td>数量、年龄、价格</td></tr>
+  <tr><td>多行文本</td><td><code>&lt;textarea&gt;</code></td><td>留言、简介、详细描述</td></tr>
+  <tr><td>下拉选择</td><td><code>&lt;select&gt;</code></td><td>城市、分类、偏好选择</td></tr>
+  <tr><td>单选按钮</td><td><code>&lt;input type="radio"&gt;</code></td><td>性别、满意度调查</td></tr>
+  <tr><td>多选框</td><td><code>&lt;input type="checkbox"&gt;</code></td><td>兴趣爱好、服务选择</td></tr>
+  <tr><td>日期</td><td><code>&lt;input type="date"&gt;</code></td><td>生日、预约日期</td></tr>
+  <tr><td>文件上传</td><td><code>&lt;input type="file"&gt;</code></td><td>简历上传、图片提交</td></tr>
+  <tr><td>电话</td><td><code>&lt;input type="tel"&gt;</code></td><td>手机号、联系电话</td></tr>
+  <tr><td>网址</td><td><code>&lt;input type="url"&gt;</code></td><td>个人网站、社交媒体</td></tr>
+  <tr><td>密码</td><td><code>&lt;input type="password"&gt;</code></td><td>登录表单、注册表单</td></tr>
+</table>
+
+<h3>使用步骤</h3>
+<ol style="padding-left:20px;margin-bottom:16px">
+  <li style="color:var(--t2);line-height:1.7;font-size:.85rem"><strong>选择字段类型</strong> — 从左侧面板点击你需要的字段类型，自动添加到预览区</li>
+  <li style="color:var(--t2);line-height:1.7;font-size:.85rem"><strong>配置字段属性</strong> — 点击预览中的字段，右侧面板编辑标签、占位符、是否必填等属性</li>
+  <li style="color:var(--t2);line-height:1.7;font-size:.85rem"><strong>调整顺序</strong> — 使用上下箭头按钮调整字段排列顺序</li>
+  <li style="color:var(--t2);line-height:1.7;font-size:.85rem"><strong>导出HTML</strong> — 点击「生成代码」，一键获取完整HTML表单代码，包含样式和验证</li>
+</ol>
+
+<h3>常见问题</h3>
+<p><strong>Q: 生成的代码可以直接使用吗？</strong><br>A: 可以。生成的HTML代码包含完整的表单结构、CSS样式和HTML5验证属性，粘贴到网页即可使用。如需后端处理，只需添加<code>&lt;form action="..."&gt;</code>属性和服务器端处理脚本。</p>
+<p><strong>Q: 数据安全吗？</strong><br>A: 完全安全。所有操作均在浏览器本地完成，不会上传任何数据到服务器。表单预览也只是前端的CSS/HTML展示。</p>
+<p><strong>Q: 支持移动端吗？</strong><br>A: 支持。生成的表单使用响应式设计，在手机和平板上自动适配布局。本工具本身也针对移动端做了优化。</p>
+</div>
+
+<footer>&copy; 2026 ToolkitBox · 免费在线表单生成器 · 纯浏览器本地处理</footer>
+
+<script>
+// ============ DATA MODEL ============
+const FIELD_TYPES = [
+  {type:'text',icon:'Aa',label:'文本输入',color:'#6c5ce7',bg:'#f0edff',defLabel:'文本字段',defName:'text_field',defPlaceholder:'请输入文本'},
+  {type:'email',icon:'@',label:'邮箱',color:'#00b894',bg:'#e6fff5',defLabel:'邮箱',defName:'email',defPlaceholder:'请输入邮箱地址'},
+  {type:'number',icon:'#',label:'数字',color:'#f39c12',bg:'#fff8e1',defLabel:'数字字段',defName:'number_field',defPlaceholder:'请输入数字'},
+  {type:'textarea',icon:'¶',label:'多行文本',color:'#2ecc71',bg:'#e8f8f0',defLabel:'多行文本',defName:'textarea_field',defPlaceholder:'请输入详细内容'},
+  {type:'select',icon:'▼',label:'下拉选择',color:'#e17055',bg:'#fff0eb',defLabel:'下拉选择',defName:'select_field',defOptions:['选项一','选项二','选项三']},
+  {type:'checkbox',icon:'☑',label:'多选框',color:'#0984e3',bg:'#e8f4fd',defLabel:'多选字段',defName:'checkbox_field',defOptions:['选项A','选项B','选项C']},
+  {type:'radio',icon:'◉',label:'单选按钮',color:'#d63031',bg:'#fdeaea',defLabel:'单选字段',defName:'radio_field',defOptions:['选项1','选项2','选项3']},
+  {type:'date',icon:'📅',label:'日期',color:'#6c5ce7',bg:'#f0edff',defLabel:'日期',defName:'date_field'},
+  {type:'file',icon:'📎',label:'文件上传',color:'#b2bec3',bg:'#dfe6e9',defLabel:'文件上传',defName:'file_field'},
+  {type:'tel',icon:'📞',label:'电话',color:'#00b894',bg:'#e6fff5',defLabel:'电话号码',defName:'phone',defPlaceholder:'请输入手机号'},
+  {type:'url',icon:'🔗',label:'网址',color:'#0984e3',bg:'#e8f4fd',defLabel:'网址',defName:'url_field',defPlaceholder:'https://example.com'},
+  {type:'password',icon:'🔒',label:'密码',color:'#d63031',bg:'#fdeaea',defLabel:'密码',defName:'password',defPlaceholder:'请输入密码'},
+];
+
+let fields = [];
+let selectedIndex = -1;
+let isDark = false;
+
+// ============ INIT ============
+function init(){
+  renderFieldTypes();
+  renderPreview();
+  updateCounts();
+}
+function renderFieldTypes(){
+  const el = document.getElementById('fieldTypes');
+  el.innerHTML = FIELD_TYPES.map((ft,i) =>
+    '<div class="ft-item" onclick="addField('+i+')" title="添加'+ft.label+'字段">'+
+    '<div class="ft-icon" style="background:'+ft.bg+';color:'+ft.color+'">'+ft.icon+'</div>'+
+    '<span class="ft-label">'+ft.label+'</span>'+
+    '<span class="ft-drag">+</span></div>'
+  ).join('');
+}
+
+// ============ FIELD CRUD ============
+function addField(typeIdx){
+  const ft = FIELD_TYPES[typeIdx];
+  const field = {
+    type: ft.type,
+    label: ft.defLabel,
+    name: ft.defName + '_' + (Date.now()%10000),
+    placeholder: ft.defPlaceholder || '',
+    required: false,
+    options: ft.defOptions ? [...ft.defOptions] : [],
+    min: '',
+    max: '',
+    pattern: ''
+  };
+  fields.push(field);
+  selectedIndex = fields.length - 1;
+  renderPreview();
+  renderProps();
+  updateCounts();
+}
+function removeField(idx){
+  fields.splice(idx,1);
+  if(selectedIndex >= fields.length) selectedIndex = fields.length - 1;
+  renderPreview();
+  renderProps();
+  updateCounts();
+}
+function moveField(idx, dir){
+  const newIdx = idx + dir;
+  if(newIdx < 0 || newIdx >= fields.length) return;
+  [fields[idx], fields[newIdx]] = [fields[newIdx], fields[idx]];
+  selectedIndex = newIdx;
+  renderPreview();
+  renderProps();
+  updateCounts();
+}
+function clearAll(){
+  if(fields.length === 0) return;
+  if(confirm('确定要清空所有 '+fields.length+' 个字段吗？此操作不可撤销。')){
+    fields = [];
+    selectedIndex = -1;
+    renderPreview();
+    renderProps();
+    updateCounts();
+  }
+}
+
+// ============ RENDER ============
+function renderPreview(){
+  const wrapper = document.getElementById('previewWrapper');
+  const empty = document.getElementById('emptyState');
+  if(fields.length === 0){
+    wrapper.innerHTML = '';
+    wrapper.appendChild(empty);
+    document.getElementById('fieldCount').textContent = '0';
+    return;
+  }
+  document.getElementById('fieldCount').textContent = fields.length;
+  let html = '';
+  fields.forEach((f,i) => {
+    const sel = i === selectedIndex ? ' selected' : '';
+    const reqStar = f.required ? '<span class="required-star">*</span>' : '';
+    html += '<div class="form-field'+sel+'" onclick="selectField('+i+')" id="field_'+i+'">';
+    html += '<div class="ff-actions">';
+    if(i > 0) html += '<button class="ff-act up" onclick="event.stopPropagation();moveField('+i+',-1)" title="上移">↑</button>';
+    if(i < fields.length - 1) html += '<button class="ff-act down" onclick="event.stopPropagation();moveField('+i+',1)" title="下移">↓</button>';
+    html += '<button class="ff-act del" onclick="event.stopPropagation();removeField('+i+')" title="删除">✕</button>';
+    html += '</div>';
+    html += '<label class="ff-label">'+esc(f.label)+reqStar+'</label>';
+    html += renderFieldInput(f, i);
+    html += '</div>';
+  });
+  wrapper.innerHTML = html;
+}
+function renderFieldInput(f, i){
+  const req = f.required ? ' required' : '';
+  const ph = f.placeholder ? ' placeholder="'+escAttr(f.placeholder)+'"' : '';
+  const mn = f.min ? ' min="'+escAttr(f.min)+'"' : '';
+  const mx = f.max ? ' max="'+escAttr(f.max)+'"' : '';
+  const pt = f.pattern ? ' pattern="'+escAttr(f.pattern)+'"' : '';
+  const id = 'field_input_'+i;
+  switch(f.type){
+    case 'text': return '<input type="text" id="'+id+'"'+ph+req+pt+' disabled>';
+    case 'email': return '<input type="email" id="'+id+'"'+ph+req+' disabled>';
+    case 'number': return '<input type="number" id="'+id+'"'+ph+mn+mx+req+' disabled>';
+    case 'textarea': return '<textarea id="'+id+'"'+ph+req+' disabled></textarea>';
+    case 'select':
+      let s = '<select id="'+id+'"'+req+' disabled><option value="">-- 请选择 --</option>';
+      f.options.forEach(o => { s += '<option>'+esc(o)+'</option>'; });
+      return s + '</select>';
+    case 'checkbox':
+      let cb = '<div class="ff-options">';
+      f.options.forEach((o,j) => { cb += '<label class="ff-opt"><input type="checkbox" name="'+escAttr(f.name)+'" value="'+escAttr(o)+'" disabled> '+esc(o)+'</label>'; });
+      return cb + '</div>';
+    case 'radio':
+      let rd = '<div class="ff-options">';
+      f.options.forEach((o,j) => { rd += '<label class="ff-opt"><input type="radio" name="'+escAttr(f.name)+'" value="'+escAttr(o)+'" disabled> '+esc(o)+'</label>'; });
+      return rd + '</div>';
+    case 'date': return '<input type="date" id="'+id+'"'+req+' disabled>';
+    case 'file': return '<input type="file" id="'+id+'"'+req+' disabled>';
+    case 'tel': return '<input type="tel" id="'+id+'"'+ph+req+pt+' disabled>';
+    case 'url': return '<input type="url" id="'+id+'"'+ph+req+' disabled>';
+    case 'password': return '<input type="password" id="'+id+'"'+ph+req+' disabled>';
+    default: return '<input type="text" disabled>';
+  }
+}
+function selectField(idx){
+  selectedIndex = idx;
+  renderPreview();
+  renderProps();
+  // Mobile: show props panel
+  if(window.innerWidth <= 860){
+    document.getElementById('rightPanel').classList.add('mobile-show');
+  }
+}
+
+// ============ PROPS PANEL ============
+function renderProps(){
+  const panel = document.getElementById('propsPanel');
+  if(selectedIndex < 0 || selectedIndex >= fields.length){
+    panel.innerHTML = '<div class="no-select">← 点击预览中的字段编辑属性</div>';
+    return;
+  }
+  const f = fields[selectedIndex];
+  let html = '';
+  html += '<div class="prop-section"><h4>基本信息</h4>';
+  html += '<div class="prop-row"><label>字段标签</label><input type="text" value="'+escAttr(f.label)+'" onchange="updateProp(\'label\',this.value)"></div>';
+  html += '<div class="prop-row"><label>字段名称 (name)</label><input type="text" value="'+escAttr(f.name)+'" onchange="updateProp(\'name\',this.value)"></div>';
+  html += '<div class="prop-row"><label>占位符 (placeholder)</label><input type="text" value="'+escAttr(f.placeholder)+'" onchange="updateProp(\'placeholder\',this.value)"></div>';
+  html += '<div class="prop-row"><div class="toggle-row"><label>必填字段</label><label class="toggle"><input type="checkbox" '+(f.required?'checked':'')+' onchange="updateProp(\'required\',this.checked)"><span class="slider"></span></label></div></div>';
+  html += '</div>';
+
+  if(f.type === 'number'){
+    html += '<div class="prop-section"><h4>数值约束</h4>';
+    html += '<div class="prop-row"><label>最小值</label><input type="number" value="'+escAttr(f.min)+'" onchange="updateProp(\'min\',this.value)"></div>';
+    html += '<div class="prop-row"><label>最大值</label><input type="number" value="'+escAttr(f.max)+'" onchange="updateProp(\'max\',this.value)"></div>';
+    html += '</div>';
+  }
+  if(f.type === 'text' || f.type === 'tel'){
+    html += '<div class="prop-section"><h4>验证规则</h4>';
+    html += '<div class="prop-row"><label>正则表达式 (pattern)</label><input type="text" value="'+escAttr(f.pattern)+'" onchange="updateProp(\'pattern\',this.value)" placeholder="如: [0-9]{11}"></div>';
+    html += '</div>';
+  }
+  if(f.type === 'select' || f.type === 'checkbox' || f.type === 'radio'){
+    html += '<div class="prop-section"><h4>选项列表 (一行一个)</h4>';
+    html += '<div class="prop-row"><textarea onchange="updateOptions(this.value)" rows="5">'+esc(f.options.join('\n'))+'</textarea></div>';
+    html += '</div>';
+  }
+
+  // Danger zone
+  html += '<div class="prop-section"><h4>操作</h4>';
+  html += '<button class="btn" style="color:var(--d);border-color:var(--d);width:100%;justify-content:center" onclick="removeField('+selectedIndex+')">🗑 删除此字段</button>';
+  html += '</div>';
+
+  panel.innerHTML = html;
+}
+function updateProp(key, value){
+  if(selectedIndex < 0) return;
+  fields[selectedIndex][key] = value;
+  renderPreview();
+  updateCounts();
+}
+function updateOptions(text){
+  if(selectedIndex < 0) return;
+  fields[selectedIndex].options = text.split('\n').filter(l => l.trim());
+  renderPreview();
+}
+
+// ============ EXPORT ============
+function exportCode(){
+  if(fields.length === 0){
+    showToast('⚠️ 请先添加至少一个字段');
+    return;
+  }
+  let html = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1.0">\n<title>表单</title>\n<style>\n';
+  html += 'body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:600px;margin:40px auto;padding:20px;background:#f8f9fa}\n';
+  html += 'h1{color:#1a1a2e;font-size:1.5rem;margin-bottom:24px}\n';
+  html += '.form-group{margin-bottom:20px}\n.form-group label{display:block;font-size:.9rem;font-weight:600;margin-bottom:6px;color:#333}\n';
+  html += '.form-group label .required{color:#e74c3c}\n';
+  html += 'input[type="text"],input[type="email"],input[type="number"],input[type="date"],input[type="url"],input[type="tel"],input[type="password"],textarea,select{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:6px;font-size:.9rem;transition:.2s}\n';
+  html += 'input:focus,textarea:focus,select:focus{outline:none;border-color:#6c5ce7;box-shadow:0 0 0 3px rgba(108,92,231,.15)}\n';
+  html += 'textarea{min-height:100px;resize:vertical}\n';
+  html += '.options-group{display:flex;flex-direction:column;gap:8px}\n.option-item{display:flex;align-items:center;gap:8px;font-size:.9rem}\n';
+  html += '.btn-submit{padding:12px 32px;background:#6c5ce7;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:.2s}\n';
+  html += '.btn-submit:hover{background:#5a4bd1}\n@media(max-width:600px){body{padding:12px}}\n';
+  html += '</style>\n</head>\n<body>\n<h1>表单</h1>\n<form action="#" method="POST">\n';
+  fields.forEach(f => {
+    html += '  <div class="form-group">\n';
+    html += '    <label for="'+escAttr(f.name)+'">'+esc(f.label)+(f.required?' <span class="required">*</span>':'')+'</label>\n';
+    const req = f.required ? ' required' : '';
+    const ph = f.placeholder ? ' placeholder="'+escAttr(f.placeholder)+'"' : '';
+    const mn = f.min ? ' min="'+escAttr(f.min)+'"' : '';
+    const mx = f.max ? ' max="'+escAttr(f.max)+'"' : '';
+    const pt = f.pattern ? ' pattern="'+escAttr(f.pattern)+'"' : '';
+    switch(f.type){
+      case 'text': html += '    <input type="text" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+pt+'>\n'; break;
+      case 'email': html += '    <input type="email" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+'>\n'; break;
+      case 'number': html += '    <input type="number" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+mn+mx+req+'>\n'; break;
+      case 'textarea': html += '    <textarea id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+'></textarea>\n'; break;
+      case 'select':
+        html += '    <select id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+req+'>\n';
+        html += '      <option value="">-- 请选择 --</option>\n';
+        f.options.forEach(o => { html += '      <option value="'+escAttr(o)+'">'+esc(o)+'</option>\n'; });
+        html += '    </select>\n'; break;
+      case 'checkbox':
+        html += '    <div class="options-group">\n';
+        f.options.forEach(o => { html += '      <label class="option-item"><input type="checkbox" name="'+escAttr(f.name)+'" value="'+escAttr(o)+'"> '+esc(o)+'</label>\n'; });
+        html += '    </div>\n'; break;
+      case 'radio':
+        html += '    <div class="options-group">\n';
+        f.options.forEach(o => { html += '      <label class="option-item"><input type="radio" name="'+escAttr(f.name)+'" value="'+escAttr(o)+'"> '+esc(o)+'</label>\n'; });
+        html += '    </div>\n'; break;
+      case 'date': html += '    <input type="date" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+req+'>\n'; break;
+      case 'file': html += '    <input type="file" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+req+'>\n'; break;
+      case 'tel': html += '    <input type="tel" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+pt+'>\n'; break;
+      case 'url': html += '    <input type="url" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+'>\n'; break;
+      case 'password': html += '    <input type="password" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+'>\n'; break;
+    }
+    html += '  </div>\n';
+  });
+  html += '  <button type="submit" class="btn-submit">提交</button>\n</form>\n<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>\n</html>';
+  document.getElementById('codeOutput').textContent = html;
+  document.getElementById('codeModal').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('codeModal').classList.remove('show');
+}
+
+// ============ CLIPBOARD ============
+function copyToClipboard(){
+  if(fields.length === 0){
+    showToast('⚠️ 请先添加至少一个字段');
+    return;
+  }
+  // Generate code without showing modal
+  let html = '<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1.0">\n<title>表单</title>\n<style>\n';
+  html += 'body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;max-width:600px;margin:40px auto;padding:20px;background:#f8f9fa}\n';
+  html += 'h1{color:#1a1a2e;font-size:1.5rem;margin-bottom:24px}\n';
+  html += '.form-group{margin-bottom:20px}\n.form-group label{display:block;font-size:.9rem;font-weight:600;margin-bottom:6px;color:#333}\n';
+  html += '.form-group label .required{color:#e74c3c}\n';
+  html += 'input[type="text"],input[type="email"],input[type="number"],input[type="date"],input[type="url"],input[type="tel"],input[type="password"],textarea,select{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:6px;font-size:.9rem;transition:.2s}\n';
+  html += 'input:focus,textarea:focus,select:focus{outline:none;border-color:#6c5ce7;box-shadow:0 0 0 3px rgba(108,92,231,.15)}\n';
+  html += 'textarea{min-height:100px;resize:vertical}\n';
+  html += '.options-group{display:flex;flex-direction:column;gap:8px}\n.option-item{display:flex;align-items:center;gap:8px;font-size:.9rem}\n';
+  html += '.btn-submit{padding:12px 32px;background:#6c5ce7;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;transition:.2s}\n';
+  html += '.btn-submit:hover{background:#5a4bd1}\n@media(max-width:600px){body{padding:12px}}\n';
+  html += '</style>\n</head>\n<body>\n<h1>表单</h1>\n<form action="#" method="POST">\n';
+  fields.forEach(f => {
+    html += '  <div class="form-group">\n    <label for="'+escAttr(f.name)+'">'+esc(f.label)+(f.required?' <span class="required">*</span>':'')+'</label>\n';
+    const req = f.required ? ' required' : '';
+    const ph = f.placeholder ? ' placeholder="'+escAttr(f.placeholder)+'"' : '';
+    if(f.type === 'textarea') html += '    <textarea id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+'></textarea>\n';
+    else if(f.type === 'select'){
+      html += '    <select id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+req+'>\n      <option value="">-- \u8BF7\u9009\u62E9 --</option>\n';
+      f.options.forEach(o => { html += '      <option value="'+escAttr(o)+'">'+esc(o)+'</option>\n'; });
+      html += '    </select>\n';
+    }else if(f.type === 'checkbox'){
+      html += '    <div class="options-group">\n';
+      f.options.forEach(o => { html += '      <label class="option-item"><input type="checkbox" name="'+escAttr(f.name)+'" value="'+escAttr(o)+'"> '+esc(o)+'</label>\n'; });
+      html += '    </div>\n';
+    }else if(f.type === 'radio'){
+      html += '    <div class="options-group">\n';
+      f.options.forEach(o => { html += '      <label class="option-item"><input type="radio" name="'+escAttr(f.name)+'" value="'+escAttr(o)+'"> '+esc(o)+'</label>\n'; });
+      html += '    </div>\n';
+    }else{
+      html += '    <input type="'+f.type+'" id="'+escAttr(f.name)+'" name="'+escAttr(f.name)+'"'+ph+req+'>\n';
+    }
+    html += '  </div>\n';
+  });
+  html += '  <button type="submit" class="btn-submit">\u63D0\u4EA4</button>\n</form>\n</body>\n</html>';
+  navigator.clipboard.writeText(html).then(()=>showToast('✅ 已复制 '+fields.length+' 个字段的HTML代码！'));
+}
+function copyCodeFromModal(){
+  const code = document.getElementById('codeOutput').textContent;
+  navigator.clipboard.writeText(code).then(()=>showToast('✅ HTML代码已复制！'));
+}
+
+// ============ UTILS ============
+function esc(s){ if(!s) return ''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s){ if(!s) return ''; return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function updateCounts(){
+  document.getElementById('ebCount').textContent = fields.length;
+  document.getElementById('fieldCount').textContent = fields.length;
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+function toggleTheme(){
+  isDark = !isDark;
+  document.documentElement.classList.toggle('dark', isDark);
+  document.getElementById('themeBtn').textContent = isDark ? '☀️' : '🌙';
+}
+function showMobileTab(tab){
+  document.querySelectorAll('.mobile-tab').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const lp = document.getElementById('leftPanel');
+  const cp = document.getElementById('centerPanel');
+  const rp = document.getElementById('rightPanel');
+  lp.style.display = tab === 'fields' ? 'flex' : 'none';
+  cp.style.display = tab === 'builder' ? 'flex' : 'none';
+  rp.style.display = tab === 'props' ? 'flex' : 'none';
+  rp.classList.remove('mobile-show');
+}
+
+// Close modal on overlay click
+document.getElementById('codeModal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+// Keyboard: Esc to close modal
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeModal();
+});
+
+// Init
+init();
+</script>
+</body>
+</html>

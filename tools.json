@@ -718,5 +718,61 @@
     ],
     "url": "/jwt-decoder/",
     "cat": "dev"
+  },
+  {
+    "id": "tdgen01",
+    "name": "tdgen01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/test-data-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "textdiff01",
+    "name": "textdiff01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/text-diff/",
+    "cat": "other"
+  },
+  {
+    "id": "formbuilder01",
+    "name": "在线表单生成器",
+    "desc": "可视化拖拽构建HTML表单。12种字段类型，一键导出完整HTML/CSS代码。SEO友好，响应式。",
+    "icon": "📋",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "表单",
+        "cls": "tag"
+      },
+      {
+        "text": "HTML",
+        "cls": "tag-green"
+      },
+      {
+        "text": "可视化",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/form-builder/",
+    "cat": "dev"
   }
 ]
