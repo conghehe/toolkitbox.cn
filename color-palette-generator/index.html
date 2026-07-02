@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>配色方案生成器 | 免费在线调色板工具 | 色彩搭配灵感</title>
+<meta name="description" content="免费在线配色方案生成器，支持互补色、类似色、三角色、四角色等多种色彩搭配模式。实时预览、一键复制HEX色值、导出CSS变量。设计师和前端开发者必备的调色板工具。">
+<meta name="keywords" content="配色方案生成器,调色板生成器,色彩搭配,color palette generator,配色工具,在线调色板,互补色,类似色,HEX颜色,渐变色方案,色彩灵感,color scheme">
+<meta name="robots" content="index, follow">
+<meta name="author" content="ColorPaletteGen">
+<link rel="canonical" href="https://toolkitbox.cn/color-palette-generator/">
+<meta property="og:title" content="配色方案生成器 | 免费在线调色板工具">
+<meta property="og:description" content="免费在线配色方案生成器，支持6种色彩搭配模式，一键复制HEX色值。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://colorpalettegen.tools/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="配色方案生成器 | 免费在线调色板工具">
+<meta name="twitter:description" content="免费在线配色方案生成器，支持6种色彩搭配模式，一键复制HEX色值。">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "配色方案生成器",
+  "url": "https://colorpalettegen.tools/",
+  "description": "免费在线配色方案生成器，支持多种色彩搭配模式",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "All",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<style>
+:root {
+  --bg: #0f0f14;
+  --bg-card: #1a1a24;
+  --bg-input: #252532;
+  --text: #e8e8ed;
+  --text-secondary: #9898a8;
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+  --border: #2a2a3a;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.theme-toggle {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+.theme-toggle:hover { border-color: var(--accent); }
+
+/* Ad Space */
+.ad-banner {
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  margin: 16px auto;
+  max-width: 1200px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 40px 20px 24px;
+}
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  padding: 4px;
+}
+.color-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 6px 6px 14px;
+}
+.color-input-wrap input[type="color"] {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+.color-input-wrap input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+.color-input-wrap input[type="color"]::-webkit-color-swatch { border-radius: 6px; border: 2px solid var(--border); }
+.color-input-wrap .hex-input {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  width: 80px;
+  outline: none;
+}
+.mode-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  min-width: 140px;
+}
+.mode-select:focus { border-color: var(--accent); }
+.btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+.btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+
+/* Palette Display */
+.palette-section { margin-bottom: 32px; }
+.palette-grid {
+  display: flex;
+  gap: 8px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  min-height: 200px;
+}
+.palette-grid.large { min-height: 280px; }
+.color-swatch {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px 8px;
+  min-height: 200px;
+}
+.color-swatch:hover { flex: 1.8; }
+.color-swatch:active { transform: scale(0.97); }
+.color-swatch .swatch-label {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  opacity: 0.9;
+}
+.color-swatch:hover .swatch-label { opacity: 1; transform: scale(1.05); }
+.color-swatch .copy-toast {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(10px);
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+.color-swatch .copy-toast.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) translateY(0);
+}
+
+/* Palette Info */
+.palette-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin: 16px 0 20px;
+}
+
+/* Saved Palettes */
+.saved-section { margin-bottom: 40px; }
+.saved-section h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.saved-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.saved-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.saved-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.saved-card .mini-palette {
+  display: flex;
+  height: 60px;
+}
+.saved-card .mini-palette span { flex: 1; }
+.saved-card .saved-info {
+  padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.saved-empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-secondary);
+  grid-column: 1 / -1;
+}
+
+/* Preview */
+.preview-section { margin-bottom: 40px; }
+.preview-section h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.preview-ui {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.preview-header {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+.preview-nav { display: flex; gap: 16px; }
+.preview-nav a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.preview-body {
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background 0.3s;
+}
+.preview-card {
+  border-radius: 8px;
+  padding: 20px;
+  transition: background 0.3s;
+}
+.preview-btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* SEO Content */
+.seo-content {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  margin: 32px 0 40px;
+}
+.seo-content h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+.seo-content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 20px 0 10px;
+}
+.seo-content p, .seo-content li {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+.seo-content ul { padding-left: 20px; }
+.seo-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 0.9rem;
+}
+.seo-content th, .seo-content td {
+  padding: 10px 14px;
+  text-align: left;
+  border: 1px solid var(--border);
+}
+.seo-content th {
+  background: var(--bg-input);
+  font-weight: 600;
+}
+.seo-content td { color: var(--text-secondary); }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.5rem; }
+  .palette-grid { flex-direction: column; min-height: auto; }
+  .palette-grid.large { min-height: auto; }
+  .color-swatch { min-height: 80px; flex-direction: row; justify-content: space-between; padding: 12px 16px; }
+  .color-swatch:hover { flex: 1; }
+  .color-swatch .copy-toast { left: 50%; right: auto; }
+  .controls { flex-direction: column; }
+  .controls > * { width: 100%; }
+  .mode-select { width: 100%; }
+  .btn { width: 100%; text-align: center; }
+  .saved-grid { grid-template-columns: 1fr; }
+  .seo-content { padding: 20px 16px; }
+}
+
+/* Light theme */
+body.light {
+  --bg: #f5f5f9;
+  --bg-card: #ffffff;
+  --bg-input: #f0f0f5;
+  --text: #1a1a2e;
+  --text-secondary: #6b6b80;
+  --border: #e0e0ea;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+body.light .color-swatch .swatch-label { background: rgba(255,255,255,0.7); color: #1a1a2e; }
+body.light .copy-toast { background: rgba(0,0,0,0.8); }
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.palette-grid { animation: fadeInUp 0.4s ease; }
+</style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">🎨 ColorPaletteGen</div>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙 深色模式</button>
+  </div>
+</header>
+
+<!-- Ad Banner Top -->
+<div class="ad-banner container" style="margin-top:16px">
+  <span>📢 广告位 — 此处预留Google AdSense广告单元 (728×90)</span>
+</div>
+
+<div class="container">
+  <!-- Hero -->
+  <section class="hero">
+    <h1>配色方案生成器</h1>
+    <p>免费在线调色板工具 — 选择基色，自动生成专业配色方案，支持6种色彩搭配模式</p>
+  </section>
+
+  <!-- Controls -->
+  <div class="controls">
+    <div class="color-input-wrap">
+      <input type="color" id="baseColor" value="#6366f1" onchange="onColorChange()">
+      <input type="text" class="hex-input" id="hexInput" value="#6366F1" maxlength="7" onchange="onHexChange()" onkeyup="onHexKeyup(event)">
+    </div>
+    <select class="mode-select" id="modeSelect" onchange="generate()">
+      <option value="complementary">🎯 互补色 Complementary</option>
+      <option value="analogous">🌈 类似色 Analogous</option>
+      <option value="triadic">🔺 三角色 Triadic</option>
+      <option value="tetradic">⬛ 四角色 Tetradic</option>
+      <option value="split-complementary">✨ 分裂互补 Split</option>
+      <option value="monochromatic">🎚️ 单色系 Monochromatic</option>
+    </select>
+    <button class="btn" onclick="randomBase()">🎲 随机基色</button>
+    <button class="btn btn-outline" onclick="randomPalette()">🔀 随机方案</button>
+  </div>
+
+  <!-- Palette Display -->
+  <section class="palette-section">
+    <div class="palette-grid large" id="paletteGrid"></div>
+    <div class="palette-info">
+      <button class="btn btn-sm btn-outline" onclick="savePalette()">💾 收藏此方案</button>
+      <button class="btn btn-sm btn-outline" onclick="exportCSS()">📋 导出CSS变量</button>
+      <button class="btn btn-sm btn-outline" onclick="copyAll()">📝 复制全部色值</button>
+      <span style="font-size:0.8rem;color:var(--text-secondary)" id="modeLabel"></span>
+    </div>
+  </section>
+
+  <!-- Ad Space Mid -->
+  <div class="ad-banner" style="margin-bottom:32px">
+    <span>📢 广告位 — 此处预留Google AdSense广告单元 (728×90)</span>
+  </div>
+
+  <!-- Live Preview -->
+  <section class="preview-section">
+    <h2>🖥️ 实时预览</h2>
+    <div class="preview-ui">
+      <div class="preview-header" id="prevHeader">
+        <div class="preview-nav">
+          <a href="#" id="prevNav1">首页</a>
+          <a href="#" id="prevNav2">关于</a>
+          <a href="#" id="prevNav3">联系</a>
+        </div>
+        <button class="preview-btn" id="prevBtn">立即体验</button>
+      </div>
+      <div class="preview-body" id="prevBody">
+        <div class="preview-card" id="prevCard">
+          <h3 style="font-size:1.1rem;margin-bottom:8px">设计预览区域</h3>
+          <p style="font-size:0.85rem;opacity:0.75">这里展示您配色方案在实际UI中的效果。选择一个方案就能立即看到它在界面中的样子。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Saved Palettes -->
+  <section class="saved-section">
+    <h2>📌 已收藏方案 <span style="font-size:0.75rem;color:var(--text-secondary);font-weight:400" id="savedCount"></span></h2>
+    <div class="saved-grid" id="savedGrid"></div>
+  </section>
+
+  <!-- SEO Content -->
+  <section class="seo-content">
+    <h2>关于配色方案生成器</h2>
+    <p>
+      配色方案生成器是一款<strong>免费在线调色板工具</strong>，专为<strong>设计师</strong>、<strong>前端开发者</strong>和<strong>品牌策划</strong>人员打造。
+      基于色彩理论算法，输入一个基色即可自动生成<strong>互补色</strong>、<strong>类似色</strong>、<strong>三角色</strong>、<strong>四角色</strong>、<strong>分裂互补色</strong>和<strong>单色系</strong>六种专业配色方案。
+    </p>
+
+    <h3>🎨 六种经典色彩搭配模式</h3>
+    <table>
+      <thead>
+        <tr><th>模式</th><th>原理</th><th>适用场景</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>互补色 Complementary</strong></td><td>色轮上相对的两色，对比强烈</td><td>需要视觉冲击力的设计、CTA按钮</td></tr>
+        <tr><td><strong>类似色 Analogous</strong></td><td>色轮上相邻的2-4色，和谐统一</td><td>品牌设计、网站主色调、舒适界面</td></tr>
+        <tr><td><strong>三角色 Triadic</strong></td><td>色轮上均匀分布的三色，活泼平衡</td><td>多彩但协调的品牌视觉、插画</td></tr>
+        <tr><td><strong>四角色 Tetradic</strong></td><td>两组互补色交叉，丰富多样</td><td>复杂UI设计、数据可视化</td></tr>
+        <tr><td><strong>分裂互补 Split Complementary</strong></td><td>基色+互补色两侧色，柔和对比</td><td>现代网页设计、App界面</td></tr>
+        <tr><td><strong>单色系 Monochromatic</strong></td><td>同一色相不同明度/饱和度</td><td>极简设计、专业报告、数据仪表盘</td></tr>
+      </tbody>
+    </table>
+
+    <h3>💡 如何使用配色方案生成器</h3>
+    <ol>
+      <li><strong>选择基色：</strong>使用颜色选择器选择您的品牌色或主色调，也可以点击"随机基色"获取灵感。</li>
+      <li><strong>选择模式：</strong>从6种色彩搭配模式中选择适合您设计需求的模式。</li>
+      <li><strong>获取配色：</strong>自动生成包含5-6个颜色的专业配色方案，HEX色值清晰展示。</li>
+      <li><strong>复制使用：</strong>点击任意色块即可复制HEX色值，也可以一键复制全部或导出CSS变量。</li>
+      <li><strong>实时预览：</strong>在实时UI预览区查看配色方案在实际界面中的效果。</li>
+      <li><strong>收藏方案：</strong>满意的配色方案可一键收藏到本地，随时回来查看。</li>
+    </ol>
+
+    <h3>🔧 配色方案在Web开发中的应用</h3>
+    <p>
+      前端开发者可以通过<strong>CSS变量</strong>（CSS Custom Properties）将配色方案应用到整个网站中。我们支持一键导出CSS变量格式，直接粘贴到您的样式文件中使用。
+      现代Web开发中，使用<strong>HSL颜色空间</strong>可以方便地进行色彩调整和主题切换，我们的配色方案同时提供HEX和HSL值。
+    </p>
+
+    <h3>📊 为什么色彩搭配对品牌至关重要</h3>
+    <p>
+      研究表明，<strong>颜色能将品牌认知度提升80%</strong>。正确的色彩搭配不仅影响用户的第一印象，还能提高用户参与度和转化率。
+      蓝色系传达信任和专业（常用于金融科技），绿色系传递自然和健康（医疗健康品牌首选），紫色系表达创意和奢华（高端品牌常用）。
+      使用本工具，您可以为不同场景快速生成合适的配色方案。
+    </p>
+
+    <h3>❓ 常见问题</h3>
+    <p><strong>Q: 配色方案可以商用吗？</strong><br>A: 当然！本工具生成的所有配色方案均可免费用于商业项目和个人项目，无需署名。</p>
+    <p><strong>Q: 支持导出到Figma/Sketch吗？</strong><br>A: 目前支持CSS变量导出，您可以将色值复制到任何设计软件中使用。</p>
+    <p><strong>Q: 可以上传图片提取配色吗？</strong><br>A: 此功能正在开发中，敬请期待！</p>
+  </section>
+</div>
+
+<!-- Ad Banner Bottom -->
+<div class="ad-banner container">
+  <span>📢 广告位 — 此处预留Google AdSense广告单元 (728×90)</span>
+</div>
+
+<footer class="footer">
+  <p>© 2026 ColorPaletteGen — 免费在线配色方案生成器 | 所有配色方案可免费商用</p>
+  <p style="margin-top:4px;font-size:0.75rem">支持设计师和前端开发者创造更美的互联网 🌈</p>
+</footer>
+
+<script>
+// ============ Color Utilities ============
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  return { r, g, b };
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => {
+    const v = Math.max(0, Math.min(255, Math.round(x)));
+    return v.toString(16).padStart(2, '0');
+  }).join('');
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0, l = (max + min) / 2;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+
+function hslToRgb(h, s, l) {
+  h = ((h % 360) + 360) % 360;
+  s /= 100; l /= 100;
+  const a = s * Math.min(l, 1 - l);
+  const f = n => {
+    const k = (n + h / 30) % 12;
+    return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+  };
+  return {
+    r: Math.round(f(0) * 255),
+    g: Math.round(f(8) * 255),
+    b: Math.round(f(4) * 255)
+  };
+}
+
+function hexToHsl(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  return rgbToHsl(r, g, b);
+}
+
+function hslToHex(h, s, l) {
+  const { r, g, b } = hslToRgb(h, s, l);
+  return rgbToHex(r, g, b);
+}
+
+function getLuminance(hex) {
+  const { r, g, b } = hexToRgb(hex);
+  const [rs, gs, bs] = [r, g, b].map(c => {
+    c /= 255;
+    return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
+function isLight(hex) {
+  return getLuminance(hex) > 0.5;
+}
+
+// ============ Palette Generation ============
+function generatePalette(baseHex, mode) {
+  const { h, s, l } = hexToHsl(baseHex);
+  let colors = [];
+
+  switch (mode) {
+    case 'complementary':
+      colors = [
+        hslToHex(h, s, l),
+        hslToHex((h + 180) % 360, s, l),
+        hslToHex(h, s, Math.min(100, l + 15)),
+        hslToHex((h + 180) % 360, s, Math.min(100, l + 15)),
+        hslToHex(h, Math.min(100, s + 10), Math.max(0, l - 10)),
+      ];
+      break;
+
+    case 'analogous':
+      colors = [
+        hslToHex((h - 30 + 360) % 360, s, l),
+        hslToHex((h - 15 + 360) % 360, s, l),
+        hslToHex(h, s, l),
+        hslToHex((h + 15) % 360, s, l),
+        hslToHex((h + 30) % 360, s, l),
+      ];
+      break;
+
+    case 'triadic':
+      colors = [
+        hslToHex(h, s, l),
+        hslToHex((h + 120) % 360, s, l),
+        hslToHex((h + 240) % 360, s, l),
+        hslToHex(h, Math.min(100, s + 10), Math.min(100, l + 12)),
+        hslToHex((h + 120) % 360, Math.min(100, s + 10), Math.min(100, l + 12)),
+      ];
+      break;
+
+    case 'tetradic':
+      colors = [
+        hslToHex(h, s, l),
+        hslToHex((h + 90) % 360, s, l),
+        hslToHex((h + 180) % 360, s, l),
+        hslToHex((h + 270) % 360, s, l),
+        hslToHex(h, Math.min(100, s + 10), Math.max(0, l - 10)),
+        hslToHex((h + 180) % 360, Math.min(100, s + 10), Math.max(0, l - 10)),
+      ];
+      break;
+
+    case 'split-complementary':
+      colors = [
+        hslToHex(h, s, l),
+        hslToHex((h + 150) % 360, s, l),
+        hslToHex((h + 210) % 360, s, l),
+        hslToHex(h, Math.min(100, s + 12), Math.min(100, l + 10)),
+        hslToHex((h + 150) % 360, Math.min(100, s + 8), Math.min(100, l + 8)),
+      ];
+      break;
+
+    case 'monochromatic':
+      colors = [
+        hslToHex(h, s, Math.min(100, l + 35)),
+        hslToHex(h, Math.min(100, s + 15), Math.min(100, l + 18)),
+        hslToHex(h, s, l),
+        hslToHex(h, Math.min(100, s + 5), Math.max(0, l - 15)),
+        hslToHex(h, Math.min(100, s + 10), Math.max(0, l - 30)),
+      ];
+      break;
+
+    default:
+      colors = [baseHex, baseHex, baseHex, baseHex, baseHex];
+  }
+
+  return colors;
+}
+
+// ============ UI Rendering ============
+let currentPalette = [];
+let currentMode = 'complementary';
+
+function renderPalette(colors, mode) {
+  currentPalette = colors;
+  currentMode = mode;
+
+  const grid = document.getElementById('paletteGrid');
+  grid.innerHTML = '';
+
+  colors.forEach((hex, i) => {
+    const swatch = document.createElement('div');
+    swatch.className = 'color-swatch';
+    swatch.style.backgroundColor = hex;
+
+    const name = getColorName(hex);
+    const textColor = isLight(hex) ? '#1a1a2e' : '#ffffff';
+
+    const toast = document.createElement('div');
+    toast.className = 'copy-toast';
+    toast.textContent = '已复制! ✓';
+    swatch.appendChild(toast);
+
+    const label = document.createElement('div');
+    label.className = 'swatch-label';
+    label.textContent = hex.toUpperCase();
+    label.style.color = textColor;
+    swatch.appendChild(label);
+
+    swatch.onclick = () => {
+      copyToClipboard(hex);
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1200);
+    };
+
+    grid.appendChild(swatch);
+  });
+
+  // Update mode label
+  const modeNames = {
+    'complementary': '互补色 Complementary',
+    'analogous': '类似色 Analogous',
+    'triadic': '三角色 Triadic',
+    'tetradic': '四角色 Tetradic',
+    'split-complementary': '分裂互补 Split',
+    'monochromatic': '单色系 Monochromatic'
+  };
+  document.getElementById('modeLabel').textContent = modeNames[mode] || '';
+
+  // Update preview
+  updatePreview(colors);
+}
+
+function getColorName(hex) {
+  const { h, s, l } = hexToHsl(hex);
+  if (s < 10) {
+    if (l > 90) return '白';
+    if (l > 70) return '浅灰';
+    if (l > 40) return '灰';
+    return '深灰';
+  }
+  if (h < 15 || h >= 345) return '红';
+  if (h < 45) return '橙';
+  if (h < 70) return '黄';
+  if (h < 165) return '绿';
+  if (h < 200) return '青';
+  if (h < 260) return '蓝';
+  if (h < 290) return '紫';
+  if (h < 320) return '粉';
+  return '红';
+}
+
+function updatePreview(colors) {
+  if (colors.length < 3) return;
+  const primary = colors[2] || colors[0];
+  const secondary = colors[0];
+  const accent = colors[4] || colors[3] || colors[1];
+  const bg = colors.length > 3 ? colors[3] : secondary;
+  const textOnPrimary = isLight(primary) ? '#1a1a2e' : '#ffffff';
+
+  document.getElementById('prevHeader').style.background = primary;
+  document.getElementById('prevHeader').style.color = textOnPrimary;
+  document.getElementById('prevBody').style.background = secondary;
+  document.getElementById('prevCard').style.background = isLight(secondary) ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.3)';
+  document.getElementById('prevCard').style.color = isLight(secondary) ? '#1a1a2e' : '#e8e8ed';
+  document.getElementById('prevBtn').style.background = accent;
+  document.getElementById('prevBtn').style.color = isLight(accent) ? '#1a1a2e' : '#ffffff';
+
+  const navLinks = document.querySelectorAll('#prevHeader .preview-nav a');
+  navLinks.forEach(a => { a.style.color = textOnPrimary; a.style.opacity = '0.8'; });
+}
+
+function generate() {
+  const hex = document.getElementById('baseColor').value;
+  const mode = document.getElementById('modeSelect').value;
+  const colors = generatePalette(hex, mode);
+  renderPalette(colors, mode);
+}
+
+function onColorChange() {
+  const hex = document.getElementById('baseColor').value;
+  document.getElementById('hexInput').value = hex.toUpperCase();
+  generate();
+}
+
+function onHexChange() {
+  const val = document.getElementById('hexInput').value.trim();
+  if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+    document.getElementById('baseColor').value = val;
+    generate();
+  }
+}
+
+function onHexKeyup(e) {
+  if (e.key === 'Enter') onHexChange();
+}
+
+function randomBase() {
+  const h = Math.floor(Math.random() * 360);
+  const s = 40 + Math.floor(Math.random() * 45);
+  const l = 35 + Math.floor(Math.random() * 30);
+  const hex = hslToHex(h, s, l);
+  document.getElementById('baseColor').value = hex;
+  document.getElementById('hexInput').value = hex.toUpperCase();
+  generate();
+}
+
+function randomPalette() {
+  const modes = ['complementary','analogous','triadic','tetradic','split-complementary','monochromatic'];
+  const mode = modes[Math.floor(Math.random() * modes.length)];
+  document.getElementById('modeSelect').value = mode;
+  randomBase();
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).catch(() => {});
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+}
+
+function copyAll() {
+  const text = currentPalette.map(c => c.toUpperCase()).join(', ');
+  copyToClipboard(text);
+  showToast('已复制全部色值！');
+}
+
+function exportCSS() {
+  const names = ['primary', 'secondary', 'accent', 'neutral', 'muted'];
+  const lines = currentPalette.map((c, i) => `  --color-${names[i] || 'extra-' + i}: ${c.toUpperCase()};`);
+  const css = `:root {\n${lines.join('\n')}\n}`;
+  copyToClipboard(css);
+  showToast('已导出CSS变量！');
+}
+
+function showToast(msg) {
+  const el = document.createElement('div');
+  el.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#fff;padding:10px 24px;border-radius:20px;font-size:0.9rem;z-index:999;animation:fadeInUp 0.3s ease;';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.3s'; }, 1800);
+  setTimeout(() => el.remove(), 2200);
+}
+
+// ============ Saved Palettes ============
+function loadSaved() {
+  try {
+    return JSON.parse(localStorage.getItem('colorpalettes') || '[]');
+  } catch { return []; }
+}
+
+function savePalette() {
+  if (currentPalette.length === 0) return;
+  const saved = loadSaved();
+  const modeNames = {
+    'complementary': '互补色', 'analogous': '类似色', 'triadic': '三角色',
+    'tetradic': '四角色', 'split-complementary': '分裂互补', 'monochromatic': '单色系'
+  };
+  saved.unshift({
+    colors: currentPalette,
+    mode: modeNames[currentMode] || currentMode,
+    time: new Date().toLocaleString('zh-CN')
+  });
+  if (saved.length > 20) saved.length = 20;
+  localStorage.setItem('colorpalettes', JSON.stringify(saved));
+  renderSaved();
+  showToast('方案已收藏！💾');
+}
+
+function renderSaved() {
+  const saved = loadSaved();
+  const grid = document.getElementById('savedGrid');
+  const count = document.getElementById('savedCount');
+  count.textContent = `(${saved.length}个)`;
+
+  if (saved.length === 0) {
+    grid.innerHTML = '<div class="saved-empty">📭 还没有收藏的配色方案<br><small>点击"收藏此方案"来保存你喜欢的配色</small></div>';
+    return;
+  }
+
+  grid.innerHTML = saved.map((s, i) => `
+    <div class="saved-card" onclick="loadPalette(${i})">
+      <div class="mini-palette">
+        ${s.colors.map(c => `<span style="background:${c}"></span>`).join('')}
+      </div>
+      <div class="saved-info">
+        <span>${s.mode}</span>
+        <span>${s.time}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function loadPalette(index) {
+  const saved = loadSaved();
+  if (!saved[index]) return;
+  const palette = saved[index];
+  renderPalette(palette.colors, currentMode);
+  document.getElementById('baseColor').value = palette.colors[2] || palette.colors[0];
+  document.getElementById('hexInput').value = (palette.colors[2] || palette.colors[0]).toUpperCase();
+  window.scrollTo({ top: 100, behavior: 'smooth' });
+}
+
+// ============ Theme ============
+function toggleTheme() {
+  const body = document.body;
+  const btn = document.getElementById('themeBtn');
+  body.classList.toggle('light');
+  if (body.classList.contains('light')) {
+    btn.textContent = '☀️ 浅色模式';
+    localStorage.setItem('theme', 'light');
+  } else {
+    btn.textContent = '🌙 深色模式';
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+// ============ Keyboard Shortcuts ============
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey || e.metaKey) {
+    switch (e.key.toLowerCase()) {
+      case 's':
+        e.preventDefault();
+        savePalette();
+        break;
+      case 'c':
+        e.preventDefault();
+        copyAll();
+        break;
+      case 'r':
+        e.preventDefault();
+        randomPalette();
+        break;
+    }
+  }
+});
+
+// ============ Init ============
+function init() {
+  // Load theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light');
+    document.getElementById('themeBtn').textContent = '☀️ 浅色模式';
+  }
+
+  // Show some initial palettes
+  const initialColors = ['#6366F1', '#3B82F6', '#10B981'];
+  const randomIndex = Math.floor(Math.random() * initialColors.length);
+  const initialHex = initialColors[randomIndex];
+  document.getElementById('baseColor').value = initialHex;
+  document.getElementById('hexInput').value = initialHex;
+
+  generate();
+  renderSaved();
+}
+
+init();
+</script>
+
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+</html>

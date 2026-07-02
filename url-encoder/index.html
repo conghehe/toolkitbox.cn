@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL在线编码解码工具 - 免费URL Encode/Decode | URL转码</title>
+    <meta name="description" content="免费在线URL编码解码工具，支持URL Encode、URL Decode、encodeURIComponent、encodeURI。一键转码，纯浏览器本地处理，数据完全不上传。开发者和SEO必备工具。">
+    <meta name="keywords" content="url编码, url解码, url encode, url decode, url转码, encodeURIComponent, encodeURI, 在线url编码, url编解码, 网址编码, 百分号编码, percent encoding">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="URL编码解码工具">
+    <link rel="canonical" href="https://toolkitbox.cn/url-encoder/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+    <meta property="og:title" content="URL在线编码解码工具 - 免费URL Encode/Decode">
+    <meta property="og:description" content="免费在线URL编码解码工具，支持URL Encode/Decode/encodeURIComponent，纯浏览器本地处理。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolkitbox.cn/url-encoder/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="URL在线编码解码工具">
+    <meta name="twitter:description" content="免费在线URL编码解码工具，支持URL Encode/Decode/encodeURIComponent，纯浏览器本地处理。">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "URL在线编码解码工具",
+        "url": "https://toolkitbox.cn/url-encoder/",
+        "description": "免费在线URL编码解码工具，支持URL Encode/Decode/encodeURIComponent/encodeURI四种模式",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+    }
+    </script>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-input: #0d1117;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent-hover: #79c0ff;
+            --green: #3fb950;
+            --red: #f85149;
+            --orange: #d2991d;
+            --purple: #a371f7;
+            --btn-bg: #21262d;
+            --btn-hover: #30363d;
+            --btn-active: #1f6feb;
+            --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Monaco', monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            --radius: 8px;
+            --radius-sm: 6px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+        .header-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-logo span { font-size: 1.3rem; }
+        .header-nav { display: flex; gap: 16px; }
+        .header-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+        .header-nav a:hover { color: var(--text); }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+        .hero {
+            text-align: center;
+            padding: 36px 0 24px;
+        }
+        .hero h1 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Mode tabs */
+        .mode-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .mode-tab {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            background: var(--btn-bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .mode-tab:hover { border-color: var(--accent); color: var(--text); }
+        .mode-tab.active {
+            background: var(--btn-active);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* Tool area */
+        .tool-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+        }
+
+        .input-area {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .input-area label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .input-area textarea {
+            width: 100%;
+            min-height: 140px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            padding: 12px;
+            resize: vertical;
+            line-height: 1.6;
+            transition: border-color 0.2s;
+        }
+        .input-area textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(88,166,255,0.15);
+        }
+        .char-count {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        .action-bar {
+            padding: 12px 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .btn {
+            padding: 8px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--btn-bg);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .btn:hover { background: var(--btn-hover); }
+        .btn-primary {
+            background: var(--btn-active);
+            border-color: var(--accent);
+            color: #fff;
+            font-weight: 500;
+        }
+        .btn-primary:hover { background: #388bfd; }
+        .btn-success {
+            background: rgba(63,185,80,0.15);
+            border-color: rgba(63,185,80,0.3);
+            color: var(--green);
+        }
+        .btn-success:hover { background: rgba(63,185,80,0.25); }
+        .btn-danger {
+            background: rgba(248,81,73,0.15);
+            border-color: rgba(248,81,73,0.3);
+            color: var(--red);
+        }
+        .btn-danger:hover { background: rgba(248,81,73,0.25); }
+        .btn-sm { padding: 5px 12px; font-size: 0.78rem; }
+
+        .mode-hint {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-left: auto;
+            background: var(--bg-input);
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .output-area {
+            padding: 16px;
+        }
+        .output-area label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .output-area textarea {
+            width: 100%;
+            min-height: 140px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            padding: 12px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        .output-area textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(88,166,255,0.15);
+        }
+        .output-area textarea.decode-output { color: var(--purple); }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            padding: 10px 16px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .stat {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .stat span { color: var(--text); font-weight: 600; font-family: var(--font-mono); }
+
+        /* Ad spots */
+        .ad-spot {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 16px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ad-spot .ad-label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Presets */
+        .presets {
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .presets-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-right: 4px;
+        }
+        .preset-chip {
+            padding: 4px 12px;
+            border-radius: 14px;
+            background: var(--btn-bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-family: var(--font-sans);
+            transition: all 0.15s;
+        }
+        .preset-chip:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+        .toast.show { opacity: 1; pointer-events: auto; }
+
+        /* SEO content */
+        .content-section {
+            margin: 32px 0;
+        }
+        .content-section h2 {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content-section h3 {
+            font-size: 1.05rem;
+            color: var(--text);
+            margin: 20px 0 8px;
+        }
+        .content-section p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .content-section ul {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            padding-left: 20px;
+        }
+        .content-section li { margin-bottom: 4px; }
+
+        .code-block {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin: 12px 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent);
+            overflow-x: auto;
+            line-height: 1.7;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.85rem;
+        }
+        .comparison-table th {
+            background: var(--btn-bg);
+            color: var(--text);
+            padding: 10px 12px;
+            text-align: left;
+            border: 1px solid var(--border);
+            font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        .comparison-table tr:hover td { background: rgba(88,166,255,0.05); }
+        .comparison-table code {
+            background: var(--btn-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--accent);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.4rem; }
+            .hero p { font-size: 0.85rem; }
+            .mode-tabs { gap: 4px; }
+            .mode-tab { padding: 6px 12px; font-size: 0.8rem; }
+            .action-bar { flex-wrap: wrap; gap: 6px; }
+            .mode-hint { width: 100%; text-align: center; margin-left: 0; }
+            .btn { padding: 7px 14px; font-size: 0.8rem; }
+            .content-section h2 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a href="https://toolkitbox.cn" class="header-logo">
+            <span>&#x1f527;</span> ToolkitBox
+        </a>
+        <nav class="header-nav">
+            <a href="https://toolkitbox.cn">全部工具</a>
+            <a href="https://toolkitbox.cn/json/">JSON</a>
+            <a href="https://toolkitbox.cn/base64/">Base64</a>
+            <a href="https://toolkitbox.cn/hash/">Hash</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+
+    <section class="hero">
+        <h1>&#x1f517; URL在线编码解码工具</h1>
+        <p>免费在线URL Encode / URL Decode 工具，支持 encodeURIComponent、encodeURI 四种模式。纯浏览器本地处理，数据完全不上传，即开即用。</p>
+    </section>
+
+    <!-- Ad Spot 1 (Top) -->
+    <div class="ad-spot"><span class="ad-label">&#x2014; &#x5e7f;&#x544a; &#x2014;</span></div>
+
+    <!-- Mode Tabs -->
+    <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="component-encode">&#x1f512; encodeURIComponent 编码</button>
+        <button class="mode-tab" data-mode="component-decode">&#x1f513; decodeURIComponent 解码</button>
+        <button class="mode-tab" data-mode="uri-encode">&#x1f310; encodeURI 编码</button>
+        <button class="mode-tab" data-mode="uri-decode">&#x1f310; decodeURI 解码</button>
+    </div>
+
+    <div class="tool-section">
+        <div class="input-area">
+            <label id="input-label">输入文本</label>
+            <textarea id="inputText" placeholder="在此粘贴或输入文本&#x2026;"></textarea>
+            <div class="char-count" id="inputCount">0 字符</div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn btn-primary" id="btnConvert">&#x26a1; 编码</button>
+            <button class="btn btn-sm" id="btnSwap">&#x21c4; 交换输入输出</button>
+            <button class="btn btn-sm btn-success" id="btnCopy">&#x1f4cb; 复制结果</button>
+            <button class="btn btn-sm btn-danger" id="btnClear">&#x1f5d1; 清空</button>
+            <span class="mode-hint" id="modeHint">模式: encodeURIComponent</span>
+        </div>
+
+        <div class="output-area">
+            <label id="output-label">编码结果</label>
+            <textarea id="outputText" readonly placeholder="结果将显示在这里&#x2026;"></textarea>
+            <div class="char-count" id="outputCount">0 字符</div>
+        </div>
+
+        <!-- Presets -->
+        <div class="presets">
+            <span class="presets-label">快速示例:</span>
+            <button class="preset-chip" data-text="https://example.com/search?q=你好世界&lang=zh">带中文URL</button>
+            <button class="preset-chip" data-text='{"name":"张三","email":"zhang@test.com"}'>JSON字符串</button>
+            <button class="preset-chip" data-text="Hello World & Welcome to AI!">特殊字符</button>
+            <button class="preset-chip" data-text="article: How to build a REST API (2026)">路径参数</button>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat">&#x1f4cf; 输入: <span id="statInput">0</span> 字节</div>
+            <div class="stat">&#x1f4e4; 输出: <span id="statOutput">0</span> 字节</div>
+            <div class="stat">&#x1f4ca; 转换比: <span id="statRatio">-</span></div>
+            <div class="stat">&#x26a0; 含非ASCII: <span id="statNonAscii">否</span></div>
+        </div>
+    </div>
+
+    <!-- Ad Spot 2 (Middle) -->
+    <div class="ad-spot"><span class="ad-label">&#x2014; &#x5e7f;&#x544a; &#x2014;</span></div>
+
+    <!-- SEO Content -->
+    <div class="content-section">
+        <h2>&#x1f4d6; 什么是URL编码？</h2>
+        <p>URL编码（百分号编码 / Percent-Encoding）是将URL中的特殊字符转换为 <code>%XX</code> 格式的过程。由于URL只能使用ASCII字符集中的部分字符，任何不在安全字符集中的字符（如中文、空格、特殊符号）都必须进行编码才能正确传输。</p>
+
+        <h3>为什么需要URL编码？</h3>
+        <ul>
+            <li><strong>浏览器兼容性</strong> &#x2014; 各浏览器对未编码URL的处理方式不同，编码后可确保跨浏览器一致</li>
+            <li><strong>数据完整性</strong> &#x2014; 防止特殊字符（&amp;、=、#等）被误解析为URL参数分隔符</li>
+            <li><strong>安全防护</strong> &#x2014; 防止XSS攻击和URL注入，对用户输入进行安全编码</li>
+            <li><strong>API开发</strong> &#x2014; REST API中query参数和path参数的正确传输</li>
+            <li><strong>SEO优化</strong> &#x2014; 搜索引擎能正确解析编码后的URL</li>
+        </ul>
+
+        <h3>encodeURIComponent vs encodeURI</h3>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>特性</th>
+                    <th><code>encodeURIComponent</code></th>
+                    <th><code>encodeURI</code></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>编码范围</td>
+                    <td>除 <code>A-Z a-z 0-9 - _ . ! ~ * ' ( )</code> 外的所有字符</td>
+                    <td>除 <code>A-Z a-z 0-9 - _ . ! ~ * ' ( ) ; , / ? : @ &amp; = + $ #</code> 外的所有字符</td>
+                </tr>
+                <tr>
+                    <td>保留字符</td>
+                    <td><code>; , / ? : @ &amp; = + $</code> 会被编码</td>
+                    <td><code>; , / ? : @ &amp; = + $ #</code> 不会被编码</td>
+                </tr>
+                <tr>
+                    <td>适用场景</td>
+                    <td>URL参数值编码、表单数据、JSON字符串</td>
+                    <td>完整URL编码、保持URL结构</td>
+                </tr>
+                <tr>
+                    <td>空格编码</td>
+                    <td><code>%20</code></td>
+                    <td><code>%20</code></td>
+                </tr>
+                <tr>
+                    <td>示例</td>
+                    <td><code>&#x4f60;&#x597d;</code> &#x2192; <code>%E4%BD%A0%E5%A5%BD</code></td>
+                    <td><code>https://a.com/?q=&#x4f60;&#x597d;</code> &#x2192; <code>https://a.com/?q=%E4%BD%A0%E5%A5%BD</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>常见URL编码对照表</h3>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>字符</th>
+                    <th>编码结果</th>
+                    <th>说明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>空格</td><td><code>%20</code></td><td>URL中的空格必须编码（非+号）</td></tr>
+                <tr><td>!</td><td><code>%21</code></td><td>感叹号</td></tr>
+                <tr><td>"</td><td><code>%22</code></td><td>双引号</td></tr>
+                <tr><td>#</td><td><code>%23</code></td><td>井号（hash标识符）</td></tr>
+                <tr><td>$</td><td><code>%24</code></td><td>美元符号</td></tr>
+                <tr><td>%</td><td><code>%25</code></td><td>百分号本身</td></tr>
+                <tr><td>&amp;</td><td><code>%26</code></td><td>与符号（参数分隔符）</td></tr>
+                <tr><td>'</td><td><code>%27</code></td><td>单引号</td></tr>
+                <tr><td>+</td><td><code>%2B</code></td><td>加号</td></tr>
+                <tr><td>,</td><td><code>%2C</code></td><td>逗号</td></tr>
+                <tr><td>/</td><td><code>%2F</code></td><td>斜杠（路径分隔符）</td></tr>
+                <tr><td>=</td><td><code>%3D</code></td><td>等号</td></tr>
+                <tr><td>?</td><td><code>%3F</code></td><td>问号（query标识符）</td></tr>
+                <tr><td>@</td><td><code>%40</code></td><td>at符号</td></tr>
+                <tr><td>中文</td><td><code>%E4%BD%A0</code></td><td>UTF-8编码（每汉字3字节=6个%XX）</td></tr>
+            </tbody>
+        </table>
+
+        <h3>&#x1f4a1; 使用场景</h3>
+        <p><strong>1. 前端开发</strong> &#x2014; 在AJAX请求中传递包含中文或特殊字符的查询参数时使用 <code>encodeURIComponent</code>。</p>
+        <div class="code-block">const query = encodeURIComponent('&#x4f60;&#x597d;&#x4e16;&#x754c;');
+fetch('/api/search?q=' + query);</div>
+
+        <p><strong>2. 表单提交</strong> &#x2014; 在表单数据通过URL传输时，对每个字段值进行编码。</p>
+        <div class="code-block">const name = encodeURIComponent('&#x5f20;&#x4e09;');
+const email = encodeURIComponent('zhang@example.com');
+const url = '/submit?name=' + name + '&email=' + email;</div>
+
+        <p><strong>3. URL解码调试</strong> &#x2014; 收到编码后的URL参数时，使用 <code>decodeURIComponent</code> 还原原始数据。</p>
+        <div class="code-block">const raw = '%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C';
+const decoded = decodeURIComponent(raw); // &#x4f60;&#x597d;&#x4e16;&#x754c;</div>
+
+        <p><strong>4. Cookie/Header编码</strong> &#x2014; HTTP头部和Cookie值中不能包含非ASCII字符，需要URL编码。</p>
+
+        <h3>&#x2753; 常见问题</h3>
+        <p><strong>Q: encodeURIComponent和encodeURI有什么区别？</strong><br>
+        A: <code>encodeURIComponent</code> 用于编码URL的<strong>参数值</strong>（编码更多字符，包括 / ? &amp; =等），<code>encodeURI</code> 用于编码<strong>完整URL</strong>（保留URL结构字符）。一般场景下用 <code>encodeURIComponent</code> 更安全。</p>
+
+        <p><strong>Q: 为什么空格有时编码为%20，有时为+？</strong><br>
+        A: <code>encodeURIComponent</code> 将空格编码为 <code>%20</code>（RFC 3986标准）。<code>+</code> 号是 <code>application/x-www-form-urlencoded</code> 格式的历史约定。推荐统一使用 <code>%20</code>。</p>
+
+        <p><strong>Q: 本工具的数据会上传到服务器吗？</strong><br>
+        A: 不会。所有编码解码操作完全在浏览器本地执行，您的数据不会离开您的设备。您可以离线使用本工具。</p>
+    </div>
+
+    <!-- Ad Spot 3 (Bottom) -->
+    <div class="ad-spot"><span class="ad-label">&#x2014; &#x5e7f;&#x544a; &#x2014;</span></div>
+
+    <footer class="footer">
+        <p>&copy; 2026 URL在线编码解码工具 | Powered by <a href="https://toolkitbox.cn">ToolkitBox</a></p>
+        <p style="margin-top:4px;">所有编码解码操作在浏览器本地完成，数据不上传</p>
+    </footer>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function() {
+    'use strict';
+
+    var inputText = document.getElementById('inputText');
+    var outputText = document.getElementById('outputText');
+    var inputLabel = document.getElementById('input-label');
+    var outputLabel = document.getElementById('output-label');
+    var inputCount = document.getElementById('inputCount');
+    var outputCount = document.getElementById('outputCount');
+    var modeHint = document.getElementById('modeHint');
+    var toast = document.getElementById('toast');
+    var statInput = document.getElementById('statInput');
+    var statOutput = document.getElementById('statOutput');
+    var statRatio = document.getElementById('statRatio');
+    var statNonAscii = document.getElementById('statNonAscii');
+
+    var currentMode = 'component-encode';
+    var modeNames = {
+        'component-encode': 'encodeURIComponent 编码',
+        'component-decode': 'decodeURIComponent 解码',
+        'uri-encode': 'encodeURI 编码',
+        'uri-decode': 'decodeURI 解码'
+    };
+    var modeLabels = {
+        'component-encode': { input: '输入文本', output: '编码结果 (encodeURIComponent)' },
+        'component-decode': { input: '编码文本 (%XX格式)', output: '解码结果 (decodeURIComponent)' },
+        'uri-encode': { input: '输入URL', output: '编码结果 (encodeURI)' },
+        'uri-decode': { input: '编码URL (%XX格式)', output: '解码结果 (decodeURI)' }
+    };
+
+    // Mode switching
+    document.querySelectorAll('.mode-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.mode-tab').forEach(function(t) { t.classList.remove('active'); });
+            tab.classList.add('active');
+            currentMode = tab.dataset.mode;
+            modeHint.textContent = '模式: ' + modeNames[currentMode];
+            inputLabel.textContent = modeLabels[currentMode].input;
+            outputLabel.textContent = modeLabels[currentMode].output;
+
+            // Visual: decode modes use purple output
+            outputText.classList.toggle('decode-output', currentMode.indexOf('decode') !== -1);
+
+            // Update convert button text
+            var btn = document.getElementById('btnConvert');
+            btn.textContent = currentMode.indexOf('encode') !== -1 ? '\u26a1 编码' : '\u26a1 解码';
+
+            // Auto-convert if input has content
+            if (inputText.value.trim()) {
+                doConvert();
+            }
+        });
+    });
+
+    // Convert
+    document.getElementById('btnConvert').addEventListener('click', doConvert);
+
+    function doConvert() {
+        var input = inputText.value;
+        var output = '';
+
+        try {
+            switch (currentMode) {
+                case 'component-encode':
+                    output = encodeURIComponent(input);
+                    break;
+                case 'component-decode':
+                    output = decodeURIComponent(input);
+                    break;
+                case 'uri-encode':
+                    output = encodeURI(input);
+                    break;
+                case 'uri-decode':
+                    output = decodeURI(input);
+                    break;
+            }
+        } catch (e) {
+            output = '错误: ' + e.message + '\n请检查输入是否为有效的编码格式。';
+        }
+
+        outputText.value = output;
+        updateStats(input, output);
+    }
+
+    // Live update on input
+    var liveTimer;
+    inputText.addEventListener('input', function() {
+        inputCount.textContent = inputText.value.length + ' 字符';
+        clearTimeout(liveTimer);
+        liveTimer = setTimeout(function() {
+            if (inputText.value.trim()) {
+                doConvert();
+            } else {
+                outputText.value = '';
+                updateStats('', '');
+            }
+        }, 300);
+    });
+
+    // Swap
+    document.getElementById('btnSwap').addEventListener('click', function() {
+        var tmp = inputText.value;
+        inputText.value = outputText.value;
+        outputText.value = tmp;
+        inputCount.textContent = inputText.value.length + ' 字符';
+        updateStats(inputText.value, outputText.value);
+    });
+
+    // Copy
+    document.getElementById('btnCopy').addEventListener('click', function() {
+        if (!outputText.value) return;
+        outputText.select();
+        outputText.setSelectionRange(0, 99999);
+        try {
+            document.execCommand('copy');
+            showToast('\u2714 已复制到剪贴板');
+        } catch (e) {
+            navigator.clipboard.writeText(outputText.value).then(function() {
+                showToast('\u2714 已复制到剪贴板');
+            }).catch(function() {
+                showToast('\u2716 复制失败，请手动选择');
+            });
+        }
+    });
+
+    // Clear
+    document.getElementById('btnClear').addEventListener('click', function() {
+        inputText.value = '';
+        outputText.value = '';
+        inputCount.textContent = '0 字符';
+        updateStats('', '');
+        inputText.focus();
+    });
+
+    // Presets
+    document.querySelectorAll('.preset-chip').forEach(function(chip) {
+        chip.addEventListener('click', function() {
+            inputText.value = chip.dataset.text;
+            inputCount.textContent = inputText.value.length + ' 字符';
+            doConvert();
+        });
+    });
+
+    function updateStats(input, output) {
+        var inLen = typeof input === 'string' ? (new TextEncoder().encode(input)).length : 0;
+        var outLen = typeof output === 'string' ? (new TextEncoder().encode(output)).length : 0;
+
+        statInput.textContent = inLen;
+        statOutput.textContent = outLen;
+        outputCount.textContent = (typeof output === 'string' ? output.length : 0) + ' 字符';
+
+        if (inLen > 0 && outLen > 0) {
+            var ratio = (outLen / inLen * 100).toFixed(1);
+            statRatio.textContent = ratio + '%';
+            statRatio.style.color = ratio > 150 ? 'var(--orange)' : 'var(--text-secondary)';
+        } else {
+            statRatio.textContent = '-';
+            statRatio.style.color = 'var(--text-secondary)';
+        }
+
+        // Check non-ASCII
+        var hasNonAscii = /[^\x00-\x7F]/.test(input);
+        statNonAscii.textContent = hasNonAscii ? '是' : '否';
+        statNonAscii.style.color = hasNonAscii ? 'var(--orange)' : 'var(--text-secondary)';
+    }
+
+    function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function() {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+
+    // Keyboard shortcut
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            doConvert();
+        }
+    });
+
+    // Initial hint
+    modeHint.textContent = '模式: ' + modeNames[currentMode];
+})();
+</script>
+
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+</html>

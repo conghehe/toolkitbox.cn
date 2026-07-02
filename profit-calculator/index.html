@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>电商利润计算器 - 淘宝/拼多多/抖音/亚马逊利润核算 | 多平台对比</title>
+<meta name="description" content="免费在线电商利润计算器，支持淘宝/拼多多/抖音/京东/亚马逊五大平台。输入售价和成本，自动计算平台佣金、运费、推广费，实时核算净利润和利润率。">
+<meta name="keywords" content="电商利润计算器,淘宝利润,拼多多利润,抖音电商,亚马逊FBA利润,platform fee,电商选品,利润核算,roi计算,电商成本">
+<link rel="canonical" href="https://toolkitbox.cn/profit-calculator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>:root{--bg:#fff;--t:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--g:#00b894;--r:#ff6b6b;--o:#e17055;--b:#e9ecef;--s:0 2px 12px rgba(0,0,0,.06)}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#fff3e0,#fbe9e7);color:var(--t);min-height:100vh}.header{background:var(--bg);padding:12px 24px;border-bottom:1px solid var(--b);position:sticky;top:0;z-index:100}.header a{color:var(--p);text-decoration:none;font-weight:600}.container{max-width:900px;margin:0 auto;padding:20px}h1{text-align:center;font-size:1.6rem;margin:10px 0;color:#e65100}.sub{text-align:center;color:var(--t2);margin-bottom:20px}.panels{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:768px){.panels{grid-template-columns:1fr}}.card{background:var(--bg);border-radius:12px;padding:20px;box-shadow:var(--s)}.card h3{font-size:.9rem;margin-bottom:14px;color:#e65100}.fg{margin-bottom:10px}.fg label{display:block;font-size:.78rem;font-weight:600;margin-bottom:3px;color:var(--t2)}.fg input,.fg select{width:100%;padding:8px 12px;border:1.5px solid var(--b);border-radius:8px;font-size:.85rem;outline:none;background:var(--bg)}.fg input:focus{border-color:var(--o)}.result{background:linear-gradient(135deg,#fff3e0,#fbe9e7);border-radius:12px;padding:24px;text-align:center;margin-top:16px}.result .big{font-size:2.2rem;font-weight:800}.result .big.green{color:var(--g)}.result .big.red{color:var(--r)}.breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}.breakdown-item{background:var(--bg);padding:12px;border-radius:8px;text-align:center;font-size:.78rem}.breakdown-item .val{font-weight:700;font-size:1rem;color:var(--p)}.compare-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:.8rem}.compare-table th{background:#f8f9fc;text-align:left;padding:8px 10px;font-weight:600}.compare-table td{padding:8px 10px;border-bottom:1px solid var(--b)}.compare-table .best{color:var(--g);font-weight:700}.footer{text-align:center;padding:20px;color:var(--t2);font-size:.75rem}</style></head><body>
+<header class="header"><a href="/">🧰 ToolkitBox</a> / 💰 电商利润计算器</header>
+<div class="container"><h1>💰 电商利润计算器</h1><p class="sub">多平台利润核算 · 淘宝/拼多多/抖音/京东/亚马逊 · 自动计算平台佣金</p>
+
+<div class="panels">
+<div class="card"><h3>📦 商品信息</h3>
+<div class="fg"><label>平台</label><select id="platform" onchange="calc()"><option value="taobao">🍑 淘宝/天猫 (佣金 2-5%)</option><option value="pdd">🔴 拼多多 (佣金 0.6%)</option><option value="douyin">🎵 抖音电商 (佣金 2-5% + 技术服务费)</option><option value="jd">🐶 京东 (佣金 3-8%)</option><option value="amazon">📦 亚马逊 FBA (佣金 8-15% + 物流)</option></select></div>
+<div class="fg"><label>售价 (元)</label><input type="number" id="price" value="99" min="0" oninput="calc()"></div>
+<div class="fg"><label>进货成本 (元)</label><input type="number" id="cost" value="40" min="0" oninput="calc()"></div>
+<div class="fg"><label>每单平均运费 (元)</label><input type="number" id="shipping" value="5" min="0" oninput="calc()"></div>
+<div class="fg"><label>推广花费占比 (%)</label><input type="number" id="ads" value="10" min="0" max="100" oninput="calc()"></div>
+<div class="fg"><label>退货率 (%)</label><input type="number" id="returns" value="3" min="0" max="100" oninput="calc()"></div></div>
+
+<div class="card"><h3>📊 利润核算</h3>
+<div class="result"><div class="big" id="profitColor">¥0</div><div style="color:var(--t2);font-size:.9rem">每单净利润</div>
+<div class="breakdown"><div class="breakdown-item"><div class="val" id="revenue">¥0</div>销售收入</div>
+<div class="breakdown-item" style="color:var(--r)"><div class="val" id="fee" style="color:var(--r)">¥0</div>平台费用</div>
+<div class="breakdown-item"><div class="val" id="margin">0%</div>利润率</div></div>
+<div style="margin-top:10px;font-size:.82rem">📦 月销 <b>100</b> 单：<b id="month100">¥0</b> · 📦 月销 <b>1000</b> 单：<b id="month1000">¥0</b></div></div></div></div>
+
+<div class="card" style="margin-top:20px"><h3>📊 五大平台利润对比 (售价¥99，成本¥40)</h3>
+<table class="compare-table"><thead><tr><th>平台</th><th>佣金</th><th>每单利润</th><th>利润率</th><th>月销500单</th></tr></thead>
+<tbody id="compareBody"></tbody></table></div>
+
+<footer class="footer"><p>电商利润计算器 | 价格仅供参考 | 实际以各平台最新费率为准 | &copy; 2026 ToolkitBox</p></footer>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+<script>
+const PLATFORMS={taobao:{n:'淘宝/天猫',rate:0.04,fix:0},pdd:{n:'拼多多',rate:0.006,fix:0},douyin:{n:'抖音电商',rate:0.03,fix:0.02},jd:{n:'京东',rate:0.06,fix:0},amazon:{n:'亚马逊FBA',rate:0.12,fix:15}};
+function calc(){const p=document.getElementById('platform').value;const price=parseFloat(document.getElementById('price').value)||0;const cost=parseFloat(document.getElementById('cost').value)||0;const ship=parseFloat(document.getElementById('shipping').value)||0;const adsPct=(parseFloat(document.getElementById('ads').value)||0)/100;const retPct=(parseFloat(document.getElementById('returns').value)||0)/100;
+const pl=PLATFORMS[p];const fee=price*pl.rate+pl.fix;const ads=price*adsPct;const net=price-cost-ship-fee-ads;const netAfterRet=net*(1-retPct);const margin=price>0?Math.round(netAfterRet/price*100):0;
+document.getElementById('profitColor').textContent='¥'+netAfterRet.toFixed(2);
+document.getElementById('profitColor').className='big '+(netAfterRet>=0?'green':'red');
+document.getElementById('revenue').textContent='¥'+price.toFixed(2);
+document.getElementById('fee').textContent='¥'+fee.toFixed(2);
+document.getElementById('margin').textContent=margin+'%';
+document.getElementById('month100').textContent='¥'+(netAfterRet*100).toFixed(0);
+document.getElementById('month1000').textContent='¥'+(netAfterRet*1000).toFixed(0)}
+function buildCompare(){const price=99,cost=40,ship=5,ads=9.9;let h='';let best='',bestVal=-Infinity;for(const[k,v]of Object.entries(PLATFORMS)){const fee=price*v.rate+v.fix;const net=price-cost-ship-fee-ads;const m=Math.round(net/price*100);if(net>bestVal){bestVal=net;best=k}h+='<tr><td>'+v.n+'</td><td>'+(v.rate*100).toFixed(1)+'%'+(v.fix?'+'+v.fix:'')+'</td><td class=\"'+(k===best?'best':'')+'\">¥'+net.toFixed(1)+'</td><td>'+(k===best?'🏆':'')+' '+m+'%</td><td>¥'+(net*500).toFixed(0)+'</td></tr>'}document.getElementById('compareBody').innerHTML=h}
+calc();buildCompare();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"电商利润计算器"}</script>
+</body></html>

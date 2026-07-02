@@ -1,173 +1,5 @@
 [
   {
-    "id": "jsonfmt01",
-    "name": "JSON 格式化工具",
-    "desc": "JSON 美化、校验、压缩、转CSV。支持语法高亮和错误定位，开发者高频工具。",
-    "icon": "{ }",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
-    "tags": [
-      {
-        "text": "JSON",
-        "cls": "tag"
-      },
-      {
-        "text": "格式化",
-        "cls": "tag"
-      },
-      {
-        "text": "50万月搜",
-        "cls": "tag-orange"
-      }
-    ],
-    "url": "/json/",
-    "cat": "dev"
-  },
-  {
-    "id": "base64enc01",
-    "name": "Base64 编解码",
-    "desc": "文本/图片 Base64 互转，支持 URL 安全编码，文件拖拽上传，实时编解码。",
-    "icon": "64",
-    "iconBg": "#e6fff5",
-    "iconColor": "#00b894",
-    "tags": [
-      {
-        "text": "Base64",
-        "cls": "tag"
-      },
-      {
-        "text": "编码",
-        "cls": "tag-green"
-      },
-      {
-        "text": "解码",
-        "cls": "tag"
-      }
-    ],
-    "url": "/base64/",
-    "cat": "dev"
-  },
-  {
-    "id": "hash01",
-    "name": "哈希生成器",
-    "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 五合一哈希。支持文本和文件哈希校验。",
-    "icon": "#",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
-    "tags": [
-      {
-        "text": "MD5",
-        "cls": "tag"
-      },
-      {
-        "text": "SHA256",
-        "cls": "tag"
-      },
-      {
-        "text": "安全",
-        "cls": "tag-red"
-      }
-    ],
-    "url": "/hash/",
-    "cat": "dev"
-  },
-  {
-    "id": "cron01",
-    "name": "Cron 表达式生成器",
-    "desc": "可视化构建Crontab定时任务，实时预览执行时间，内置常用模板。DevOps/SRE必备。",
-    "icon": "⏰",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
-    "tags": [
-      {
-        "text": "Cron",
-        "cls": "tag"
-      },
-      {
-        "text": "Crontab",
-        "cls": "tag"
-      },
-      {
-        "text": "DevOps",
-        "cls": "tag-green"
-      }
-    ],
-    "url": "/cron/",
-    "cat": "dev"
-  },
-  {
-    "id": "contrast01",
-    "name": "WCAG 对比度检测",
-    "desc": "实时检测文字/背景色彩对比度，WCAG 2.1 AA/AAA 等级判定，无障碍合规必备。",
-    "icon": "👁️",
-    "iconBg": "#ffeaea",
-    "iconColor": "#ff6b6b",
-    "tags": [
-      {
-        "text": "WCAG",
-        "cls": "tag"
-      },
-      {
-        "text": "无障碍",
-        "cls": "tag-red"
-      },
-      {
-        "text": "合规",
-        "cls": "tag"
-      }
-    ],
-    "url": "/contrast/",
-    "cat": "design"
-  },
-  {
-    "id": "palette01",
-    "name": "配色方案生成器",
-    "desc": "互补色、类似色、三角色等6种配色模式。一键复制HEX，导出CSS变量。",
-    "icon": "🎨",
-    "iconBg": "#fff8e1",
-    "iconColor": "#e17055",
-    "tags": [
-      {
-        "text": "配色",
-        "cls": "tag"
-      },
-      {
-        "text": "设计",
-        "cls": "tag-orange"
-      },
-      {
-        "text": "CSS",
-        "cls": "tag"
-      }
-    ],
-    "url": "/palette/",
-    "cat": "design"
-  },
-  {
-    "id": "meta01",
-    "name": "Meta 标签生成器",
-    "desc": "HTML Meta / Open Graph / Twitter Card 三合一标签生成。实时预览搜索结果。",
-    "icon": "🏷️",
-    "iconBg": "#e6fff5",
-    "iconColor": "#00b894",
-    "tags": [
-      {
-        "text": "SEO",
-        "cls": "tag"
-      },
-      {
-        "text": "Meta",
-        "cls": "tag-green"
-      },
-      {
-        "text": "OG",
-        "cls": "tag"
-      }
-    ],
-    "url": "/meta/",
-    "cat": "seo"
-  },
-  {
     "id": "wordcounter01",
     "name": "字数统计器",
     "desc": "实时统计中英文字数/字符/行数/段落。微信/微博/小红书字数限制检测。",
@@ -240,54 +72,6 @@
     "cat": "dev"
   },
   {
-    "id": "qrcode01",
-    "name": "QR码生成器",
-    "desc": "免费在线生成二维码。支持网址/文本/电话/WiFi/邮件/短信，自定义颜色，一键下载。",
-    "icon": "📱",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
-    "tags": [
-      {
-        "text": "二维码",
-        "cls": "tag"
-      },
-      {
-        "text": "QR",
-        "cls": "tag-green"
-      },
-      {
-        "text": "新",
-        "cls": "tag-orange"
-      }
-    ],
-    "url": "/qrcode/",
-    "cat": "dev"
-  },
-  {
-    "id": "pwdgen01",
-    "name": "密码生成器",
-    "desc": "随机强密码生成。8-64位，大小写+数字+符号组合。",
-    "icon": "🔐",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
-    "tags": [
-      {
-        "text": "安全",
-        "cls": "tag-red"
-      },
-      {
-        "text": "密码",
-        "cls": "tag"
-      },
-      {
-        "text": "新",
-        "cls": "tag-orange"
-      }
-    ],
-    "url": "/password/",
-    "cat": "dev"
-  },
-  {
     "id": "unitconv01",
     "name": "单位换算器",
     "desc": "长度/重量/温度/面积/体积/速度实时换算。",
@@ -333,6 +117,494 @@
       }
     ],
     "url": "/ip-lookup/",
+    "cat": "dev"
+  },
+  {
+    "id": "minify04",
+    "name": "minify04",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/minify/",
+    "cat": "other"
+  },
+  {
+    "id": "llm08",
+    "name": "llm08",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/llm/",
+    "cat": "other"
+  },
+  {
+    "id": "token12",
+    "name": "token12",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/token/",
+    "cat": "other"
+  },
+  {
+    "id": "asset013",
+    "name": "asset013",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/affiliate-niches/",
+    "cat": "other"
+  },
+  {
+    "id": "asset015",
+    "name": "asset015",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/ai-guide/",
+    "cat": "other"
+  },
+  {
+    "id": "asset016",
+    "name": "asset016",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/ai-tools-review/",
+    "cat": "other"
+  },
+  {
+    "id": "asset017",
+    "name": "asset017",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/base64-encoder/",
+    "cat": "other"
+  },
+  {
+    "id": "asset018",
+    "name": "asset018",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/carbon-calculator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset019",
+    "name": "asset019",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/wcag-contrast-checker/",
+    "cat": "other"
+  },
+  {
+    "id": "asset020",
+    "name": "asset020",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/cron-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset021",
+    "name": "asset021",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/custom/",
+    "cat": "other"
+  },
+  {
+    "id": "asset023",
+    "name": "asset023",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/email-validator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset024",
+    "name": "asset024",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/fba-calculator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset025",
+    "name": "asset025",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/freelance-calculator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset026",
+    "name": "asset026",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/guide/",
+    "cat": "other"
+  },
+  {
+    "id": "asset027",
+    "name": "asset027",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/hash-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset028",
+    "name": "asset028",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/json-formatter/",
+    "cat": "other"
+  },
+  {
+    "id": "asset029",
+    "name": "asset029",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/keyword/",
+    "cat": "other"
+  },
+  {
+    "id": "asset031",
+    "name": "asset031",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/meta-tag-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset032",
+    "name": "asset032",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/color-palette-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset033",
+    "name": "asset033",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/password-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset034",
+    "name": "asset034",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/profit-calculator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset035",
+    "name": "asset035",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/prompt-library/",
+    "cat": "other"
+  },
+  {
+    "id": "asset036",
+    "name": "asset036",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/qrcode-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset037",
+    "name": "asset037",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/quiz-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "asset038",
+    "name": "asset038",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/seo-checker/",
+    "cat": "other"
+  },
+  {
+    "id": "asset039",
+    "name": "asset039",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/seo-guide/",
+    "cat": "other"
+  },
+  {
+    "id": "asset040",
+    "name": "asset040",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/title/",
+    "cat": "other"
+  },
+  {
+    "id": "test_data_generator_01",
+    "name": "test_data_generator_01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/test-data-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "urlenc01",
+    "name": "URL 编解码工具",
+    "desc": "URL Encode/Decode 在线转码。支持encodeURIComponent和encodeURI四种模式，纯本地处理。",
+    "icon": "🔗",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "URL",
+        "cls": "tag"
+      },
+      {
+        "text": "编码",
+        "cls": "tag-green"
+      },
+      {
+        "text": "解码",
+        "cls": "tag"
+      }
+    ],
+    "url": "/url-encoder/",
     "cat": "dev"
   }
 ]

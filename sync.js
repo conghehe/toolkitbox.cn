@@ -199,6 +199,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'AI',cls:'tag'},{text:'LLM',cls:'tag-orange'},{text:'Benchmark',cls:'tag-green'}],
     sourceDir: 'llm-compare', targetSubdir: 'llm-compare', cat:'ai'
   },
+  urlenc01: {
+    icon: '🔗', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: 'URL 编解码工具',
+    desc: 'URL Encode/Decode 在线转码。支持encodeURIComponent和encodeURI四种模式，纯本地处理。',
+    tags: [{text:'URL',cls:'tag'},{text:'编码',cls:'tag-green'},{text:'解码',cls:'tag'}],
+    sourceDir: 'url-encoder', targetSubdir: 'url-encoder', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板
