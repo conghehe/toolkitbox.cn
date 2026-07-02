@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 标题生成器 - ToolkitBox</title>
+  <meta name="description" content="免费AI标题生成工具，输入关键词，一键生成吸引点击的标题，提高文章打开率。">
+  <link rel="canonical" href="https://toolkitbox.cn/title-generator/">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box }
+    body { font-family: -apple-system, "PingFang SC", sans-serif; background: #f5f7fa; color: #1a1a2e; min-height: 100vh; padding: 20px }
+    .container { max-width: 900px; margin: 0 auto }
+    h1 { text-align: center; color: #6c5ce7; margin-bottom: 8px }
+    .subtitle { text-align: center; color: #636e72; margin-bottom: 30px }
+    .input-group { margin-bottom: 20px }
+    input[type="text"] { width: 100%; padding: 12px 16px; border: 2px solid #e9ecef; border-radius: 10px; font-size: 1rem }
+    input[type="text"]:focus { outline: none; border-color: #6c5ce7 }
+    .options { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap }
+    select { padding: 10px; border: 2px solid #e9ecef; border-radius: 8px; font-size: 1rem }
+    button { padding: 12px 24px; background: #6c5ce7; color: #fff; border: none; border-radius: 10px; cursor: pointer; font-size: 1rem; font-weight: 600 }
+    button:hover { background: #5a4bd1 }
+    .results { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.06); margin-top: 20px }
+    .title-item { padding: 12px; background: #f8f9fa; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: .2s }
+    .title-item:hover { background: #f0edff; transform: translateX(4px) }
+    .title-text { font-size: 1.05rem; color: #1a1a2e; margin-bottom: 6px }
+    .title-type { font-size: .75rem; color: #6c5ce7; background: #f0edff; padding: 2px 8px; border-radius: 10px; display: inline-block }
+    .back { display: inline-block; margin-top: 20px; color: #6c5ce7; text-decoration: none }
+    .ads { margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; text-align: center }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🤖 AI 标题生成器</h1>
+    <p class="subtitle">输入关键词，AI生成吸引点击的标题，提高打开率</p>
+    
+    <div class="input-group">
+      <input type="text" id="keywordInput" placeholder="输入关键词，如：AI工具、减肥方法、理财技巧..." />
+    </div>
+    
+    <div class="options">
+      <label>标题类型：
+        <select id="titleType">
+          <option value="all">全部</option>
+          <option value="clickbait">吸引点击</option>
+          <option value="seo">SEO优化</option>
+          <option value="wechat">微信公众号</option>
+          <option value="xiaohongshu">小红书</option>
+        </select>
+      </label>
+      <label>生成数量：
+        <select id="count">
+          <option value="5">5个</option>
+          <option value="10" selected>10个</option>
+          <option value="20">20个</option>
+        </select>
+      </label>
+      <button onclick="generateTitles()">生成标题</button>
+    </div>
+    
+    <div id="results" class="results" style="display:none">
+      <h3 style="margin-bottom: 16px; color: #6c5ce7">✨ 生成结果（点击复制）</h3>
+      <div id="titleList"></div>
+    </div>
+    
+    <div class="ads">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-3563043653255879"
+           data-ad-slot="auto"
+           data-ad-format="auto"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+    
+    <a href="/" class="back">← 返回 ToolkitBox</a>
+  </div>
+  
+  <script>
+    const titleTemplates = {
+      clickbait: [
+        '震惊！{keyword}的真相，第3个太意外了',
+        '揭秘：{keyword}的内幕，业内人士不敢说',
+        '{keyword}完全指南：从入门到精通（2026版）',
+        '千万不要轻易尝试{keyword}，否则...',
+        '曝光！{keyword}的5个误区，你中了几个？'
+      ],
+      seo: [
+        '{keyword}：完整指南与最佳实践',
+        '如何做好{keyword}？10个技巧分享',
+        '{keyword}入门教程（附实例）',
+        '{keyword}工具推荐与对比',
+        '2026年{keyword}趋势分析'
+      ],
+      wechat: [
+        '{keyword}｜这样做，效果翻3倍',
+        '关于{keyword}，我想说几句真心话',
+        '花了3天整理：{keyword}全套资料',
+        '{keyword}实战笔记：从0到1',
+        '推荐｜{keyword}优质资源合集'
+      ],
+      xiaohongshu: [
+        '{keyword}分享📝 亲测有效！',
+        '姐妹们！{keyword}真的绝了🔥',
+        '{keyword}攻略✅ 建议收藏',
+        '盘点｜{keyword}好物推荐',
+        '{keyword}小白必看！避坑指南'
+      ]
+    };
+    
+    function generateTitles() {
+      const keyword = document.getElementById('keywordInput').value.trim();
+      if (!keyword) { alert('请输入关键词'); return; }
+      
+      const type = document.getElementById('titleType').value;
+      const count = parseInt(document.getElementById('count').value);
+      
+      let templates = [];
+      if (type === 'all') {
+        templates = Object.values(titleTemplates).flat();
+      } else {
+        templates = titleTemplates[type] || [];
+      }
+      
+      // 生成标题
+      const titles = [];
+      for (let i = 0; i < count; i++) {
+        const template = templates[Math.floor(Math.random() * templates.length)];
+        const title = template.replace(/{keyword}/g, keyword);
+        const titleType = Object.keys(titleTemplates).find(key => titleTemplates[key].includes(template)) || 'mixed';
+        titles.push({ text: title, type: titleType });
+      }
+      
+      // 显示结果
+      const titleListHtml = titles.map((t, idx) => `
+        <div class="title-item" onclick="copyTitle(${idx})">
+          <div class="title-text">${t.text}</div>
+          <span class="title-type">${t.type}</span>
+        </div>
+      `).join('');
+      
+      document.getElementById('titleList').innerHTML = titleListHtml;
+      document.getElementById('results').style.display = 'block';
+      
+      // 保存标题到全局变量，供复制使用
+      window.generatedTitles = titles.map(t => t.text);
+    }
+    
+    function copyTitle(idx) {
+      const title = window.generatedTitles[idx];
+      navigator.clipboard.writeText(title).then(() => {
+        alert('✅ 已复制：' + title);
+      }).catch(() => {
+        // 降级方案
+        const textarea = document.createElement('textarea');
+        textarea.value = title;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('✅ 已复制：' + title);
+      });
+    }
+    
+    // 支持回车键触发生成
+    document.getElementById('keywordInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') generateTitles();
+    });
+  </script>
+</body>
+</html>
