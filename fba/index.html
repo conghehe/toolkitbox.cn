@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亚马逊FBA费用计算器 2026 - 免费在线FBA利润计算 | ToolkitBox</title>
+<meta name="description" content="免费亚马逊FBA费用计算器，实时计算FBA配送费+仓储费+佣金。支持所有类目和尺寸等级，基于2024-2026亚马逊官方费率表。跨境卖家选品必备工具。">
+<meta name="keywords" content="亚马逊FBA费用, FBA计算器, Amazon FBA calculator, FBA利润计算, 亚马逊费用计算, FBA fee, 跨境电商工具, 亚马逊卖家工具, 选品工具">
+<link rel="canonical" href="https://toolkitbox.cn/fba/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8f9fc; --text: #1a1a2e; --t2: #636e72;
+  --p: #ff9900; --pd: #e68a00; --pl: #ffb84d;
+  --s: #00b894; --sr: #ff6b6b; --sw: #fdcb6e;
+  --b: #e9ecef; --shadow: 0 2px 16px rgba(0,0,0,0.06);
+  --radius: 14px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: linear-gradient(135deg, #fff8f0 0%, #fff3e0 30%, #fafafa 100%);
+  color: var(--text); min-height: 100vh; line-height: 1.6;
+}
+.container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.header {
+  text-align: center; padding: 40px 20px 20px;
+}
+.header h1 {
+  font-size: 2rem; font-weight: 800;
+  background: linear-gradient(135deg, #ff9900, #e17055);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.header p { color: var(--t2); font-size: 0.92rem; max-width: 580px; margin: 0 auto; }
+
+/* Calculator Card */
+.calc-card {
+  background: var(--bg); border-radius: var(--radius);
+  box-shadow: var(--shadow); border: 1px solid var(--b);
+  padding: 28px; margin-bottom: 24px;
+}
+
+/* Form Layout */
+.form-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+}
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-size: 0.8rem; font-weight: 600; color: var(--t2);
+  margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.form-group select, .form-group input {
+  padding: 10px 14px; border: 1.5px solid var(--b); border-radius: 10px;
+  font-size: 0.92rem; font-family: inherit; background: var(--bg2);
+  transition: 0.2s; color: var(--text);
+}
+.form-group select:focus, .form-group input:focus {
+  outline: none; border-color: var(--p); box-shadow: 0 0 0 3px rgba(255,153,0,0.1);
+}
+
+/* Results */
+.results {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0;
+}
+.result-item {
+  background: var(--bg2); border-radius: 12px; padding: 16px; text-align: center;
+  border: 1px solid var(--b);
+}
+.result-label { font-size: 0.72rem; color: var(--t2); margin-bottom: 4px; }
+.result-value { font-size: 1.5rem; font-weight: 800; }
+.result-value.fee { color: var(--sr); }
+.result-value.profit { color: var(--s); }
+.result-value.revenue { color: var(--p); }
+
+.profit-bar {
+  height: 8px; border-radius: 4px; background: var(--b);
+  margin: 16px 0; overflow: hidden; display: flex;
+}
+.profit-bar .fee-seg { background: var(--sr); transition: width 0.3s; }
+.profit-bar .cost-seg { background: var(--sw); transition: width 0.3s; }
+.profit-bar .net-seg { background: var(--s); transition: width 0.3s; }
+
+.breakdown { margin: 16px 0; }
+.breakdown h3 { font-size: 0.95rem; margin-bottom: 10px; }
+.breakdown-row {
+  display: flex; justify-content: space-between; padding: 7px 0;
+  border-bottom: 1px solid var(--b); font-size: 0.85rem;
+}
+.breakdown-row.total {
+  font-weight: 700; border-bottom: none; font-size: 0.95rem;
+  padding-top: 12px; margin-top: 4px; border-top: 2px solid var(--b);
+}
+
+/* Fee Table */
+.fee-table {
+  width: 100%; border-collapse: collapse; font-size: 0.82rem;
+  margin: 12px 0; border-radius: 10px; overflow: hidden;
+}
+.fee-table th {
+  background: var(--p); color: #fff; padding: 10px 12px; text-align: left;
+}
+.fee-table td { padding: 9px 12px; border-bottom: 1px solid var(--b); }
+.fee-table tr:nth-child(even) { background: var(--bg2); }
+.fee-table tr:hover { background: #fff8f0; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin-bottom: 0; border-bottom: 2px solid var(--b); }
+.tab-btn {
+  padding: 10px 20px; border: none; background: none; cursor: pointer;
+  font-size: 0.85rem; font-weight: 600; color: var(--t2);
+  border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: 0.2s;
+}
+.tab-btn.active { color: var(--p); border-bottom-color: var(--p); }
+.tab-btn:hover { color: var(--text); }
+
+/* Content */
+.content-section { margin-bottom: 32px; }
+.content-section h2 {
+  font-size: 1.3rem; margin: 28px 0 12px; color: var(--text);
+  padding-bottom: 8px; border-bottom: 2px solid var(--b);
+}
+.content-section h3 { font-size: 1rem; margin: 16px 0 8px; color: var(--text); }
+.content-section p { font-size: 0.9rem; color: var(--t2); margin-bottom: 10px; line-height: 1.7; }
+.content-section ul { padding-left: 20px; margin-bottom: 12px; }
+.content-section li { font-size: 0.88rem; color: var(--t2); margin-bottom: 6px; line-height: 1.6; }
+
+.info-box {
+  background: #fff8f0; border-left: 4px solid var(--p);
+  padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0;
+  font-size: 0.85rem; color: #92400e;
+}
+.warning-box {
+  background: #fff5f5; border-left: 4px solid var(--sr);
+  padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0;
+  font-size: 0.85rem; color: #9b2c2c;
+}
+
+/* Niche tags */
+.niche-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+.niche-tag {
+  font-size: 0.7rem; padding: 4px 12px; border-radius: 20px;
+  font-weight: 500;
+}
+.nt-1 { background: #f0edff; color: #6c5ce7; }
+.nt-2 { background: #fff8e1; color: #e17055; }
+.nt-3 { background: #e6fff5; color: #00b894; }
+.nt-4 { background: #ffeaea; color: #ff6b6b; }
+
+/* Faq */
+.faq-item { margin-bottom: 14px; }
+.faq-q { font-weight: 700; font-size: 0.9rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--b); }
+.faq-a { font-size: 0.85rem; color: var(--t2); padding: 8px 0 12px 16px; line-height: 1.7; }
+.faq-q::after { content: '+'; font-size: 1.2rem; color: var(--p); }
+.faq-q.open::after { content: '−'; }
+
+/* Footer */
+.footer { text-align: center; padding: 30px; color: var(--t2); font-size: 0.78rem; border-top: 1px solid var(--b); margin-top: 20px; }
+
+/* Ad placeholders */
+.ad-placeholder {
+  background: var(--bg2); border: 1px dashed var(--b); border-radius: 10px;
+  padding: 20px; text-align: center; font-size: 0.75rem; color: var(--t2);
+  margin: 20px 0;
+}
+
+/* Tool cross-link */
+.cross-link {
+  display: flex; align-items: center; gap: 12px; padding: 16px;
+  background: linear-gradient(135deg, #fff3e0, #fff8f0);
+  border-radius: 12px; border: 1px solid #ffb84d33;
+  margin: 20px 0; text-decoration: none; color: var(--text);
+  transition: 0.2s;
+}
+.cross-link:hover { box-shadow: 0 4px 16px rgba(255,153,0,0.15); }
+.cross-link .cl-icon { font-size: 1.6rem; }
+.cross-link .cl-text h4 { font-size: 0.9rem; margin-bottom: 2px; }
+.cross-link .cl-text p { font-size: 0.78rem; color: var(--t2); margin: 0; }
+.cross-link .cl-arrow { margin-left: auto; color: var(--p); font-weight: 700; }
+
+@media (max-width: 700px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .results { grid-template-columns: 1fr 1fr; }
+  .header h1 { font-size: 1.5rem; }
+  .fee-table { font-size: 0.72rem; }
+  .fee-table th, .fee-table td { padding: 6px 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>📦 亚马逊FBA费用计算器 2026</h1>
+    <p>基于亚马逊官方费率表，实时计算FBA配送费 + 仓储费 + 销售佣金。支持所有类目和尺寸等级。跨境卖家选品必备。</p>
+    <div class="niche-tags">
+      <span class="niche-tag nt-2">跨境电商</span>
+      <span class="niche-tag nt-3">亚马逊FBA</span>
+      <span class="niche-tag nt-1">利润核算</span>
+      <span class="niche-tag nt-4">选品工具</span>
+    </div>
+  </div>
+
+  <!-- Calculator -->
+  <div class="calc-card">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('calc')">💰 费用计算</button>
+      <button class="tab-btn" onclick="switchTab('table')">📋 费率表</button>
+      <button class="tab-btn" onclick="switchTab('guide')">📖 选品指南</button>
+    </div>
+
+    <!-- Tab 1: Calculator -->
+    <div id="tab-calc" style="padding-top:20px;">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>商品售价 ($)</label>
+          <input type="number" id="sellPrice" value="29.99" min="1" step="0.01" onchange="calc()" oninput="calc()">
+        </div>
+        <div class="form-group">
+          <label>商品成本 ($)</label>
+          <input type="number" id="productCost" value="8.00" min="0" step="0.01" onchange="calc()" oninput="calc()">
+        </div>
+        <div class="form-group">
+          <label>产品类目</label>
+          <select id="category" onchange="calc()">
+            <option value="15">家居/厨房/户外/工具/宠物 (15%)</option>
+            <option value="8">婴儿/健康/美容 ≤$10 (8%)</option>
+            <option value="15-2">婴儿/健康/美容 >$10 (15%)</option>
+            <option value="17">服装配饰 (17%)</option>
+            <option value="12">汽车配件 (12%)</option>
+            <option value="8-2" selected>电子产品 (8%)</option>
+            <option value="15-3">办公用品/工艺品 (15%)</option>
+            <option value="8-3">食品杂货 ≤$15 (8%)</option>
+            <option value="15-4">食品杂货 >$15 (15%)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>尺寸等级</label>
+          <select id="sizeTier" onchange="calconSize()">
+            <option value="ss">小标准件 (Small Standard)</option>
+            <option value="ls" selected>大标准件 (Large Standard)</option>
+            <option value="so">小超大件 (Small Oversize)</option>
+            <option value="lo">大超大件 (Large Oversize)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>商品重量</label>
+          <select id="weight" onchange="calc()">
+          </select>
+        </div>
+        <div class="form-group">
+          <label>月仓储 (立方英尺)</label>
+          <input type="number" id="storageVol" value="0.1" min="0" step="0.01" onchange="calc()" oninput="calc()">
+        </div>
+        <div class="form-group">
+          <label>预计月销量 (件)</label>
+          <input type="number" id="monthlyUnits" value="100" min="1" step="1" onchange="calc()" oninput="calc()">
+        </div>
+        <div class="form-group">
+          <label>单件广告费 ($)</label>
+          <input type="number" id="adCost" value="3.00" min="0" step="0.01" onchange="calc()" oninput="calc()">
+        </div>
+      </div>
+
+      <div class="results">
+        <div class="result-item">
+          <div class="result-label">亚马逊总费用/件</div>
+          <div class="result-value fee" id="totalFee">--</div>
+          <div style="font-size:0.7rem;color:var(--t2)">含配送+佣金+仓储</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">净利润/件</div>
+          <div class="result-value profit" id="netProfit">--</div>
+          <div style="font-size:0.7rem;color:var(--t2)" id="marginPct"></div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">月利润</div>
+          <div class="result-value profit" id="monthlyProfit">--</div>
+          <div style="font-size:0.7rem;color:var(--t2)">含广告费</div>
+        </div>
+        <div class="result-item">
+          <div class="result-label">ROI</div>
+          <div class="result-value revenue" id="roiVal">--</div>
+          <div style="font-size:0.7rem;color:var(--t2)">利润/投入成本</div>
+        </div>
+      </div>
+
+      <div class="profit-bar" id="profitBar">
+        <div class="fee-seg" style="width:30%"></div>
+        <div class="cost-seg" style="width:30%"></div>
+        <div class="net-seg" style="width:40%"></div>
+      </div>
+
+      <div class="breakdown">
+        <h3>📊 费用明细（每件）</h3>
+        <div class="breakdown-row"><span>FBA配送费</span><span id="detFba">--</span></div>
+        <div class="breakdown-row"><span>销售佣金 (<span id="detRefRate">--</span>)</span><span id="detRef">--</span></div>
+        <div class="breakdown-row"><span>月仓储费</span><span id="detStorage">--</span></div>
+        <div class="breakdown-row"><span>广告费</span><span id="detAd">--</span></div>
+        <div class="breakdown-row"><span>商品成本</span><span id="detCost">--</span></div>
+        <div class="breakdown-row total"><span>💰 净利润</span><span id="detNet" style="color:var(--s)">--</span></div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Fee Table -->
+    <div id="tab-table" style="padding-top:20px; display:none;">
+      <h3 style="margin-bottom:12px;">📋 亚马逊FBA配送费率表（美国站 2024-2026）</h3>
+      <table class="fee-table">
+        <thead>
+          <tr>
+            <th>尺寸等级</th>
+            <th>重量范围</th>
+            <th>配送费 (USD)</th>
+            <th>适用场景</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>小标准件</td><td>≤ 4 oz</td><td>$3.22</td><td>手机壳、数据线、首饰</td></tr>
+          <tr><td>小标准件</td><td>4-8 oz</td><td>$3.34</td><td>小工具、文具</td></tr>
+          <tr><td>小标准件</td><td>8-12 oz</td><td>$3.55</td><td>厨具、配件</td></tr>
+          <tr><td>小标准件</td><td>12-16 oz</td><td>$3.77</td><td>书籍、玩具</td></tr>
+          <tr><td>大标准件</td><td>≤ 4 oz</td><td>$3.86</td><td>电子产品</td></tr>
+          <tr><td>大标准件</td><td>4-8 oz</td><td>$4.24</td><td>中号厨具</td></tr>
+          <tr><td>大标准件</td><td>8-12 oz</td><td>$5.01</td><td>衣物、鞋</td></tr>
+          <tr><td>大标准件</td><td>12-16 oz</td><td>$5.35</td><td>大号电子产品</td></tr>
+          <tr><td>大标准件</td><td>1-2 lb</td><td>$5.90</td><td>工具、电子产品套装</td></tr>
+          <tr><td>大标准件</td><td>2-3 lb</td><td>$6.29</td><td>较重家居用品</td></tr>
+          <tr><td>小超大件</td><td>≤ 70 lb</td><td>$9.73+</td><td>大件商品起步</td></tr>
+          <tr><td>大超大件</td><td>≤ 150 lb</td><td>$89.98+</td><td>家具、健身器材</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:20px 0 12px;">📊 销售佣金费率表</h3>
+      <table class="fee-table">
+        <thead>
+          <tr><th>类目</th><th>佣金比例</th><th>最低佣金</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>电子产品</td><td>8%</td><td>$0.30</td></tr>
+          <tr><td>婴儿用品 ≤$10</td><td>8%</td><td>$0.30</td></tr>
+          <tr><td>婴儿用品 >$10</td><td>15%</td><td>$0.30</td></tr>
+          <tr><td>美容/个护 ≤$10</td><td>8%</td><td>$0.30</td></tr>
+          <tr><td>美容/个护 >$10</td><td>15%</td><td>$0.30</td></tr>
+          <tr><td>汽车配件</td><td>12%</td><td>$0.30</td></tr>
+          <tr><td>家居/厨房/户外</td><td>15%</td><td>$0.30</td></tr>
+          <tr><td>工具/家装</td><td>15%</td><td>$0.30</td></tr>
+          <tr><td>宠物用品</td><td>15%</td><td>$0.30</td></tr>
+          <tr><td>办公用品</td><td>15%</td><td>$0.30</td></tr>
+          <tr><td>工艺品/缝纫</td><td>15%</td><td>$0.30</td></tr>
+          <tr><td>服装配饰</td><td>17%</td><td>$0.30</td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin:20px 0 12px;">📦 月度仓储费率</h3>
+      <table class="fee-table">
+        <thead>
+          <tr><th>时段</th><th>标准尺寸</th><th>超大尺寸</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1-9月</td><td>$0.78/立方英尺</td><td>$0.56/立方英尺</td></tr>
+          <tr><td>10-12月</td><td>$2.40/立方英尺</td><td>$1.40/立方英尺</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Tab 3: Guide -->
+    <div id="tab-guide" style="padding-top:20px; display:none;">
+      <h3>🎯 2026年亚马逊FBA选品黄金法则</h3>
+      
+      <div class="info-box">
+        <strong>💡 核心公式：</strong> 售价 ≥ 商品成本 × 3 + FBA费用。也就是说，如果你的商品成本是$10，售价至少需要$30 + FBA配送费$5 = $35才能盈利。
+      </div>
+
+      <h4>✅ 推荐新手品类（低竞争+高利润）</h4>
+      <ul>
+        <li><strong>家居收纳</strong> — 利润率30-45%，退货率极低，轻小件FBA费低。细分：竹制抽屉收纳、冰箱整理盒、线缆管理</li>
+        <li><strong>宠物用品</strong> — 66%美国家庭养宠，年消费$147B。细分：互动玩具、美容工具、旅行配件</li>
+        <li><strong>办公桌配件</strong> — 远程办公常态化。细分：桌面收纳、显示器支架、桌垫</li>
+        <li><strong>汽车内饰配件</strong> — 仅12%佣金！竞争极低。细分：座椅收纳、后备箱整理、手机支架</li>
+        <li><strong>工艺品/手工材料</strong> — 退货率最低的类目之一，买家忠诚度高。细分：丙烯马克笔套装、刺绣入门套装</li>
+        <li><strong>园艺工具</strong> — 春夏旺季+室内种植全年需求。细分：自动浇花器、育苗套装</li>
+      </ul>
+
+      <h4>⚠️ 新手应避免的品类</h4>
+      <ul>
+        <li><strong style="color:var(--sr)">服装</strong> — 退货率20-30%，尺码问题多，佣金17%</li>
+        <li><strong style="color:var(--sr)">保健品</strong> — FDA监管严格，合规成本高，法律风险大</li>
+        <li><strong style="color:var(--sr)">电子产品</strong> — 更新换代快，退货率高，需FCC认证</li>
+        <li><strong style="color:var(--sr)">儿童玩具</strong> — CPSIA安全测试要求，Q4季节性强</li>
+      </ul>
+
+      <h4>📐 FBA费用优化技巧</h4>
+      <ul>
+        <li><strong>控制尺寸：</strong> 小标准件配送费$3.22 vs 大标准件$5.90，差距$2.68/件。1000件/月就是$2,680的差异</li>
+        <li><strong>选对类目：</strong> 8%佣金（电子/婴儿）vs 15%佣金 = 7%的净利差。$30售价差$2.1/件</li>
+        <li><strong>注意Q4仓储：</strong> 10-12月仓储费暴涨3倍（$0.78→$2.40/立方英尺）</li>
+        <li><strong>打包优化：</strong> 套装/捆绑销售可提高客单价，摊薄固定费用</li>
+      </ul>
+
+      <div class="warning-box">
+        <strong>⚠️ 注意：</strong> 以上费率基于2024年亚马逊美国站公布数据，实际费用可能因政策调整而变化。建议每月使用本计算器重新核算，登录Seller Central查看最新费率。
+      </div>
+
+      <!-- Cross-link to profit calculator -->
+      <a href="/profit/" class="cross-link">
+        <span class="cl-icon">💰</span>
+        <span class="cl-text">
+          <h4>电商利润计算器</h4>
+          <p>支持淘宝/拼多多/抖音/京东/亚马逊五平台利润核算</p>
+        </span>
+        <span class="cl-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Ad placeholder 1 -->
+  <div class="ad-placeholder">📢 广告位 — 亚马逊卖家工具推荐</div>
+
+  <!-- SEO Education Content -->
+  <div class="content-section">
+    <h2>为什么亚马逊卖家需要FBA费用计算器？</h2>
+    <p>在2026年的亚马逊市场，选品不精确可能直接导致亏损。很多新手卖家只关注"售价 - 进货成本"，完全忽略了FBA配送费、仓储费、销售佣金和广告费这些隐性成本。一个完整的FBA利润模型需要计算所有费用才能得出真实的净利润。</p>
+    
+    <p>我们的FBA费用计算器基于亚马逊官方2024年费率表（2025-2026年基本保持稳定），覆盖了所有尺寸等级（小标准件到大超大件）和所有主要类目（电子产品8%佣金到服装17%佣金）。只需输入商品售价、成本、尺寸和类目，即可实时获得完整的费用明细。</p>
+
+    <h2>亚马逊FBA费用构成详解</h2>
+    
+    <h3>1. FBA配送费（Fulfillment Fee）</h3>
+    <p>这是亚马逊从仓库到你客户手中的物流费用。费用主要取决于商品的尺寸等级和重量。小标准件（如手机壳、数据线）起点$3.22，而大超大件（如家具）可达$89.98+。</p>
+
+    <h3>2. 销售佣金（Referral Fee）</h3>
+    <p>亚马逊从每笔交易中抽取的佣金，按类目不同从8%到17%不等。大多数类目为15%。电子产品仅8%——这就是为什么很多卖家偏好电子品类的原因之一。</p>
+
+    <h3>3. 月度仓储费（Monthly Storage Fee）</h3>
+    <p>根据商品在FBA仓库中占用的体积（立方英尺）收取。标准尺寸1-9月$0.78/立方英尺，Q4旺季（10-12月）暴涨至$2.40/立方英尺。</p>
+
+    <h3>4. 其他隐藏费用</h3>
+    <p>入库配置费（2024年新增）、长期仓储费（存放超271天）、退货处理费、移除订单费等——这些都是容易被忽略的成本。</p>
+
+    <h2>2026年跨境电商新机遇：冷门长尾品类</h2>
+    <p>在竞争白热化的2026年跨境市场，聪明的卖家不再追逐红海品类，而是转向冷门长尾市场。根据市场研究，以下三个方向值得关注：</p>
+
+    <ul>
+      <li><strong>银发经济适老化产品</strong> — 全球老龄化加速，智能家居适老化改造套件在欧洲市场的月销售额可达12万欧元。关键：简化操作、模块化设计</li>
+      <li><strong>爬宠生态系统套装</strong> — 爬虫宠物市场年增18%，美国600万爱好者，套装客单价$129。关键：将专业知识转化为标准化方案</li>
+      <li><strong>便携式太阳能露营设备</strong> — 全球户外活动5亿参与者，折叠式太阳能烹饪系统Kickstarter众筹$300万。关键：解决电力焦虑</li>
+    </ul>
+
+    <h2>常见问题 (FAQ)</h2>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">FBA费用和FBM费用有什么区别？</div>
+      <div class="faq-a" style="display:none">FBA (Fulfillment by Amazon) 是亚马逊代发货，费用包含配送费+仓储费+佣金，卖家不需要自己处理物流。FBM (Fulfillment by Merchant) 是卖家自发货，只需支付佣金，但需要自己管理仓储和配送。FBA的优势是Prime标识和更高的转化率，适合轻小件标准品。FBM适合大件/重件或低频商品。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">新手做亚马逊FBA需要多少启动资金？</div>
+      <div class="faq-a" style="display:none">低复杂度品类建议$2,000-5,000起步：首批库存200-500件（约$1,000-3,000）、专业卖家账号$39.99/月、产品摄影$200-500、前期PPC广告$500-1,000。高合规品类（婴儿/儿童）需要额外$1,000-3,000测试费。建议从家居收纳或办公用品等低复杂度品类入手。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">FBA选品最重要的是什么？</div>
+      <div class="faq-a" style="display:none">六个要素：①需求稳定性（全年销售而非季节性）②真实利润率（售价-进货成本-所有FBA费用-PPC≥25%）③竞争深度（首页至少3-5个listing评论<500条）④尺寸重量（控制在小标准或大标准件）⑤合规要求（新手避开创可贴/保健品/儿童用品）⑥差异化空间（包装/套装/颜色/材料升级）。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="this.classList.toggle('open'); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">如何降低FBA配送费用？</div>
+      <div class="faq-a" style="display:none">①缩小包装尺寸：每减少1英寸边长可能降一个尺寸等级 ②轻量化设计：小标准件≤16oz，超过就跳到大标准件 ③套装策略：将多个小件组合成高客单价套装，摊薄物流比例 ④避免超大件：小超大件起点$9.73，是大标准件的近2倍 ⑤Q4前清理库存：旺季仓储费涨3倍。</div>
+    </div>
+  </div>
+
+  <!-- Ad placeholder 2 -->
+  <div class="ad-placeholder">📢 广告位 — 跨境物流/ERP工具推荐</div>
+
+  <footer class="footer">
+    <p>ToolkitBox.cn · 亚马逊FBA费用计算器 | 数据基于亚马逊官方费率表，仅供参考</p>
+    <p style="margin-top:4px">© 2026 ToolkitBox · 由 MoneyMaker 自动生成 | <a href="/" style="color:var(--p)">返回首页</a> | <a href="/profit/" style="color:var(--p)">电商利润计算器</a></p>
+  </footer>
+
+</div>
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"亚马逊FBA费用计算器","url":"https://toolkitbox.cn/fba/","description":"免费亚马逊FBA费用计算器，实时计算FBA配送费+仓储费+佣金。基于官方费率表。","applicationCategory":"FinanceApplication","operatingSystem":"All"}
+</script>
+
+<script>
+// ─── FBA Fee Schedule ─────────────────────────────────────
+const FBA_RATES = {
+  ss: [ // Small Standard
+    { maxLb: 0.25, fee: 3.22, label: '≤ 4 oz' },
+    { maxLb: 0.5,  fee: 3.34, label: '4-8 oz' },
+    { maxLb: 0.75, fee: 3.55, label: '8-12 oz' },
+    { maxLb: 1.0,  fee: 3.77, label: '12-16 oz' }
+  ],
+  ls: [ // Large Standard
+    { maxLb: 0.25, fee: 3.86, label: '≤ 4 oz' },
+    { maxLb: 0.5,  fee: 4.24, label: '4-8 oz' },
+    { maxLb: 0.75, fee: 5.01, label: '8-12 oz' },
+    { maxLb: 1.0,  fee: 5.35, label: '12-16 oz' },
+    { maxLb: 2.0,  fee: 5.90, label: '1-2 lb' },
+    { maxLb: 3.0,  fee: 6.29, label: '2-3 lb' }
+  ],
+  so: [ // Small Oversize
+    { maxLb: 1, fee: 9.73, label: '≤ 1 lb' },
+    { maxLb: 2, fee: 10.70, label: '1-2 lb' },
+    { maxLb: 70, fee: 11.50, label: '2-70 lb' }
+  ],
+  lo: [ // Large Oversize
+    { maxLb: 1, fee: 89.98, label: '≤ 1 lb' },
+    { maxLb: 150, fee: 90.00, label: '1-150 lb' }
+  ]
+};
+
+// Storage rates per cubic foot
+const STORAGE_RATES = { standard: 0.78, oversize: 0.56, q4_standard: 2.40, q4_oversize: 1.40 };
+
+// Category referral rates
+const REFERRAL_RATES = {
+  '15': 0.15, '8': 0.08, '15-2': 0.15, '17': 0.17, '12': 0.12,
+  '8-2': 0.08, '15-3': 0.15, '8-3': 0.08, '15-4': 0.15
+};
+
+// Update weight options based on size tier
+function updateWeightOptions() {
+  const tier = document.getElementById('sizeTier').value;
+  const rates = FBA_RATES[tier];
+  const sel = document.getElementById('weight');
+  sel.innerHTML = rates.map((r, i) => `<option value="${i}" ${i === 0 ? 'selected' : ''}>${r.label} ($${r.fee.toFixed(2)})</option>`).join('');
+}
+
+function calc() {
+  const sellPrice = parseFloat(document.getElementById('sellPrice').value) || 0;
+  const productCost = parseFloat(document.getElementById('productCost').value) || 0;
+  const catVal = document.getElementById('category').value;
+  const tier = document.getElementById('sizeTier').value;
+  const weightIdx = parseInt(document.getElementById('weight').value) || 0;
+  const storageVol = parseFloat(document.getElementById('storageVol').value) || 0;
+  const monthlyUnits = parseInt(document.getElementById('monthlyUnits').value) || 0;
+  const adCost = parseFloat(document.getElementById('adCost').value) || 0;
+
+  const fbaFee = FBA_RATES[tier][weightIdx]?.fee || 0;
+  const refRate = REFERRAL_RATES[catVal] || 0.15;
+  const refFee = sellPrice * refRate;
+  
+  const isOversize = tier === 'so' || tier === 'lo';
+  const storageRate = isOversize ? STORAGE_RATES.oversize : STORAGE_RATES.standard;
+  const storageFeePerUnit = Math.max(storageVol * storageRate, 0.01);
+  
+  const totalAmazonFee = fbaFee + refFee + storageFeePerUnit;
+  const netPerUnit = sellPrice - productCost - totalAmazonFee - adCost;
+  const monthlyProfit = netPerUnit * monthlyUnits;
+  const totalCost = productCost + totalAmazonFee + adCost;
+  const roi = totalCost > 0 ? ((netPerUnit / totalCost) * 100) : 0;
+  const marginPct = sellPrice > 0 ? ((netPerUnit / sellPrice) * 100) : 0;
+
+  // Display total
+  document.getElementById('totalFee').textContent = '$' + totalAmazonFee.toFixed(2);
+  document.getElementById('netProfit').textContent = '$' + netPerUnit.toFixed(2);
+  document.getElementById('monthlyProfit').textContent = '$' + monthlyProfit.toFixed(2);
+  document.getElementById('roiVal').textContent = roi.toFixed(0) + '%';
+  document.getElementById('marginPct').textContent = '利润率 ' + marginPct.toFixed(1) + '%';
+
+  // Breakdown
+  document.getElementById('detFba').textContent = '$' + fbaFee.toFixed(2);
+  document.getElementById('detRefRate').textContent = (refRate * 100).toFixed(0) + '%';
+  document.getElementById('detRef').textContent = '$' + refFee.toFixed(2);
+  document.getElementById('detStorage').textContent = '$' + storageFeePerUnit.toFixed(2);
+  document.getElementById('detAd').textContent = '$' + adCost.toFixed(2);
+  document.getElementById('detCost').textContent = '$' + productCost.toFixed(2);
+  document.getElementById('detNet').textContent = '$' + netPerUnit.toFixed(2);
+
+  // Color net profit
+  const netEl = document.getElementById('netProfit');
+  netEl.className = 'result-value ' + (netPerUnit > 0 ? 'profit' : 'fee');
+
+  // Profit bar
+  const total = sellPrice;
+  const feePct = total > 0 ? ((fbaFee + refFee + storageFeePerUnit) / total * 100) : 0;
+  const costPct = total > 0 ? ((productCost + adCost) / total * 100) : 0;
+  const netPct = total > 0 ? Math.max(netPerUnit / total * 100, 0) : 0;
+  
+  const bar = document.getElementById('profitBar');
+  bar.innerHTML = `
+    <div class="fee-seg" style="width:${feePct}%"></div>
+    <div class="cost-seg" style="width:${costPct}%"></div>
+    <div class="net-seg" style="width:${netPct}%"></div>
+  `;
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-calc').style.display = tab === 'calc' ? 'block' : 'none';
+  document.getElementById('tab-table').style.display = tab === 'table' ? 'block' : 'none';
+  document.getElementById('tab-guide').style.display = tab === 'guide' ? 'block' : 'none';
+}
+
+// Init
+updateWeightOptions();
+document.getElementById('sizeTier').addEventListener('change', function() {
+  updateWeightOptions();
+  calc();
+});
+calc();
+</script>
+
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+</html>
