@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSH密钥生成器 - 在线生成RSA/ECDSA/ED25519密钥对 | ToolkitBox</title>
+<meta name="description" content="免费在线SSH密钥生成器，支持RSA(2048/4096)、ECDSA(P-256/384/521)、ED25519三种算法。纯浏览器端Web Crypto API生成，密钥数据不上传，安全可靠。一键复制公钥/私钥，支持PEM格式下载。">
+<meta name="keywords" content="SSH密钥生成器,ssh key generator,RSA密钥,ED25519,ECDSA,ssh-keygen在线,公钥私钥,SSH key pair,在线生成SSH密钥,OpenSSH格式">
+<link rel="canonical" href="https://toolkitbox.cn/ssh-key-generator/">
+<style>
+:root {
+  --bg: #ffffff;
+  --bg2: #f8f9fa;
+  --bg3: #e9ecef;
+  --text: #212529;
+  --text2: #495057;
+  --text3: #6c757d;
+  --border: #dee2e6;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-light: #dbeafe;
+  --success: #059669;
+  --success-bg: #d1fae5;
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+  --card-shadow-hover: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --radius: 8px;
+  --radius-sm: 6px;
+  --code-bg: #f1f5f9;
+  --header-bg: #0f172a;
+  --header-text: #f1f5f9;
+}
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --bg2: #1e293b;
+  --bg3: #334155;
+  --text: #e2e8f0;
+  --text2: #cbd5e1;
+  --text3: #94a3b8;
+  --border: #334155;
+  --accent: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-light: #1e3a5f;
+  --success: #10b981;
+  --success-bg: #064e3b;
+  --warning: #f59e0b;
+  --warning-bg: #78350f;
+  --danger: #ef4444;
+  --danger-bg: #7f1d1d;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --card-shadow-hover: 0 4px 6px rgba(0,0,0,0.4);
+  --code-bg: #1e293b;
+  --header-bg: #020617;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background .3s, color .3s; }
+.header { background: var(--header-bg); color: var(--header-text); padding: 16px 0; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+.logo { font-size: 1.25rem; font-weight: 700; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.logo-icon { font-size: 1.5rem; }
+.theme-toggle { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: var(--radius-sm); cursor: pointer; font-size: .875rem; transition: background .2s; }
+.theme-toggle:hover { background: rgba(255,255,255,0.2); }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+.ad-banner { background: var(--bg2); border: 1px dashed var(--border); border-radius: var(--radius); padding: 16px; text-align: center; color: var(--text3); font-size: .8rem; margin-bottom: 24px; min-height: 90px; display: flex; align-items: center; justify-content: center; }
+.main-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--card-shadow); overflow: hidden; }
+.card-header { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.card-header h1 { font-size: 1.5rem; font-weight: 700; color: var(--text); }
+.card-header p { color: var(--text2); font-size: .9rem; margin-top: 4px; }
+.card-body { padding: 24px; }
+.controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.control-group { display: flex; flex-direction: column; gap: 6px; }
+.control-group label { font-size: .8rem; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: .5px; }
+.control-group select, .control-group input { padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg2); color: var(--text); font-size: .9rem; font-family: inherit; transition: border-color .2s; appearance: none; -webkit-appearance: none; }
+.control-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+.control-group select:focus, .control-group input:focus { outline: none; border-color: var(--accent); }
+.btn-generate { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 24px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600; cursor: pointer; transition: background .2s, transform .1s; }
+.btn-generate:hover { background: var(--accent-hover); }
+.btn-generate:active { transform: scale(0.98); }
+.btn-generate:disabled { opacity: .6; cursor: not-allowed; }
+.spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.result-area { margin-top: 20px; }
+.key-section { margin-bottom: 20px; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.key-section-header { padding: 12px 16px; background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.key-section-header h3 { font-size: .9rem; font-weight: 600; color: var(--text); }
+.key-badge { font-size: .75rem; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+.badge-public { background: var(--success-bg); color: var(--success); }
+.badge-private { background: var(--danger-bg); color: var(--danger); }
+.key-content { position: relative; }
+.key-content pre { padding: 16px; background: var(--code-bg); color: var(--text); font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace; font-size: .8rem; line-height: 1.5; overflow-x: auto; white-space: pre-wrap; word-break: break-all; max-height: 280px; overflow-y: auto; border: none; margin: 0; }
+.key-actions { display: flex; gap: 8px; padding: 10px 16px; background: var(--bg2); border-top: 1px solid var(--border); }
+.btn-action { padding: 6px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text); font-size: .8rem; cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: 4px; }
+.btn-action:hover { background: var(--bg3); border-color: var(--accent); }
+.btn-action.copied { background: var(--success-bg); border-color: var(--success); color: var(--success); }
+.btn-danger { color: var(--danger); border-color: var(--danger); }
+.btn-danger:hover { background: var(--danger-bg); }
+.fingerprint { padding: 12px 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 16px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: .85rem; word-break: break-all; }
+.fingerprint-label { font-size: .75rem; font-weight: 600; color: var(--text3); text-transform: uppercase; margin-bottom: 4px; }
+.safety-notice { background: var(--warning-bg); border: 1px solid var(--warning); border-radius: var(--radius-sm); padding: 14px 18px; margin: 20px 0; display: flex; align-items: flex-start; gap: 10px; }
+.safety-notice .icon { font-size: 1.2rem; flex-shrink: 0; }
+.safety-notice .text { font-size: .85rem; color: var(--text); }
+.seo-section { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+.seo-section h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+.seo-section h3 { font-size: 1rem; font-weight: 600; margin: 16px 0 8px; color: var(--text); }
+.seo-section p, .seo-section li { font-size: .9rem; color: var(--text2); margin-bottom: 8px; }
+.seo-section ul { padding-left: 20px; }
+.algorithm-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .85rem; }
+.algorithm-table th { background: var(--bg2); padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text); border-bottom: 2px solid var(--border); }
+.algorithm-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text2); }
+.algorithm-table tr:hover td { background: var(--bg2); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem; font-weight: 600; }
+.tag-green { background: var(--success-bg); color: var(--success); }
+.tag-yellow { background: var(--warning-bg); color: var(--warning); }
+.footer { text-align: center; padding: 32px 0 20px; color: var(--text3); font-size: .8rem; }
+.footer a { color: var(--accent); text-decoration: none; }
+.empty-state { text-align: center; padding: 40px 20px; color: var(--text3); }
+.empty-state .icon-large { font-size: 3rem; margin-bottom: 12px; }
+.empty-state p { font-size: .9rem; }
+@media (max-width: 640px) {
+  .card-body { padding: 16px; }
+  .header-inner { padding: 0 14px; }
+  .container { padding: 16px 12px; }
+  .card-header { padding: 16px; }
+  .card-header h1 { font-size: 1.25rem; }
+  .key-content pre { font-size: .7rem; }
+  .controls { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="https://toolkitbox.cn/" class="logo"><span class="logo-icon">&#9881;</span>ToolkitBox</a>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">&#9789; 深色模式</button>
+  </div>
+</header>
+<div class="container">
+  <div class="ad-banner">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3563043653255879" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="main-card">
+    <div class="card-header">
+      <h1>&#128273; SSH 密钥生成器</h1>
+      <p>纯浏览器端生成 RSA/ECDSA/ED25519 SSH 密钥对 &mdash; 数据不上传，安全可靠</p>
+    </div>
+    <div class="card-body">
+      <div class="controls">
+        <div class="control-group">
+          <label>密钥算法</label>
+          <select id="keyType" onchange="updateBitOptions()">
+            <option value="RSA">RSA</option>
+            <option value="ECDSA">ECDSA</option>
+            <option value="ED25519">ED25519</option>
+          </select>
+        </div>
+        <div class="control-group" id="bitSizeGroup">
+          <label>密钥长度</label>
+          <select id="keyBits">
+            <option value="2048">2048 位 (推荐)</option>
+            <option value="4096">4096 位 (更安全)</option>
+          </select>
+        </div>
+        <div class="control-group" id="ecCurveGroup" style="display:none">
+          <label>椭圆曲线</label>
+          <select id="ecCurve">
+            <option value="P-256">P-256 (推荐)</option>
+            <option value="P-384">P-384</option>
+            <option value="P-521">P-521</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>密钥注释</label>
+          <input type="text" id="keyComment" value="user@hostname" placeholder="user@hostname">
+        </div>
+      </div>
+      <button class="btn-generate" onclick="generateKeys()" id="genBtn">
+        &#9881; 生成密钥对
+      </button>
+
+      <div id="resultContainer" class="result-area"></div>
+    </div>
+  </div>
+
+  <div class="ad-banner" style="margin-top:24px">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3563043653255879" data-ad-slot="0987654321" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="seo-section">
+    <h2>&#128218; SSH 密钥详解</h2>
+    <p>SSH（Secure Shell）密钥对是现代服务器管理和代码托管的核心安全机制。与密码认证不同，SSH 密钥使用非对称加密技术，由<strong>公钥（Public Key）</strong>和<strong>私钥（Private Key）</strong>组成。公钥部署在服务器上，私钥保存在本地设备，两者配合完成身份验证，无需在网络上传输密码。</p>
+
+    <h3>支持的算法对比</h3>
+    <table class="algorithm-table">
+      <thead>
+        <tr><th>算法</th><th>安全等级</th><th>性能</th><th>兼容性</th><th>推荐场景</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ED25519</strong></td>
+          <td><span class="tag tag-green">极高</span></td>
+          <td>极快</td>
+          <td>OpenSSH 6.5+</td>
+          <td>现代系统首选</td>
+        </tr>
+        <tr>
+          <td><strong>ECDSA P-256</strong></td>
+          <td><span class="tag tag-green">高</span></td>
+          <td>快</td>
+          <td>广泛支持</td>
+          <td>通用场景</td>
+        </tr>
+        <tr>
+          <td><strong>RSA 4096</strong></td>
+          <td><span class="tag tag-green">高</span></td>
+          <td>较慢</td>
+          <td>所有系统</td>
+          <td>最大兼容性</td>
+        </tr>
+        <tr>
+          <td><strong>RSA 2048</strong></td>
+          <td><span class="tag tag-yellow">中</span></td>
+          <td>中等</td>
+          <td>所有系统</td>
+          <td>基本使用</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>使用场景</h3>
+    <ul>
+      <li><strong>GitHub / GitLab：</strong>将公钥添加到账户设置中，实现免密 git push/pull</li>
+      <li><strong>服务器管理：</strong>将公钥写入服务器的 ~/.ssh/authorized_keys，实现免密 SSH 登录</li>
+      <li><strong>CI/CD 管道：</strong>部署密钥用于自动化构建和部署流程</li>
+      <li><strong>SFTP 文件传输：</strong>安全的文件传输认证</li>
+    </ul>
+
+    <h3>安全提示</h3>
+    <ul>
+      <li><strong>私钥绝不分享：</strong>私钥等同于你的数字身份，泄露后任何人都可以冒充你</li>
+      <li><strong>使用密码保护：</strong>可以用 ssh-keygen -p 为私钥添加密码短语（passphrase）</li>
+      <li><strong>定期轮换：</strong>建议每 6-12 个月更换一次 SSH 密钥</li>
+      <li><strong>不同用途不同密钥：</strong>为个人项目和工作项目使用不同的密钥对</li>
+      <li><strong>本工具不收集数据：</strong>所有密钥在浏览器本地生成，不会上传到任何服务器</li>
+    </ul>
+
+    <h3>常见问题</h3>
+    <p><strong>Q: 如何将公钥添加到服务器？</strong></p>
+    <p>A: 将生成的公钥内容追加到服务器的 ~/.ssh/authorized_keys 文件中。可以使用命令：<code>echo "公钥内容" >> ~/.ssh/authorized_keys</code></p>
+    <p><strong>Q: 为什么推荐 ED25519？</strong></p>
+    <p>A: ED25519 在相同安全级别下密钥更短（256位 vs RSA 2048位），生成和验证速度更快，且不易受侧信道攻击。自 OpenSSH 6.5 起广泛支持。</p>
+    <p><strong>Q: 本工具生成的密钥与 ssh-keygen 兼容吗？</strong></p>
+    <p>A: 是的。本工具使用标准的 PEM（Privacy Enhanced Mail）格式输出，与 OpenSSH ssh-keygen 生成的格式完全兼容。</p>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 <a href="https://toolkitbox.cn/">ToolkitBox</a> &mdash; 开发者在线工具站 &middot; 纯浏览器端处理，数据不上传</p>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var STORAGE_KEY = 'sshkeygen_theme';
+  var saved = localStorage.getItem(STORAGE_KEY);
+  if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  updateThemeBtn();
+
+  window.toggleTheme = function() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem(STORAGE_KEY, 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem(STORAGE_KEY, 'dark');
+    }
+    updateThemeBtn();
+  };
+
+  function updateThemeBtn() {
+    var btn = document.getElementById('themeBtn');
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    btn.innerHTML = isDark ? '&#9728; 浅色模式' : '&#9789; 深色模式';
+  }
+})();
+
+function updateBitOptions() {
+  var type = document.getElementById('keyType').value;
+  document.getElementById('bitSizeGroup').style.display = type === 'RSA' ? '' : 'none';
+  document.getElementById('ecCurveGroup').style.display = type === 'ECDSA' ? '' : 'none';
+  if (type === 'ED25519') {
+    document.getElementById('keyComment').placeholder = 'user@hostname';
+  }
+}
+
+function arrayBufferToBase64(buffer) {
+  var bytes = new Uint8Array(buffer);
+  var binary = '';
+  for (var i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+function pemEncode(derBytes, label) {
+  var b64 = arrayBufferToBase64(derBytes);
+  var lines = [];
+  lines.push('-----BEGIN ' + label + '-----');
+  for (var i = 0; i < b64.length; i += 64) {
+    lines.push(b64.substring(i, i + 64));
+  }
+  lines.push('-----END ' + label + '-----');
+  return lines.join('\n');
+}
+
+function pemEncodeOpenSSH(derBytes) {
+  var b64 = arrayBufferToBase64(derBytes);
+  return 'ssh-ed25519 ' + b64;
+}
+
+async function sha256Fingerprint(keyBytes) {
+  var hash = await crypto.subtle.digest('SHA-256', keyBytes);
+  var hashArray = new Uint8Array(hash);
+  var b64 = btoa(String.fromCharCode.apply(null, hashArray));
+  return 'SHA256:' + b64.replace(/=+$/, '');
+}
+
+function randomBytesHex(n) {
+  var arr = new Uint8Array(n);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, function(b) { return ('00' + b.toString(16)).slice(-2); }).join(':');
+}
+
+async function generateKeyPair() {
+  var keyType = document.getElementById('keyType').value;
+  var algo = null;
+  var params = null;
+
+  if (keyType === 'RSA') {
+    var bits = parseInt(document.getElementById('keyBits').value);
+    algo = { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' };
+    params = {
+      name: 'RSASSA-PKCS1-v1_5',
+      hash: 'SHA-256',
+      modulusLength: bits,
+      publicExponent: new Uint8Array([1, 0, 1])
+    };
+  } else if (keyType === 'ECDSA') {
+    var curve = document.getElementById('ecCurve').value;
+    algo = { name: 'ECDSA', namedCurve: curve };
+    params = { name: 'ECDSA', namedCurve: curve };
+  } else if (keyType === 'ED25519') {
+    try {
+      algo = { name: 'Ed25519' };
+      params = { name: 'Ed25519' };
+    } catch(e) {
+      throw new Error('您的浏览器不支持 ED25519 算法，请使用 Chrome 113+、Edge 113+ 或 Firefox 119+');
+    }
+  }
+
+  return await crypto.subtle.generateKey(params, true, ['sign', 'verify']);
+}
+
+async function exportKey(key, format) {
+  if (format === 'spki') {
+    return await crypto.subtle.exportKey('spki', key);
+  } else {
+    return await crypto.subtle.exportKey('pkcs8', key);
+  }
+}
+
+async function generateKeys() {
+  var btn = document.getElementById('genBtn');
+  var container = document.getElementById('resultContainer');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> 正在生成...';
+  container.innerHTML = '';
+
+  try {
+    var keyPair = await generateKeyPair();
+    var publicDer = await exportKey(keyPair.publicKey, 'spki');
+    var privateDer = await exportKey(keyPair.privateKey, 'pkcs8');
+
+    var keyType = document.getElementById('keyType').value;
+    var comment = document.getElementById('keyComment').value || 'user@hostname';
+    var publicLabel, privateLabel, publicKeyText, privateKeyText;
+
+    if (keyType === 'ED25519') {
+      publicLabel = 'OPENSSH PRIVATE KEY';
+      privateLabel = 'OPENSSH PRIVATE KEY';
+      publicKeyText = pemEncodeOpenSSH(publicDer) + ' ' + comment;
+      privateKeyText = pemEncode(privateDer, 'OPENSSH PRIVATE KEY');
+    } else if (keyType === 'ECDSA') {
+      publicLabel = 'PUBLIC KEY';
+      privateLabel = 'EC PRIVATE KEY';
+      var curve = document.getElementById('ecCurve').value;
+      publicKeyText = 'ecdsa-sha2-nistp' + curve.substring(2) + ' ' + arrayBufferToBase64(publicDer) + ' ' + comment;
+      privateKeyText = pemEncode(privateDer, 'EC PRIVATE KEY');
+    } else {
+      publicLabel = 'PUBLIC KEY';
+      privateLabel = 'RSA PRIVATE KEY';
+      publicKeyText = 'ssh-rsa ' + arrayBufferToBase64(publicDer) + ' ' + comment;
+      privateKeyText = pemEncode(privateDer, 'RSA PRIVATE KEY');
+    }
+
+    var fp = await sha256Fingerprint(publicDer);
+    var keyTypeDisplay = keyType;
+    if (keyType === 'RSA') keyTypeDisplay = 'RSA-' + document.getElementById('keyBits').value;
+    if (keyType === 'ECDSA') keyTypeDisplay = 'ECDSA-' + document.getElementById('ecCurve').value;
+
+    var html = '<div class="fingerprint">';
+    html += '<div class="fingerprint-label">密钥指纹 (SHA256)</div>';
+    html += '<div>' + fp + '</div>';
+    html += '<div style="font-size:.75rem;color:var(--text3);margin-top:4px">随机艺术: ' + randomBytesHex(16) + '</div>';
+    html += '</div>';
+
+    html += '<div class="safety-notice">';
+    html += '<span class="icon">&#9888;</span>';
+    html += '<div class="text"><strong>安全提醒：</strong>请将<strong>私钥</strong>安全保存，不要分享给任何人。公钥可以放心部署到服务器和代码托管平台。所有密钥仅在您的浏览器中生成，不会上传至任何服务器。</div>';
+    html += '</div>';
+
+    html += '<div class="key-section">';
+    html += '<div class="key-section-header">';
+    html += '<h3>&#128274; 私钥 (Private Key) &mdash; 请妥善保管</h3>';
+    html += '<span class="key-badge badge-private">私密</span>';
+    html += '</div>';
+    html += '<div class="key-content">';
+    html += '<pre id="privateKeyContent">' + escapeHtml(privateKeyText) + '</pre>';
+    html += '</div>';
+    html += '<div class="key-actions">';
+    html += '<button class="btn-action btn-danger" onclick="copyKey(\'privateKeyContent\', this)">&#128203; 复制私钥</button>';
+    html += '<button class="btn-action" onclick="downloadKey(\'' + escapeAttr(privateKeyText) + '\', \'id_' + keyType.toLowerCase().replace('-','') + '\')">&#128190; 下载私钥</button>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="key-section">';
+    html += '<div class="key-section-header">';
+    html += '<h3>&#128275; 公钥 (Public Key) &mdash; 可公开部署</h3>';
+    html += '<span class="key-badge badge-public">公开</span>';
+    html += '</div>';
+    html += '<div class="key-content">';
+    html += '<pre id="publicKeyContent">' + escapeHtml(publicKeyText) + '</pre>';
+    html += '</div>';
+    html += '<div class="key-actions">';
+    html += '<button class="btn-action" onclick="copyKey(\'publicKeyContent\', this)">&#128203; 复制公钥</button>';
+    html += '<button class="btn-action" onclick="downloadKey(\'' + escapeAttr(publicKeyText) + '\', \'id_' + keyType.toLowerCase().replace('-','') + '.pub\')">&#128190; 下载公钥</button>';
+    html += '</div>';
+    html += '</div>';
+
+    var deployment = '';
+    if (keyType === 'RSA') {
+      deployment = '<div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;margin-top:12px;font-size:.85rem;color:var(--text2)">';
+      deployment += '<strong style="color:var(--text)">快速部署到服务器：</strong><br>';
+      deployment += '<code style="background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:.8rem">ssh-copy-id -i ~/.ssh/id_' + keyType.toLowerCase().replace('-','') + ' ' + comment.split('@')[1] || 'server' + '</code>';
+      deployment += '</div>';
+    }
+    html += deployment;
+
+    container.innerHTML = html;
+
+  } catch(e) {
+    container.innerHTML = '<div class="safety-notice"><span class="icon">&#10060;</span><div class="text"><strong>生成失败：</strong>' + escapeHtml(e.message) + '</div></div>';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '&#9881; 生成密钥对';
+  }
+}
+
+function copyKey(elementId, btn) {
+  var pre = document.getElementById(elementId);
+  if (!pre) return;
+  var text = pre.textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    var originalText = btn.innerHTML;
+    btn.innerHTML = '&#10003; 已复制';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.innerHTML = originalText;
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(function() {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    var originalText = btn.innerHTML;
+    btn.innerHTML = '&#10003; 已复制';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.innerHTML = originalText;
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function downloadKey(content, filename) {
+  var blob = new Blob([content], { type: 'text/plain' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function escapeAttr(str) {
+  return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n');
+}
+
+document.getElementById('keyType').addEventListener('change', updateBitOptions);
+
+(function() {
+  var container = document.getElementById('resultContainer');
+  container.innerHTML = '<div class="empty-state"><div class="icon-large">&#128273;</div><p>选择算法和参数后，点击「生成密钥对」按钮<br>所有密钥在浏览器本地生成，数据不上传</p></div>';
+})();
+</script>
+</body>
+</html>

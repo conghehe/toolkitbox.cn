@@ -774,5 +774,29 @@
     ],
     "url": "/form-builder/",
     "cat": "dev"
+  },
+  {
+    "id": "sshkey01",
+    "name": "SSH 密钥生成器",
+    "desc": "纯浏览器端生成RSA/ECDSA/ED25519 SSH密钥对。Web Crypto API本地生成，安全可靠。",
+    "icon": "🔑",
+    "iconBg": "#e8f5e9",
+    "iconColor": "#2e7d32",
+    "tags": [
+      {
+        "text": "SSH",
+        "cls": "tag"
+      },
+      {
+        "text": "安全",
+        "cls": "tag-red"
+      },
+      {
+        "text": "加密",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/ssh-key-generator/",
+    "cat": "dev"
   }
 ]

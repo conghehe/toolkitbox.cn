@@ -241,6 +241,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'表单',cls:'tag'},{text:'HTML',cls:'tag-green'},{text:'可视化',cls:'tag-orange'}],
     sourceDir: 'form-builder', targetSubdir: 'form-builder', cat:'dev'
   },
+  sshkey01: {
+    icon: '🔑', iconBg: '#e8f5e9', iconColor: '#2e7d32',
+    title: 'SSH 密钥生成器',
+    desc: '纯浏览器端生成RSA/ECDSA/ED25519 SSH密钥对。Web Crypto API本地生成，安全可靠。',
+    tags: [{text:'SSH',cls:'tag'},{text:'安全',cls:'tag-red'},{text:'加密',cls:'tag-green'}],
+    sourceDir: 'ssh-key-generator', targetSubdir: 'ssh-key-generator', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板
