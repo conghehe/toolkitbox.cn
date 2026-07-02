@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>在线Markdown编辑器 - 免费Markdown实时预览与编辑工具</title>
+<meta name="description" content="免费在线Markdown编辑器，支持实时预览、快捷工具栏、语法高亮、HTML代码导出、深色主题。Markdown在线编辑，极速流畅，数据纯本地处理。">
+<meta name="keywords" content="Markdown编辑器,在线Markdown,Markdown实时预览,Markdown在线编辑,markdown editor,Markdown转HTML,免费Markdown工具,Markdown写作">
+<link rel="canonical" href="https://toolkitbox.cn/markdown-editor/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#ffffff;--bg2:#f8f9fa;--bg3:#e9ecef;--t:#1a1a2e;--t2:#636e72;--t3:#999;--p:#6c5ce7;--ph:#5a4bd1;--b:#dee2e6;--code-bg:#f1f3f5;--shadow:0 2px 12px rgba(0,0,0,.06);--toolbar-bg:#fff;--preview-bg:#fff;--input-bg:#fafbfc;--input-border:#d0d5dd}
+.dark{--bg:#1a1a2e;--bg2:#222240;--bg3:#2a2a4a;--t:#e0e0e0;--t2:#aaa;--t3:#777;--p:#a78bfa;--ph:#c4b5fd;--b:#333;--code-bg:#2a2a4a;--shadow:0 2px 12px rgba(0,0,0,.3);--toolbar-bg:#1e1e36;--preview-bg:#1e1e36;--input-bg:#1e1e36;--input-border:#444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--t);min-height:100vh}
+.dark body{background:linear-gradient(135deg,#12122a,#1a1a2e)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--toolbar-bg);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.topbar h1{font-size:1.1rem;color:var(--p);display:flex;align-items:center;gap:8px}
+.topbar .actions{display:flex;gap:8px;align-items:center}
+.topbar .actions button{padding:7px 14px;border:1px solid var(--b);background:var(--bg);color:var(--t);border-radius:6px;cursor:pointer;font-size:.82rem;transition:.15s;white-space:nowrap}
+.topbar .actions button:hover{border-color:var(--p);color:var(--p)}
+.topbar .actions button.primary{background:var(--p);color:#fff;border-color:var(--p)}
+.topbar .actions button.primary:hover{background:var(--ph)}
+.toolbar{display:flex;flex-wrap:wrap;gap:4px;padding:10px 16px;background:var(--toolbar-bg);border-bottom:1px solid var(--b);overflow-x:auto}
+.toolbar button{width:36px;height:34px;border:1px solid transparent;background:transparent;color:var(--t2);border-radius:5px;cursor:pointer;font-size:.95rem;transition:.15s;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:monospace}
+.toolbar button:hover{background:var(--bg2);color:var(--p);border-color:var(--b)}
+.toolbar button.active{background:var(--p);color:#fff}
+.toolbar .sep{width:1px;background:var(--b);margin:0 6px;align-self:stretch}
+.toolbar select{padding:4px 8px;border:1px solid var(--b);background:var(--bg);color:var(--t);border-radius:5px;font-size:.8rem;cursor:pointer}
+.editor-wrap{display:flex;flex:1;min-height:0;position:relative}
+.panel{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.panel-header{padding:8px 16px;background:var(--bg2);border-bottom:1px solid var(--b);font-size:.75rem;color:var(--t2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;display:flex;justify-content:space-between;align-items:center}
+.panel-header span.chars{font-weight:400;color:var(--t3)}
+.panel+.panel{border-left:1px solid var(--b)}
+textarea.editor{flex:1;width:100%;border:none;outline:none;padding:16px;font-family:'JetBrains Mono','Fira Code','Cascadia Code','SF Mono',Consolas,monospace;font-size:.88rem;line-height:1.7;resize:none;background:var(--input-bg);color:var(--t);tab-size:4}
+textarea.editor::placeholder{color:var(--t3)}
+.preview{flex:1;overflow-y:auto;padding:16px 20px;background:var(--preview-bg)}
+.preview .empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--t3);font-size:.9rem;flex-direction:column;gap:8px;text-align:center;padding:40px}
+.preview h1{font-size:1.8rem;margin:16px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--b);color:var(--t)}
+.preview h2{font-size:1.5rem;margin:20px 0 8px;padding-bottom:4px;border-bottom:1px solid var(--b)}
+.preview h3{font-size:1.2rem;margin:16px 0 6px}
+.preview h4{font-size:1.05rem;margin:12px 0 4px}
+.preview p{margin:6px 0;line-height:1.7}
+.preview blockquote{border-left:3px solid var(--p);padding:6px 14px;margin:10px 0;background:var(--bg2);border-radius:0 6px 6px 0;color:var(--t2)}
+.preview code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:.85rem;font-family:monospace;color:#e74c3c}
+.dark .preview code{color:#ff6b6b}
+.preview pre{background:var(--code-bg);padding:14px 16px;border-radius:8px;overflow-x:auto;margin:10px 0;border:1px solid var(--b)}
+.preview pre code{background:none;padding:0;color:var(--t);font-size:.82rem;line-height:1.6}
+.preview ul,.preview ol{padding-left:24px;margin:6px 0}
+.preview li{line-height:1.7;margin:2px 0}
+.preview a{color:var(--p);text-decoration:underline}
+.preview img{max-width:100%;border-radius:6px;margin:8px 0}
+.preview table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85rem}
+.preview table th,.preview table td{border:1px solid var(--b);padding:8px 12px;text-align:left}
+.preview table th{background:var(--bg2);font-weight:600}
+.preview hr{border:none;border-top:2px solid var(--b);margin:16px 0}
+.content-section{max-width:900px;margin:0 auto;padding:40px 20px}
+.content-section h2{font-size:1.5rem;margin:24px 0 12px;color:var(--t)}
+.content-section p{font-size:.9rem;color:var(--t2);line-height:1.8;margin:8px 0}
+.content-section ul{margin:12px 0;padding-left:20px}
+.content-section li{font-size:.9rem;color:var(--t2);line-height:1.8}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.feature-item{background:var(--bg);border:1px solid var(--b);border-radius:10px;padding:16px}
+.feature-item h4{font-size:.9rem;color:var(--t);margin-bottom:4px}
+.feature-item p{font-size:.8rem;color:var(--t2);line-height:1.5;margin:0}
+table.md-cheat{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
+table.md-cheat th,table.md-cheat td{border:1px solid var(--b);padding:8px 12px;text-align:left}
+table.md-cheat th{background:var(--bg2)}
+table.md-cheat code{background:var(--code-bg);padding:2px 6px;border-radius:3px;font-size:.82rem;color:var(--p)}
+footer{text-align:center;padding:30px;color:var(--t3);font-size:.75rem;border-top:1px solid var(--b);background:var(--bg)}
+@media(max-width:768px){
+  .editor-wrap{flex-direction:column}
+  .panel+.panel{border-left:none;border-top:1px solid var(--b)}
+  .panel{min-height:50vh}
+  .topbar h1 span.label{display:none}
+  .toolbar{padding:8px 10px;gap:2px}
+  .toolbar button{width:32px;height:30px;font-size:.85rem}
+  .toolbar .sep{margin:0 3px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1><span style="font-size:1.4rem">📝</span><span class="label">Markdown 编辑器</span></h1>
+  <div class="actions">
+    <button onclick="loadSample()" title="加载示例">📋 示例</button>
+    <button onclick="clearAll()" title="清空编辑器">🗑️ 清空</button>
+    <button onclick="copyHTML()" title="复制HTML代码">📋 复制HTML</button>
+    <button onclick="downloadMD()" title="下载Markdown文件">💾 下载.md</button>
+    <button onclick="toggleTheme()" id="themeBtn" title="切换主题">🌙 暗色</button>
+  </div>
+</div>
+
+<div class="toolbar" id="toolbar">
+  <button onclick="insertMD('h2','## ')" title="标题2">H2</button>
+  <button onclick="insertMD('h3','### ')" title="标题3">H3</button>
+  <button onclick="insertMD('h4','#### ')" title="标题4">H4</button>
+  <span class="sep"></span>
+  <button onclick="wrapMD('**')" title="加粗"><b>B</b></button>
+  <button onclick="wrapMD('*')" title="斜体"><i>I</i></button>
+  <button onclick="wrapMD('`')" title="行内代码">&lt;/&gt;</button>
+  <button onclick="wrapMD('~~')" title="删除线"><s>S</s></button>
+  <span class="sep"></span>
+  <button onclick="insertMD('ul','- ')" title="无序列表">•=</button>
+  <button onclick="insertMD('ol','1. ')" title="有序列表">1.</button>
+  <button onclick="insertMD('task','- [ ] ')" title="任务列表">☐</button>
+  <span class="sep"></span>
+  <button onclick="insertMD('link','[链接文字](https://)')" title="链接">🔗</button>
+  <button onclick="insertMD('image','![图片描述](https://)')" title="图片">🖼️</button>
+  <span class="sep"></span>
+  <button onclick="insertMD('quote','> ')" title="引用">❝</button>
+  <button onclick="insertMD('codeblock','```\n\n```')" title="代码块">{ }</button>
+  <button onclick="insertMD('table','| 列1 | 列2 | 列3 |\n| --- | --- | --- |\n|   |   |   |')" title="表格">⊞</button>
+  <button onclick="insertMD('hr','\n---\n')" title="分割线">—</button>
+</div>
+
+<div class="editor-wrap">
+  <div class="panel">
+    <div class="panel-header">✏️ Markdown 编辑 <span class="chars" id="charCount">0 字符</span></div>
+    <textarea class="editor" id="editor" placeholder="# 欢迎使用 Markdown 编辑器&#10;&#10;在左侧输入 Markdown 语法，右侧实时预览。&#10;&#10;## 快速开始&#10;&#10;试试这些语法：&#10;&#10;- **加粗文本**&#10;- *斜体文本*&#10;- `行内代码`&#10;- [链接](https://example.com)&#10;- > 引用文字&#10;&#10;```javascript&#10;console.log(&#039;代码块&#039;);&#10;```&#10;&#10;| 功能 | 说明 |&#10;| --- | --- |&#10;| 实时预览 | 输入即预览 |&#10;| HTML导出 | 一键复制 |"></textarea>
+  </div>
+  <div class="panel">
+    <div class="panel-header">👁️ 实时预览</div>
+    <div class="preview" id="preview">
+      <div class="empty">
+        <div style="font-size:3rem">📝</div>
+        <div>在左侧输入 Markdown，这里实时预览</div>
+        <div style="font-size:.78rem;color:var(--t3)">支持 GitHub Flavored Markdown 语法</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>什么是 Markdown？</h2>
+  <p>Markdown 是一种轻量级标记语言，由 John Gruber 于 2004 年创建。它使用简单的纯文本格式语法，可以轻松转换为结构化的 HTML 文档。Markdown 被广泛应用于 GitHub、Stack Overflow、Reddit、Notion 等平台，是现代开发者和写作者必备的技能之一。</p>
+
+  <h2>Markdown 语法速查表</h2>
+  <table class="md-cheat">
+    <tr><th>语法</th><th>效果</th><th>说明</th></tr>
+    <tr><td><code># 标题1</code></td><td><strong>一级标题</strong></td><td># 数量代表标题级别(1-6)</td></tr>
+    <tr><td><code>**粗体**</code></td><td><strong>粗体文字</strong></td><td>或使用 __双下划线__</td></tr>
+    <tr><td><code>*斜体*</code></td><td><em>斜体文字</em></td><td>或使用 _单下划线_</td></tr>
+    <tr><td><code>~~删除线~~</code></td><td><del>删除线</del></td><td></td></tr>
+    <tr><td><code>`代码`</code></td><td><code>行内代码</code></td><td>反引号包裹</td></tr>
+    <tr><td><code>[文字](链接)</code></td><td><a href="#">超链接</a></td><td>方括号+圆括号</td></tr>
+    <tr><td><code>![alt](图片URL)</code></td><td>嵌入图片</td><td>链接前加感叹号</td></tr>
+    <tr><td><code>- 列表项</code></td><td>无序列表</td><td>用 - 或 * 或 +</td></tr>
+    <tr><td><code>1. 列表项</code></td><td>有序列表</td><td>数字+点+空格</td></tr>
+    <tr><td><code>&gt; 引用</code></td><td><blockquote>引用块</blockquote></td><td>可嵌套多个 &gt;</td></tr>
+    <tr><td><code>```代码块```</code></td><td>多行代码块</td><td>可指定语言高亮</td></tr>
+    <tr><td><code>---</code></td><td><hr></td><td>水平分割线</td></tr>
+    <tr><td><code>|表头|表头|</code></td><td>表格</td><td>用 | 和 - 构建</td></tr>
+    <tr><td><code>- [ ] 任务</code></td><td>☐ 任务列表</td><td>勾选用 [x]</td></tr>
+  </table>
+
+  <h2>为什么选择我们的 Markdown 编辑器？</h2>
+  <div class="feature-grid">
+    <div class="feature-item"><h4>🚀 实时预览</h4><p>输入即渲染，所见即所得，无需刷新页面</p></div>
+    <div class="feature-item"><h4>🔒 纯本地处理</h4><p>所有数据在浏览器中处理，绝不会上传到服务器，保障隐私安全</p></div>
+    <div class="feature-item"><h4>🛠️ 快捷工具栏</h4><p>一键插入标题、加粗、链接、表格等，无需记忆Markdown语法</p></div>
+    <div class="feature-item"><h4>📱 响应式设计</h4><p>完美适配桌面端和移动端，随时随地写作</p></div>
+    <div class="feature-item"><h4>🌙 深色模式</h4><p>保护眼睛的深色主题，适合长时间写作</p></div>
+    <div class="feature-item"><h4>💾 一键导出</h4><p>支持下载为 .md 文件和复制 HTML 代码</p></div>
+    <div class="feature-item"><h4>🎯 GitHub 风格</h4><p>完整支持 GFM 语法：表格、任务列表、删除线、代码块语言标注</p></div>
+    <div class="feature-item"><h4>💯 完全免费</h4><p>免费使用，无需注册，无需登录，无使用限制</p></div>
+  </div>
+
+  <h2>常见使用场景</h2>
+  <ul>
+    <li><strong>技术文档编写</strong> — GitHub README、API 文档、项目 Wiki</li>
+    <li><strong>博客文章写作</strong> — 支持导出 HTML 嵌入 WordPress、Hexo、Hugo 等平台</li>
+    <li><strong>笔记记录</strong> — 结构化笔记，配合 Obsidian、Notion 等工具</li>
+    <li><strong>团队协作</strong> — 统一的格式化文档，避免格式混乱</li>
+    <li><strong>产品需求文档(PRD)</strong> — 结构清晰的产品规格说明</li>
+  </ul>
+
+  <h2>Markdown 编辑器常见问题</h2>
+  <p><strong>Q: Markdown 编辑器和富文本编辑器有什么区别？</strong><br>A: Markdown 编辑器用纯文本语法标记格式，文件体积小、跨平台兼容性好、可版本控制。富文本编辑器所见即所得，但文件格式不通用。</p>
+  <p><strong>Q: 我的数据安全吗？</strong><br>A: 完全安全。本工具是纯前端应用，所有编辑和渲染操作都在你的浏览器中完成，数据不会上传到任何服务器。</p>
+  <p><strong>Q: 支持哪些 Markdown 语法？</strong><br>A: 支持 GitHub Flavored Markdown (GFM) 规范，包括标题、加粗、斜体、删除线、链接、图片、列表、引用、代码块、表格、任务列表、分割线等完整语法。</p>
+</div>
+
+<footer>&copy; 2026 ToolkitBox · 免费在线 Markdown 编辑器 · 纯本地处理，数据不上传</footer>
+
+<script>
+(function(){
+  var editor = document.getElementById('editor');
+  var preview = document.getElementById('preview');
+  var charCount = document.getElementById('charCount');
+  var isDark = false;
+
+  function md2html(md) {
+    if (!md || !md.trim()) return '';
+    var lines = md.split('\n');
+    var html = [];
+    var inCodeBlock = false;
+    var codeLines = [];
+    var codeLang = '';
+    var inTable = false;
+    var tableRows = [];
+    var inList = false;
+    var listType = '';
+    var listStack = [];
+    var inBlockquote = false;
+    var bqLines = [];
+
+    function flushBlockquote() {
+      if (inBlockquote && bqLines.length > 0) {
+        html.push('<blockquote>' + md2html(bqLines.join('\n')) + '</blockquote>');
+        bqLines = [];
+        inBlockquote = false;
+      }
+    }
+
+    function flushInline(text) {
+      if (!text) return text;
+      // Escape HTML
+      text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      // Images (must be before links)
+      text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">');
+      // Links
+      text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      // Bold and Italic
+      text = text.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+      text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+      text = text.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+      text = text.replace(/_([^_]+)_/g, '<em>$1</em>');
+      // Strikethrough
+      text = text.replace(/~~(.+?)~~/g, '<del>$1</del>');
+      // Inline code (after bold/italic)
+      text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+      return text;
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var trimmed = line.trim();
+
+      // Code blocks
+      if (trimmed.startsWith('```')) {
+        flushBlockquote();
+        if (inCodeBlock) {
+          html.push('<pre><code' + (codeLang ? ' class="language-' + codeLang + '"' : '') + '>' + escapeHTML(codeLines.join('\n')) + '</code></pre>');
+          codeLines = [];
+          codeLang = '';
+          inCodeBlock = false;
+        } else {
+          codeLang = trimmed.slice(3).trim();
+          inCodeBlock = true;
+        }
+        continue;
+      }
+      if (inCodeBlock) {
+        codeLines.push(line);
+        continue;
+      }
+
+      // Blockquote
+      if (trimmed.startsWith('>')) {
+        var bqContent = trimmed.replace(/^>\s?/, '');
+        bqLines.push(bqContent);
+        inBlockquote = true;
+        continue;
+      } else {
+        flushBlockquote();
+      }
+
+      // Table
+      var cells = trimmed.split('|').filter(function(c) { return c.trim(); });
+      if (cells.length >= 2 && /^\|/.test(trimmed) && /\|$/.test(trimmed)) {
+        if (trimmed.match(/^\|[\s\-:]+\|[\s\-:]+\|/)) {
+          // Separator row, skip
+          continue;
+        }
+        if (!inTable) {
+          inTable = true;
+          tableRows = [];
+        }
+        tableRows.push(cells);
+        continue;
+      } else if (inTable) {
+        renderTable();
+        inTable = false;
+        tableRows = [];
+      }
+
+      // Horizontal rule
+      if (/^(-{3,}|\*{3,}|_{3,})$/.test(trimmed)) {
+        html.push('<hr>');
+        continue;
+      }
+
+      // Headers
+      var hMatch = trimmed.match(/^(#{1,6})\s+(.*)/);
+      if (hMatch) {
+        var level = hMatch[1].length;
+        html.push('<h' + level + '>' + flushInline(hMatch[2]) + '</h' + level + '>');
+        continue;
+      }
+
+      // Task list
+      var taskMatch = trimmed.match(/^-\s*\[([ x])\]\s+(.*)/);
+      if (taskMatch) {
+        var checked = taskMatch[1] === 'x' ? ' checked' : '';
+        html.push('<div><input type="checkbox"' + checked + ' disabled style="margin-right:6px">' + flushInline(taskMatch[2]) + '</div>');
+        continue;
+      }
+
+      // Unordered list
+      var ulMatch = trimmed.match(/^[\-\*\+]\s+(.*)/);
+      if (ulMatch) {
+        html.push('<ul><li>' + flushInline(ulMatch[1]) + '</li></ul>');
+        continue;
+      }
+
+      // Ordered list
+      var olMatch = trimmed.match(/^\d+[\.\)]\s+(.*)/);
+      if (olMatch) {
+        html.push('<ol><li>' + flushInline(olMatch[1]) + '</li></ol>');
+        continue;
+      }
+
+      // Empty line
+      if (!trimmed) {
+        html.push('<br>');
+        continue;
+      }
+
+      // Paragraph
+      html.push('<p>' + flushInline(trimmed) + '</p>');
+    }
+
+    flushBlockquote();
+    if (inTable) renderTable();
+    if (inCodeBlock && codeLines.length > 0) {
+      html.push('<pre><code' + (codeLang ? ' class="language-' + codeLang + '"' : '') + '>' + escapeHTML(codeLines.join('\n')) + '</code></pre>');
+    }
+
+    function renderTable() {
+      if (tableRows.length === 0) return;
+      var tHtml = '<table>';
+      for (var r = 0; r < tableRows.length; r++) {
+        var tag = r === 0 ? 'th' : 'td';
+        tHtml += '<tr>';
+        for (var c = 0; c < tableRows[r].length; c++) {
+          tHtml += '<' + tag + '>' + flushInline(tableRows[r][c].trim()) + '</' + tag + '>';
+        }
+        tHtml += '</tr>';
+      }
+      tHtml += '</table>';
+      html.push(tHtml);
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    return html.join('\n');
+  }
+
+  function updatePreview() {
+    var md = editor.value;
+    var html = md2html(md);
+    if (!html.trim()) {
+      preview.innerHTML = '<div class="empty"><div style="font-size:3rem">📝</div><div>在左侧输入 Markdown，这里实时预览</div><div style="font-size:.78rem;color:var(--t3)">支持 GitHub Flavored Markdown 语法</div></div>';
+    } else {
+      preview.innerHTML = html;
+    }
+    charCount.textContent = md.length + ' 字符';
+  }
+
+  editor.addEventListener('input', updatePreview);
+
+  // Initial render
+  updatePreview();
+
+  // Tab key support in editor
+  editor.addEventListener('keydown', function(e) {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      var start = editor.selectionStart;
+      var end = editor.selectionEnd;
+      editor.value = editor.value.substring(0, start) + '    ' + editor.value.substring(end);
+      editor.selectionStart = editor.selectionEnd = start + 4;
+      updatePreview();
+    }
+  });
+
+  // Insert at cursor
+  window.insertMD = function(type, syntax) {
+    var start = editor.selectionStart;
+    var end = editor.selectionEnd;
+    var text = editor.value;
+    var selected = text.substring(start, end);
+
+    if (selected && (syntax.startsWith('**') || syntax.startsWith('*') || syntax.startsWith('`') || syntax.startsWith('~~'))) {
+      // Wrap selected text
+      var wrap = syntax;
+      editor.value = text.substring(0, start) + wrap + selected + wrap + text.substring(end);
+      editor.selectionStart = start + wrap.length;
+      editor.selectionEnd = end + wrap.length;
+    } else if (type === 'codeblock') {
+      var before = text.substring(0, start);
+      var insertText = '\n```\n' + (selected || '代码') + '\n```\n';
+      editor.value = text.substring(0, start) + insertText + text.substring(end);
+      editor.selectionStart = start + 5;
+      editor.selectionEnd = start + 5 + (selected ? selected.length : 2);
+    } else {
+      var lineStart = text.lastIndexOf('\n', start - 1) + 1;
+      var prefix = text.substring(lineStart, start);
+      if (prefix.length > 0 && !syntax.startsWith('\n')) {
+        editor.value = text.substring(0, start) + '\n' + syntax + text.substring(end);
+        editor.selectionStart = start + 1 + syntax.length;
+        editor.selectionEnd = editor.selectionStart;
+      } else {
+        editor.value = text.substring(0, start) + syntax + text.substring(end);
+        editor.selectionStart = start + syntax.length;
+        editor.selectionEnd = editor.selectionStart;
+      }
+    }
+    editor.focus();
+    updatePreview();
+  };
+
+  window.wrapMD = function(wrap) {
+    var start = editor.selectionStart;
+    var end = editor.selectionEnd;
+    var text = editor.value;
+    var selected = text.substring(start, end);
+    if (selected) {
+      editor.value = text.substring(0, start) + wrap + selected + wrap + text.substring(end);
+      editor.selectionStart = start + wrap.length;
+      editor.selectionEnd = end + wrap.length;
+    } else {
+      editor.value = text.substring(0, start) + wrap + wrap + text.substring(end);
+      editor.selectionStart = start + wrap.length;
+      editor.selectionEnd = editor.selectionStart;
+    }
+    editor.focus();
+    updatePreview();
+  };
+
+  window.loadSample = function() {
+    editor.value = '# Markdown 编辑器演示文档\n\n## 欢迎使用\n\n这是一个**功能齐全**的 Markdown 编辑器，支持 *GitHub Flavored Markdown* 语法。\n\n### 文本样式\n\n- **加粗文本** 使用双星号\n- *斜体文本* 使用单星号\n- ~~删除线~~ 使用双波浪线\n- `行内代码` 使用反引号\n\n### 链接和图片\n\n[访问 ToolkitBox](https://toolkitbox.cn)\n\n![示例图片](https://via.placeholder.com/400x200/6c5ce7/ffffff?text=Markdown+Editor)\n\n### 代码块\n\n```javascript\nfunction greet(name) {\n  return `Hello, ${name}!`;\n}\nconsole.log(greet(\'World\'));\n```\n\n### 引用\n\n> Markdown 是一种轻量级标记语言，让你专注内容而非格式。\n> — John Gruber\n\n### 表格\n\n| 功能 | 状态 | 优先级 |\n| --- | --- | --- |\n| 实时预览 | ✅ 完成 | P0 |\n| 快捷工具栏 | ✅ 完成 | P1 |\n| 深色主题 | ✅ 完成 | P2 |\n\n### 任务列表\n\n- [x] 完成 Markdown 解析器\n- [x] 添加工具栏\n- [ ] 支持导出 PDF\n- [ ] 添加自动保存\n\n### 分割线\n\n---\n\n**提示**: 点击工具栏按钮可快速插入 Markdown 语法。';
+    updatePreview();
+  };
+
+  window.clearAll = function() {
+    if (editor.value && !confirm('确定要清空所有内容吗？')) return;
+    editor.value = '';
+    updatePreview();
+  };
+
+  window.copyHTML = function() {
+    var html = preview.innerHTML;
+    if (html.includes('empty')) {
+      alert('请先输入 Markdown 内容');
+      return;
+    }
+    navigator.clipboard.writeText(html).then(function() {
+      showToast('HTML 代码已复制到剪贴板');
+    });
+  };
+
+  window.downloadMD = function() {
+    if (!editor.value.trim()) {
+      alert('请先输入 Markdown 内容');
+      return;
+    }
+    var blob = new Blob([editor.value], { type: 'text/markdown' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'document.md';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Markdown 文件下载中...');
+  };
+
+  window.toggleTheme = function() {
+    isDark = !isDark;
+    var btn = document.getElementById('themeBtn');
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      btn.innerHTML = '☀️ 亮色';
+    } else {
+      document.documentElement.classList.remove('dark');
+      btn.innerHTML = '🌙 暗色';
+    }
+  };
+
+  function showToast(msg) {
+    var toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#333;color:#fff;padding:10px 24px;border-radius:20px;font-size:.85rem;z-index:9999;animation:fadeIn .3s';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity .3s'; }, 1800);
+    setTimeout(function() { toast.remove(); }, 2200);
+  }
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+      e.preventDefault();
+      downloadMD();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+      e.preventDefault();
+      wrapMD('**');
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'i') {
+      e.preventDefault();
+      wrapMD('*');
+    }
+  });
+})();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></body>
+</html>
