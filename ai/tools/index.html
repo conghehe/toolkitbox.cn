@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI工具导航 - 2026最全人工智能工具集合 | AI工具箱</title>
+<meta name="description" content="收录30+款实用AI工具，涵盖写作、图像、视频、编程、办公效率、设计等7大分类。AI工具导航帮你快速找到最适合的人工智能工具，每日更新。">
+<meta name="keywords" content="AI工具,AI工具导航,人工智能工具,AI写作,AI绘画,AI视频,AI编程,AI办公,免费AI工具,chatgpt,midjourney">
+<link rel="canonical" href="https://toolkitbox.cn/ai-tools/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#fff;--bg2:#f8f9fc;--text:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--pl:#a29bfe;--b:#e9ecef}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--text);min-height:100vh}
+.header{background:var(--bg);border-bottom:1px solid var(--b);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.04)}
+.header h1{font-size:1.2rem;font-weight:700}
+.header h1 a{color:var(--p);text-decoration:none}
+.hero{text-align:center;padding:40px 20px 20px}
+.hero h2{font-size:2rem;font-weight:800;background:linear-gradient(135deg,#6c5ce7,#e17055);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.hero p{color:var(--t2);font-size:1rem}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.search-bar{max-width:600px;margin:0 auto 20px;position:relative}
+.search-bar input{width:100%;padding:14px 20px 14px 48px;border:2px solid var(--b);border-radius:14px;font-size:1rem;outline:none;transition:.2s;background:var(--bg);color:var(--text)}
+.search-bar input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(108,92,231,.1)}
+.search-bar .sicon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:1.2rem}
+.cats{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
+.cat-btn{padding:8px 18px;border-radius:20px;border:1px solid var(--b);background:var(--bg);cursor:pointer;font-size:.85rem;transition:.2s;color:var(--text)}
+.cat-btn:hover,.cat-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
+.stats{display:flex;gap:12px;justify-content:center;margin-bottom:24px;color:var(--t2);font-size:.85rem;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:30px}
+.card{background:var(--bg);border-radius:14px;padding:22px;box-shadow:0 2px 12px rgba(0,0,0,.05);border:1px solid var(--b);transition:.2s;position:relative}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(108,92,231,.1);border-color:var(--pl)}
+.card h3{font-size:1.05rem;margin-bottom:4px}
+.card h3 a{color:var(--text);text-decoration:none}
+.card h3 a:hover{color:var(--p)}
+.card .desc{font-size:.83rem;color:var(--t2);line-height:1.6;margin:8px 0 12px;min-height:40px}
+.card .meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.card .price-tag{padding:2px 10px;border-radius:12px;font-size:.72rem;font-weight:600}
+.price-free{background:#e6fff5;color:#00b894}
+.price-freemium{background:#fff8e1;color:#e17055}
+.price-paid{background:#ffeaea;color:#ff6b6b}
+.card .cat-tag{padding:2px 10px;border-radius:12px;font-size:.72rem;background:#f0edff;color:var(--p)}
+.empty{text-align:center;padding:60px 20px;color:var(--t2)}
+.ad-unit{margin:20px auto;max-width:1200px;padding:0 20px}
+.footer{text-align:center;padding:30px;color:var(--t2);font-size:.8rem}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.hero h2{font-size:1.5rem}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1><a href="/">🧰 ToolkitBox</a> / 🤖 AI工具导航</h1>
+  <span style="font-size:.85rem;color:var(--t2)">每日更新</span>
+</header>
+
+<div class="hero">
+  <h2>🤖 AI 工具导航</h2>
+  <p>收录 {{total}} 款实用 AI 工具，覆盖 7 大分类，快速找到你需要的</p>
+</div>
+
+<div class="container">
+  <div class="search-bar">
+    <span class="sicon">🔍</span>
+    <input type="text" id="searchInput" placeholder="搜索 AI 工具...（如：写作、视频、编程）" oninput="render()">
+  </div>
+
+  <div class="cats" id="catButtons"></div>
+
+  <div class="stats">
+    <span id="statsInfo"></span>
+  </div>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+  </div>
+
+  <div class="grid" id="toolGrid"></div>
+</div>
+
+<footer class="footer">
+  <p>AI工具导航 — 收录工具信息仅供参考，请以各工具官网为准 | &copy; 2026 ToolkitBox</p>
+</footer>
+
+<script>
+const TOOLS = [
+  {n:"ChatGPT",d:"OpenAI旗舰对话AI，支持写作/编程/分析/图像生成。GPT-4o多模态，全球最流行的AI助手。",c:"对话助手",p:"freemium",u:"https://chat.openai.com",t:["聊天","GPT","多模态"]},
+  {n:"Claude",d:"Anthropic出品，擅长长文本分析与创意写作。支持200K上下文，代码能力优秀。",c:"对话助手",p:"freemium",u:"https://claude.ai",t:["聊天","写作","代码"]},
+  {n:"Gemini",d:"Google多模态AI，深度整合Google全家桶。支持文本/图片/视频/代码理解。",c:"对话助手",p:"freemium",u:"https://gemini.google.com",t:["聊天","谷歌","多模态"]},
+  {n:"Kimi",d:"月之暗面出品，超长上下文（200万字），擅长文档阅读和中文长文写作。",c:"写作工具",p:"free",u:"https://kimi.moonshot.cn",t:["中文","长文","阅读"]},
+  {n:"DeepSeek",d:"国产开源大模型，推理能力顶尖。支持128K上下文，编程和数学能力出色。",c:"对话助手",p:"free",u:"https://chat.deepseek.com",t:["国产","推理","代码"]},
+  {n:"通义千问",d:"阿里云大模型，集成淘宝/钉钉生态。支持多轮对话和文档分析。",c:"对话助手",p:"free",u:"https://tongyi.aliyun.com",t:["国产","阿里","办公"]},
+  {n:"文心一言",d:"百度出品，深度理解中文语境。整合百度搜索和知识图谱。",c:"对话助手",p:"free",u:"https://yiyan.baidu.com",t:["国产","百度","搜索"]},
+  {n:"豆包",d:"字节跳动出品，抖音/TikTok生态AI。支持对话、写作、翻译，移动端体验好。",c:"对话助手",p:"free",u:"https://www.doubao.com",t:["国产","字节","移动"]},
+  {n:"Midjourney",d:"顶级AI绘画工具，艺术风格丰富。Discord操作，V6版本真实感极强。",c:"图像生成",p:"paid",u:"https://www.midjourney.com",t:["绘画","艺术","AI绘图"]},
+  {n:"Stable Diffusion",d:"开源AI绘画模型，本地部署免费。社区生态极丰富，LoRA和ControlNet加持。",c:"图像生成",p:"free",u:"https://stability.ai",t:["开源","绘画","本地"]},
+  {n:"DALL·E 3",d:"OpenAI图像生成，自然语言理解出色。集成ChatGPT，文字渲染能力最强。",c:"图像生成",p:"freemium",u:"https://openai.com/dall-e-3",t:["绘画","OpenAI","文字"]},
+  {n:"Canva AI",d:"设计平台Canva的AI功能，一键生成海报/PPT/社交媒体图。模板库丰富，适合非设计师。",c:"设计工具",p:"freemium",u:"https://www.canva.com",t:["设计","海报","PPT"]},
+  {n:"即梦",d:"字节跳动AI视频/图像生成，支持文生视频、图生视频。中文语义理解好。",c:"视频生成",p:"free",u:"https://jimeng.jianying.com",t:["国产","视频","字节"]},
+  {n:"可灵",d:"快手AI视频生成，支持文生视频/图生视频。1080P画质，动态效果自然。",c:"视频生成",p:"free",u:"https://kling.kuaishou.com",t:["国产","视频","快手"]},
+  {n:"Runway",d:"专业级AI视频工具，Gen-3模型。支持视频生成/编辑/特效，影视级质量。",c:"视频生成",p:"paid",u:"https://runwayml.com",t:["视频","专业","编辑"]},
+  {n:"Suno",d:"AI音乐生成，输入歌词/风格即可生成完整歌曲。V4版本音质大幅提升。",c:"音频工具",p:"freemium",u:"https://suno.com",t:["音乐","创作","AI作曲"]},
+  {n:"ElevenLabs",d:"顶级AI语音合成，29种语言。声音克隆、配音、有声书制作。",c:"音频工具",p:"freemium",u:"https://elevenlabs.io",t:["语音","克隆","配音"]},
+  {n:"GitHub Copilot",d:"AI编程助手，深度集成IDE。代码补全/生成/解释/重构一站式。",c:"编程开发",p:"paid",u:"https://github.com/features/copilot",t:["代码","IDE","微软"]},
+  {n:"Cursor",d:"AI原生代码编辑器，基于VS Code。支持多文件编辑、智能Debug、代码审查。",c:"编程开发",p:"freemium",u:"https://cursor.sh",t:["代码","编辑器","AI IDE"]},
+  {n:"Windsurf",d:"Codeium出品的AI IDE，Agent模式可自主完成多步骤编程任务。",c:"编程开发",p:"freemium",u:"https://codeium.com/windsurf",t:["代码","Agent","自动化"]},
+  {n:"通义灵码",d:"阿里云AI编程助手，支持VS Code/JetBrains。中文文档理解和代码生成优秀。",c:"编程开发",p:"free",u:"https://tongyi.aliyun.com/lingma",t:["国产","代码","阿里"]},
+  {n:"Notion AI",d:"笔记协作平台AI功能，自动摘要/翻译/改写/生成内容。深度整合工作流。",c:"办公效率",p:"freemium",u:"https://www.notion.so/product/ai",t:["笔记","协作","自动化"]},
+  {n:"Gamma",d:"AI演示文稿工具，一句话生成完整PPT。支持文档/网页/PPT三种格式互转。",c:"办公效率",p:"freemium",u:"https://gamma.app",t:["PPT","演示","文档"]},
+  {n:"Perplexity",d:"AI搜索引擎，带来源引用的实时答案。研究/学习/事实核查利器。",c:"办公效率",p:"freemium",u:"https://www.perplexity.ai",t:["搜索","研究","引用"]},
+  {n:"秘塔AI搜索",d:"国产AI搜索引擎，学术/深度研究模式。检索论文/报告/法律文献。",c:"办公效率",p:"free",u:"https://metaso.cn",t:["国产","搜索","学术"]},
+  {n:"Otter.ai",d:"AI会议记录工具，实时转录+自动摘要。支持Zoom/Teams/Google Meet。",c:"办公效率",p:"freemium",u:"https://otter.ai",t:["会议","转录","摘要"]},
+  {n:"剪映",d:"字节跳动视频剪辑工具，AI字幕/配音/特效。一键成片，短视频创作者首选。",c:"视频生成",p:"free",u:"https://www.jianying.com",t:["国产","剪辑","短视频"]},
+  {n:"Remove.bg",d:"AI一键抠图，5秒去除背景。支持批量处理，API对接。",c:"图像生成",p:"freemium",u:"https://www.remove.bg",t:["抠图","批量","API"]},
+  {n:"Grammarly",d:"AI英文写作助手，语法/拼写/风格全面优化。支持浏览器/桌面/移动端。",c:"写作工具",p:"freemium",u:"https://www.grammarly.com",t:["英文","语法","写作"]},
+  {n:"Jasper",d:"AI营销内容平台，专为企业和营销团队设计。支持品牌调性定制和多渠道分发。",c:"写作工具",p:"paid",u:"https://www.jasper.ai",t:["营销","企业","品牌"]},
+  {n:"Leonardo.AI",d:"AI游戏资产生成，角色/场景/道具。风格一致性控制强，适合游戏开发。",c:"图像生成",p:"freemium",u:"https://leonardo.ai",t:["游戏","角色","资产"]},
+  {n:"Replit Agent",d:"AI全栈开发平台，自然语言描述即可生成完整应用。一键部署，无需配置环境。",c:"编程开发",p:"freemium",u:"https://replit.com",t:["开发","部署","全栈"]},
+];
+
+const CATS = ["全部","对话助手","写作工具","图像生成","视频生成","音频工具","编程开发","办公效率","设计工具"];
+const PRICES = {free:"免费",freemium:"免费增值",paid:"付费"};
+
+let activeCat = "全部";
+
+function init() {
+  let btns = '';
+  CATS.forEach(c => {
+    btns += '<button class="cat-btn'+(c===activeCat?' active':'')+'" onclick="filterCat(\''+c+'\')">'+c+'</button>';
+  });
+  document.getElementById('catButtons').innerHTML=btns;
+  document.getElementById('statsInfo').innerHTML = '共 <b>'+TOOLS.length+'</b> 款工具 · 7 个分类 · 每日更新';
+  document.querySelector('.hero p').textContent = '收录 '+TOOLS.length+' 款实用 AI 工具，覆盖 7 大分类，快速找到你需要的';
+  render();
+}
+
+function filterCat(c) {
+  activeCat = c;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.toggle('active',b.textContent===c));
+  render();
+}
+
+function render() {
+  const q = (document.getElementById('searchInput').value||'').toLowerCase();
+  let filtered = TOOLS;
+  if(activeCat !== '全部') filtered = filtered.filter(t=>t.c===activeCat);
+  if(q) filtered = filtered.filter(t=>t.n.toLowerCase().includes(q)||t.d.toLowerCase().includes(q)||t.t.some(tag=>tag.toLowerCase().includes(q))||t.c.includes(q));
+
+  document.getElementById('statsInfo').innerHTML = '共 <b>'+TOOLS.length+'</b> 款工具 · 筛选结果 <b>'+filtered.length+'</b> 款 · 每日更新';
+
+  let html = '';
+  if(filtered.length===0) {
+    html = '<div class="empty"><p>😕 没找到匹配的工具</p><p style="color:var(--t2);font-size:.85rem">试试其他关键词或分类</p></div>';
+  } else {
+    filtered.forEach(t=>{
+      html += '<div class="card"><h3><a href="'+t.u+'" target="_blank" rel="nofollow">'+t.n+'</a></h3>';
+      html += '<p class="desc">'+t.d+'</p>';
+      html += '<div class="meta"><span class="price-tag price-'+t.p+'">'+PRICES[t.p]+'</span>';
+      html += '<span class="cat-tag">'+t.c+'</span>';
+      html += '</div></div>';
+    });
+  }
+  document.getElementById('toolGrid').innerHTML = html;
+}
+
+init();
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CollectionPage","name":"AI工具导航","description":"收录30+款实用AI工具，覆盖7大分类","url":"https://toolkitbox.cn/ai-tools/","mainEntity":{"@type":"ItemList","numberOfItems":32}}
+</script>
+</body>
+</html>
