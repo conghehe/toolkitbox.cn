@@ -166,5 +166,77 @@
     ],
     "url": "/meta/",
     "cat": "seo"
+  },
+  {
+    "id": "wordcounter01",
+    "name": "字数统计器",
+    "desc": "实时统计中英文字数/字符/行数/段落。微信/微博/小红书字数限制检测。",
+    "icon": "📝",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "文本",
+        "cls": "tag"
+      },
+      {
+        "text": "统计",
+        "cls": "tag-green"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/word-counter/",
+    "cat": "dev"
+  },
+  {
+    "id": "caseconv01",
+    "name": "大小写转换器",
+    "desc": "全大写/全小写/驼峰/下划线/常量六种格式一键互转。程序员命名规范工具。",
+    "icon": "🔤",
+    "iconBg": "#e8eaf6",
+    "iconColor": "#5c6bc0",
+    "tags": [
+      {
+        "text": "文本",
+        "cls": "tag"
+      },
+      {
+        "text": "命名",
+        "cls": "tag"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/case-converter/",
+    "cat": "dev"
+  },
+  {
+    "id": "httpstatus01",
+    "name": "HTTP状态码参考",
+    "desc": "1xx-5xx完整标准状态码，中英文说明+使用场景。开发调试必备速查表。",
+    "icon": "🌐",
+    "iconBg": "#e8f5e9",
+    "iconColor": "#2e7d32",
+    "tags": [
+      {
+        "text": "HTTP",
+        "cls": "tag"
+      },
+      {
+        "text": "参考",
+        "cls": "tag-green"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/http-status/",
+    "cat": "dev"
   }
 ]

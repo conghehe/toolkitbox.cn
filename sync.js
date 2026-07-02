@@ -66,6 +66,27 @@ const TOOL_DISPLAY = {
     tags: [{ text: 'SEO', cls: 'tag' }, { text: 'Meta', cls: 'tag-green' }, { text: 'OG', cls: 'tag' }],
     sourceDir: 'meta-tag-generator', targetSubdir: 'meta', cat:'seo'
   },
+  wordcounter01: {
+    icon: '📝', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: '字数统计器',
+    desc: '实时统计中英文字数/字符/行数/段落。微信/微博/小红书字数限制检测。',
+    tags: [{text:'文本',cls:'tag'},{text:'统计',cls:'tag-green'},{text:'新',cls:'tag-orange'}],
+    sourceDir: 'word-counter', targetSubdir: 'word-counter', cat:'dev'
+  },
+  caseconv01: {
+    icon: '🔤', iconBg: '#e8eaf6', iconColor: '#5c6bc0',
+    title: '大小写转换器',
+    desc: '全大写/全小写/驼峰/下划线/常量六种格式一键互转。程序员命名规范工具。',
+    tags: [{text:'文本',cls:'tag'},{text:'命名',cls:'tag'},{text:'新',cls:'tag-orange'}],
+    sourceDir: 'case-converter', targetSubdir: 'case-converter', cat:'dev'
+  },
+  httpstatus01: {
+    icon: '🌐', iconBg: '#e8f5e9', iconColor: '#2e7d32',
+    title: 'HTTP状态码参考',
+    desc: '1xx-5xx完整标准状态码，中英文说明+使用场景。开发调试必备速查表。',
+    tags: [{text:'HTTP',cls:'tag'},{text:'参考',cls:'tag-green'},{text:'新',cls:'tag-orange'}],
+    sourceDir: 'http-status', targetSubdir: 'http-status', cat:'dev'
+  },
   hash01: {
     icon: '#', iconBg: '#f0edff', iconColor: '#6c5ce7',
     title: '哈希生成器',
