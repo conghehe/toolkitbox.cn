@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UUID在线生成器 - 免费UUID/GUID生成工具 | UUID v1/v4/NIL批量生成</title>
+    <meta name="description" content="免费在线UUID/GUID生成器，支持UUID v1(时间戳)、UUID v4(随机)、NIL UUID批量生成。一键生成单个或批量（1-100个）UUID，支持大写/小写/带连字符/无连字符格式。纯浏览器本地生成，数据不上传。">
+    <meta name="keywords" content="uuid生成器, guid生成器, uuid generator, guid generator, 在线uuid, generate uuid, 随机uuid, uuid v4, uuid v1, 批量uuid, 唯一标识符, uuid在线工具, 生成uuid, crypto.randomUUID, uuid格式">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="UUID生成器">
+    <link rel="canonical" href="https://toolkitbox.cn/uuid-generator/">
+    <meta property="og:title" content="UUID在线生成器 - 免费UUID/GUID生成工具">
+    <meta property="og:description" content="免费在线UUID/GUID生成器，支持v1/v4/NIL，批量生成1-100个，多种格式输出。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://toolkitbox.cn/uuid-generator/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="UUID在线生成器">
+    <meta name="twitter:description" content="免费在线UUID/GUID生成器，支持v1/v4/NIL，批量生成1-100个，多种格式输出。">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "UUID在线生成器",
+        "url": "https://toolkitbox.cn/uuid-generator/",
+        "description": "免费在线UUID生成器，支持v1时间戳/v4随机/NIL批量生成，多种格式输出",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+    }
+    </script>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-input: #0d1117;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --accent-hover: #79c0ff;
+            --green: #3fb950;
+            --red: #f85149;
+            --orange: #d2991d;
+            --purple: #a371f7;
+            --btn-bg: #21262d;
+            --btn-hover: #30363d;
+            --btn-active: #1f6feb;
+            --font-mono: 'SF Mono', 'Cascadia Code', 'Fira Code', 'Consolas', 'Monaco', monospace;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            --radius: 8px;
+            --radius-sm: 6px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+        .header-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-logo span { font-size: 1.3rem; }
+        .header-nav { display: flex; gap: 16px; }
+        .header-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.2s;
+        }
+        .header-nav a:hover { color: var(--text); }
+
+        .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+        /* Ad top */
+        .ad-top {
+            text-align: center;
+            padding: 12px 0;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .ad-top ins { display: block; min-height: 60px; }
+
+        .hero {
+            text-align: center;
+            padding: 28px 0 20px;
+        }
+        .hero h1 {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Mode tabs */
+        .mode-tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .mode-tab {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            background: var(--btn-bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .mode-tab:hover { border-color: var(--accent); color: var(--text); }
+        .mode-tab.active {
+            background: var(--btn-active);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* Tool section */
+        .tool-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 16px;
+        }
+
+        /* Options bar */
+        .options-bar {
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .opt-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .opt-group label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .opt-group select {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            padding: 6px 10px;
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            cursor: pointer;
+        }
+        .opt-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .opt-group input[type="number"] {
+            width: 64px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            padding: 6px 8px;
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            text-align: center;
+        }
+        .opt-group input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .toggle-group {
+            display: flex;
+            gap: 4px;
+        }
+        .toggle-btn {
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            background: var(--btn-bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: var(--font-sans);
+            transition: all 0.15s;
+        }
+        .toggle-btn:hover { border-color: var(--accent); color: var(--text); }
+        .toggle-btn.on {
+            background: var(--btn-active);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* Action bar */
+        .action-bar {
+            padding: 12px 16px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .btn {
+            padding: 8px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--btn-bg);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: var(--font-sans);
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .btn:hover { background: var(--btn-hover); }
+        .btn-primary {
+            background: var(--btn-active);
+            border-color: var(--accent);
+            color: #fff;
+            font-weight: 500;
+        }
+        .btn-primary:hover { background: #388bfd; }
+        .btn-success {
+            background: rgba(63,185,80,0.15);
+            border-color: rgba(63,185,80,0.3);
+            color: var(--green);
+        }
+        .btn-success:hover { background: rgba(63,185,80,0.25); }
+        .btn-sm { padding: 5px 12px; font-size: 0.78rem; }
+
+        .result-info {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-left: auto;
+            background: var(--bg-input);
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        /* Output area */
+        .output-area {
+            padding: 16px;
+        }
+        .output-area label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .output-area textarea {
+            width: 100%;
+            min-height: 160px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            padding: 12px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        .output-area textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(88,166,255,0.15);
+        }
+        .output-area textarea:empty::before {
+            content: '';
+        }
+
+        /* Stats bar */
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            padding: 10px 16px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .stat-value {
+            color: var(--accent);
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--green);
+            color: #0d1117;
+            padding: 10px 24px;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            font-weight: 600;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .toast.show { opacity: 1; }
+
+        /* Ad block */
+        .ad-block {
+            text-align: center;
+            padding: 16px 0;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .ad-block ins { display: block; }
+
+        /* SEO content */
+        .content-section {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 0 20px 60px;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.8;
+        }
+        .content-section h2 {
+            color: var(--text);
+            font-size: 1.25rem;
+            margin: 28px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .content-section h3 {
+            color: var(--text);
+            font-size: 1.05rem;
+            margin: 20px 0 10px;
+        }
+        .content-section p { margin-bottom: 12px; }
+        .content-section ul, .content-section ol {
+            margin: 8px 0 16px 20px;
+        }
+        .content-section li { margin-bottom: 6px; }
+        .content-section code {
+            background: var(--btn-bg);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+        .content-section .info-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin: 16px 0;
+        }
+        .content-section .info-box.warn {
+            border-color: rgba(248,81,73,0.3);
+            background: rgba(248,81,73,0.06);
+        }
+        .content-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 20px;
+            font-size: 0.88rem;
+        }
+        .content-section th, .content-section td {
+            padding: 10px 14px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+        .content-section th {
+            background: var(--bg-card);
+            color: var(--text);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .content-section td { color: var(--text-secondary); }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.4rem; }
+            .options-bar { flex-direction: column; align-items: flex-start; }
+            .opt-group { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a href="/" class="header-logo"><span>🔧</span>ToolkitBox</a>
+        <nav class="header-nav">
+            <a href="/json/">JSON</a>
+            <a href="/hash/">HASH</a>
+            <a href="/base64/">Base64</a>
+            <a href="/uuid-generator/" style="color:var(--accent)">UUID</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <div class="hero">
+        <h1>UUID 在线生成器</h1>
+        <p>免费在线 UUID/GUID 生成工具 — 支持 v1(时间戳)、v4(随机)、NIL 多种版本，批量生成，多格式输出</p>
+    </div>
+
+    <div class="container">
+        <!-- Mode Tabs -->
+        <div class="mode-tabs">
+            <button class="mode-tab active" data-mode="v4">UUID v4 (随机)</button>
+            <button class="mode-tab" data-mode="v1">UUID v1 (时间戳)</button>
+            <button class="mode-tab" data-mode="nil">NIL UUID (全零)</button>
+        </div>
+
+        <div class="tool-section">
+            <!-- Options Bar -->
+            <div class="options-bar">
+                <div class="opt-group">
+                    <label for="count">数量</label>
+                    <input type="number" id="count" value="1" min="1" max="100" step="1">
+                </div>
+                <div class="opt-group">
+                    <label>大小写</label>
+                    <div class="toggle-group">
+                        <button class="toggle-btn on" data-case="lower">小写</button>
+                        <button class="toggle-btn" data-case="upper">大写</button>
+                    </div>
+                </div>
+                <div class="opt-group">
+                    <label>连字符</label>
+                    <div class="toggle-group">
+                        <button class="toggle-btn on" data-dash="yes">带 -</button>
+                        <button class="toggle-btn" data-dash="no">不带 -</button>
+                    </div>
+                </div>
+                <div class="opt-group">
+                    <label>换行</label>
+                    <div class="toggle-group">
+                        <button class="toggle-btn on" data-sep="newline">换行</button>
+                        <button class="toggle-btn" data-sep="comma">逗号</button>
+                        <button class="toggle-btn" data-sep="space">空格</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="action-bar">
+                <button class="btn btn-primary" id="btn-generate">🎲 生成 UUID</button>
+                <button class="btn btn-success" id="btn-copy">📋 一键复制</button>
+                <button class="btn" id="btn-clear">🗑 清空</button>
+                <span class="result-info" id="result-info">已生成 0 个</span>
+            </div>
+
+            <!-- Output -->
+            <div class="output-area">
+                <label>生成结果</label>
+                <textarea id="output" readonly placeholder="点击「生成 UUID」按钮开始生成..."></textarea>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-bar">
+                <div class="stat-item">UUIDs: <span class="stat-value" id="stat-count">0</span></div>
+                <div class="stat-item">字符数: <span class="stat-value" id="stat-chars">0</span></div>
+                <div class="stat-item">当前版本: <span class="stat-value" id="stat-version">v4</span></div>
+            </div>
+        </div>
+
+        <!-- Ad Block 1 -->
+        <div class="ad-block" style="padding:20px 0;">
+            <ins class="adsbygoogle" style="display:block;text-align:center;min-height:90px;" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+    </div>
+
+    <!-- SEO Content -->
+    <div class="content-section">
+        <h2>什么是 UUID？</h2>
+        <p>UUID（Universally Unique Identifier，通用唯一标识符）是一个128位的数字，用于在分布式系统中唯一标识信息。UUID 的生成不依赖于中央注册机构，任何计算机都可以独立生成几乎不可能重复的唯一标识符。也被称为 GUID（Globally Unique Identifier），由微软推广使用。</p>
+        <p>UUID 标准格式为 <code>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code>，共36个字符（32个十六进制数字 + 4个连字符），例如：<code>550e8400-e29b-41d4-a716-446655440000</code>。</p>
+
+        <h2>UUID 版本对比</h2>
+        <table>
+            <thead>
+                <tr><th>版本</th><th>生成方式</th><th>唯一性</th><th>典型用途</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>UUID v1</strong></td>
+                    <td>基于时间戳 + MAC地址</td>
+                    <td>非常高</td>
+                    <td>需要排序和时间关联的场景，数据库主键、日志追踪</td>
+                </tr>
+                <tr>
+                    <td><strong>UUID v4</strong></td>
+                    <td>完全随机生成</td>
+                    <td>极高（碰撞概率近乎为零）</td>
+                    <td><strong>最常用版本</strong>：API Token、Session ID、文件名、前端组件Key</td>
+                </tr>
+                <tr>
+                    <td><strong>NIL UUID</strong></td>
+                    <td>固定值 00000000-0000-0000-0000-000000000000</td>
+                    <td>不唯一（固定值）</td>
+                    <td>未知/空值占位、NULL替代、测试数据</td>
+                </tr>
+                <tr>
+                    <td>UUID v2</td>
+                    <td>DCE安全版本</td>
+                    <td>高</td>
+                    <td>POSIX UID/GID绑定（很少使用）</td>
+                </tr>
+                <tr>
+                    <td>UUID v3</td>
+                    <td>MD5 hash(namespace + name)</td>
+                    <td>确定性（同输入→同输出）</td>
+                    <td>从已有数据生成确定性UUID</td>
+                </tr>
+                <tr>
+                    <td>UUID v5</td>
+                    <td>SHA-1 hash(namespace + name)</td>
+                    <td>确定性（同输入→同输出）</td>
+                    <td>v3的升级版，更安全的确定性UUID</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="info-box warn">
+            <strong>⚡ 重要提示：</strong> 本工具所有 UUID 生成均在您的浏览器本地完成，数据绝不会上传到任何服务器。UUID v4 使用 <code>crypto.randomUUID()</code> Web Crypto API（密码学安全随机数），UUID v1 使用当前时间戳模拟生成。
+        </div>
+
+        <h2>UUID 在各编程语言中的应用</h2>
+        <h3>JavaScript / Node.js</h3>
+        <p>现代浏览器和 Node.js 19+ 内置 <code>crypto.randomUUID()</code>：</p>
+        <p><code>const uuid = crypto.randomUUID(); // '550e8400-e29b-41d4-a716-446655440000'</code></p>
+
+        <h3>Python</h3>
+        <p><code>import uuid; id = uuid.uuid4(); print(str(id))  # '550e8400-e29b-41d4-a716-446655440000'</code></p>
+
+        <h3>Java</h3>
+        <p><code>UUID uuid = UUID.randomUUID(); String id = uuid.toString();</code></p>
+
+        <h3>Go</h3>
+        <p><code>import "github.com/google/uuid"; id := uuid.New().String()</code></p>
+
+        <h3>SQL (数据库)</h3>
+        <p>MySQL: <code>SELECT UUID();</code> — PostgreSQL: <code>SELECT gen_random_uuid();</code> — SQLite: <code>SELECT lower(hex(randomblob(16)));</code></p>
+
+        <h2>UUID vs 自增 ID 对比</h2>
+        <table>
+            <thead>
+                <tr><th>特性</th><th>UUID</th><th>自增 ID (AUTO_INCREMENT)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>全局唯一</td><td>✅ 天然支持</td><td>❌ 仅单库内唯一</td></tr>
+                <tr><td>分布式友好</td><td>✅ 无需协调</td><td>❌ 需要 ID 生成服务</td></tr>
+                <tr><td>安全性</td><td>✅ 不可预测</td><td>❌ 可遍历枚举</td></tr>
+                <tr><td>存储空间</td><td>128 bit (16 bytes)</td><td>32/64 bit (4-8 bytes)</td></tr>
+                <tr><td>索引效率</td><td>⚠️ 随机写入降低B+树性能</td><td>✅ 顺序写入最优</td></tr>
+                <tr><td>URL友好</td><td>⚠️ 36字符较冗长</td><td>✅ 简洁</td></tr>
+                <tr><td>合并数据库</td><td>✅ 无冲突</td><td>❌ 可能冲突</td></tr>
+            </tbody>
+        </table>
+
+        <h2>常见 UUID 使用场景</h2>
+        <ul>
+            <li><strong>API 认证令牌：</strong> 使用 UUID v4 作为 API Key 或 Access Token，不可预测、难以暴力破解。</li>
+            <li><strong>数据库主键：</strong> 分布式系统中使用 UUID 作为主键，多个数据库合并时不会冲突。</li>
+            <li><strong>文件/资源命名：</strong> 上传文件的唯一文件名，防止重复和路径遍历攻击。</li>
+            <li><strong>用户会话标识：</strong> Session ID 使用 UUID，防止会话固定攻击。</li>
+            <li><strong>前端组件 Key：</strong> React/Vue 列表渲染时使用 UUID 作为唯一 key。</li>
+            <li><strong>消息队列：</strong> 为每条消息生成 UUID 消息 ID，实现幂等消费和去重。</li>
+            <li><strong>日志追踪：</strong> 分布式链路追踪中，UUID v1 的时间戳特性方便按时间排序。</li>
+            <li><strong>微服务事务 ID：</strong> 跨服务调用时传递 UUID 作为事务追踪标识。</li>
+        </ul>
+
+        <h2>UUID 格式说明</h2>
+        <p>标准 UUID 格式为 8-4-4-4-12 共五段，用连字符分隔：</p>
+        <p style="font-family:var(--font-mono);color:var(--accent);font-size:1rem;">xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx</p>
+        <p>其中 <code>M</code> 表示版本号（version），<code>N</code> 的高位表示变体（variant）：</p>
+        <ul>
+            <li><code>M=1</code> → UUID v1（基于时间）</li>
+            <li><code>M=4</code> → UUID v4（随机）</li>
+            <li><code>N=8/9/a/b</code> → 标准变体（RFC 4122）</li>
+        </ul>
+
+        <h2>UUID 唯一性有多强？</h2>
+        <p>UUID v4 有 122 位随机位（除去6位版本/变体标识），共 2<sup>122</sup> ≈ 5.3 × 10<sup>36</sup> 种可能。以下是碰撞概率直观感受：</p>
+        <ul>
+            <li>生成 <strong>10亿</strong> 个 UUID v4 → 碰撞概率约 <strong>10<sup>-19</sup></strong>（几乎不可能）</li>
+            <li>生成 <strong>100万亿</strong> 个 UUID v4 → 碰撞概率约 <strong>10<sup>-9</sup></strong>（10亿分之一）</li>
+            <li>要产生 <strong>50%</strong> 碰撞概率，需要生成 <strong>2.71 × 10<sup>18</sup></strong> 个 UUID v4 —— 每秒生成10亿个也需要85年</li>
+        </ul>
+        <p>UUID v1 通过时间戳（100纳秒精度）+ 时钟序列 + 节点标识确保唯一性，在同一个节点上永远不会重复。</p>
+
+        <h2>本工具功能说明</h2>
+        <ul>
+            <li><strong>UUID v4（随机）：</strong> 使用浏览器 Web Crypto API 生成密码学安全的随机 UUID，最常用版本。</li>
+            <li><strong>UUID v1（时间戳）：</strong> 基于当前时间戳模拟 UUID v1 格式，可用于需要时间排序的场景。</li>
+            <li><strong>NIL UUID：</strong> 生成全零 UUID (00000000-0000-0000-0000-000000000000)，用于空值占位或测试。</li>
+            <li><strong>批量生成：</strong> 一次生成 1-100 个 UUID，满足批量数据需求。</li>
+            <li><strong>格式切换：</strong> 支持大写/小写、带/不带连字符、换行/逗号/空格分隔等多种输出格式。</li>
+        </ul>
+    </div>
+
+    <div class="ad-block" style="padding:20px 0;">
+        <ins class="adsbygoogle" style="display:block;text-align:center;min-height:90px;" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 ToolkitBox.cn — 免费在线开发者工具 · 所有数据仅在浏览器本地处理</p>
+    </footer>
+</main>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+
+<script>
+(function(){
+    // State
+    var mode = 'v4';
+    var upperCase = false;
+    var noDash = false;
+    var separator = 'newline';
+    var lastResult = [];
+
+    // DOM refs
+    var $count = document.getElementById('count');
+    var $output = document.getElementById('output');
+    var $resultInfo = document.getElementById('result-info');
+    var $statCount = document.getElementById('stat-count');
+    var $statChars = document.getElementById('stat-chars');
+    var $statVersion = document.getElementById('stat-version');
+    var $toast = document.getElementById('toast');
+
+    // ---- UUID generators ----
+
+    // RFC 4122 UUID v4 using crypto.randomUUID()
+    function generateUUIDv4() {
+        return crypto.randomUUID();
+    }
+
+    // Simulated UUID v1 (time-based, RFC 4122 format)
+    function generateUUIDv1() {
+        var now = Date.now();
+        // Convert to 100-nanosecond intervals since UUID epoch (1582-10-15 00:00:00)
+        // Gregorian calendar to Unix timestamp offset = 122192928000000000 (100ns intervals)
+        var uuidEpoch = 122192928000000000;
+        var ts100ns = BigInt(now) * 10000n + BigInt(uuidEpoch);
+        var timeLow = Number(ts100ns & 0xFFFFFFFFn);
+        var timeMid = Number((ts100ns >> 32n) & 0xFFFFn);
+        var timeHiVer = Number(((ts100ns >> 48n) & 0x0FFFn) | 0x1000n); // version 1
+        // Clock sequence (random)
+        var clockSeq = Math.floor(Math.random() * 0x4000) | 0x8000; // variant 10xx
+        // Node (random 48-bit, multicast bit set)
+        var node = [];
+        for (var i = 0; i < 6; i++) node[i] = Math.floor(Math.random() * 256);
+        node[0] |= 0x01; // multicast bit
+
+        return (
+            hexPad(timeLow, 8) + '-' +
+            hexPad(timeMid, 4) + '-' +
+            hexPad(timeHiVer, 4) + '-' +
+            hexPad(clockSeq, 4) + '-' +
+            hexPad(node[0], 2) + hexPad(node[1], 2) + hexPad(node[2], 2) +
+            hexPad(node[3], 2) + hexPad(node[4], 2) + hexPad(node[5], 2)
+        );
+    }
+
+    function generateNIL() {
+        return '00000000-0000-0000-0000-000000000000';
+    }
+
+    function hexPad(num, len) {
+        return num.toString(16).padStart(len, '0');
+    }
+
+    function generateUUID() {
+        if (mode === 'v1') return generateUUIDv1();
+        if (mode === 'nil') return generateNIL();
+        return generateUUIDv4();
+    }
+
+    // ---- Formatting ----
+    function formatUUID(uuid) {
+        if (noDash) uuid = uuid.replace(/-/g, '');
+        if (upperCase) uuid = uuid.toUpperCase();
+        return uuid;
+    }
+
+    function joinResults(uuids) {
+        var sep;
+        switch (separator) {
+            case 'comma': sep = ','; break;
+            case 'space': sep = ' '; break;
+            default: sep = '\n';
+        }
+        return uuids.join(sep);
+    }
+
+    // ---- Actions ----
+    function doGenerate() {
+        var count = parseInt($count.value) || 1;
+        count = Math.max(1, Math.min(100, count));
+        $count.value = count;
+
+        var uuids = [];
+        for (var i = 0; i < count; i++) {
+            uuids.push(formatUUID(generateUUID()));
+        }
+        lastResult = uuids;
+        var text = joinResults(uuids);
+        $output.value = text;
+        $resultInfo.textContent = '已生成 ' + count + ' 个';
+        $statCount.textContent = count;
+        $statChars.textContent = text.replace(/\n/g, '').length;
+        $statVersion.textContent = mode === 'nil' ? 'NIL' : mode.toUpperCase();
+    }
+
+    function doCopy() {
+        var text = $output.value.trim();
+        if (!text) { showToast('请先生成 UUID'); return; }
+        navigator.clipboard.writeText(text).then(function(){
+            showToast('已复制 ' + lastResult.length + ' 个 UUID 到剪贴板');
+        }).catch(function(){
+            // Fallback
+            $output.select();
+            document.execCommand('copy');
+            showToast('已复制到剪贴板');
+        });
+    }
+
+    function doClear() {
+        $output.value = '';
+        lastResult = [];
+        $resultInfo.textContent = '已生成 0 个';
+        $statCount.textContent = '0';
+        $statChars.textContent = '0';
+    }
+
+    function showToast(msg) {
+        $toast.textContent = msg;
+        $toast.classList.add('show');
+        clearTimeout($toast._timer);
+        $toast._timer = setTimeout(function(){
+            $toast.classList.remove('show');
+        }, 2000);
+    }
+
+    // ---- Mode tabs ----
+    document.querySelectorAll('.mode-tab').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            document.querySelectorAll('.mode-tab').forEach(function(b){ b.classList.remove('active'); });
+            btn.classList.add('active');
+            mode = btn.dataset.mode;
+            $statVersion.textContent = mode === 'nil' ? 'NIL' : mode.toUpperCase();
+            if (lastResult.length > 0) doGenerate();
+        });
+    });
+
+    // ---- Case toggle ----
+    document.querySelectorAll('[data-case]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            document.querySelectorAll('[data-case]').forEach(function(b){ b.classList.remove('on'); });
+            btn.classList.add('on');
+            upperCase = btn.dataset.case === 'upper';
+            if (lastResult.length > 0) {
+                var formatted = lastResult.map(formatUUID);
+                lastResult = formatted;
+                $output.value = joinResults(formatted);
+            }
+        });
+    });
+
+    // ---- Dash toggle ----
+    document.querySelectorAll('[data-dash]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            document.querySelectorAll('[data-dash]').forEach(function(b){ b.classList.remove('on'); });
+            btn.classList.add('on');
+            noDash = btn.dataset.dash === 'no';
+            if (lastResult.length > 0) {
+                var formatted = lastResult.map(formatUUID);
+                lastResult = formatted;
+                $output.value = joinResults(formatted);
+            }
+        });
+    });
+
+    // ---- Separator toggle ----
+    document.querySelectorAll('[data-sep]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+            document.querySelectorAll('[data-sep]').forEach(function(b){ b.classList.remove('on'); });
+            btn.classList.add('on');
+            separator = btn.dataset.sep;
+            if (lastResult.length > 0) {
+                $output.value = joinResults(lastResult);
+            }
+        });
+    });
+
+    // ---- Button handlers ----
+    document.getElementById('btn-generate').addEventListener('click', doGenerate);
+    document.getElementById('btn-copy').addEventListener('click', doCopy);
+    document.getElementById('btn-clear').addEventListener('click', doClear);
+
+    // ---- Keyboard shortcut ----
+    document.addEventListener('keydown', function(e){
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            doGenerate();
+        }
+    });
+
+    // ---- Auto-generate on load ----
+    doGenerate();
+
+    // ---- Toast init ----
+    $toast.classList.remove('show');
+
+})();
+</script>
+
+</body>
+</html>

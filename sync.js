@@ -206,6 +206,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'URL',cls:'tag'},{text:'编码',cls:'tag-green'},{text:'解码',cls:'tag'}],
     sourceDir: 'url-encoder', targetSubdir: 'url-encoder', cat:'dev'
   },
+  uuid01: {
+    icon: '🆔', iconBg: '#e8f5e9', iconColor: '#2e7d32',
+    title: 'UUID 生成器',
+    desc: '免费在线UUID/GUID生成，v1/v4/NIL三版本，批量1-100个，7种格式输出。',
+    tags: [{text:'UUID',cls:'tag'},{text:'GUID',cls:'tag-green'},{text:'唯一ID',cls:'tag'}],
+    sourceDir: 'uuid-generator', targetSubdir: 'uuid-generator', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板
