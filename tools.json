@@ -262,5 +262,77 @@
     ],
     "url": "/qrcode/",
     "cat": "dev"
+  },
+  {
+    "id": "pwdgen01",
+    "name": "密码生成器",
+    "desc": "随机强密码生成。8-64位，大小写+数字+符号组合。",
+    "icon": "🔐",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "安全",
+        "cls": "tag-red"
+      },
+      {
+        "text": "密码",
+        "cls": "tag"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/password/",
+    "cat": "dev"
+  },
+  {
+    "id": "unitconv01",
+    "name": "单位换算器",
+    "desc": "长度/重量/温度/面积/体积/速度实时换算。",
+    "icon": "📐",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "换算",
+        "cls": "tag"
+      },
+      {
+        "text": "单位",
+        "cls": "tag-green"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/unit-converter/",
+    "cat": "dev"
+  },
+  {
+    "id": "iplookup01",
+    "name": "IP查询工具",
+    "desc": "公网IP查询+归属地+运营商。手动查询任意IP地址。",
+    "icon": "🌐",
+    "iconBg": "#e8f5e9",
+    "iconColor": "#2e7d32",
+    "tags": [
+      {
+        "text": "IP",
+        "cls": "tag"
+      },
+      {
+        "text": "查询",
+        "cls": "tag-green"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/ip-lookup/",
+    "cat": "dev"
   }
 ]

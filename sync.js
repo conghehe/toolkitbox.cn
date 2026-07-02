@@ -94,6 +94,27 @@ const TOOL_DISPLAY = {
     tags: [{text:'二维码',cls:'tag'},{text:'QR',cls:'tag-green'},{text:'新',cls:'tag-orange'}],
     sourceDir: 'qrcode-generator', targetSubdir: 'qrcode', cat:'dev'
   },
+  iplookup01: {
+    icon: '🌐', iconBg: '#e8f5e9', iconColor: '#2e7d32',
+    title: 'IP查询工具',
+    desc: '公网IP查询+归属地+运营商。手动查询任意IP地址。',
+    tags: [{text:"IP",cls:"tag"},{text:"查询",cls:"tag-green"},{text:"新",cls:"tag-orange"}],
+    sourceDir: 'ip-lookup', targetSubdir: 'ip-lookup', cat:'dev'
+  },
+  unitconv01: {
+    icon: '📐', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: '单位换算器',
+    desc: '长度/重量/温度/面积/体积/速度实时换算。',
+    tags: [{text:"换算",cls:"tag"},{text:"单位",cls:"tag-green"},{text:"新",cls:"tag-orange"}],
+    sourceDir: 'unit-converter', targetSubdir: 'unit-converter', cat:'dev'
+  },
+  pwdgen01: {
+    icon: '🔐', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: '密码生成器',
+    desc: '随机强密码生成。8-64位，大小写+数字+符号组合。',
+    tags: [{text:"安全",cls:"tag-red"},{text:"密码",cls:"tag"},{text:"新",cls:"tag-orange"}],
+    sourceDir: 'password-generator', targetSubdir: 'password', cat:'dev'
+  },
   hash01: {
     icon: '#', iconBg: '#f0edff', iconColor: '#6c5ce7',
     title: '哈希生成器',
