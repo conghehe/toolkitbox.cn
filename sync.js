@@ -255,6 +255,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'DNS',cls:'tag'},{text:'DevOps',cls:'tag-green'},{text:'网络',cls:'tag'}],
     sourceDir: 'dns-checker', targetSubdir: 'dns-checker', cat:'dev'
   },
+  imgcompressor01: {
+    icon: '🖼️', iconBg: '#e8f5e9', iconColor: '#27ae60',
+    title: '图片压缩工具',
+    desc: '纯浏览器Canvas API处理，支持批量压缩/WebP优化/质量可调。拖拽上传，隐私安全。',
+    tags: [{text:'图片',cls:'tag'},{text:'压缩',cls:'tag-green'},{text:'WebP',cls:'tag'}],
+    sourceDir: 'image-compressor', targetSubdir: 'image-compressor', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板

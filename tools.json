@@ -822,5 +822,45 @@
     ],
     "url": "/dns-checker/",
     "cat": "dev"
+  },
+  {
+    "id": "markdown01",
+    "name": "markdown01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/markdown-editor/",
+    "cat": "other"
+  },
+  {
+    "id": "imgcompressor01",
+    "name": "图片压缩工具",
+    "desc": "纯浏览器Canvas API处理，支持批量压缩/WebP优化/质量可调。拖拽上传，隐私安全。",
+    "icon": "🖼️",
+    "iconBg": "#e8f5e9",
+    "iconColor": "#27ae60",
+    "tags": [
+      {
+        "text": "图片",
+        "cls": "tag"
+      },
+      {
+        "text": "压缩",
+        "cls": "tag-green"
+      },
+      {
+        "text": "WebP",
+        "cls": "tag"
+      }
+    ],
+    "url": "/image-compressor/",
+    "cat": "dev"
   }
 ]
