@@ -185,278 +185,59 @@ function injectAds(html) {
 }
 
 // ─── 主流程 ────────────────────────────────────────────
+
 async function main() {
-  log('开始同步...');
-  if (DRY_RUN) log('DRY RUN 模式 - 不会写入文件');
+  log('Sync ToolkitBox (v4)');
+  if (DRY_RUN) log('DRY RUN');
 
-  // 0. 自动修复JSON
-  const knowledgePath = path.join(PROJECT_ROOT, 'evolve_agent', 'data', 'money_knowledge.json');
-  const portfolioPath2 = path.join(PROJECT_ROOT, 'evolve_agent', 'data', 'portfolio.json');
-  fixJSON(knowledgePath);
-  fixJSON(portfolioPath2);
+  const projPath = path.join(PROJECT_ROOT, 'evolve_agent', 'data', 'projects.json');
+  const projects = JSON.parse(fs.readFileSync(projPath, 'utf8'));
+  const tk = projects.projects.toolkitbox;
+  if (!tk) { warn('toolkitbox not found'); return; }
+  log('toolkitbox: ' + tk.assets.length + ' assets');
 
-  // 1. 读取 portfolio.json
-  log('读取 portfolio.json...');
-  const portfolio = JSON.parse(fs.readFileSync(CONFIG.portfolioPath, 'utf8'));
-  const assets = portfolio.assets || {};
-  const deployedAssets = Object.entries(assets).filter(([id, a]) => a.status === 'deployed');
-  log(`发现 ${deployedAssets.length} 个已部署资产`);
-
-  // 2. 复制工具文件 + 注入广告
-  const toolList = []; // 用于生成 tools.json 和首页
-  let copied = 0, skipped = 0;
-
-  for (const [assetId, asset] of deployedAssets) {
-    const display = TOOL_DISPLAY[assetId] || { ...DEFAULT_DISPLAY, title: asset.name || assetId, desc: asset.description || '' };
-    const sourceDir = path.join(CONFIG.toolsiteDir, display.sourceDir || assetId);
-    const targetSubdir = display.targetSubdir || assetId;
-    const targetDir = path.join(CONFIG.targetDir, targetSubdir);
-    const sourceFile = path.join(sourceDir, 'index.html');
-    const targetFile = path.join(targetDir, 'index.html');
-
-    if (!fs.existsSync(sourceFile)) {
-      warn(`源文件不存在: ${sourceFile}`);
-      continue;
-    }
-
-    // 读取源HTML
-    let html = fs.readFileSync(sourceFile, 'utf8');
-    
-    // 更新 canonical URL
-    html = html.replace(/<link rel="canonical"[^>]*>/,
-      `<link rel="canonical" href="https://${CONFIG.domain}/${targetSubdir}/">`);
-    
-    // 注入广告
-    html = injectAds(html);
-
+  const toolList = [];
+  for (const a of tk.assets) {
+    const d = TOOL_DISPLAY[a.id] || { ...DEFAULT_DISPLAY, title: a.id, desc: '' };
+    const src = path.join(CONFIG.toolsiteDir, d.sourceDir || a.dir, 'index.html');
+    const tgtDir = path.join(CONFIG.targetDir, d.targetSubdir || a.sub);
+    const tgt = path.join(tgtDir, 'index.html');
+    if (!fs.existsSync(src)) { warn('missing: ' + src); continue; }
     if (!DRY_RUN) {
-      fs.mkdirSync(targetDir, { recursive: true });
-      fs.writeFileSync(targetFile, html);
+      fs.mkdirSync(tgtDir, { recursive: true });
+      let html = fs.readFileSync(src, 'utf8');
+      html = html.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://' + CONFIG.domain + '/' + (d.targetSubdir || a.sub) + '/">');
+      html = injectAds(html);
+      fs.writeFileSync(tgt, html);
     }
-
-    // 添加到工具列表
-    toolList.push({
-      id: assetId,
-      name: display.title,
-      desc: display.desc,
-      icon: display.icon,
-      iconBg: display.iconBg,
-      iconColor: display.iconColor,
-      tags: display.tags,
-      url: `/${targetSubdir}/`,
-      niche: asset.niche || '',
-      keywords: asset.keywords || [],
-      cat: display.cat || 'other',
-    });
-
-    copied++;
-    log(`  ${display.title} → ${targetSubdir}/`);
+    toolList.push({ id: a.id, name: d.title, desc: d.desc, icon: d.icon, iconBg: d.iconBg, iconColor: d.iconColor, tags: d.tags, url: '/' + (d.targetSubdir || a.sub) + '/', cat: d.cat || 'other' });
+    log('  ' + d.title + ' -> ' + (d.targetSubdir || a.sub));
   }
 
-  // 3. 生成 tools.json
-  const toolsJsonPath = path.join(CONFIG.targetDir, 'tools.json');
   if (!DRY_RUN) {
-    fs.writeFileSync(toolsJsonPath, JSON.stringify(toolList, null, 2));
-    log('生成 tools.json');
+    fs.writeFileSync(path.join(CONFIG.targetDir, 'tools.json'), JSON.stringify(toolList, null, 2));
+    fs.writeFileSync(path.join(CONFIG.targetDir, 'index.html'), generateIndex(toolList));
+    fs.writeFileSync(path.join(CONFIG.targetDir, 'CNAME'), CONFIG.domain);
+    fs.writeFileSync(path.join(CONFIG.targetDir, 'ads.txt'), 'google.com, ' + CONFIG.adsClient.replace('ca-', 'pub-') + ', DIRECT, f08c47fec0942fa0');
   }
 
-  // 4. 生成首页
-  const indexHtml = generateIndex(toolList);
-  const indexPath = path.join(CONFIG.targetDir, 'index.html');
-  if (!DRY_RUN) {
-    fs.writeFileSync(indexPath, indexHtml);
-    log('生成首页');
-  }
-
-  // 5. 生成 sitemap.xml
-  const sitemap = generateSitemap(toolList);
-  const sitemapPath = path.join(CONFIG.targetDir, 'sitemap.xml');
-  if (!DRY_RUN) {
-    fs.writeFileSync(sitemapPath, sitemap);
-    log('生成 sitemap.xml');
-  }
-
-  // 6. 确保 CNAME 和 ads.txt 存在
-  if (!DRY_RUN) {
-    fs.writeFileSync(path.join(CONFIG.targetDir, 'CNAME'), CONFIG.domain + '\n');
-    fs.writeFileSync(path.join(CONFIG.targetDir, 'ads.txt'), `google.com, ${CONFIG.adsClient.replace('ca-', 'pub-')}, DIRECT, f08c47fec0942fa0\n`);
-  }
-
-  // 6. Git 操作
   if (!DRY_RUN && !NO_PUSH) {
     try {
-      log('Git add + commit...');
       execSync('git add -A', { cwd: CONFIG.targetDir, stdio: 'ignore' });
-      
-      const added = toolList.length;
-      const msg = added > 1 
-        ? `sync: 同步${added}个工具站 (自动)` 
-        : `sync: 新增 ${toolList[0]?.name || '工具'} (自动)`;
-      
-      execSync(`git commit -m "${msg}"`, { cwd: CONFIG.targetDir, stdio: 'ignore' });
-      
-      log('Git push...');
+      execSync('git commit -m "sync: ToolkitBox ' + toolList.length + ' tools (v4)"', { cwd: CONFIG.targetDir, stdio: 'ignore' });
       execSync('git push', { cwd: CONFIG.targetDir, stdio: 'inherit', timeout: 30000 });
-      log('GitHub 推送完成');
-    } catch (e) {
-      warn(`Git 操作失败: ${e.message}`);
-      warn('文件已本地更新，稍后手动 git push');
-    }
+      log('GitHub OK');
+    } catch(e) { warn('Git: ' + e.message.substring(0,50)); }
   }
 
-  // 7. 总结
-  log('═══════════════════════════════════');
-  log(`同步完成: 处理 ${deployedAssets.length} 个资产, 复制 ${copied} 个, ${toolList.length} 个工具已上线`);
-  log(`域名: ${CONFIG.domain}`);
-  if (DRY_RUN) log('DRY RUN - 未实际修改文件');
+  log('ToolkitBox: ' + toolList.length + ' tools -> ' + CONFIG.domain);
 }
 
-// ─── 首页生成 ──────────────────────────────────────────
-function generateIndex(toolList) {
-  const cards = toolList.map(t => `
-      <a href="${t.url}" class="tool-card" data-cat="${t.cat || 'other'}">
-        <div class="card-icon" style="background:${t.iconBg};color:${t.iconColor};">${t.icon}</div>
-        <h3>${t.name}</h3>
-        <p class="desc">${t.desc}</p>
-        <div class="tags">
-          ${t.tags.map(tag => `<span class="${tag.cls}">${tag.text}</span>`).join('\n          ')}
-        </div>
-      </a>`).join('');
-
-  // Category definitions
-  const cats = {all:'全部',dev:'💻 开发者工具',design:'🎨 设计工具',ai:'🤖 AI 工具',business:'💼 商业工具',lifestyle:'🌱 生活工具',seo:'📈 SEO/营销'};
-  const catTabs = Object.entries(cats).map(([k,v])=>`<button class="cat-btn${k==='all'?' active':''}" onclick="filterCat('${k}')">${v}</button>`).join('\n          ');
-
-  const count = toolList.length;
-
-  return `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToolkitBox - 免费在线工具集 | ${count}款实用工具</title>
-<meta name="description" content="ToolkitBox 提供${count}款免费在线工具，覆盖开发者/AI/设计/商业/生活/SEO六大分类。全部本地处理，数据安全。">
-<meta name="keywords" content="在线工具,开发者工具,AI工具,设计工具,免费工具,toolkitbox">
-<meta property="og:title" content="ToolkitBox - 免费在线工具集">
-<meta property="og:description" content="${count}款免费在线工具">
-<meta property="og:type" content="website">
-<link rel="canonical" href="https://${CONFIG.domain}/">
-${CONFIG.adsScript}
-<style>
-:root { --bg: #ffffff; --bg2: #f8f9fc; --text: #1a1a2e; --t2: #636e72; --p: #6c5ce7; --pl: #a29bfe; --b: #e9ecef; --shadow: 0 2px 16px rgba(0,0,0,0.06); --radius: 16px; }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); color: var(--text); min-height: 100vh; }
-.hero { text-align: center; padding: 50px 20px 20px; }
-.hero h1 { font-size: 2.4rem; font-weight: 800; background: linear-gradient(135deg, #6c5ce7, #e17055); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
-.hero p { color: var(--t2); font-size: 1rem; max-width: 500px; margin: 0 auto; line-height: 1.6; }
-.stats-row { display: flex; justify-content: center; gap: 20px; margin: 16px 0 10px; flex-wrap: wrap; }
-.stat { background: #fff; padding: 12px 24px; border-radius: 12px; box-shadow: var(--shadow); text-align: center; }
-.stat-num { font-size: 1.4rem; font-weight: 800; color: var(--p); }
-.stat-label { font-size: 0.75rem; color: var(--t2); }
-.cats { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin: 12px 0 20px; padding: 0 20px; }
-.cat-btn { padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--b); background: var(--bg); cursor: pointer; font-size: 0.82rem; transition: 0.2s; color: var(--text); white-space: nowrap; }
-.cat-btn:hover, .cat-btn.active { background: var(--p); color: #fff; border-color: var(--p); }
-.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto; padding: 0 20px 40px; }
-.tool-card { background: #fff; border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); border: 1px solid var(--b); transition: all 0.25s ease; text-decoration: none; color: var(--text); display: block; }
-.tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(108, 92, 231, 0.15); border-color: var(--pl); }
-.tool-card.hidden { display: none; }
-.card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 14px; }
-.tool-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
-.tool-card .desc { font-size: 0.83rem; color: var(--t2); line-height: 1.6; margin-bottom: 12px; }
-.tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.tag { font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 500; background: #f0edff; color: var(--p); }
-.tag-orange { background: #fff8e1; color: #e17055; }
-.tag-green { background: #e6fff5; color: #00b894; }
-.tag-red { background: #ffeaea; color: #ff6b6b; }
-.footer { text-align: center; padding: 30px; color: var(--t2); font-size: 0.78rem; }
-@media (max-width: 700px) { .hero h1 { font-size: 1.7rem; } .tools-grid { grid-template-columns: 1fr; padding: 0 12px; } .cats { gap: 4px; } .cat-btn { padding: 6px 12px; font-size: 0.75rem; } }
-</style>
-</head>
-<body>
-<div class="hero">
-  <h1>🧰 ToolkitBox</h1>
-  <p>免费在线工具集 · 数据本地处理 · 安全不上传 · 每日更新</p>
-  <div class="stats-row">
-    <div class="stat"><div class="stat-num">${count}</div><div class="stat-label">实用工具</div></div>
-    <div class="stat"><div class="stat-num">6</div><div class="stat-label">分类</div></div>
-    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">免费</div></div>
-  </div>
-</div>
-
-<div class="cats">
-  ${catTabs}
-</div>
-
-<div class="tools-grid">
-  ${cards}
-</div>
-
-<footer class="footer">
-  <p>ToolkitBox.cn · 免费在线工具集 | 数据在浏览器本地处理，不会上传到服务器</p>
-  <p style="margin-top:4px">&copy; 2026 ToolkitBox · 由 MoneyMaker 自动生成</p>
-</footer>
-
-<script>
-function filterCat(cat) {
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.toggle('active', b.textContent.includes(cat==='all'?'全部':b.getAttribute('data-cat'))));
-  // Update active via delegate click on cat buttons
-  document.querySelectorAll('.cat-btn').forEach(b => {
-    b.classList.remove('active');
-    if ((cat==='all' && b.textContent.includes('全部')) || b.textContent.includes(cat)) b.classList.add('active');
-  });
-  document.querySelectorAll('.tool-card').forEach(card => {
-    card.classList.toggle('hidden', cat !== 'all' && card.getAttribute('data-cat') !== cat);
-  });
-}
-// Make cat buttons work
-document.querySelectorAll('.cat-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    const cat = this.getAttribute('data-cat') || 
-      (this.textContent.includes('全部') ? 'all' :
-       this.textContent.includes('开发者') ? 'dev' :
-       this.textContent.includes('设计') ? 'design' :
-       this.textContent.includes('AI') ? 'ai' :
-       this.textContent.includes('商业') ? 'business' :
-       this.textContent.includes('生活') ? 'lifestyle' :
-       this.textContent.includes('SEO') ? 'seo' : 'other');
-    filterCat(cat);
-  });
-});
-
-// Add data attributes for filtering
-document.querySelectorAll('.cat-btn').forEach((btn, i) => {
-  const cats = ['all','dev','design','ai','business','lifestyle','seo'];
-  btn.setAttribute('data-cat', cats[i] || 'other');
-});
-</script>
-
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"ToolkitBox","url":"https://${CONFIG.domain}","description":"免费在线工具集"}
-</script>
-</body>
-</html>`;
-}
-
-// ─── Sitemap 生成 ──────────────────────────────────────
-function generateSitemap(toolList) {
-  const domain = CONFIG.domain;
-  const now = new Date().toISOString().split('T')[0];
-  
-  const urls = [
-    { loc: `https://${domain}/`, priority: '1.0', changefreq: 'daily' },
-    ...toolList.map(t => ({
-      loc: `https://${domain}${t.url}`,
-      priority: '0.8',
-      changefreq: 'weekly'
-    }))
-  ];
-
-  const urlElements = urls.map(u => 
-    `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${now}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
-  ).join('\n');
-
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlElements}\n</urlset>\n`;
-}
-
-// ─── 执行 ──────────────────────────────────────────────
 main().catch(err => { console.error(err); process.exit(1); });
+
+function generateIndex(toolList) {
+  const cards = toolList.map(t => '<a href="' + t.url + '" class="tool-card" data-cat="' + (t.cat||'other') + '"><div class="card-icon" style="background:' + t.iconBg + ';color:' + t.iconColor + '">' + t.icon + '</div><h3>' + t.name + '</h3><p class="desc">' + t.desc + '</p><div class="tags">' + t.tags.map(tg => '<span class="' + tg.cls + '">' + tg.text + '</span>').join('') + '</div></a>').join('');
+  const cats = {all:'全部',dev:'开发者工具',design:'设计工具',seo:'SEO/营销'};
+  const catBtns = Object.entries(cats).map(([k,v]) => '<button class="cat-btn'+(k==='all'?' active':'')+'" data-cat="'+k+'">'+v+'</button>').join('');
+  return '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ToolkitBox - 开发者工具集</title><meta name="description" content="免费在线开发者工具集"><link rel="canonical" href="https://'+CONFIG.domain+'/">'+CONFIG.adsScript+'<style>:root{--bg:#fff;--t:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--b:#e9ecef;--s:0 2px 12px rgba(0,0,0,.06)}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--t);min-height:100vh}.hero{text-align:center;padding:50px 20px 20px}.hero h1{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#6c5ce7,#e17055);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}.hero p{color:var(--t2);font-size:.95rem}.cats{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:12px 0 20px;padding:0 20px}.cat-btn{padding:7px 16px;border-radius:20px;border:1.5px solid var(--b);background:var(--bg);cursor:pointer;font-size:.82rem;transition:.2s;color:var(--t)}.cat-btn:hover,.cat-btn.active{background:var(--p);color:#fff;border-color:var(--p)}.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;max-width:1100px;margin:0 auto;padding:0 20px 40px}.tool-card{background:var(--bg);border-radius:14px;padding:28px;box-shadow:var(--s);border:1px solid var(--b);transition:.25s;text-decoration:none;color:var(--t);display:block}.tool-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(108,92,231,.15);border-color:#a29bfe}.tool-card.hidden{display:none}.card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:14px}.tool-card h3{font-size:1.1rem;margin-bottom:6px}.tool-card .desc{font-size:.83rem;color:var(--t2);line-height:1.6;margin-bottom:12px}.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:.7rem;padding:3px 10px;border-radius:20px;font-weight:500;background:#f0edff;color:var(--p)}.tag-orange{background:#fff8e1;color:#e17055}.tag-green{background:#e6fff5;color:#00b894}.tag-red{background:#ffeaea;color:#ff6b6b}.footer{text-align:center;padding:30px;color:var(--t2);font-size:.78rem}@media(max-width:700px){.hero h1{font-size:1.6rem}.tools-grid{grid-template-columns:1fr}}</style></head><body><div class="hero"><h1>ToolkitBox</h1><p>免费在线开发者工具集 · 数据本地处理 · 安全不上传</p><div style="display:flex;justify-content:center;gap:16px;margin:16px 0"><div style="background:#fff;padding:10px 20px;border-radius:10px;box-shadow:var(--s);text-align:center"><div style="font-size:1.3rem;font-weight:800;color:var(--p)">'+toolList.length+'</div><div style="font-size:.72rem;color:var(--t2)">开发者工具</div></div></div></div><div class="cats">'+catBtns+'</div><div class="tools-grid">'+cards+'</div><footer class="footer"><p>toolkitbox.cn · 免费开发者工具 | &copy; 2026</p></footer><script>document.querySelectorAll(".cat-btn").forEach(b=>b.addEventListener("click",function(){var c=this.getAttribute("data-cat");document.querySelectorAll(".cat-btn").forEach(b=>b.classList.toggle("active",b===this));document.querySelectorAll(".tool-card").forEach(card=>card.classList.toggle("hidden",c!=="all"&&card.getAttribute("data-cat")!==c))}))</script></body></html>';
+}

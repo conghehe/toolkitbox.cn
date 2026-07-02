@@ -21,14 +21,6 @@
       }
     ],
     "url": "/json/",
-    "niche": "developer_tools",
-    "keywords": [
-      "json格式化",
-      "json美化",
-      "json校验",
-      "json压缩",
-      "在线json工具"
-    ],
     "cat": "dev"
   },
   {
@@ -53,131 +45,7 @@
       }
     ],
     "url": "/base64/",
-    "niche": "developer_tools",
-    "keywords": [
-      "base64编码",
-      "base64解码",
-      "base64在线",
-      "图片转base64",
-      "base64转图片",
-      "base64 encode decode",
-      "URL安全base64",
-      "在线base64工具"
-    ],
     "cat": "dev"
-  },
-  {
-    "id": "contrast01",
-    "name": "WCAG 对比度检测",
-    "desc": "实时检测文字/背景色彩对比度，WCAG 2.1 AA/AAA 等级判定，无障碍合规必备。",
-    "icon": "👁️",
-    "iconBg": "#ffeaea",
-    "iconColor": "#ff6b6b",
-    "tags": [
-      {
-        "text": "WCAG",
-        "cls": "tag"
-      },
-      {
-        "text": "无障碍",
-        "cls": "tag-red"
-      },
-      {
-        "text": "合规",
-        "cls": "tag"
-      }
-    ],
-    "url": "/contrast/",
-    "niche": "accessibility_tools",
-    "keywords": [
-      "wcag对比度检测",
-      "色彩对比度检查",
-      "无障碍检测",
-      "color contrast checker",
-      "WCAG AA",
-      "WCAG AAA",
-      "对比度计算器",
-      "网页无障碍",
-      "EAA合规",
-      "ADA合规"
-    ],
-    "cat": "design"
-  },
-  {
-    "id": "palette01",
-    "name": "配色方案生成器",
-    "desc": "互补色、类似色、三角色等6种配色模式。一键复制HEX，导出CSS变量。",
-    "icon": "🎨",
-    "iconBg": "#fff8e1",
-    "iconColor": "#e17055",
-    "tags": [
-      {
-        "text": "配色",
-        "cls": "tag"
-      },
-      {
-        "text": "设计",
-        "cls": "tag-orange"
-      },
-      {
-        "text": "CSS",
-        "cls": "tag"
-      }
-    ],
-    "url": "/palette/",
-    "niche": "design_tools",
-    "keywords": [
-      "配色方案生成器",
-      "调色板生成器",
-      "色彩搭配",
-      "color palette generator",
-      "配色工具",
-      "在线调色板",
-      "互补色",
-      "类似色",
-      "色彩灵感",
-      "color scheme",
-      "HEX颜色"
-    ],
-    "cat": "design"
-  },
-  {
-    "id": "meta01",
-    "name": "Meta 标签生成器",
-    "desc": "HTML Meta / Open Graph / Twitter Card 三合一标签生成。实时预览搜索结果。",
-    "icon": "🏷️",
-    "iconBg": "#e6fff5",
-    "iconColor": "#00b894",
-    "tags": [
-      {
-        "text": "SEO",
-        "cls": "tag"
-      },
-      {
-        "text": "Meta",
-        "cls": "tag-green"
-      },
-      {
-        "text": "OG",
-        "cls": "tag"
-      }
-    ],
-    "url": "/meta/",
-    "niche": "seo_tools",
-    "keywords": [
-      "meta标签生成器",
-      "meta tag generator",
-      "SEO meta标签",
-      "Open Graph生成",
-      "Twitter Card生成",
-      "meta标签",
-      "seo工具",
-      "og标签",
-      "twitter卡片",
-      "HTML meta",
-      "网站SEO优化"
-    ],
-    "cat": "seo"
   },
   {
     "id": "hash01",
@@ -201,22 +69,6 @@
       }
     ],
     "url": "/hash/",
-    "niche": "security_tools",
-    "keywords": [
-      "哈希生成器",
-      "MD5生成器",
-      "SHA256在线",
-      "hash generator",
-      "MD5 hash",
-      "SHA256 hash",
-      "文件校验",
-      "在线哈希工具",
-      "加密工具",
-      "数据校验",
-      "哈希加密",
-      "SHA-512",
-      "文件哈希"
-    ],
     "cat": "dev"
   },
   {
@@ -241,308 +93,78 @@
       }
     ],
     "url": "/cron/",
-    "niche": "devops_tools",
-    "keywords": [
-      "cron表达式",
-      "crontab",
-      "定时任务",
-      "计划任务",
-      "cron schedule",
-      "crontab guru"
-    ],
     "cat": "dev"
   },
   {
-    "id": "aitools01",
-    "name": "AI 工具导航",
-    "desc": "收录32款实用AI工具，覆盖对话/写作/图像/视频/编程/办公7大分类。搜索筛选，每日更新。",
-    "icon": "🤖",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
+    "id": "contrast01",
+    "name": "WCAG 对比度检测",
+    "desc": "实时检测文字/背景色彩对比度，WCAG 2.1 AA/AAA 等级判定，无障碍合规必备。",
+    "icon": "👁️",
+    "iconBg": "#ffeaea",
+    "iconColor": "#ff6b6b",
     "tags": [
       {
-        "text": "AI",
+        "text": "WCAG",
         "cls": "tag"
       },
       {
-        "text": "导航",
-        "cls": "tag"
+        "text": "无障碍",
+        "cls": "tag-red"
       },
       {
-        "text": "32款",
-        "cls": "tag-green"
+        "text": "合规",
+        "cls": "tag"
       }
     ],
-    "url": "/ai-tools/",
-    "niche": "ai_tools",
-    "keywords": [
-      "AI工具导航",
-      "AI工具",
-      "人工智能工具",
-      "AI写作",
-      "AI绘画",
-      "AI视频",
-      "AI编程",
-      "免费AI工具"
-    ],
-    "cat": "ai"
+    "url": "/contrast/",
+    "cat": "design"
   },
   {
-    "id": "tokencalc01",
-    "name": "AI Token 计算器",
-    "desc": "支持12款大模型API费用实时计算。输入文本自动估算Token，对比模型成本，预算规划。",
-    "icon": "💰",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
-    "tags": [
-      {
-        "text": "AI",
-        "cls": "tag"
-      },
-      {
-        "text": "成本",
-        "cls": "tag-orange"
-      },
-      {
-        "text": "新赛道",
-        "cls": "tag-green"
-      }
-    ],
-    "url": "/token-calculator/",
-    "niche": "ai_ml_tools",
-    "keywords": [
-      "AI费用计算",
-      "token计算",
-      "API费用",
-      "GPT费用",
-      "Claude价格"
-    ],
-    "cat": "ai"
-  },
-  {
-    "id": "carbon01",
-    "name": "碳足迹计算器",
-    "desc": "出行/用电/饮食/消费四维碳排放计算。对比全球人均，获取减排建议，ESG合规参考。",
-    "icon": "🌱",
-    "iconBg": "#e8f5e9",
-    "iconColor": "#2e7d32",
-    "tags": [
-      {
-        "text": "ESG",
-        "cls": "tag-green"
-      },
-      {
-        "text": "碳中和",
-        "cls": "tag"
-      },
-      {
-        "text": "新赛道",
-        "cls": "tag-orange"
-      }
-    ],
-    "url": "/carbon/",
-    "niche": "esg_sustainability",
-    "keywords": [
-      "碳足迹",
-      "碳排放",
-      "碳中和",
-      "ESG"
-    ],
-    "cat": "lifestyle"
-  },
-  {
-    "id": "email01",
-    "name": "邮件验证工具",
-    "desc": "批量邮箱格式校验+一次性域名检测。50+临时邮箱域名库，营销/开发必备。",
-    "icon": "✉️",
-    "iconBg": "#e8eaf6",
-    "iconColor": "#5c6bc0",
-    "tags": [
-      {
-        "text": "邮件",
-        "cls": "tag"
-      },
-      {
-        "text": "验证",
-        "cls": "tag"
-      },
-      {
-        "text": "营销",
-        "cls": "tag-orange"
-      }
-    ],
-    "url": "/email/",
-    "niche": "marketing_tools",
-    "keywords": [
-      "邮件验证",
-      "邮箱检测",
-      "email validator"
-    ],
-    "cat": "dev"
-  },
-  {
-    "id": "quiz01",
-    "name": "测验生成器",
-    "desc": "快速创建选择题/判断题，实时预览，JSON导出。教师/培训/HR必备。",
-    "icon": "📝",
-    "iconBg": "#f3e5f5",
-    "iconColor": "#7b1fa2",
-    "tags": [
-      {
-        "text": "教育",
-        "cls": "tag-green"
-      },
-      {
-        "text": "测验",
-        "cls": "tag"
-      },
-      {
-        "text": "EdTech",
-        "cls": "tag-orange"
-      }
-    ],
-    "url": "/quiz/",
-    "niche": "edtech",
-    "keywords": [
-      "测验生成",
-      "在线问卷",
-      "quiz maker"
-    ],
-    "cat": "business"
-  },
-  {
-    "id": "fbacalc01",
-    "name": "亚马逊FBA费用计算器",
-    "desc": "基于官方费率表实时计算FBA配送费+仓储费+佣金。含费率表、选品指南，跨境卖家必备。",
-    "icon": "📦",
-    "iconBg": "#fff3e0",
-    "iconColor": "#ff9900",
-    "tags": [
-      {
-        "text": "FBA",
-        "cls": "tag-orange"
-      },
-      {
-        "text": "亚马逊",
-        "cls": "tag"
-      },
-      {
-        "text": "选品",
-        "cls": "tag-green"
-      }
-    ],
-    "url": "/fba/",
-    "niche": "ecommerce_tools",
-    "keywords": [
-      "亚马逊FBA费用",
-      "FBA计算器",
-      "Amazon FBA calculator",
-      "FBA利润计算",
-      "亚马逊费用计算",
-      "FBA fee calculator",
-      "跨境电商工具",
-      "亚马逊选品工具",
-      "amazon referral fee",
-      "FBA配送费"
-    ],
-    "cat": "business"
-  },
-  {
-    "id": "profit01",
-    "name": "电商利润计算器",
-    "desc": "淘宝/拼多多/抖音/京东/亚马逊五平台利润核算。自动计算佣金+运费+推广，ROI一目了然。",
-    "icon": "💰",
-    "iconBg": "#fff3e0",
-    "iconColor": "#e65100",
-    "tags": [
-      {
-        "text": "电商",
-        "cls": "tag-orange"
-      },
-      {
-        "text": "利润",
-        "cls": "tag"
-      },
-      {
-        "text": "5平台",
-        "cls": "tag-green"
-      }
-    ],
-    "url": "/profit/",
-    "niche": "ecommerce_tools",
-    "keywords": [
-      "电商利润",
-      "选品计算",
-      "亚马逊FBA",
-      "淘宝利润"
-    ],
-    "cat": "business"
-  },
-  {
-    "id": "affiliate01",
-    "name": "联盟营销选品指南",
-    "desc": "2026年15个低竞争高佣金细分赛道。AI软件佣金20-50%、宠物智能设备、绿色能源。附佣金率和入门难度。",
-    "icon": "💰",
+    "id": "palette01",
+    "name": "配色方案生成器",
+    "desc": "互补色、类似色、三角色等6种配色模式。一键复制HEX，导出CSS变量。",
+    "icon": "🎨",
     "iconBg": "#fff8e1",
-    "iconColor": "#e65100",
+    "iconColor": "#e17055",
     "tags": [
       {
-        "text": "联盟营销",
-        "cls": "tag-orange"
-      },
-      {
-        "text": "选品",
+        "text": "配色",
         "cls": "tag"
       },
       {
-        "text": "电商",
-        "cls": "tag-green"
+        "text": "设计",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "CSS",
+        "cls": "tag"
       }
     ],
-    "url": "/affiliate/",
-    "niche": "affiliate_marketing",
-    "keywords": [
-      "联盟营销",
-      "affiliate",
-      "选品",
-      "被动收入"
-    ],
-    "cat": "business"
+    "url": "/palette/",
+    "cat": "design"
   },
   {
-    "id": "prompt01",
-    "name": "AI Prompt 模板库",
-    "desc": "100+精选AI提示词模板，覆盖写作/编程/设计/营销/教育等8大场景。支持ChatGPT/Claude/Midjourney/DALL-E。",
-    "icon": "📋",
-    "iconBg": "#f0edff",
-    "iconColor": "#6c5ce7",
+    "id": "meta01",
+    "name": "Meta 标签生成器",
+    "desc": "HTML Meta / Open Graph / Twitter Card 三合一标签生成。实时预览搜索结果。",
+    "icon": "🏷️",
+    "iconBg": "#e6fff5",
+    "iconColor": "#00b894",
     "tags": [
       {
-        "text": "AI",
+        "text": "SEO",
         "cls": "tag"
       },
       {
-        "text": "Prompt",
-        "cls": "tag-orange"
+        "text": "Meta",
+        "cls": "tag-green"
       },
       {
-        "text": "新赛道",
-        "cls": "tag-green"
+        "text": "OG",
+        "cls": "tag"
       }
     ],
-    "url": "/prompts/",
-    "niche": "ai_services",
-    "keywords": [
-      "AI Prompt",
-      "提示词模板",
-      "Prompt库",
-      "ChatGPT提示词",
-      "Claude提示词",
-      "Midjourney提示词",
-      "AI写作提示词",
-      "prompt engineering",
-      "免费prompt"
-    ],
-    "cat": "ai"
+    "url": "/meta/",
+    "cat": "seo"
   }
 ]
