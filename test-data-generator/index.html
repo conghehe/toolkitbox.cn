@@ -1,584 +1,666 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>测试数据生成器 - 在线随机测试数据批量生成工具 | Test Data Generator</title>
-    <meta name="description" content="免费在线测试数据生成器，支持姓名/邮箱/手机/地址/UUID/日期/数字/文本等15种数据类型。批量生成JSON/CSV/SQL格式，开发测试必备。数据脱敏安全可靠。">
-    <meta name="keywords" content="测试数据生成器, 随机数据生成, 假数据生成, 测试数据, Mock数据, test data generator, mock data, 批量生成数据, JSON数据, CSV数据, SQL数据, 开发测试工具, QA测试数据">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://toolkitbox.cn/test-data-generator/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>测试数据生成器 - 在线随机假数据生成 | ToolkitBox</title>
+<meta name="description" content="免费在线测试数据生成器，支持随机姓名/邮箱/电话/地址/公司/信用卡号/日期等10+数据类型批量生成。支持JSON/CSV导出，开发测试必备工具。纯浏览器端处理，数据安全不上传。">
+<meta name="keywords" content="测试数据生成器,随机数据生成,假数据生成,mock data generator,测试数据,随机姓名,随机地址,随机邮箱,随机电话,数据生成工具">
+<link rel="canonical" href="https://toolkitbox.cn/test-data-generator/">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
-    <meta property="og:title" content="测试数据生成器 - 免费在线随机测试数据批量生成">
-    <meta property="og:description" content="免费在线测试数据生成器，15种数据类型，支持JSON/CSV/SQL批量导出。开发者测试必备工具。">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="测试数据生成器 - 在线Mock数据生成工具">
-    <meta name="twitter:description" content="一键生成姓名/邮箱/手机/地址等15种测试数据，支持JSON/CSV/SQL导出。">
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "测试数据生成器",
-        "description": "免费在线测试数据批量生成工具，支持15种数据类型",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All",
-        "browserRequirements": "Requires JavaScript"
-    }
-    </script>
-    <style>
-        :root {
-            --bg: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --bg-tertiary: #f0f2f5;
-            --text: #1a1a2e;
-            --text-secondary: #555;
-            --text-muted: #888;
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --primary-light: #eef2ff;
-            --accent: #06b6d4;
-            --accent-light: #ecfeff;
-            --success: #10b981;
-            --success-light: #d1fae5;
-            --warning: #f59e0b;
-            --warning-light: #fef3c7;
-            --danger: #ef4444;
-            --danger-light: #fee2e2;
-            --border: #e5e7eb;
-            --border-focus: #6366f1;
-            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
-            --radius: 12px;
-            --radius-sm: 8px;
-            --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
-        }
-        [data-theme="dark"] {
-            --bg: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text: #e2e8f0;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --primary: #818cf8;
-            --primary-hover: #6366f1;
-            --primary-light: #1e1b4b;
-            --accent: #22d3ee;
-            --accent-light: #0f172a;
-            --success: #34d399;
-            --success-light: #064e3b;
-            --warning: #fbbf24;
-            --warning-light: #451a03;
-            --danger: #f87171;
-            --danger-light: #450a0a;
-            --border: #334155;
-            --border-focus: #818cf8;
-            --shadow: 0 1px 3px rgba(0,0,0,0.2);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
-        }
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg-secondary);color:var(--text);min-height:100vh;line-height:1.6}
-        .navbar{background:var(--bg);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
-        .navbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
-        .logo{font-weight:700;font-size:1.15rem;color:var(--primary);text-decoration:none;display:flex;align-items:center;gap:8px}
-        .logo-icon{width:32px;height:32px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem}
-        .nav-actions{display:flex;align-items:center;gap:12px}
-        .theme-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s;color:var(--text)}
-        .theme-btn:hover{background:var(--bg-tertiary)}
-
-        .container{max-width:1200px;margin:0 auto;padding:24px 20px}
-        .hero{text-align:center;padding:32px 0 20px}
-        .hero h1{font-size:2rem;font-weight:800;background:linear-gradient(135deg,#6366f1,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-        .hero p{color:var(--text-secondary);font-size:.95rem;max-width:600px;margin:0 auto}
-
-        .panel{background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden}
-        .panel-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-        .panel-header h2{font-size:1rem;font-weight:600}
-        .panel-body{padding:20px}
-
-        .field-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-        .field-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:2px solid transparent;cursor:pointer;transition:.2s;user-select:none}
-        .field-item:hover{border-color:var(--border)}
-        .field-item.selected{background:var(--primary-light);border-color:var(--primary)}
-        .field-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.2s}
-        .field-item.selected .field-check{background:var(--primary);border-color:var(--primary)}
-        .field-item.selected .field-check::after{content:'✓';color:#fff;font-size:.7rem;font-weight:700}
-        .field-icon{font-size:1.2rem;flex-shrink:0}
-        .field-info{flex:1;min-width:0}
-        .field-label{font-size:.82rem;font-weight:600}
-        .field-desc{font-size:.7rem;color:var(--text-muted)}
-
-        .controls-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
-        .control-group{display:flex;flex-direction:column;gap:4px}
-        .control-group label{font-size:.78rem;font-weight:600;color:var(--text-secondary)}
-        .control-group input,.control-group select{padding:8px 12px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.88rem;background:var(--bg);color:var(--text);font-family:inherit;outline:none;transition:.2s}
-        .control-group input:focus,.control-group select:focus{border-color:var(--border-focus);box-shadow:0 0 0 3px rgba(99,102,241,0.1)}
-        .control-group input{width:100px}
-        .control-group select{min-width:140px}
-
-        .btn{padding:8px 16px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;border:none;cursor:pointer;transition:.2s;font-family:inherit;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
-        .btn-primary{background:var(--primary);color:#fff}
-        .btn-primary:hover{background:var(--primary-hover);transform:translateY(-1px)}
-        .btn-outline{background:var(--bg);color:var(--primary);border:1.5px solid var(--primary)}
-        .btn-outline:hover{background:var(--primary-light)}
-        .btn-success{background:var(--success);color:#fff}
-        .btn-success:hover{opacity:.9}
-        .btn-sm{padding:5px 10px;font-size:.78rem}
-        .btn-group{display:flex;gap:8px;flex-wrap:wrap}
-
-        .preview-table{width:100%;border-collapse:collapse;font-size:.82rem;overflow-x:auto;display:block}
-        .preview-table thead{position:sticky;top:0}
-        .preview-table th{background:var(--bg-tertiary);padding:10px 14px;text-align:left;font-weight:600;font-size:.78rem;color:var(--text-secondary);border-bottom:2px solid var(--border);white-space:nowrap}
-        .preview-table td{padding:8px 14px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:.78rem}
-        .preview-table tr:hover td{background:var(--bg-secondary)}
-        .preview-table .row-num{color:var(--text-muted);font-size:.72rem;width:40px}
-        .preview-wrap{max-height:500px;overflow:auto;border-radius:var(--radius-sm);border:1px solid var(--border)}
-
-        .stats-bar{display:flex;gap:24px;flex-wrap:wrap;padding:12px 0}
-        .stat-item{display:flex;align-items:center;gap:6px;font-size:.82rem}
-        .stat-value{font-weight:700;color:var(--primary);font-size:1.1rem}
-        .stat-label{color:var(--text-muted)}
-
-        .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--bg);padding:10px 20px;border-radius:var(--radius-sm);font-size:.85rem;font-weight:600;z-index:1000;animation:slideIn .3s ease;box-shadow:var(--shadow-lg)}
-        @keyframes slideIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-        @keyframes slideOut{from{transform:translateY(0);opacity:1}to{transform:translateY(20px);opacity:0}}
-        .toast.out{animation:slideOut .3s ease forwards}
-
-        .related-tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-        .related-card{display:block;padding:14px 16px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:.2s}
-        .related-card:hover{background:var(--primary-light);border-color:var(--primary);transform:translateY(-1px)}
-        .related-card h4{font-size:.82rem;margin-bottom:2px}
-        .related-card p{font-size:.72rem;color:var(--text-muted)}
-
-        footer{text-align:center;padding:30px 20px;color:var(--text-muted);font-size:.75rem;border-top:1px solid var(--border);margin-top:40px}
-        footer a{color:var(--primary);text-decoration:none}
-
-        .empty-state{text-align:center;padding:40px 20px;color:var(--text-muted)}
-        .empty-state .empty-icon{font-size:3rem;margin-bottom:12px}
-        .empty-state p{font-size:.9rem}
-
-        @media(max-width:768px){
-            .field-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-            .controls-row{flex-direction:column}
-            .hero h1{font-size:1.5rem}
-        }
-    </style>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8f9fa; --bg3: #e9ecef;
+  --text: #1a1a2e; --text2: #636e72; --text3: #adb5bd;
+  --primary: #6c5ce7; --primary-light: #a29bfe;
+  --success: #00b894; --warning: #fdcb6e; --danger: #e17055;
+  --border: #dee2e6; --shadow: 0 2px 12px rgba(0,0,0,.06);
+  --card-bg: #fff; --input-bg: #fff;
+  --tag-bg: #f0edff; --tag-text: #6c5ce7;
+}
+body.dark {
+  --bg: #1a1a2e; --bg2: #16213e; --bg3: #0f3460;
+  --text: #e4e6eb; --text2: #b0b3b8; --text3: #6c757d;
+  --border: #2d3436; --shadow: 0 2px 12px rgba(0,0,0,.3);
+  --card-bg: #16213e; --input-bg: #0f3460;
+  --tag-bg: #2d1b69; --tag-text: #a29bfe;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  background: var(--bg2); color: var(--text); min-height: 100vh; line-height: 1.6;
+}
+.header {
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
+}
+.logo { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
+.logo span { color: var(--text2); font-weight: 400; font-size: .85rem; margin-left: 8px; }
+.header-actions { display: flex; gap: 10px; align-items: center; }
+.btn {
+  padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--text); cursor: pointer;
+  font-size: .85rem; font-weight: 500; transition: .2s; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { background: var(--bg3); }
+.btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.btn-primary:hover { background: #5a4bd1; }
+.btn-outline { border: 1px solid var(--primary); color: var(--primary); background: transparent; }
+.btn-outline:hover { background: var(--tag-bg); }
+.btn-sm { padding: 4px 10px; font-size: .78rem; }
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.tab {
+  padding: 10px 18px; border-radius: 20px; border: 1px solid var(--border);
+  background: var(--card-bg); color: var(--text2); cursor: pointer;
+  font-size: .88rem; font-weight: 500; transition: .2s; white-space: nowrap;
+}
+.tab:hover { border-color: var(--primary); color: var(--primary); }
+.tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+/* Panel */
+.panel { background: var(--card-bg); border-radius: 14px; border: 1px solid var(--border);
+  padding: 28px; box-shadow: var(--shadow); margin-bottom: 20px; display: none; }
+.panel.active { display: block; }
+.panel-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.panel-desc { color: var(--text2); font-size: .85rem; margin-bottom: 20px; }
+/* Options grid */
+.opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.opt-group { display: flex; flex-direction: column; gap: 4px; }
+.opt-group label { font-size: .82rem; color: var(--text2); font-weight: 500; }
+.opt-group select, .opt-group input {
+  padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--input-bg); color: var(--text); font-size: .88rem;
+  transition: .2s; outline: none;
+}
+.opt-group select:focus, .opt-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(108,92,231,.15); }
+.check-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.check-item { display: flex; align-items: center; gap: 6px; font-size: .85rem; color: var(--text2); }
+.check-item input[type="checkbox"] { accent-color: var(--primary); }
+/* Count + Generate */
+.action-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+.action-row .count-label { font-size: .85rem; color: var(--text2); }
+.action-row input[type="number"] {
+  width: 80px; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--input-bg); color: var(--text); font-size: .88rem; text-align: center;
+}
+/* Result */
+.result-area { position: relative; }
+.result-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
+}
+.result-count { font-size: .85rem; color: var(--text2); }
+.result-count b { color: var(--primary); }
+.result-actions { display: flex; gap: 6px; }
+.result-table-wrapper { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; max-height: 500px; overflow-y: auto; }
+.result-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.result-table th {
+  background: var(--bg3); padding: 10px 12px; text-align: left;
+  font-weight: 600; color: var(--text2); position: sticky; top: 0; z-index: 1;
+}
+.result-table td { padding: 9px 12px; border-top: 1px solid var(--border); color: var(--text); }
+.result-table tr:hover td { background: var(--bg2); }
+/* SEO */
+.seo-section { margin-top: 40px; background: var(--card-bg); border-radius: 14px;
+  border: 1px solid var(--border); padding: 32px; box-shadow: var(--shadow); }
+.seo-section h2 { font-size: 1.3rem; margin-bottom: 16px; color: var(--primary); }
+.seo-section h3 { font-size: 1.05rem; margin: 20px 0 10px; }
+.seo-section p, .seo-section li { color: var(--text2); font-size: .88rem; line-height: 1.8; }
+.seo-section ul { padding-left: 20px; margin: 8px 0 16px; }
+.seo-section table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: .85rem; }
+.seo-section th { background: var(--bg3); padding: 10px; text-align: left; }
+.seo-section td { padding: 10px; border-bottom: 1px solid var(--border); }
+/* Ads */
+.ad-placeholder {
+  background: var(--bg2); border: 1px dashed var(--border); border-radius: 10px;
+  padding: 20px; text-align: center; color: var(--text3); font-size: .78rem; margin: 20px 0;
+}
+/* Toast */
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+  background: var(--text); color: var(--bg); padding: 12px 28px; border-radius: 24px;
+  font-size: .85rem; font-weight: 500; z-index: 999; opacity: 0; transition: .3s;
+  pointer-events: none; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+}
+.toast.show { opacity: 1; }
+/* Theme toggle */
+.theme-toggle {
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border);
+  background: var(--bg); color: var(--text); cursor: pointer; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center; transition: .2s;
+}
+.theme-toggle:hover { background: var(--bg3); }
+/* Responsive */
+@media (max-width: 768px) {
+  .header { padding: 12px 16px; }
+  .opts { grid-template-columns: 1fr 1fr; }
+  .tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .tab { flex-shrink: 0; }
+  .panel { padding: 18px; }
+  .seo-section { padding: 20px; }
+  .result-table { font-size: .75rem; }
+  .result-table th, .result-table td { padding: 6px 8px; }
+}
+@media (max-width: 480px) { .opts { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
-
-<nav class="navbar">
-    <div class="navbar-inner">
-        <a href="/" class="logo"><span class="logo-icon">🎲</span>测试数据生成器</a>
-        <div class="nav-actions">
-            <button class="theme-btn" onclick="toggleTheme()" title="切换主题">🌓</button>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="hero">
-        <h1>测试数据生成器</h1>
-        <p>免费在线随机测试数据批量生成工具。支持15种数据类型，一键导出JSON/CSV/SQL格式，开发测试必备。</p>
-    </div>
-
-    <div class="panel">
-        <div class="panel-header">
-            <h2>📋 选择数据类型</h2>
-            <div class="btn-group">
-                <button class="btn btn-outline btn-sm" onclick="selectAll()">全选</button>
-                <button class="btn btn-outline btn-sm" onclick="deselectAll()">全不选</button>
-                <button class="btn btn-outline btn-sm" onclick="selectCommon()">常用</button>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="field-grid" id="fieldGrid"></div>
-        </div>
-    </div>
-
-    <div class="panel">
-        <div class="panel-header">
-            <h2>⚙️ 生成设置</h2>
-        </div>
-        <div class="panel-body">
-            <div class="controls-row">
-                <div class="control-group">
-                    <label>生成条数</label>
-                    <input type="number" id="count" value="10" min="1" max="5000">
-                </div>
-                <div class="control-group">
-                    <label>语言偏好</label>
-                    <select id="locale">
-                        <option value="zh">中文</option>
-                        <option value="en">English</option>
-                        <option value="mixed">中英混合</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" onclick="generate()">🔄 生成数据</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel" id="resultPanel" style="display:none">
-        <div class="panel-header">
-            <h2>📊 生成结果</h2>
-            <div class="btn-group">
-                <button class="btn btn-outline btn-sm" onclick="copyJSON()">📋 复制JSON</button>
-                <button class="btn btn-outline btn-sm" onclick="copyCSV()">📋 复制CSV</button>
-                <button class="btn btn-outline btn-sm" onclick="copySQL()">📋 复制SQL</button>
-                <button class="btn btn-success btn-sm" onclick="downloadJSON()">⬇ JSON</button>
-                <button class="btn btn-success btn-sm" onclick="downloadCSV()">⬇ CSV</button>
-                <button class="btn btn-success btn-sm" onclick="downloadSQL()">⬇ SQL</button>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="stats-bar" id="statsBar"></div>
-            <div class="preview-wrap" id="previewWrap"></div>
-        </div>
-    </div>
-
-    <div class="panel" id="faqPanel">
-        <div class="panel-header"><h2>❓ 常见问题</h2></div>
-        <div class="panel-body">
-            <div class="related-tools">
-                <div class="related-card">
-                    <h4>数据是否安全？</h4>
-                    <p>所有数据在浏览器本地生成，不上传服务器，用完即焚。敏感测试环境放心使用。</p>
-                </div>
-                <div class="related-card">
-                    <h4>最大生成多少条？</h4>
-                    <p>单次最大5000条。数据在内存中处理，不占用磁盘。大批量建议分批生成。</p>
-                </div>
-                <div class="related-card">
-                    <h4>支持哪些格式？</h4>
-                    <p>JSON（数组/行格式）、CSV（逗号分隔）、SQL INSERT语句。可复制或下载文件。</p>
-                </div>
-                <div class="related-card">
-                    <h4>电话号码是真实的吗？</h4>
-                    <p>随机生成符合中国手机号格式（1开头11位），非真实号码。仅用于测试。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel">
-        <div class="panel-header"><h2>🔗 相关工具</h2></div>
-        <div class="panel-body">
-            <div class="related-tools">
-                <a href="https://toolkitbox.cn/json/" class="related-card" target="_blank" rel="noopener"><h4>JSON格式化工具</h4><p>JSON美化、校验、压缩、转CSV</p></a>
-                <a href="https://toolkitbox.cn/hash/" class="related-card" target="_blank" rel="noopener"><h4>哈希生成器</h4><p>MD5/SHA1/SHA256在线加密</p></a>
-                <a href="https://toolkitbox.cn/password/" class="related-card" target="_blank" rel="noopener"><h4>密码生成器</h4><p>随机强密码批量生成</p></a>
-                <a href="https://toolkitbox.cn/base64/" class="related-card" target="_blank" rel="noopener"><h4>Base64编解码</h4><p>文本/图片Base64互转</p></a>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 测试数据生成器 | 数据本地生成，安全可靠 | <a href="https://toolkitbox.cn">ToolkitBox</a></p>
-    </footer>
+<div class="header">
+  <div class="logo">TestData <span>测试数据生成器</span></div>
+  <div class="header-actions">
+    <button class="theme-toggle" id="themeBtn" title="切换主题" aria-label="切换深色/浅色主题">🌙</button>
+  </div>
 </div>
 
-<div id="toastContainer"></div>
+<div class="container">
+  <!-- Tabs -->
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-panel="name">👤 姓名</button>
+    <button class="tab" data-panel="contact">📧 联系方式</button>
+    <button class="tab" data-panel="business">🏢 商业信息</button>
+    <button class="tab" data-panel="finance">💳 金融数据</button>
+    <button class="tab" data-panel="identity">🪪 身份标识</button>
+    <button class="tab" data-panel="datetime">📅 日期时间</button>
+    <button class="tab" data-panel="misc">🎲 其他数据</button>
+  </div>
+
+  <!-- Panel: Name -->
+  <div class="panel active" id="panel-name">
+    <div class="panel-title">随机姓名生成</div>
+    <div class="panel-desc">生成符合真实分布的随机中文/英文姓名，支持性别筛选</div>
+    <div class="opts">
+      <div class="opt-group"><label>姓名类型</label><select id="name-type"><option value="cn">中文姓名</option><option value="en">英文姓名</option><option value="mixed">中英混合</option></select></div>
+      <div class="opt-group"><label>性别</label><select id="name-gender"><option value="any">不限</option><option value="male">男性</option><option value="female">女性</option></select></div>
+    </div>
+  </div>
+
+  <!-- Panel: Contact -->
+  <div class="panel" id="panel-contact">
+    <div class="panel-title">联系方式生成</div>
+    <div class="panel-desc">生成邮箱、手机号、座机号等联系信息</div>
+    <div class="check-row">
+      <div class="check-item"><input type="checkbox" id="cont-email" checked><label>邮箱</label></div>
+      <div class="check-item"><input type="checkbox" id="cont-phone" checked><label>手机号</label></div>
+      <div class="check-item"><input type="checkbox" id="cont-tel"><label>座机号</label></div>
+      <div class="check-item"><input type="checkbox" id="cont-wechat"><label>微信号</label></div>
+    </div>
+    <div class="opts">
+      <div class="opt-group"><label>邮箱域名</label><select id="cont-domain"><option value="random">随机常用</option><option value="qq.com">qq.com</option><option value="163.com">163.com</option><option value="gmail.com">gmail.com</option><option value="outlook.com">outlook.com</option></select></div>
+      <div class="opt-group"><label>手机号前缀</label><select id="cont-prefix"><option value="random">随机运营商</option><option value="13">13x (移动/联通)</option><option value="15">15x (移动)</option><option value="18">18x (移动/联通/电信)</option><option value="17">17x (虚拟运营商)</option></select></div>
+    </div>
+  </div>
+
+  <!-- Panel: Business -->
+  <div class="panel" id="panel-business">
+    <div class="panel-title">商业信息生成</div>
+    <div class="panel-desc">生成公司名称、职位、地址等商业数据</div>
+    <div class="check-row">
+      <div class="check-item"><input type="checkbox" id="biz-company" checked><label>公司名称</label></div>
+      <div class="check-item"><input type="checkbox" id="biz-job" checked><label>职位</label></div>
+      <div class="check-item"><input type="checkbox" id="biz-address" checked><label>地址</label></div>
+      <div class="check-item"><input type="checkbox" id="biz-department"><label>部门</label></div>
+    </div>
+    <div class="opts">
+      <div class="opt-group"><label>公司类型</label><select id="biz-type"><option value="tech">科技/互联网</option><option value="finance">金融/保险</option><option value="trade">贸易/零售</option><option value="random">随机混合</option></select></div>
+      <div class="opt-group"><label>地址粒度</label><select id="biz-addr-level"><option value="full">完整地址</option><option value="city">城市+区</option><option value="province">省份+城市</option></select></div>
+    </div>
+  </div>
+
+  <!-- Panel: Finance -->
+  <div class="panel" id="panel-finance">
+    <div class="panel-title">金融数据生成</div>
+    <div class="panel-desc">生成符合校验规则的信用卡号、价格、银行账号等（仅供测试用）</div>
+    <div class="check-row">
+      <div class="check-item"><input type="checkbox" id="fin-cc" checked><label>信用卡号(Visa/MC)</label></div>
+      <div class="check-item"><input type="checkbox" id="fin-price"><label>随机金额</label></div>
+      <div class="check-item"><input type="checkbox" id="fin-bank"><label>银行账号</label></div>
+    </div>
+    <div class="opts">
+      <div class="opt-group"><label>金额范围</label><select id="fin-price-range"><option value="0-1000">0 - 1,000</option><option value="0-10000">0 - 10,000</option><option value="100-100000">100 - 100,000</option></select></div>
+    </div>
+  </div>
+
+  <!-- Panel: Identity -->
+  <div class="panel" id="panel-identity">
+    <div class="panel-title">身份标识生成</div>
+    <div class="panel-desc">生成符合格式的身份证号、UUID、用户名等标识数据</div>
+    <div class="check-row">
+      <div class="check-item"><input type="checkbox" id="id-card" checked><label>身份证号(格式合规)</label></div>
+      <div class="check-item"><input type="checkbox" id="id-uuid" checked><label>UUID</label></div>
+      <div class="check-item"><input type="checkbox" id="id-username"><label>用户名</label></div>
+      <div class="check-item"><input type="checkbox" id="id-ip"><label>IP地址</label></div>
+    </div>
+  </div>
+
+  <!-- Panel: DateTime -->
+  <div class="panel" id="panel-datetime">
+    <div class="panel-title">日期时间生成</div>
+    <div class="panel-desc">在指定范围内生成随机日期、时间戳</div>
+    <div class="opts">
+      <div class="opt-group"><label>起始日期</label><input type="date" id="dt-start" value="2020-01-01"></div>
+      <div class="opt-group"><label>结束日期</label><input type="date" id="dt-end" value="2026-12-31"></div>
+      <div class="opt-group"><label>输出格式</label><select id="dt-format"><option value="date">YYYY-MM-DD</option><option value="datetime">YYYY-MM-DD HH:mm:ss</option><option value="timestamp">Unix时间戳(秒)</option><option value="iso">ISO 8601</option></select></div>
+    </div>
+  </div>
+
+  <!-- Panel: Misc -->
+  <div class="panel" id="panel-misc">
+    <div class="panel-title">其他数据生成</div>
+    <div class="panel-desc">生成颜色值、URL、Lorem Ipsum文本等杂项数据</div>
+    <div class="check-row">
+      <div class="check-item"><input type="checkbox" id="misc-color" checked><label>颜色值(HEX/RGB)</label></div>
+      <div class="check-item"><input type="checkbox" id="misc-url"><label>URL</label></div>
+      <div class="check-item"><input type="checkbox" id="misc-lorem" checked><label>Lorem Ipsum</label></div>
+      <div class="check-item"><input type="checkbox" id="misc-number"><label>随机数字</label></div>
+    </div>
+    <div class="opts">
+      <div class="opt-group"><label>Lorem长度</label><select id="misc-lorem-len"><option value="sentence">句子</option><option value="para">段落</option><option value="words">5个单词</option></select></div>
+      <div class="opt-group"><label>数字范围</label><select id="misc-num-range"><option value="0-100">0 - 100</option><option value="0-10000">0 - 10,000</option><option value="-1000-1000">-1,000 - 1,000</option></select></div>
+    </div>
+  </div>
+
+  <!-- AdSense -->
+  <div class="ad-placeholder">[ 广告位 - Google AdSense ]</div>
+
+  <!-- Action Row -->
+  <div class="action-row">
+    <span class="count-label">生成数量:</span>
+    <input type="number" id="genCount" value="10" min="1" max="100" disabled>
+    <button class="btn btn-primary" id="genBtn">🎲 生成数据</button>
+    <button class="btn btn-outline" id="genBtn1k">批量 x100</button>
+  </div>
+
+  <!-- Result -->
+  <div class="result-area">
+    <div class="result-header">
+      <div class="result-count" id="resultCount">点击"生成数据"开始</div>
+      <div class="result-actions">
+        <button class="btn btn-sm" id="copyJsonBtn">📋 复制 JSON</button>
+        <button class="btn btn-sm" id="copyCsvBtn">📊 复制 CSV</button>
+        <button class="btn btn-sm" id="downloadJsonBtn">⬇ JSON 文件</button>
+        <button class="btn btn-sm" id="downloadCsvBtn">⬇ CSV 文件</button>
+      </div>
+    </div>
+    <div class="result-table-wrapper"><table class="result-table" id="resultTable"><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div>
+  </div>
+
+  <!-- AdSense -->
+  <div class="ad-placeholder">[ 广告位 - Google AdSense ]</div>
+
+  <!-- SEO -->
+  <div class="seo-section">
+    <h2>🔧 测试数据生成器 — 开发测试必备工具</h2>
+    <p>我们的<strong>测试数据生成器</strong>是一款免费在线工具，专为软件开发者、QA测试工程师和数据分析师设计。无需下载安装，打开浏览器即可快速生成符合真实格式的随机测试数据，包括姓名、邮箱、电话、地址、公司名称、信用卡号、UUID 等 10+ 种数据类型。</p>
+
+    <h3>核心功能</h3>
+    <ul>
+      <li><strong>10+ 数据类型</strong>：中文/英文姓名、邮箱、手机号、公司名、地址、信用卡号(Visa/MC)、身份证号、UUID、日期、颜色值、Lorem Ipsum 等</li>
+      <li><strong>批量生成</strong>：一次生成 1-100 条记录，快速填充测试数据库</li>
+      <li><strong>多格式导出</strong>：支持 JSON、CSV 一键复制/下载，无缝对接 Postman、JMeter、自动化测试脚本</li>
+      <li><strong>数据真实感</strong>：信用卡号通过 Luhn 算法校验、身份证号符合格式规范、中文姓名基于真实姓氏分布</li>
+      <li><strong>纯浏览器端处理</strong>：所有数据在本地生成，绝不发送到服务器，保护隐私安全</li>
+      <li><strong>深色/浅色主题</strong>：长时间开发不伤眼，适配各类编辑器环境</li>
+      <li><strong>移动端友好</strong>：响应式设计，手机/平板可用</li>
+    </ul>
+
+    <h3>使用场景</h3>
+    <table>
+      <tr><th>场景</th><th>推荐数据类型</th><th>用途</th></tr>
+      <tr><td>用户注册测试</td><td>姓名 + 邮箱 + 手机号 + 密码</td><td>测试注册流程、表单验证</td></tr>
+      <tr><td>电商订单模拟</td><td>地址 + 金额 + 信用卡号 + 日期</td><td>测试下单、支付流程</td></tr>
+      <tr><td>CRM 数据填充</td><td>公司名 + 职位 + 电话 + 邮箱</td><td>填充客户管理系统演示数据</td></tr>
+      <tr><td>API 压力测试</td><td>UUID + 日期 + 姓名</td><td>批量生成 JSON 请求体</td></tr>
+      <tr><td>数据库初始化</td><td>全类型批量 100+ 条</td><td>创建 seed 数据文件</td></tr>
+      <tr><td>前端开发 Mock</td><td>URL + 颜色 + Lorem Ipsum</td><td>Mock API 返回数据、UI 填充</td></tr>
+    </table>
+
+    <h3>数据安全说明</h3>
+    <p>本工具所有数据生成完全在您的浏览器中完成，使用 JavaScript 随机数引擎。不会将任何数据传输到服务器，也不会存储或记录您的使用行为。生成的信用卡号、身份证号等均为符合格式规则的虚拟数据，不可用于真实交易或身份验证。</p>
+
+    <h3>常见问题</h3>
+    <p><strong>Q: 生成的信用卡号是真实的吗？</strong><br>A: 不是。生成的卡号仅通过 Luhn 校验算法，格式上与真实卡号一致，但无法通过支付网关的实际验证。仅供开发测试使用。</p>
+    <p><strong>Q: 可以一次生成超过 100 条吗？</strong><br>A: 默认限制 100 条以确保页面性能。如需更大批量，可以使用批量 x100 快速生成，或通过 JSON 导出后在脚本中循环拼接。</p>
+    <p><strong>Q: 中文姓名是否使用了真实数据？</strong><br>A: 姓名基于公开的常见姓氏和名字用字分布随机组合生成，不关联任何真实个人信息。</p>
+    <p><strong>Q: 支持哪些导出格式？</strong><br>A: 支持 JSON 和 CSV 两种格式。JSON 适合程序读取，CSV 适合 Excel / Google Sheets 打开。</p>
+  </div>
+
+  <footer class="ad-placeholder" style="margin-top:20px">[ 广告位 - Google AdSense ]</footer>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-// ─── 主题切换 ──────────────────────────────────────
-(function(){
-    var saved = localStorage.getItem('tdg_theme');
-    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme:dark)').matches)) {
-        document.documentElement.setAttribute('data-theme','dark');
+(function() {
+  // ============ DATA POOLS ============
+  const CN_SURNAMES = ['王','李','张','刘','陈','杨','黄','赵','吴','周','徐','孙','马','朱','胡','郭','何','高','林','罗','郑','梁','谢','宋','唐','韩','曹','许','邓','萧','冯','曾','程','蔡','彭','潘','袁','于','董','余','苏','叶','吕','魏','蒋','田','杜','丁','沈','姜','范','江','傅','钟','卢','汪','戴','崔','任','陆','廖','姚','方','金','邱','夏','谭','韦','贾','邹','石','熊','孟','秦','阎','薛','侯','雷','白','龙','段','郝','孔','邵','史','毛','常','万','顾','赖','武','康','贺','严','尹','钱','施','牛','洪','龚'];
+  const CN_MALE_NAMES = ['伟','强','磊','军','勇','杰','涛','明','超','辉','鹏','浩','亮','刚','健','飞','毅','俊','峰','斌','宇','宁','志','华','文','伟','睿','博','翔','哲','皓','铭','轩','霖','辰','凯','恒','瑞','博','卓','然','毅','彦','泽','信','豪','诚','翰','建','国','永','平','晓','明','龙','海','东','志','德','成','学','思','远','宏','庆','彬','利','顺','凡','若','远','乐','康','良','正','鸿','善','仁','义'];
+  const CN_FEMALE_NAMES = ['芳','敏','静','丽','婷','雪','艳','娟','霞','玲','秀','琴','云','娜','燕','红','梅','蕾','萍','颖','慧','莉','洁','兰','英','丹','蓉','凤','怡','佳','倩','琳','瑶','璐','薇','蓉','萱','菲','妍','曼','茜','琪','婉','如','雅','君','玉','冰','月','悦','萌','诗','蕾','晴','灵','舒','思','涵','艺','悠','柔','若','纯','岚','碧','晓','翠','雁','凡','之','雨','亦','丝','文','天','香','念','真'];
+  const EN_FIRST_MALE = ['James','John','Robert','Michael','William','David','Richard','Joseph','Thomas','Charles','Daniel','Matthew','Anthony','Mark','Donald','Steven','Paul','Andrew','Joshua','Kenneth','Kevin','Brian','George','Timothy','Ronald','Edward','Jason','Jeffrey','Ryan','Jacob','Gary','Nicholas','Eric','Jonathan','Stephen','Larry','Justin','Scott','Brandon','Benjamin','Samuel','Raymond','Gregory','Frank','Alexander','Patrick','Jack','Dennis','Jerry','Tyler'];
+  const EN_FIRST_FEMALE = ['Mary','Patricia','Jennifer','Linda','Barbara','Elizabeth','Susan','Jessica','Sarah','Karen','Lisa','Nancy','Betty','Margaret','Sandra','Ashley','Dorothy','Kimberly','Emily','Donna','Michelle','Carol','Amanda','Melissa','Deborah','Stephanie','Rebecca','Sharon','Laura','Cynthia','Kathleen','Amy','Angela','Shirley','Anna','Brenda','Pamela','Emma','Nicole','Helen','Samantha','Katherine','Christine','Debra','Rachel','Carolyn','Janet','Catherine','Maria','Heather'];
+  const EN_LAST = ['Smith','Johnson','Williams','Brown','Jones','Garcia','Miller','Davis','Rodriguez','Martinez','Hernandez','Lopez','Gonzalez','Wilson','Anderson','Thomas','Taylor','Moore','Jackson','Martin','Lee','Perez','Thompson','White','Harris','Sanchez','Clark','Ramirez','Lewis','Robinson','Walker','Young','Allen','King','Wright','Scott','Torres','Nguyen','Hill','Flores','Green','Adams','Nelson','Baker','Hall','Rivera','Campbell','Mitchell','Carter','Roberts'];
+  const CN_CITIES = ['北京','上海','广州','深圳','杭州','成都','武汉','南京','重庆','天津','苏州','西安','长沙','青岛','郑州','大连','厦门','宁波','济南','合肥','福州','东莞','佛山','沈阳','昆明','无锡','南宁','常州','绍兴','嘉兴','珠海','惠州','中山','贵阳','兰州','乌鲁木齐','呼和浩特','太原','石家庄','哈尔滨','长春','南昌','海口','温州','泉州','烟台','徐州','唐山','洛阳','襄阳'];
+  const STREETS = ['建设路','人民路','中山路','解放路','文化路','和平路','光明街','长安街','南京路','北京路','朝阳街','东风路','花园路','科技路','滨江路','学府路','天府大道','滨海大道','深南大道','浦东大道'];
+  const CN_PROVINCES = ['北京市','上海市','广东省','浙江省','江苏省','四川省','湖北省','湖南省','山东省','河南省','福建省','安徽省','河北省','辽宁省','陕西省','重庆市','天津市','江西省','广西壮族自治区','云南省','贵州省','山西省','吉林省','黑龙江省','甘肃省','内蒙古自治区','新疆维吾尔自治区','海南省','宁夏回族自治区','青海省','西藏自治区'];
+  const COMPANY_PREFIX = ['星辰','华远','瑞达','鑫源','博创','天宇','恒通','嘉禾','鹏程','睿智','经纬','鼎新','亿联','智云','领航','卓越','先锋','光辉','凯旋','龙腾','凤凰','麒麟','长城','蓝海','新锐','浪潮','光环','未来','梦想','星辰'];
+  const COMPANY_SUFFIX = ['科技','信息','数据','网络','软件','智能','云计算','电子商务','投资','咨询','贸易','物流','传媒','教育','医疗','新能源','半导体','机器人','物联网','区块链'];
+  const COMPANY_TAIL = ['有限公司','股份有限公司','科技有限公司','集团有限公司','信息技术有限公司'];
+  const JOB_TITLES = ['软件工程师','高级前端开发','后端架构师','产品经理','项目经理','数据分析师','UI/UX设计师','DevOps工程师','测试工程师','技术总监','运营经理','市场总监','财务主管','人力资源经理','销售经理','客户成功经理','算法工程师','安全工程师','数据库管理员','全栈开发'];
+  const DEPARTMENTS = ['技术部','产品部','运营部','市场部','财务部','人力资源部','研发中心','数据科学部','设计部','销售部','客户服务部','法务部','行政部','战略发展部','安全合规部'];
+  const EMAIL_DOMAINS = ['qq.com','163.com','126.com','sina.com','gmail.com','outlook.com','hotmail.com','foxmail.com','sohu.com','aliyun.com'];
+  const PHONE_PREFIXES = { '13':['130','131','132','133','134','135','136','137','138','139'], '15':['150','151','152','153','155','156','157','158','159'], '18':['180','181','182','183','184','185','186','187','188','189'], '17':['170','171','172','173','174','175','176','177','178','179'] };
+  const WECHAT_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789_-';
+  const LOREM_WORDS = ['lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do','eiusmod','tempor','incididunt','ut','labore','et','dolore','magna','aliqua','enim','ad','minim','veniam','quis','nostrud','exercitation','ullamco','laboris','nisi','ut','aliquip','ex','ea','commodo','consequat','duis','aute','irure','dolor','in','reprehenderit','voluptate','velit','esse','cillum','dolore','eu','fugiat','nulla','pariatur'];
+  const CC_TYPES = [{name:'Visa',prefix:['4'],len:16},{name:'MasterCard',prefix:['51','52','53','54','55'],len:16},{name:'AmEx',prefix:['34','37'],len:15},{name:'Discover',prefix:['6011','65'],len:16}];
+
+  // ============ HELPERS ============
+  function rand(min,max) { return Math.floor(Math.random()*(max-min+1))+min; }
+  function pick(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
+  function pickN(arr,n) { const s=new Set(); while(s.size<Math.min(n,arr.length)) s.add(pick(arr)); return [...s]; }
+  function luhnCheck(num) {
+    let sum=0; let alt=false;
+    for(let i=num.length-1;i>=0;i--) {
+      let d=parseInt(num[i]); if(alt){ d*=2; if(d>9)d-=9; }
+      sum+=d; alt=!alt;
     }
+    return sum%10===0;
+  }
+  function genLuhn(prefix,len) {
+    let num=prefix; while(num.length<len-1) num+=rand(0,9).toString();
+    let sum=0,alt=true;
+    for(let i=num.length-1;i>=0;i--){let d=parseInt(num[i]);if(alt){d*=2;if(d>9)d-=9;}sum+=d;alt=!alt;}
+    let check=(10-(sum%10))%10; return num+check;
+  }
+  function genUUID() {
+    if(typeof crypto!=='undefined'&&crypto.randomUUID) return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){const r=Math.random()*16|0,v=c==='x'?r:(r&0x3|0x8);return v.toString(16);});
+  }
+  function genIP() { return rand(1,255)+'.'+rand(0,255)+'.'+rand(0,255)+'.'+rand(1,254); }
+  function genUsername() {
+    const adjs=['cool','super','happy','smart','gold','blue','red','dark','fast','lucky','magic','wild','neo','cyber','hyper','ultra','mega','mini','pro','master'];
+    const nouns=['coder','dev','panda','tiger','dragon','star','ninja','wolf','fox','bear','lion','hawk','eagle','shark','phoenix','knight','wizard','hero','ace','chief'];
+    return pick(adjs)+'_'+pick(nouns)+rand(10,99);
+  }
+
+  // ============ GENERATORS ============
+  function genCNName(gender) {
+    const sn=pick(CN_SURNAMES);
+    let names;
+    if(gender==='male') names=CN_MALE_NAMES;
+    else if(gender==='female') names=CN_FEMALE_NAMES;
+    else names=Math.random()>0.5?CN_MALE_NAMES:CN_FEMALE_NAMES;
+    const n1=pick(names),n2=Math.random()>0.4?pick(names):'';
+    return sn+n1+n2;
+  }
+  function genENName(gender) {
+    let firsts;
+    if(gender==='male') firsts=EN_FIRST_MALE;
+    else if(gender==='female') firsts=EN_FIRST_FEMALE;
+    else firsts=Math.random()>0.5?EN_FIRST_MALE:EN_FIRST_FEMALE;
+    return pick(firsts)+' '+pick(EN_LAST);
+  }
+  function genEmail(name,domain) {
+    const d=domain==='random'?pick(EMAIL_DOMAINS):domain;
+    const n=(name||'user'+rand(1000,99999)).toLowerCase().replace(/\s/g,'').replace(/[^\w]/g,'');
+    return n+'@'+d;
+  }
+  function genPhone(prefix) {
+    let prefs;
+    if(prefix==='random') { const k=pick(Object.keys(PHONE_PREFIXES)); prefs=PHONE_PREFIXES[k]; }
+    else prefs=PHONE_PREFIXES[prefix]||PHONE_PREFIXES['13'];
+    return pick(prefs)+String(rand(10000000,99999999));
+  }
+  function genTel() {
+    const areas=['010','021','020','0755','0571','028','027','025','023','022','0512','029','0731','0532','0371'];
+    return pick(areas)+'-'+String(rand(10000000,99999999));
+  }
+  function genWechat() {
+    let s=''; for(let i=0;i<rand(6,15);i++) s+=pick(WECHAT_CHARS);
+    return s;
+  }
+  function genCompany(type) {
+    const p=pick(COMPANY_PREFIX);
+    let s=COMPANY_SUFFIX;
+    if(type==='tech') s=['科技','信息','数据','网络','软件','智能','云计算','半导体','机器人','物联网','区块链'];
+    else if(type==='finance') s=['投资','金融','资本','保险','证券','基金','信托','财富','资产管理','融资租赁'];
+    else if(type==='trade') s=['贸易','商贸','进出口','实业','工贸','商社','供应链','跨境','百货','连锁'];
+    return p+pick(s)+pick(COMPANY_TAIL);
+  }
+  function genAddress(level) {
+    const p=pick(CN_PROVINCES);
+    const c=pick(CN_CITIES);
+    if(level==='province') return p+c;
+    if(level==='city') return c+pick(['朝阳区','海淀区','浦东新区','天河区','南山区','福田区','武侯区','锦江区','拱墅区','西湖区','鼓楼区','江宁区','雁塔区','碑林区','渝中区']);
+    const d=pick(['朝阳区','海淀区','浦东新区','天河区','南山区','福田区','武侯区','锦江区','拱墅区','西湖区','鼓楼区','江宁区']);
+    return p+c+d+pick(STREETS)+rand(1,500)+'号';
+  }
+  function genCreditCard() {
+    const ct=pick(CC_TYPES);
+    return genLuhn(pick(ct.prefix),ct.len);
+  }
+  function genBankAccount() {
+    const banks=['6222','6228','6217','6221','6212','6216','6225','6226','6229','6230'];
+    return pick(banks)+String(rand(1000000000000,9999999999999));
+  }
+  function genPrice(range) {
+    const r=range.split('-').map(Number);
+    return (Math.random()*(r[1]-r[0])+r[0]).toFixed(2);
+  }
+  function genIDCard() {
+    const areas=['110101','310101','440103','440305','510107','330102','320102','420103','610103','500103'];
+    const area=pick(areas);
+    const birth=new Date(rand(new Date(1960,0,1).getTime(),new Date(2005,11,31).getTime()));
+    const y=birth.getFullYear().toString(),m=String(birth.getMonth()+1).padStart(2,'0'),d=String(birth.getDate()).padStart(2,'0');
+    const sn=String(rand(0,999)).padStart(3,'0');
+    const base=area+y+m+d+sn;
+    const ws=[7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2];
+    const cs=['1','0','X','9','8','7','6','5','4','3','2'];
+    let sum=0; for(let i=0;i<17;i++) sum+=parseInt(base[i])*ws[i];
+    return base+cs[sum%11];
+  }
+  function genColor() { return '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'); }
+  function genRGB() { return 'rgb('+rand(0,255)+', '+rand(0,255)+', '+rand(0,255)+')'; }
+  function genURL() {
+    const domains=['example.com','test.org','mysite.cn','demo.io','sample.net','app.dev','myapp.co','devhub.cn'];
+    const paths=['api/v1/users','products/list','dashboard','about','contact','blog/post/'+rand(1,100),'docs/guide','help/faq'];
+    return 'https://'+pick(domains)+'/'+pick(paths);
+  }
+  function genLorem(type) {
+    if(type==='words') return pickN(LOREM_WORDS,5).join(' ');
+    const words=type==='para'?rand(20,50):rand(8,15);
+    const ws=[]; for(let i=0;i<words;i++) ws.push(pick(LOREM_WORDS));
+    const s=ws.join(' ');
+    return type==='para'?s.charAt(0).toUpperCase()+s.slice(1)+'.':s.charAt(0).toUpperCase()+s.slice(1)+'.';
+  }
+  function genDate(start,end,format) {
+    const ts=rand(new Date(start).getTime(),new Date(end).getTime());
+    const d=new Date(ts);
+    switch(format) {
+      case 'datetime': return d.toISOString().replace('T',' ').substring(0,19);
+      case 'timestamp': return Math.floor(ts/1000).toString();
+      case 'iso': return d.toISOString();
+      default: return d.toISOString().substring(0,10);
+    }
+  }
+
+  // ============ MAIN GENERATION ============
+  let currentData = [];
+  let currentActivePanel = 'name';
+  const activeChecks = {
+    name: function(){return true;},
+    contact: function(){
+      return {email:q('cont-email').checked,phone:q('cont-phone').checked,tel:q('cont-tel').checked,wechat:q('cont-wechat').checked};
+    },
+    business: function(){
+      return {company:q('biz-company').checked,job:q('biz-job').checked,address:q('biz-address').checked,dept:q('biz-department').checked};
+    },
+    finance: function(){return {cc:q('fin-cc').checked,price:q('fin-price').checked,bank:q('fin-bank').checked};},
+    identity: function(){return {idcard:q('id-card').checked,uuid:q('id-uuid').checked,username:q('id-username').checked,ip:q('id-ip').checked};},
+    datetime: function(){return true;},
+    misc: function(){return {color:q('misc-color').checked,url:q('misc-url').checked,lorem:q('misc-lorem').checked,num:q('misc-number').checked};}
+  };
+
+  function q(id) { return document.getElementById(id); }
+
+  function genRecord(panel) {
+    const rec={};
+    switch(panel) {
+      case 'name':
+        const nt=q('name-type').value,ng=q('name-gender').value;
+        if(nt==='cn') rec['姓名']=genCNName(ng);
+        else if(nt==='en') rec['姓名']=genENName(ng);
+        else rec['姓名']=Math.random()>0.5?genCNName(ng):genENName(ng);
+        break;
+      case 'contact':
+        const chk=activeChecks.contact();
+        const name=genCNName('any');
+        if(chk.email) rec['邮箱']=genEmail(name,q('cont-domain').value);
+        if(chk.phone) rec['手机号']=genPhone(q('cont-prefix').value);
+        if(chk.tel) rec['座机']=genTel();
+        if(chk.wechat) rec['微信']=genWechat();
+        if(!chk.email&&!chk.phone&&!chk.tel&&!chk.wechat) rec['邮箱']=genEmail(name,'random');
+        break;
+      case 'business':
+        const bchk=activeChecks.business();
+        if(bchk.company) rec['公司']=genCompany(q('biz-type').value);
+        if(bchk.job) rec['职位']=pick(JOB_TITLES);
+        if(bchk.address) rec['地址']=genAddress(q('biz-addr-level').value);
+        if(bchk.dept) rec['部门']=pick(DEPARTMENTS);
+        if(!bchk.company&&!bchk.job&&!bchk.address&&!bchk.dept) {rec['公司']=genCompany('random');rec['职位']=pick(JOB_TITLES);}
+        break;
+      case 'finance':
+        const fchk=activeChecks.finance();
+        if(fchk.cc || (!fchk.cc&&!fchk.price&&!fchk.bank)) rec['信用卡号']=genCreditCard();
+        if(fchk.price) rec['金额(元)']=genPrice(q('fin-price-range').value);
+        if(fchk.bank) rec['银行账号']=genBankAccount();
+        break;
+      case 'identity':
+        const ichk=activeChecks.identity();
+        if(ichk.idcard || (!ichk.idcard&&!ichk.uuid&&!ichk.username&&!ichk.ip)) rec['身份证号']=genIDCard();
+        if(ichk.uuid) rec['UUID']=genUUID();
+        if(ichk.username) rec['用户名']=genUsername();
+        if(ichk.ip) rec['IP地址']=genIP();
+        break;
+      case 'datetime':
+        rec['日期']=genDate(q('dt-start').value,q('dt-end').value,q('dt-format').value);
+        break;
+      case 'misc':
+        const mchk=activeChecks.misc();
+        if(mchk.color) rec['颜色(HEX)']=genColor();
+        if(mchk.url) rec['URL']=genURL();
+        if(mchk.lorem || (!mchk.color&&!mchk.url&&!mchk.lorem&&!mchk.num)) rec['Lorem Ipsum']=genLorem(q('misc-lorem-len').value);
+        if(mchk.num) rec['数字']=rand(...q('misc-num-range').value.split('-').map(Number));
+        break;
+    }
+    return rec;
+  }
+
+  function generate(count) {
+    if(isNaN(count)||count<1) count=1;
+    if(count>100) count=100;
+    currentData=[];
+    for(let i=0;i<count;i++) currentData.push(genRecord(currentActivePanel));
+    renderTable();
+    q('resultCount').innerHTML='已生成 <b>'+currentData.length+'</b> 条记录';
+  }
+
+  function renderTable() {
+    const head=q('tableHead'),body=q('tableBody');
+    if(!currentData.length){head.innerHTML='';body.innerHTML='';return;}
+    const keys=Object.keys(currentData[0]);
+    head.innerHTML='<tr><th>#</th>'+keys.map(k=>'<th>'+k+'</th>').join('')+'</tr>';
+    body.innerHTML=currentData.map((r,i)=>'<tr><td>'+(i+1)+'</td>'+keys.map(k=>'<td>'+esc(r[k]||'')+'</td>').join('')+'</tr>').join('');
+  }
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function getJSON() { return JSON.stringify(currentData,null,2); }
+  function getCSV() {
+    if(!currentData.length) return '';
+    const keys=Object.keys(currentData[0]);
+    return keys.join(',')+'\n'+currentData.map(r=>keys.map(k=>'"'+String(r[k]||'').replace(/"/g,'""')+'"').join(',')).join('\n');
+  }
+
+  function showToast(msg) {
+    const t=q('toast'); t.textContent=msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2000);
+  }
+  function copyText(text) {
+    if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>showToast('已复制到剪贴板!'));}
+    else{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('已复制到剪贴板!');}
+  }
+  function downloadBlob(content,filename,type) {
+    const blob=new Blob([content],{type});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();
+    document.body.removeChild(a);URL.revokeObjectURL(url);showToast(filename+' 下载中...');
+  }
+
+  // ============ EVENT BINDINGS ============
+  // Tabs
+  document.getElementById('tabs').addEventListener('click',function(e){
+    const tab=e.target.closest('.tab'); if(!tab) return;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    const panelId='panel-'+tab.dataset.panel;
+    const panel=document.getElementById(panelId);
+    if(panel) panel.classList.add('active');
+    currentActivePanel=tab.dataset.panel;
+    q('genCount').value=10;
+    currentData=[];
+    q('tableHead').innerHTML='';q('tableBody').innerHTML='';
+    q('resultCount').textContent='点击"生成数据"开始';
+  });
+
+  // Generate
+  q('genBtn').addEventListener('click',function(){
+    generate(parseInt(q('genCount').value)||10);
+  });
+  q('genBtn1k').addEventListener('click',function(){
+    generate(100);
+  });
+
+  // Copy/Download
+  q('copyJsonBtn').addEventListener('click',function(){
+    if(!currentData.length){showToast('请先生成数据');return;}
+    copyText(getJSON());
+  });
+  q('copyCsvBtn').addEventListener('click',function(){
+    if(!currentData.length){showToast('请先生成数据');return;}
+    copyText(getCSV());
+  });
+  q('downloadJsonBtn').addEventListener('click',function(){
+    if(!currentData.length){showToast('请先生成数据');return;}
+    downloadBlob(getJSON(),'test-data-'+Date.now()+'.json','application/json');
+  });
+  q('downloadCsvBtn').addEventListener('click',function(){
+    if(!currentData.length){showToast('请先生成数据');return;}
+    downloadBlob(getCSV(),'test-data-'+Date.now()+'.csv','text/csv');
+  });
+
+  // Theme
+  const themeBtn=q('themeBtn');
+  const savedTheme=localStorage.getItem('tdgen-theme');
+  if(savedTheme==='dark'){document.body.classList.add('dark');themeBtn.textContent='☀️';}
+  themeBtn.addEventListener('click',function(){
+    document.body.classList.toggle('dark');
+    const isDark=document.body.classList.contains('dark');
+    themeBtn.textContent=isDark?'☀️':'🌙';
+    localStorage.setItem('tdgen-theme',isDark?'dark':'light');
+  });
+
+  // Keyboard shortcut
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){
+      e.preventDefault();
+      generate(parseInt(q('genCount').value)||10);
+    }
+  });
+
+  // Initial render
+  generate(10);
 })();
-
-function toggleTheme(){
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? '' : 'dark');
-    localStorage.setItem('tdg_theme', isDark ? 'light' : 'dark');
-}
-
-// ─── 数据类型定义 ──────────────────────────────────
-var FIELD_DEFS = [
-    {id:'name',icon:'👤',label:'姓名',desc:'中文姓名',category:'person',common:true},
-    {id:'name_en',icon:'👤',label:'英文名',desc:'First Last',category:'person',common:true},
-    {id:'email',icon:'✉️',label:'邮箱',desc:'example@domain.com',category:'contact',common:true},
-    {id:'phone',icon:'📱',label:'手机号',desc:'1xx-xxxx-xxxx',category:'contact',common:true},
-    {id:'id_card',icon:'🪪',label:'身份证号',desc:'18位格式',category:'person'},
-    {id:'address',icon:'🏠',label:'地址',desc:'省市区街道',category:'location'},
-    {id:'uuid',icon:'🔑',label:'UUID',desc:'v4标准格式',category:'tech',common:true},
-    {id:'date',icon:'📅',label:'日期',desc:'yyyy-MM-dd',category:'time',common:true},
-    {id:'datetime',icon:'🕐',label:'日期时间',desc:'ISO 8601',category:'time'},
-    {id:'number',icon:'🔢',label:'整数',desc:'0-10000随机',category:'number',common:true},
-    {id:'decimal',icon:'🔢',label:'小数',desc:'0.00-999.99',category:'number'},
-    {id:'boolean',icon:'✅',label:'布尔值',desc:'true/false',category:'tech'},
-    {id:'lorem',icon:'📝',label:'Lorem文本',desc:'随机段落',category:'text',common:true},
-    {id:'url',icon:'🔗',label:'URL',desc:'https://...',category:'tech'},
-    {id:'ip',icon:'🌐',label:'IP地址',desc:'IPv4格式',category:'tech',common:true},
-    {id:'company',icon:'🏢',label:'公司名',desc:'中文公司',category:'business'},
-    {id:'job',icon:'💼',label:'职位',desc:'常见职位',category:'business'},
-    {id:'color',icon:'🎨',label:'颜色',desc:'HEX格式',category:'design'},
-    {id:'age',icon:'🎂',label:'年龄',desc:'18-65岁',category:'person',common:true},
-    {id:'username',icon:'👤',label:'用户名',desc:'字母数字组合',category:'tech'}
-];
-
-// ─── 数据池 ──────────────────────────────────────
-var POOLS = {
-    surnames:['王','李','张','刘','陈','杨','赵','黄','周','吴','徐','孙','胡','朱','高','林','何','郭','马','罗','梁','宋','郑','谢','韩','唐','冯','于','董','萧','程','曹','袁','邓','许','傅','沈','曾','彭','吕','苏','卢','蒋','蔡','贾','丁','魏','薛','叶','阎','余','潘','杜','戴','夏','钟','汪','田','任','姜','范','方','石','姚','谭','廖','邹','熊','金','陆','郝','孔','白','崔','康','毛','邱','秦','江','史','顾','侯','邵','孟','龙','万','段','雷','钱','汤','尹','黎','易','常','武','乔','贺','赖','龚','文'],
-    givenNames:['伟','芳','娜','秀英','敏','静','丽','强','磊','军','洋','勇','艳','杰','娟','涛','明','超','秀兰','霞','平','刚','桂英','文','华','飞','玉兰','斌','玲','国强','凤英','建国','建军','志强','建华','秀珍','海燕','晨','阳','雨','曦','宇','轩','涵','梓','萱','睿','昊','皓','宸'],
-    givenNamesMale:['伟','强','磊','军','勇','涛','明','超','平','刚','斌','建国','志强','建华','晨','阳','宇','轩','昊','皓','睿','宸','龙','飞','鹏','杰','俊','峰','毅'],
-    givenNamesFemale:['芳','娜','秀英','敏','静','丽','艳','娟','霞','玲','桂英','秀珍','海燕','雨','涵','梓','萱','曦','婷','雪','婉','怡','琳'],
-    enFirst:['James','Mary','John','Patricia','Robert','Jennifer','Michael','Linda','David','Elizabeth','William','Barbara','Richard','Susan','Joseph','Jessica','Thomas','Sarah','Charles','Karen','Christopher','Lisa','Daniel','Nancy','Matthew','Betty','Anthony','Margaret','Mark','Sandra','Donald','Ashley','Steven','Kimberly','Paul','Emily','Andrew','Donna','Joshua','Michelle'],
-    enLast:['Smith','Johnson','Williams','Brown','Jones','Garcia','Miller','Davis','Rodriguez','Martinez','Hernandez','Lopez','Gonzalez','Wilson','Anderson','Thomas','Taylor','Moore','Jackson','Martin','Lee','Perez','Thompson','White','Harris','Sanchez','Clark','Ramirez','Lewis','Robinson'],
-    emailDomains:['gmail.com','outlook.com','qq.com','163.com','126.com','yahoo.com','hotmail.com','icloud.com','proton.me','foxmail.com','sina.com','sohu.com'],
-    phonePrefixes:['130','131','132','133','134','135','136','137','138','139','150','151','152','153','155','156','157','158','159','170','176','177','178','180','181','182','183','184','185','186','187','188','189','191','193','195','196','198','199'],
-    provinces:['北京市','上海市','广东省','浙江省','江苏省','四川省','湖北省','湖南省','山东省','福建省','河南省','河北省','安徽省','辽宁省','陕西省','重庆市','江西省','广西','云南省','吉林省','黑龙江省','贵州省','山西省','甘肃省','内蒙古','海南省','新疆','宁夏','青海省','西藏'],
-    cities:{'北京市':['朝阳区','海淀区','东城区','西城区','丰台区','通州区','大兴区','昌平区'],'上海市':['浦东新区','黄浦区','徐汇区','静安区','长宁区','普陀区','虹口区','杨浦区','闵行区','宝山区'],'广东省':['广州市','深圳市','东莞市','佛山市','珠海市','中山市','惠州市'],'浙江省':['杭州市','宁波市','温州市','嘉兴市','绍兴市','金华市'],'江苏省':['南京市','苏州市','无锡市','常州市','南通市','徐州市'],'四川省':['成都市','绵阳市','德阳市','宜宾市','南充市'],'湖北省':['武汉市','宜昌市','襄阳市','荆州市','黄石市'],'湖南省':['长沙市','株洲市','湘潭市','衡阳市','岳阳市'],'山东省':['济南市','青岛市','烟台市','潍坊市','临沂市'],'福建省':['福州市','厦门市','泉州市','漳州市','莆田市']},
-    streets:['中山路','人民路','建设路','解放路','文化路','长安街','南京路','北京路','和平街','光明路','东风路','新华街','工业大道','环城路','湖滨路','青年路','科技路','花园路','胜利街','学府路','滨河路','朝阳路','幸福路','友谊路','平安路'],
-    companies:['华为技术','阿里巴巴','腾讯科技','字节跳动','百度在线','京东集团','美团点评','网易集团','小米科技','滴滴出行','拼多多','蚂蚁集团','科大讯飞','商汤科技','大疆创新','蔚来汽车','理想汽车','比亚迪','格力电器','海康威视','中兴通讯','紫光展锐','寒武纪','地平线','云从科技'],
-    companySuffix:['有限公司','股份有限公司','科技有限公司','集团','信息技术有限公司','网络科技有限公司','云计算有限公司','智能科技有限公司'],
-    jobs:['软件工程师','前端开发','后端开发','全栈工程师','产品经理','UI设计师','数据分析师','测试工程师','运维工程师','架构师','技术总监','项目经理','运营经理','市场经理','HR经理','财务主管','算法工程师','安全工程师','DevOps工程师','技术顾问'],
-    loremWords:['系统','需要','处理','大规模','数据','并发','请求','确保','高可用','架构','支持','弹性','伸缩','优化','性能','瓶颈','实现','分布式','存储','缓存','消息','队列','微服务','容器化','部署','持续','集成','交付','监控','告警','日志','追踪','安全','认证','授权','加密','解密','负载','均衡','容错','降级','限流','熔断','重试','补偿','事务','一致','最终','可靠'],
-    colors:['#FF6B6B','#4ECDC4','#45B7D1','#96CEB4','#FFEAA7','#DDA0DD','#98D8C8','#F7DC6F','#BB8FCE','#85C1E9','#F8C471','#82E0AA','#F1948A','#85929E','#76D7C4','#7FB3D8','#E59866','#A569BD'],
-    usernames:['dev','coder','admin','user','test','guest','root','master','ninja','hacker','builder','maker','pixel','byte','bit','data','cloud','web','app','api']
-};
-
-// ─── 生成器函数 ──────────────────────────────────
-function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min}
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
-function pad(n,w){var s=''+n;while(s.length<w)s='0'+s;return s}
-
-var generators = {
-    name: function(locale){
-        var sur = pick(POOLS.surnames);
-        var given = (locale==='zh'||locale==='mixed') ? pick(POOLS.givenNames) : pick(POOLS.enFirst)+' '+pick(POOLS.enLast);
-        if(locale==='mixed'&&Math.random()>0.5) return pick(POOLS.enFirst)+' '+pick(POOLS.enLast);
-        return locale==='en' ? pick(POOLS.enFirst)+' '+pick(POOLS.enLast) : sur+given;
-    },
-    name_en: function(){return pick(POOLS.enFirst)+' '+pick(POOLS.enLast)},
-    email: function(locale){
-        var name = (locale==='en') ? pick(POOLS.enFirst).toLowerCase()+'.'+pick(POOLS.enLast).toLowerCase() : 'user'+rand(1000,9999);
-        return name+'@'+pick(POOLS.emailDomains);
-    },
-    phone: function(){return pick(POOLS.phonePrefixes)+pad(rand(0,99999999),8)},
-    id_card: function(){
-        var area = pad(rand(110000,659999),6);
-        var birth = ''+rand(1970,2005)+pad(rand(1,12),2)+pad(rand(1,28),2);
-        var seq = pad(rand(0,999),3);
-        return area+birth+seq+rand(0,9);
-    },
-    address: function(){
-        var prov = pick(POOLS.provinces);
-        var cities = POOLS.cities[prov]||['市区'];
-        var city = pick(cities);
-        return prov+city+pick(POOLS.streets)+rand(1,999)+'号';
-    },
-    uuid: function(){return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0,v=c==='x'?r:(r&0x3|0x8);return v.toString(16)})},
-    date: function(){
-        var y=rand(2020,2026),m=pad(rand(1,12),2),d=pad(rand(1,28),2);
-        return y+'-'+m+'-'+d;
-    },
-    datetime: function(){
-        var d=generators.date();
-        return d+'T'+pad(rand(0,23),2)+':'+pad(rand(0,59),2)+':'+pad(rand(0,59),2)+'.000Z';
-    },
-    number: function(){return rand(0,10000)},
-    decimal: function(){return (Math.random()*999.99).toFixed(2)},
-    boolean: function(){return Math.random()>0.5},
-    lorem: function(){
-        var count=rand(8,25),words=[];
-        for(var i=0;i<count;i++) words.push(pick(POOLS.loremWords));
-        return words.join('');
-    },
-    url: function(){
-        var protocols=['https://www.','http://'];
-        var domains=['example.com','test.org','mysite.cn','demo.io','api.dev','app.co'];
-        var paths=['/api/v1','/users','/products','/dashboard','/login','/settings','/profile','/data'];
-        return pick(protocols)+pick(domains)+pick(paths)+'/'+rand(100,9999);
-    },
-    ip: function(){return rand(10,223)+'.'+rand(0,255)+'.'+rand(0,255)+'.'+rand(1,254)},
-    company: function(){return pick(POOLS.companies)+pick(POOLS.companySuffix)},
-    job: function(){return pick(POOLS.jobs)},
-    color: function(){return pick(POOLS.colors)},
-    age: function(){return rand(18,65)},
-    username: function(){return pick(POOLS.usernames)+'_'+rand(100,9999)}
-};
-
-// ─── UI 状态 ──────────────────────────────────────
-var selectedFields = ['name','email','phone','uuid','date','number'];
-var generatedData = [];
-
-// ─── 初始化字段列表 ──────────────────────────────
-(function initFields(){
-    var grid = document.getElementById('fieldGrid');
-    FIELD_DEFS.forEach(function(f){
-        var div = document.createElement('div');
-        div.className = 'field-item' + (selectedFields.indexOf(f.id)>=0 ? ' selected' : '');
-        div.setAttribute('data-id', f.id);
-        div.innerHTML = '<div class="field-check"></div><span class="field-icon">'+f.icon+'</span><div class="field-info"><div class="field-label">'+f.label+'</div><div class="field-desc">'+f.desc+'</div></div>';
-        div.onclick = function(){toggleField(f.id, div)};
-        grid.appendChild(div);
-    }
-})();
-
-function toggleField(id, el){
-    var idx = selectedFields.indexOf(id);
-    if(idx>=0){selectedFields.splice(idx,1);el.classList.remove('selected')}
-    else{selectedFields.push(id);el.classList.add('selected')}
-}
-
-function selectAll(){
-    selectedFields = FIELD_DEFS.map(function(f){return f.id});
-    document.querySelectorAll('.field-item').forEach(function(el){el.classList.add('selected')});
-}
-
-function deselectAll(){
-    selectedFields = [];
-    document.querySelectorAll('.field-item').forEach(function(el){el.classList.remove('selected')});
-}
-
-function selectCommon(){
-    selectedFields = FIELD_DEFS.filter(function(f){return f.common}).map(function(f){return f.id});
-    document.querySelectorAll('.field-item').forEach(function(el){
-        var id = el.getAttribute('data-id');
-        if(selectedFields.indexOf(id)>=0) el.classList.add('selected');
-        else el.classList.remove('selected');
-    });
-}
-
-// ─── 数据生成 ────────────────────────────────────
-function generate(){
-    if(selectedFields.length===0){toast('⚠️ 请至少选择一个数据类型');return}
-    var count = Math.min(Math.max(parseInt(document.getElementById('count').value)||10,1),5000);
-    var locale = document.getElementById('locale').value;
-    generatedData = [];
-    for(var i=0;i<count;i++){
-        var row = {_index:i+1};
-        selectedFields.forEach(function(fid){
-            var gen = generators[fid];
-            if(gen) row[fid] = gen(locale);
-            else row[fid] = '';
-        });
-        generatedData.push(row);
-    }
-    renderPreview();
-    document.getElementById('resultPanel').style.display = '';
-    document.getElementById('resultPanel').scrollIntoView({behavior:'smooth',block:'start'});
-    toast('✅ 已生成 '+count+' 条数据 ('+selectedFields.length+' 个字段)');
-}
-
-function renderPreview(){
-    var stats = document.getElementById('statsBar');
-    stats.innerHTML = '<div class="stat-item"><span class="stat-value">'+generatedData.length+'</span><span class="stat-label">条数据</span></div>'+
-        '<div class="stat-item"><span class="stat-value">'+selectedFields.length+'</span><span class="stat-label">个字段</span></div>'+
-        '<div class="stat-item"><span class="stat-value">'+(JSON.stringify(generatedData).length/1024).toFixed(1)+' KB</span><span class="stat-label">JSON大小</span></div>';
-
-    var wrap = document.getElementById('previewWrap');
-    if(generatedData.length===0){wrap.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div><p>暂无数据，请先生成</p></div>';return}
-
-    var fields = selectedFields;
-    var thead = '<tr><th class="row-num">#</th>'+fields.map(function(f){
-        var def = FIELD_DEFS.find(function(d){return d.id===f});
-        return '<th>'+(def?def.label:f)+'</th>';
-    }).join('')+'</tr>';
-
-    var maxRows = Math.min(generatedData.length, 100);
-    var tbody = '';
-    for(var i=0;i<maxRows;i++){
-        var row = generatedData[i];
-        tbody += '<tr><td class="row-num">'+(i+1)+'</td>'+fields.map(function(f){return '<td>'+String(row[f]||'')+'</td>'}).join('')+'</tr>';
-    }
-    var footer = generatedData.length>maxRows ? '<tr><td colspan="'+(fields.length+1)+'" style="text-align:center;color:var(--text-muted);padding:12px">... 仅显示前100条，共'+generatedData.length+'条</td></tr>' : '';
-    wrap.innerHTML = '<table class="preview-table"><thead>'+thead+'</thead><tbody>'+tbody+footer+'</tbody></table>';
-}
-
-// ─── 导出函数 ──────────────────────────────────
-function getExportData(){
-    return generatedData.map(function(row){
-        var obj = {};
-        selectedFields.forEach(function(f){obj[f]=row[f]});
-        return obj;
-    });
-}
-
-function toJSON(){return JSON.stringify(getExportData(),null,2)}
-function toCSV(){
-    var rows = getExportData();
-    if(rows.length===0) return '';
-    var header = selectedFields.join(',');
-    var lines = rows.map(function(r){
-        return selectedFields.map(function(f){
-            var v = String(r[f]||'');
-            if(v.indexOf(',')>=0||v.indexOf('"')>=0||v.indexOf('\n')>=0) return '"'+v.replace(/"/g,'""')+'"';
-            return v;
-        }).join(',');
-    });
-    return [header].concat(lines).join('\n');
-}
-function toSQL(tableName){
-    tableName = tableName || 'test_data';
-    var rows = getExportData();
-    if(rows.length===0) return '';
-    var cols = selectedFields.join(', ');
-    return rows.map(function(r){
-        var vals = selectedFields.map(function(f){
-            var v = r[f];
-            if(typeof v==='boolean') return v?'TRUE':'FALSE';
-            if(typeof v==='number'||!isNaN(Number(v))) return String(v);
-            return "'"+String(v||'').replace(/'/g,"''")+"'";
-        }).join(', ');
-        return 'INSERT INTO '+tableName+' ('+cols+') VALUES ('+vals+');';
-    }).join('\n');
-}
-
-function download(filename, content, mime){
-    var blob = new Blob([content],{type:mime});
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-function copyJSON(){copyToClipboard(toJSON())}
-function copyCSV(){copyToClipboard(toCSV())}
-function copySQL(){copyToClipboard(toSQL())}
-function downloadJSON(){download('test_data.json',toJSON(),'application/json')}
-function downloadCSV(){download('test_data.csv',toCSV(),'text/csv')}
-function downloadSQL(){download('test_data.sql',toSQL(),'text/plain')}
-
-function copyToClipboard(text){
-    if(!text){toast('⚠️ 请先生成数据');return}
-    if(navigator.clipboard){
-        navigator.clipboard.writeText(text).then(function(){toast('📋 已复制到剪贴板')}).catch(function(){fallbackCopy(text)});
-    } else {fallbackCopy(text)}
-}
-
-function fallbackCopy(text){
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    try{document.execCommand('copy');toast('📋 已复制到剪贴板')}catch(e){toast('❌ 复制失败，请手动复制')}
-    document.body.removeChild(ta);
-}
-
-// ─── Toast ──────────────────────────────────────
-function toast(msg){
-    var container = document.getElementById('toastContainer');
-    var el = document.createElement('div');
-    el.className = 'toast';
-    el.textContent = msg;
-    container.appendChild(el);
-    setTimeout(function(){el.classList.add('out');setTimeout(function(){container.removeChild(el)},300)},2000);
-}
-
-// ─── 快捷键 ─────────────────────────────────────
-document.addEventListener('keydown',function(e){
-    if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();generate()}
-});
 </script>
-
-<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></body>
 </html>
