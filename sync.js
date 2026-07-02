@@ -213,6 +213,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'UUID',cls:'tag'},{text:'GUID',cls:'tag-green'},{text:'唯一ID',cls:'tag'}],
     sourceDir: 'uuid-generator', targetSubdir: 'uuid-generator', cat:'dev'
   },
+  regex01: {
+    icon: '⚡', iconBg: '#e8eaf6', iconColor: '#5c6bc0',
+    title: '正则表达式测试器',
+    desc: '实时正则匹配调试，支持分组提取/高亮显示/批量替换。内置20+常用正则模板，g/i/m/s/u标志。',
+    tags: [{text:'Regex',cls:'tag'},{text:'正则',cls:'tag-green'},{text:'调试',cls:'tag'}],
+    sourceDir: 'regex-tester', targetSubdir: 'regex', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板

@@ -630,5 +630,29 @@
     ],
     "url": "/uuid-generator/",
     "cat": "dev"
+  },
+  {
+    "id": "regex01",
+    "name": "正则表达式测试器",
+    "desc": "实时正则匹配调试，支持分组提取/高亮显示/批量替换。内置20+常用正则模板，g/i/m/s/u标志。",
+    "icon": "⚡",
+    "iconBg": "#e8eaf6",
+    "iconColor": "#5c6bc0",
+    "tags": [
+      {
+        "text": "Regex",
+        "cls": "tag"
+      },
+      {
+        "text": "正则",
+        "cls": "tag-green"
+      },
+      {
+        "text": "调试",
+        "cls": "tag"
+      }
+    ],
+    "url": "/regex/",
+    "cat": "dev"
   }
 ]
