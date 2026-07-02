@@ -166,5 +166,29 @@
     ],
     "url": "/meta/",
     "cat": "seo"
+  },
+  {
+    "id": "llmcompare01",
+    "name": "LLM 大模型对比",
+    "desc": "24款大模型综合对比排行榜。价格/速度/上下文/MMLU/HumanEval多维排序筛选，辅助AI选型决策。",
+    "icon": "📊",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "AI",
+        "cls": "tag"
+      },
+      {
+        "text": "LLM",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "Benchmark",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/llm-compare/",
+    "cat": "ai"
   }
 ]

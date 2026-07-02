@@ -143,6 +143,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'AI',cls:'tag'},{text:'Prompt',cls:'tag-orange'},{text:'新赛道',cls:'tag-green'}],
     sourceDir: 'prompt-library', targetSubdir: 'prompts', cat:'ai'
   },
+  llmcompare01: {
+    icon: '📊', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: 'LLM 大模型对比',
+    desc: '24款大模型综合对比排行榜。价格/速度/上下文/MMLU/HumanEval多维排序筛选，辅助AI选型决策。',
+    tags: [{text:'AI',cls:'tag'},{text:'LLM',cls:'tag-orange'},{text:'Benchmark',cls:'tag-green'}],
+    sourceDir: 'llm-compare', targetSubdir: 'llm-compare', cat:'ai'
+  },
 };
 
 // 新增工具时的默认模板
