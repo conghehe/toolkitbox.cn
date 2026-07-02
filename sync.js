@@ -234,6 +234,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'JWT',cls:'tag'},{text:'安全',cls:'tag-red'},{text:'解码',cls:'tag-green'}],
     sourceDir: 'jwt-decoder', targetSubdir: 'jwt-decoder', cat:'dev'
   },
+  formbuilder01: {
+    icon: '📋', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: '在线表单生成器',
+    desc: '可视化拖拽构建HTML表单。12种字段类型，一键导出完整HTML/CSS代码。SEO友好，响应式。',
+    tags: [{text:'表单',cls:'tag'},{text:'HTML',cls:'tag-green'},{text:'可视化',cls:'tag-orange'}],
+    sourceDir: 'form-builder', targetSubdir: 'form-builder', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板
