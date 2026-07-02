@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS渐变生成器 - 在线CSS渐变代码生成工具 | ToolkitBox</title>
+<meta name="description" content="免费在线CSS渐变生成器，支持线性渐变和径向渐变，多色标拖拽编辑，实时预览，一键复制CSS代码。内置20+预设渐变模板，前端开发必备工具。">
+<meta name="keywords" content="CSS渐变生成器,css gradient generator,线性渐变,径向渐变,linear gradient,radial gradient,CSS渐变,渐变生成,在线渐变,渐变色CSS,background gradient">
+<link rel="canonical" href="https://toolkitbox.cn/css-gradient-generator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"CSS渐变生成器","url":"https://toolkitbox.cn/css-gradient-generator/","description":"免费在线CSS渐变生成器，支持线性渐变和径向渐变，多色标拖拽编辑，实时预览，一键复制CSS代码。","applicationCategory":"DeveloperApplication","operatingSystem":"All","browserRequirements":"HTML5,CSS3,JavaScript"}</script>
+<style>
+:root{--bg:#fff;--bg2:#f8f9fa;--bg3:#e9ecef;--t:#1a1a2e;--t2:#636e72;--t3:#a0a0b0;--p:#6c5ce7;--p2:#a29bfe;--border:#dfe6e9;--danger:#e74c3c;--success:#27ae60;--shadow:0 2px 12px rgba(0,0,0,.06);--radius:10px}
+.dark{--bg:#1a1a2e;--bg2:#16213e;--bg3:#0f3460;--t:#e0e0e0;--t2:#a0a0b0;--t3:#6c6c7c;--p:#a29bfe;--p2:#6c5ce7;--border:#2d3436;--shadow:0 2px 12px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#c3cfe2);color:var(--t);min-height:100vh;transition:background .3s}.dark body{background:linear-gradient(135deg,#0c0c1d,#1a1a2e)}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+header{text-align:center;padding:40px 20px 30px}
+header h1{font-size:2rem;color:var(--p);font-weight:800}
+header p{color:var(--t2);margin-top:8px;font-size:.95rem}
+.theme-toggle{position:fixed;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--bg);border:1px solid var(--border);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow);z-index:100;transition:.2s;color:var(--t)}
+.theme-toggle:hover{transform:scale(1.1)}
+.ad-top{max-width:728px;margin:0 auto 16px;text-align:center;min-height:90px}
+.main-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+@media(max-width:768px){.main-grid{grid-template-columns:1fr}}
+.panel{background:var(--bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.panel h2{font-size:1.05rem;color:var(--t);margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid var(--p)}
+.preview-box{width:100%;height:260px;border-radius:var(--radius);border:2px dashed var(--border);position:relative;overflow:hidden;transition:all .3s}
+.preview-overlay{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;padding:4px 10px;border-radius:6px;font-size:.7rem;font-family:monospace;max-width:95%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.controls{margin-top:16px}
+.control-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.control-row label{font-size:.82rem;color:var(--t2);min-width:60px}
+.control-row select,.control-row input[type=number],.control-row input[type=color]{padding:8px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg2);color:var(--t);font-size:.85rem;outline:none}
+.control-row select:focus,.control-row input:focus{border-color:var(--p)}
+.control-row input[type=color]{width:44px;height:36px;padding:2px;cursor:pointer}
+.angle-wrap{display:flex;align-items:center;gap:8px}
+.angle-wrap input[type=range]{width:120px;accent-color:var(--p)}
+.angle-wrap span{font-size:.82rem;color:var(--t2);min-width:36px}
+.stops-list{margin:14px 0}
+.stop-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg2);border-radius:6px;margin-bottom:6px;border:1px solid var(--border)}
+.stop-item input[type=color]{width:36px;height:30px;padding:1px;border:none;border-radius:4px;cursor:pointer}
+.stop-item input[type=range]{flex:1;accent-color:var(--p)}
+.stop-item span{font-size:.75rem;color:var(--t3);min-width:40px;text-align:right}
+.stop-item .del-stop{width:26px;height:26px;border-radius:50%;border:1px solid var(--danger);background:transparent;color:var(--danger);cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+.stop-item .del-stop:hover{background:var(--danger);color:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:6px;border:none;cursor:pointer;font-size:.84rem;font-weight:600;transition:.2s}
+.btn-primary{background:var(--p);color:#fff}
+.btn-primary:hover{background:var(--p2)}
+.btn-outline{background:transparent;border:1px solid var(--p);color:var(--p)}
+.btn-outline:hover{background:var(--p);color:#fff}
+.btn-sm{padding:5px 10px;font-size:.78rem}
+.css-code-wrap{position:relative;margin-top:14px}
+.css-code-wrap textarea{width:100%;height:80px;padding:12px;border:1px solid var(--border);border-radius:6px;background:var(--bg2);color:var(--t);font-family:'Fira Code','Consolas',monospace;font-size:.82rem;resize:none;outline:none;line-height:1.5}
+.copy-btn{position:absolute;top:8px;right:8px}
+.presets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:12px}
+.preset-item{height:56px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:.2s;position:relative}
+.preset-item:hover{border-color:var(--p);transform:scale(1.05)}
+.preset-item.active{border-color:var(--p);box-shadow:0 0 0 2px var(--p2)}
+.preset-item span{position:absolute;bottom:3px;left:4px;font-size:.62rem;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.8);background:rgba(0,0,0,.4);padding:1px 5px;border-radius:3px}
+.tabs{display:flex;gap:4px;margin-bottom:14px;background:var(--bg2);border-radius:8px;padding:3px}
+.tab{padding:8px 16px;border-radius:6px;border:none;cursor:pointer;font-size:.83rem;background:transparent;color:var(--t2);transition:.2s}
+.tab.active{background:var(--p);color:#fff;font-weight:600}
+.info-section{margin-top:30px;padding-bottom:40px}
+.info-section h2{font-size:1.3rem;color:var(--t);margin-bottom:12px}
+.info-section p,.info-section li{color:var(--t2);font-size:.9rem;line-height:1.8}
+.info-section ul{padding-left:20px;margin:8px 0}
+.ad-bottom{max-width:728px;margin:24px auto;text-align:center;min-height:90px}
+footer{text-align:center;padding:24px;color:var(--t3);font-size:.75rem;border-top:1px solid var(--border);margin-top:30px}
+.ad-label{font-size:.7rem;color:var(--t3);text-align:center;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="container">
+<button class="theme-toggle" id="themeBtn" title="切换深色/浅色主题" aria-label="主题切换">🌙</button>
+<header>
+<h1>🎨 CSS渐变生成器</h1>
+<p>在线生成 CSS linear-gradient / radial-gradient 代码，实时预览 · 一键复制 · 多色标编辑 · 预设模板</p>
+</header>
+<div class="ad-top"><div class="ad-label">广告</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+
+<div class="main-grid">
+<div class="panel" id="preview-panel">
+<h2>📐 实时预览</h2>
+<div class="preview-box" id="preview">
+<div class="preview-overlay" id="cssOverlay">loading...</div>
+</div>
+</div>
+<div class="panel" id="code-panel">
+<h2>📋 CSS代码</h2>
+<div class="css-code-wrap">
+<textarea id="cssCode" readonly></textarea>
+<button class="btn btn-primary btn-sm copy-btn" id="copyBtn">📋 复制</button>
+</div>
+<div style="margin-top:8px;display:flex;gap:8px">
+<button class="btn btn-outline btn-sm" id="copyBgBtn">复制background属性</button>
+<button class="btn btn-outline btn-sm" id="exportBtn">导出完整CSS</button>
+</div>
+</div>
+<div class="panel" style="grid-column:1/-1">
+<h2>🎛️ 渐变控制</h2>
+<div class="tabs">
+<button class="tab active" data-type="linear">线性渐变 (Linear)</button>
+<button class="tab" data-type="radial">径向渐变 (Radial)</button>
+</div>
+<div class="control-row">
+<label>方向/角度</label>
+<div class="angle-wrap" id="linearAngleWrap">
+<span>角度:</span>
+<input type="range" id="angle" min="0" max="360" value="135">
+<span id="angleVal">135°</span>
+</div>
+<div class="control-row" id="radialShapeWrap" style="display:none;margin-bottom:0">
+<label>形状</label>
+<select id="radialShape"><option value="ellipse">椭圆 (ellipse)</option><option value="circle">圆 (circle)</option></select>
+<label style="margin-left:10px">位置</label>
+<select id="radialPos"><option value="center">中心 (center)</option><option value="top">顶部 (top)</option><option value="bottom">底部 (bottom)</option><option value="left">左边 (left)</option><option value="right">右边 (right)</option><option value="top left">左上</option><option value="top right">右上</option><option value="bottom left">左下</option><option value="bottom right">右下</option></select>
+</div>
+</div>
+<div class="control-row">
+<label>渐变类型</label>
+<select id="gradType"><option value="linear-gradient">linear-gradient</option><option value="repeating-linear-gradient">repeating-linear-gradient</option><option value="radial-gradient">radial-gradient</option><option value="repeating-radial-gradient">repeating-radial-gradient</option><option value="conic-gradient">conic-gradient</option></select>
+</div>
+<div class="control-row" id="conicAngleWrap" style="display:none">
+<label>起始角度</label>
+<div class="angle-wrap">
+<span>from:</span>
+<input type="range" id="conicAngle" min="0" max="360" value="0">
+<span id="conicAngleVal">0°</span>
+</div>
+</div>
+<h3 style="font-size:.9rem;color:var(--t);margin-top:16px;margin-bottom:10px">色标 (Color Stops)</h3>
+<div class="stops-list" id="stopsList"></div>
+<button class="btn btn-outline btn-sm" id="addStop">+ 添加色标</button>
+</div>
+<div class="panel" style="grid-column:1/-1">
+<h2>🎨 预设渐变模板（点击应用）</h2>
+<div class="presets-grid" id="presetsGrid"></div>
+</div>
+</div>
+
+<div class="ad-bottom"><div class="ad-label">广告</div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>
+
+<div class="info-section container">
+<h2>什么是 CSS 渐变？</h2>
+<p>CSS 渐变（Gradient）是一种CSS背景图像类型，由两种或多种颜色之间的渐进过渡组成。渐变可以作为 <code>background-image</code> 属性的值，在现代Web设计中广泛用于创建按钮、背景、边框、叠加层等视觉效果。CSS渐变有以下几种类型：</p>
+<ul>
+<li><strong>线性渐变（linear-gradient）：</strong>颜色沿直线方向过渡，可指定角度如 90deg、135deg，或使用关键字 to right、to bottom left 等。</li>
+<li><strong>径向渐变（radial-gradient）：</strong>颜色从一个中心点向外辐射过渡，支持 circle/ellipse 形状和位置控制。</li>
+<li><strong>锥形渐变（conic-gradient）：</strong>颜色围绕中心点旋转过渡，适合饼图、色轮等效果。</li>
+<li><strong>重复渐变：</strong>repeating-linear-gradient / repeating-radial-gradient 可创建条纹、波纹等重复图案。</li>
+</ul>
+<h2 style="margin-top:20px">为什么使用渐变生成器？</h2>
+<p>手写CSS渐变代码需要精确计算颜色位置和角度，过程繁琐且容易出错。本工具提供：</p>
+<ul>
+<li><strong>可视化编辑：</strong>拖拽色标、调节角度，所见即所得</li>
+<li><strong>即时预览：</strong>改动立即反映在预览框中，无需刷新</li>
+<li><strong>一键复制：</strong>生成标准CSS代码，直接粘贴到你的项目中</li>
+<li><strong>预设模板：</strong>20+精选渐变方案，找到灵感快速应用</li>
+<li><strong>支持所有渐变类型：</strong>线性、径向、锥形、重复渐变全覆盖</li>
+</ul>
+<h2 style="margin-top:20px">常见问题</h2>
+<p><strong>Q: 渐变和背景图片哪个性能更好？</strong><br>A: CSS渐变由浏览器原生渲染，不产生HTTP请求，性能优于背景图片。尤其适合作为页面背景、按钮等高频元素。</p>
+<p><strong>Q: 渐变的浏览器兼容性如何？</strong><br>A: linear-gradient 和 radial-gradient 在所有现代浏览器中都得到良好支持（Chrome 26+, Firefox 16+, Safari 6.1+, Edge 12+）。conic-gradient 支持 Chrome 69+, Firefox 83+, Safari 12.1+。</p>
+<p><strong>Q: 如何在文字上使用渐变？</strong><br>A: 可以使用 <code>background-clip: text</code> 配合 <code>-webkit-text-fill-color: transparent</code> 实现文字渐变效果。</p>
+</div>
+<footer>© 2026 ToolkitBox · CSS渐变生成器 · 免费在线开发工具</footer>
+</div>
+
+<script>
+(function(){
+var stops=[{color:'#6c5ce7',pos:0},{color:'#a29bfe',pos:100}];
+var angle=135,gradType='linear-gradient',radialShape='ellipse',radialPos='center',conicAngle=0;
+var isDark=false;
+
+var presets=[
+{name:'极光紫',grad:'linear-gradient(135deg,#667eea,#764ba2)'},
+{name:'日落橙',grad:'linear-gradient(135deg,#f093fb,#f5576c)'},
+{name:'薄荷绿',grad:'linear-gradient(135deg,#4facfe,#00f2fe)'},
+{name:'暖阳金',grad:'linear-gradient(135deg,#f6d365,#fda085)'},
+{name:'深海蓝',grad:'linear-gradient(135deg,#2193b0,#6dd5ed)'},
+{name:'樱桃红',grad:'linear-gradient(135deg,#eb3349,#f45c43)'},
+{name:'薰衣草',grad:'linear-gradient(135deg,#a18cd1,#fbc2eb)'},
+{name:'翡翠绿',grad:'linear-gradient(135deg,#11998e,#38ef7d)'},
+{name:'暗夜黑',grad:'linear-gradient(135deg,#232526,#414345)'},
+{name:'天空蓝',grad:'linear-gradient(135deg,#89f7fe,#66a6ff)'},
+{name:'蜜桃粉',grad:'linear-gradient(135deg,#ffecd2,#fcb69f)'},
+{name:'极简灰',grad:'linear-gradient(135deg,#e0e0e0,#cfd9df)'},
+{name:'霓虹紫',grad:'linear-gradient(90deg,#8e2de2,#4a00e0)'},
+{name:'糖果色',grad:'linear-gradient(90deg,#fa709a,#fee140)'},
+{name:'星空紫',grad:'linear-gradient(0deg,#30cfd0,#330867)'},
+{name:'辐射橙',grad:'radial-gradient(circle,#ff9a9e,#fecfef)'},
+{name:'梦幻圆',grad:'radial-gradient(circle at 30% 30%,#667eea,#764ba2)'},
+{name:'圆形发光',grad:'radial-gradient(ellipse at center,#ff6b6b,#c0392b)'},
+{name:'渐变蓝',grad:'linear-gradient(to right,#00b4db,#0083b0)'},
+{name:'彩虹色',grad:'linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet)'},
+{name:'锥形渐变',grad:'conic-gradient(from 0deg,red,yellow,lime,aqua,blue,magenta,red)'},
+{name:'条纹重复',grad:'repeating-linear-gradient(45deg,#6c5ce7 0px,#6c5ce7 10px,#a29bfe 10px,#a29bfe 20px)'},
+{name:'圆环重复',grad:'repeating-radial-gradient(circle at center,#667eea 0px,#667eea 10px,#764ba2 10px,#764ba2 20px)'}
+];
+
+function buildCSS(){
+var parts=[];
+var gType=gradType;
+if(gType==='linear-gradient'||gType==='repeating-linear-gradient'){
+parts.push(gType+'(');
+parts.push(angle+'deg');
+}else if(gType==='radial-gradient'||gType==='repeating-radial-gradient'){
+parts.push(gType+'(');
+parts.push(radialShape+' at '+radialPos);
+}else if(gType==='conic-gradient'){
+parts.push(gType+'(');
+parts.push('from '+conicAngle+'deg');
+}
+var stopsSorted=[...stops].sort(function(a,b){return a.pos-b.pos});
+stopsSorted.forEach(function(s,i){
+if(i>0||gType!=='linear-gradient'&&gType!=='repeating-linear-gradient')parts.push(',');
+parts.push(s.color+' '+s.pos+'%');
+});
+parts.push(')');
+return parts.join('');
+}
+
+function applyGrad(){
+var css=buildCSS();
+document.getElementById('preview').style.background=css;
+document.getElementById('cssCode').value='background: '+css+';\nbackground: -webkit-'+css+';';
+document.getElementById('cssOverlay').textContent=css.length>80?css.substring(0,80)+'...':css;
+}
+
+function renderStops(){
+var el=document.getElementById('stopsList');
+el.innerHTML='';
+stops.forEach(function(s,i){
+var div=document.createElement('div');
+div.className='stop-item';
+div.innerHTML=
+'<input type="color" value="'+s.color+'" data-idx="'+i+'" data-field="color">'+
+'<input type="range" min="0" max="100" value="'+s.pos+'" data-idx="'+i+'" data-field="pos">'+
+'<span>'+s.pos+'%</span>'+
+(stops.length>2?'<button class="del-stop" data-idx="'+i+'">✕</button>':'');
+el.appendChild(div);
+});
+el.querySelectorAll('input').forEach(function(inp){
+inp.addEventListener('input',function(){
+var idx=parseInt(this.dataset.idx);
+var field=this.dataset.field;
+if(field==='color')stops[idx].color=this.value;
+if(field==='pos')stops[idx].pos=parseInt(this.value);
+applyGrad();
+});
+});
+el.querySelectorAll('.del-stop').forEach(function(btn){
+btn.addEventListener('click',function(){
+var idx=parseInt(this.dataset.idx);
+stops.splice(idx,1);
+renderStops();
+applyGrad();
+});
+});
+}
+
+function applyPreset(cssText){
+var m=cssText.match(/^(linear-gradient|radial-gradient|repeating-linear-gradient|repeating-radial-gradient|conic-gradient)\(/);
+if(!m)return;
+gradType=m[1];
+// Extract data from preset
+if(gradType==='linear-gradient'||gradType==='repeating-linear-gradient'){
+var am=cssText.match(/(\d+)deg/);
+if(am)angle=parseInt(am[1]);
+// Show linear controls
+document.getElementById('linearAngleWrap').style.display='flex';
+document.getElementById('radialShapeWrap').style.display='none';
+document.getElementById('conicAngleWrap').style.display='none';
+document.getElementById('angle').value=angle;
+document.getElementById('angleVal').textContent=angle+'°';
+document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+var tab=document.querySelector('.tab[data-type="linear"]');
+if(tab)tab.classList.add('active');
+}else if(gradType==='radial-gradient'||gradType==='repeating-radial-gradient'){
+document.getElementById('linearAngleWrap').style.display='none';
+document.getElementById('radialShapeWrap').style.display='flex';
+document.getElementById('conicAngleWrap').style.display='none';
+document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+var tab=document.querySelector('.tab[data-type="radial"]');
+if(tab)tab.classList.add('active');
+}else if(gradType==='conic-gradient'){
+document.getElementById('linearAngleWrap').style.display='none';
+document.getElementById('radialShapeWrap').style.display='none';
+document.getElementById('conicAngleWrap').style.display='flex';
+document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+}
+// Extract colors
+var colorRegex=/(#[0-9a-fA-F]{3,6}|rgb\([^)]+\)|[a-z]+)\s+(\d+)%/g;
+var matches=[];
+var match;
+while((match=colorRegex.exec(cssText))!==null){
+matches.push({color:match[1],pos:parseInt(match[2])});
+}
+if(matches.length>=2){
+stops=matches;
+}else{
+// Fallback: try simpler color match
+var cm=cssText.match(/(#[0-9a-fA-F]{3,6}|rgb\([^)]+\)|[a-z]+)/g);
+if(cm&&cm.length>=2){
+var colors=cm.filter(function(c){return /^(#[0-9a-fA-F]{3,6}|rgb|red|orange|yellow|green|blue|indigo|violet|magenta|lime|aqua)$/.test(c)||/^#[0-9a-fA-F]{3,6}$/.test(c)||/^rgb/.test(c)});
+if(colors.length>=2){
+stops=colors.map(function(c,i){
+return {color:c,pos:Math.round(i*(100/(colors.length-1)))};
+});
+}
+}
+}
+// Apply other detected params
+var sm=cssText.match(/circle|ellipse/);
+if(sm)radialShape=sm[0];
+var pm=cssText.match(/at\s+([^,]+)/);
+if(pm)radialPos=pm[1].trim();
+var fm=cssText.match(/from\s+(\d+)deg/);
+if(fm)conicAngle=parseInt(fm[1]);
+document.getElementById('radialShape').value=radialShape;
+document.getElementById('radialPos').value=radialPos;
+document.getElementById('conicAngle').value=conicAngle;
+document.getElementById('conicAngleVal').textContent=conicAngle+'°';
+document.getElementById('gradType').value=gradType;
+renderStops();
+applyGrad();
+}
+
+function renderPresets(){
+var el=document.getElementById('presetsGrid');
+el.innerHTML='';
+presets.forEach(function(p){
+var div=document.createElement('div');
+div.className='preset-item';
+div.style.background=p.grad;
+div.title=p.name;
+div.innerHTML='<span>'+p.name+'</span>';
+div.addEventListener('click',function(){
+applyPreset(p.grad);
+el.querySelectorAll('.preset-item').forEach(function(d){d.classList.remove('active')});
+div.classList.add('active');
+});
+el.appendChild(div);
+});
+}
+
+// Event bindings
+document.getElementById('angle').addEventListener('input',function(){
+angle=parseInt(this.value);
+document.getElementById('angleVal').textContent=angle+'°';
+applyGrad();
+});
+document.getElementById('conicAngle').addEventListener('input',function(){
+conicAngle=parseInt(this.value);
+document.getElementById('conicAngleVal').textContent=conicAngle+'°';
+applyGrad();
+});
+document.getElementById('gradType').addEventListener('change',function(){
+gradType=this.value;
+var isLinear=gradType.startsWith('linear');
+var isRadial=gradType.startsWith('radial');
+var isConic=gradType==='conic-gradient';
+document.getElementById('linearAngleWrap').style.display=isLinear?'flex':'none';
+document.getElementById('radialShapeWrap').style.display=isRadial?'flex':'none';
+document.getElementById('conicAngleWrap').style.display=isConic?'flex':'none';
+document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+if(isLinear){var t=document.querySelector('.tab[data-type="linear"]');if(t)t.classList.add('active')}
+if(isRadial){var t=document.querySelector('.tab[data-type="radial"]');if(t)t.classList.add('active')}
+applyGrad();
+});
+document.getElementById('radialShape').addEventListener('change',function(){
+radialShape=this.value;applyGrad();
+});
+document.getElementById('radialPos').addEventListener('change',function(){
+radialPos=this.value;applyGrad();
+});
+document.getElementById('addStop').addEventListener('click',function(){
+if(stops.length>=8)return;
+var last=stops[stops.length-1];
+stops.push({color:last.color,pos:Math.min(last.pos+20,100)});
+renderStops();applyGrad();
+});
+document.getElementById('copyBtn').addEventListener('click',function(){
+var ta=document.getElementById('cssCode');
+ta.select();ta.setSelectionRange(0,99999);
+try{document.execCommand('copy');
+this.textContent='✅ 已复制';
+setTimeout(function(){document.getElementById('copyBtn').textContent='📋 复制'},1500);
+}catch(e){}
+});
+document.getElementById('copyBgBtn').addEventListener('click',function(){
+var css=buildCSS();
+var full='background: '+css+';\nbackground: -webkit-'+css+';';
+try{navigator.clipboard.writeText(full).then(function(){
+var btn=document.getElementById('copyBgBtn');
+btn.textContent='✅ 已复制';
+setTimeout(function(){btn.textContent='复制background属性'},1500);
+})}catch(e){
+var ta=document.createElement('textarea');
+ta.value=full;document.body.appendChild(ta);
+ta.select();document.execCommand('copy');document.body.removeChild(ta);
+var btn=document.getElementById('copyBgBtn');
+btn.textContent='✅ 已复制';
+setTimeout(function(){btn.textContent='复制background属性'},1500);
+}
+});
+document.getElementById('exportBtn').addEventListener('click',function(){
+var css=buildCSS();
+var full='/* CSS渐变 - 由 ToolkitBox 生成 */\n.gradient-bg {\n  background: '+css+';\n  background: -webkit-'+css+';\n}\n\n';
+full+='/* 文字渐变效果示例 */\n.gradient-text {\n  background: '+css+';\n  background: -webkit-'+css+';\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}';
+try{navigator.clipboard.writeText(full).then(function(){
+var btn=document.getElementById('exportBtn');
+btn.textContent='✅ 已复制';
+setTimeout(function(){btn.textContent='导出完整CSS'},1500);
+})}catch(e){
+var ta=document.createElement('textarea');
+ta.value=full;document.body.appendChild(ta);
+ta.select();document.execCommand('copy');document.body.removeChild(ta);
+var btn=document.getElementById('exportBtn');
+btn.textContent='✅ 已复制';
+setTimeout(function(){btn.textContent='导出完整CSS'},1500);
+}
+});
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(function(tab){
+tab.addEventListener('click',function(){
+document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});
+this.classList.add('active');
+var type=this.dataset.type;
+if(type==='linear'){
+gradType='linear-gradient';
+document.getElementById('linearAngleWrap').style.display='flex';
+document.getElementById('radialShapeWrap').style.display='none';
+document.getElementById('conicAngleWrap').style.display='none';
+}else{
+gradType='radial-gradient';
+document.getElementById('linearAngleWrap').style.display='none';
+document.getElementById('radialShapeWrap').style.display='flex';
+document.getElementById('conicAngleWrap').style.display='none';
+}
+document.getElementById('gradType').value=gradType;
+applyGrad();
+});
+});
+
+// Theme
+document.getElementById('themeBtn').addEventListener('click',function(){
+isDark=!isDark;
+document.documentElement.classList.toggle('dark',isDark);
+this.textContent=isDark?'☀️':'🌙';
+try{localStorage.setItem('cssgrad_theme',isDark?'dark':'light')}catch(e){}
+});
+// Init
+try{var saved=localStorage.getItem('cssgrad_theme');if(saved==='dark'){isDark=true;document.documentElement.classList.add('dark');document.getElementById('themeBtn').textContent='☀️'}}catch(e){}
+renderStops();
+renderPresets();
+applyGrad();
+})();
+</script>
+</body>
+</html>
