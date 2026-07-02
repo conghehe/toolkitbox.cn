@@ -227,6 +227,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'Unix',cls:'tag'},{text:'时间戳',cls:'tag-green'},{text:'Epoch',cls:'tag'}],
     sourceDir: 'unix-timestamp-converter', targetSubdir: 'unix-timestamp', cat:'dev'
   },
+  jwt01: {
+    icon: '🔐', iconBg: '#e8f5e9', iconColor: '#2e7d32',
+    title: 'JWT 解码器',
+    desc: '在线解析JWT Header/Payload/签名，时间戳转换，过期检测。纯浏览器本地解析，数据不上传。',
+    tags: [{text:'JWT',cls:'tag'},{text:'安全',cls:'tag-red'},{text:'解码',cls:'tag-green'}],
+    sourceDir: 'jwt-decoder', targetSubdir: 'jwt-decoder', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板

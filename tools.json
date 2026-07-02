@@ -694,5 +694,29 @@
     ],
     "url": "/unix-timestamp/",
     "cat": "dev"
+  },
+  {
+    "id": "jwt01",
+    "name": "JWT 解码器",
+    "desc": "在线解析JWT Header/Payload/签名，时间戳转换，过期检测。纯浏览器本地解析，数据不上传。",
+    "icon": "🔐",
+    "iconBg": "#e8f5e9",
+    "iconColor": "#2e7d32",
+    "tags": [
+      {
+        "text": "JWT",
+        "cls": "tag"
+      },
+      {
+        "text": "安全",
+        "cls": "tag-red"
+      },
+      {
+        "text": "解码",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/jwt-decoder/",
+    "cat": "dev"
   }
 ]
