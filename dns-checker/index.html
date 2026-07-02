@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DNS传播检测器 - 全球DNS解析查询 | ToolkitBox</title>
+<meta name="description" content="免费在线DNS传播检测工具，支持全球多节点DNS解析查询。A/AAAA/MX/CNAME/TXT/NS/SOA记录一键查询，实时对比Google/Cloudflare/Quad9/AliDNS解析结果。DevOps和运维工程师必备。">
+<meta name="keywords" content="DNS传播检测,DNS查询,DNS lookup,dns propagation checker,域名解析查询,全球DNS,DNS记录查询,A记录,MX记录,CNAME,whatsmydns">
+<link rel="canonical" href="https://toolkitbox.cn/dns-checker/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<meta property="og:title" content="DNS传播检测器 - 全球DNS解析查询">
+<meta property="og:description" content="免费在线DNS传播检测工具，全球多节点DNS解析查询，DevOps必备。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://toolkitbox.cn/dns-checker/">
+<meta name="twitter:card" content="summary">
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--t:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--p2:#5a4bd1;--b:#e0e0e0;--bg2:#e8ecf1;--err:#e74c3c;--ok:#27ae60;--warn:#f39c12;--hl:#e8f5e9;--sh:0 2px 12px rgba(0,0,0,.06)}
+[data-theme=dark]{--bg:#1a1a2e;--card:#252542;--t:#e0e0e0;--t2:#a0a0b0;--p:#8b7cf6;--p2:#7c6ff0;--b:#3a3a5c;--bg2:#222240;--hl:#1a3320;--sh:0 2px 12px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;transition:background .3s,color .3s}
+.container{max-width:900px;margin:0 auto;padding:0 20px}
+header{background:var(--card);border-bottom:1px solid var(--b);padding:16px 0;position:sticky;top:0;z-index:10;box-shadow:var(--sh)}
+header .container{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.2rem;font-weight:700;color:var(--p);text-decoration:none}
+.theme-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--b);background:var(--card);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s;color:var(--t)}
+.theme-btn:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.hero{padding:40px 0 24px;text-align:center}
+.hero h1{font-size:2rem;color:var(--p);margin-bottom:8px}
+.hero p{color:var(--t2);font-size:.95rem}
+.tool-panel{background:var(--card);border-radius:14px;padding:28px;box-shadow:var(--sh);margin-bottom:24px;border:1px solid var(--b)}
+.input-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.input-row input{flex:1;min-width:200px;padding:12px 16px;border:2px solid var(--b);border-radius:10px;font-size:.95rem;background:var(--bg);color:var(--t);transition:.2s;outline:none}
+.input-row input:focus{border-color:var(--p)}
+.input-row select{padding:12px 16px;border:2px solid var(--b);border-radius:10px;font-size:.95rem;background:var(--bg);color:var(--t);cursor:pointer;outline:none;min-width:120px}
+.input-row select:focus{border-color:var(--p)}
+.btn{background:var(--p);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:.95rem;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{background:var(--p2);transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.resolver-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.badge{padding:6px 12px;border-radius:20px;font-size:.78rem;font-weight:500;border:1px solid var(--b);display:flex;align-items:center;gap:4px;background:var(--bg)}
+.badge.active{background:var(--p);color:#fff;border-color:var(--p)}
+.results-area{margin-top:16px}
+.result-card{background:var(--bg);border-radius:10px;padding:16px;margin-bottom:10px;border:1px solid var(--b);transition:.2s}
+.result-card:hover{border-color:var(--p)}
+.result-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+.resolver-name{font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:6px}
+.resolver-name .dot{width:8px;height:8px;border-radius:50%}
+.resolver-name .dot.ok{background:var(--ok)}
+.resolver-name .dot.err{background:var(--err)}
+.resolver-name .dot.pending{background:var(--warn);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.resolver-loc{font-size:.75rem;color:var(--t2)}
+.record-list{margin-top:8px}
+.record-item{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--card);border-radius:6px;margin-bottom:4px;font-size:.85rem;font-family:'SF Mono','Fira Code',monospace}
+.record-item .rtype{font-size:.7rem;font-weight:700;background:var(--p);color:#fff;padding:2px 6px;border-radius:4px;text-transform:uppercase;min-width:36px;text-align:center}
+.record-item .rval{flex:1;word-break:break-all}
+.record-item .rttl{font-size:.7rem;color:var(--t2)}
+.copy-btn{background:var(--p);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;cursor:pointer;transition:.2s;white-space:nowrap}
+.copy-btn:hover{background:var(--p2)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--t2)}
+.empty-state .icon{font-size:3rem;margin-bottom:12px}
+.summary-bar{background:var(--card);border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:.85rem;border:1px solid var(--b)}
+.summary-bar .stat{display:flex;align-items:center;gap:4px}
+.summary-bar .stat strong{color:var(--p)}
+.progress{width:100%;height:4px;background:var(--b);border-radius:2px;margin-top:8px;overflow:hidden}
+.progress-bar{height:100%;background:var(--p);border-radius:2px;transition:width .3s}
+.seo-section{padding:40px 0}
+.seo-section h2{font-size:1.3rem;color:var(--p);margin-bottom:16px}
+.seo-section h3{font-size:1rem;color:var(--t);margin:24px 0 10px}
+.seo-section p{color:var(--t2);line-height:1.7;margin-bottom:12px;font-size:.9rem}
+.seo-section ul{margin:12px 0;padding-left:20px}
+.seo-section li{color:var(--t2);line-height:1.8;font-size:.9rem}
+.quick-domains{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.quick-domains button{padding:5px 12px;border:1px solid var(--b);border-radius:16px;font-size:.78rem;cursor:pointer;background:var(--bg);color:var(--t);transition:.2s}
+.quick-domains button:hover{background:var(--p);color:#fff;border-color:var(--p)}
+footer{text-align:center;padding:20px;color:var(--t2);font-size:.75rem;border-top:1px solid var(--b);margin-top:40px}
+@media(max-width:600px){.hero h1{font-size:1.5rem}.input-row{flex-direction:column}.input-row input,.input-row select,.input-row .btn{width:100%}.tool-panel{padding:16px}}
+</style>
+</head>
+<body>
+<header><div class="container"><a class="logo" href="/">ToolkitBox</a><button class="theme-btn" id="themeBtn" title="切换主题">🌓</button></div></header>
+
+<div class="container">
+<div class="hero">
+<h1>🌐 DNS传播检测器</h1>
+<p>全球多节点DNS解析查询 · 检测域名DNS传播状态 · 对比不同地区解析结果</p>
+</div>
+
+<div class="tool-panel">
+<div class="input-row">
+<input type="text" id="domainInput" placeholder="输入域名，如 example.com" autofocus>
+<select id="recordType">
+<option value="A">A 记录</option>
+<option value="AAAA">AAAA 记录</option>
+<option value="MX">MX 记录</option>
+<option value="CNAME">CNAME 记录</option>
+<option value="TXT">TXT 记录</option>
+<option value="NS">NS 记录</option>
+<option value="SOA">SOA 记录</option>
+</select>
+<button class="btn" id="queryBtn">🔍 查询</button>
+</div>
+<div class="quick-domains">
+<span style="font-size:.78rem;color:var(--t2)">快捷测试:</span>
+<button onclick="quickQuery('google.com')">google.com</button>
+<button onclick="quickQuery('github.com')">github.com</button>
+<button onclick="quickQuery('baidu.com')">baidu.com</button>
+<button onclick="quickQuery('toolkitbox.cn')">toolkitbox.cn</button>
+</div>
+<div id="summaryBar" class="summary-bar" style="display:none"></div>
+<div class="results-area" id="results"></div>
+<div class="empty-state" id="emptyState">
+<div class="icon">🗺️</div>
+<p>输入域名，选择记录类型，点击查询<br>系统将同时查询多个全球DNS服务器</p>
+</div>
+</div>
+
+<div class="seo-section">
+<h2>什么是 DNS 传播检测？</h2>
+<p>DNS传播（DNS Propagation）是指DNS记录变更后，在全球范围内所有DNS服务器同步更新的过程。当你修改域名的DNS记录（如更换服务器IP、添加MX邮件记录等），这个变更不会立即在全球生效——因为世界各地的DNS递归服务器都维护着自己的缓存，通常需要几小时到72小时不等才能完全传播。</p>
+
+<h3>为什么需要 DNS 传播检测？</h3>
+<p>对网站管理员、DevOps工程师和运维人员来说，了解DNS传播状态至关重要：</p>
+<ul>
+<li><strong>网站迁移</strong>：更换服务器IP后，需要确认不同地区的用户能否访问到新服务器</li>
+<li><strong>邮件配置</strong>：添加或修改MX记录后，需要确认邮件能正常路由</li>
+<li><strong>SSL证书部署</strong>：添加CNAME或TXT验证记录后，需要确认DNS已生效</li>
+<li><strong>CDN切换</strong>：接入CDN服务（如CloudFlare）后，需要确认DNS解析已指向CDN节点</li>
+<li><strong>故障排查</strong>：网站无法访问时，通过多节点DNS查询快速定位是否为DNS问题</li>
+</ul>
+
+<h3>支持查询的DNS记录类型</h3>
+<ul>
+<li><strong>A 记录</strong>：将域名指向IPv4地址，是最常用的记录类型</li>
+<li><strong>AAAA 记录</strong>：将域名指向IPv6地址</li>
+<li><strong>MX 记录</strong>：邮件交换记录，指定该域名的邮件服务器</li>
+<li><strong>CNAME 记录</strong>：别名记录，将域名指向另一个域名</li>
+<li><strong>TXT 记录</strong>：文本记录，常用于SPF/DKIM邮件验证和域名所有权验证</li>
+<li><strong>NS 记录</strong>：指定该域名的权威DNS服务器</li>
+<li><strong>SOA 记录</strong>：起始授权记录，包含域名的版本和管理信息</li>
+</ul>
+
+<h3>支持的全球DNS解析器</h3>
+<p>本工具同时查询以下公共DNS服务器，让你全面了解全球不同地区对域名解析的差异：</p>
+<ul>
+<li><strong>Google DNS</strong> (8.8.8.8) — 全球最大公共DNS，Anycast全球部署</li>
+<li><strong>Cloudflare DNS</strong> (1.1.1.1) — 注重隐私，全球280+数据中心</li>
+<li><strong>Quad9</strong> (9.9.9.9) — 安全DNS，自动屏蔽恶意域名</li>
+<li><strong>AliDNS</strong> (223.5.5.5) — 阿里公共DNS，中国大陆用户最优解析</li>
+</ul>
+
+<h3>DNS传播时间参考</h3>
+<p>DNS记录的传播速度取决于TTL（生存时间）设置和各地ISP的缓存策略。一般规律：</p>
+<ul>
+<li><strong>1-5分钟</strong>：部分公共DNS（Google/Cloudflare）开始反映变更</li>
+<li><strong>15-60分钟</strong>：大部分DNS服务器完成同步</li>
+<li><strong>2-48小时</strong>：全球ISP运营商DNS完成同步</li>
+<li><strong>72小时</strong>：极端情况下的完全传播时间</li>
+</ul>
+
+<h3>常见问题</h3>
+<p><strong>Q：为什么不同DNS服务器返回的结果不同？</strong><br>A：这正说明DNS仍在传播中。每个DNS服务器根据自己的缓存策略更新时间不同。持续检测直到所有节点返回一致结果。</p>
+<p><strong>Q：如何加快DNS传播速度？</strong><br>A：修改DNS记录前，将TTL值临时降低（如300秒）；修改完成后，等待传播完成再恢复TTL值。</p>
+<p><strong>Q：本工具查询结果准确吗？</strong><br>A：工具通过DNS-over-HTTPS协议直接查询公共DNS服务器，返回的是实时结果。但本地ISP的DNS可能仍有缓存，建议结合多个工具交叉验证。</p>
+</div>
+</div>
+<footer>&copy; 2026 ToolkitBox · DNS传播检测器 · 免费在线DNS查询工具</footer>
+
+<script>
+(function(){
+var themeBtn=document.getElementById('themeBtn');
+var domainInput=document.getElementById('domainInput');
+var recordType=document.getElementById('recordType');
+var queryBtn=document.getElementById('queryBtn');
+var resultsDiv=document.getElementById('results');
+var emptyState=document.getElementById('emptyState');
+var summaryBar=document.getElementById('summaryBar');
+
+// Theme
+var theme=localStorage.getItem('dns-theme')||'light';
+document.documentElement.setAttribute('data-theme',theme);
+themeBtn.textContent=theme==='dark'?'☀️':'🌙';
+themeBtn.addEventListener('click',function(){
+theme=theme==='dark'?'light':'dark';
+document.documentElement.setAttribute('data-theme',theme);
+localStorage.setItem('dns-theme',theme);
+themeBtn.textContent=theme==='dark'?'☀️':'🌙';
+});
+
+// Resolvers
+var resolvers=[
+{id:'google',name:'Google DNS',loc:'全球 (8.8.8.8)',url:'https://dns.google/resolve',color:'#4285F4'},
+{id:'cloudflare',name:'Cloudflare',loc:'全球 (1.1.1.1)',url:'https://cloudflare-dns.com/dns-query',color:'#F38020'},
+{id:'quad9',name:'Quad9',loc:'全球 (9.9.9.9)',url:'https://dns.quad9.net:5053/dns-query',color:'#9B59B6'},
+{id:'ali',name:'AliDNS',loc:'中国 (223.5.5.5)',url:'https://dns.alidns.com/resolve',color:'#FF6A00'}
+];
+
+function parseDomain(input){
+input=input.trim().toLowerCase();
+input=input.replace(/^https?:\/\//,'').replace(/\/.*$/,'').split(':')[0];
+return input;
+}
+
+function formatTTL(seconds){
+if(!seconds||seconds<=0)return '';
+if(seconds<60)return seconds+'s';
+if(seconds<3600)return Math.round(seconds/60)+'m';
+if(seconds<86400)return Math.round(seconds/3600)+'h';
+return Math.round(seconds/86400)+'d';
+}
+
+async function queryDNS(domain,type){
+var rtype=type||'A';
+var promises=resolvers.map(function(r){return queryOne(r,domain,rtype);});
+var results=await Promise.allSettled(promises);
+return results.map(function(r,idx){
+if(r.status==='fulfilled')return r.value;
+return {resolver:resolvers[idx],error:r.reason?r.reason.message:'查询失败',records:[]};
+});
+}
+
+async function queryOne(resolver,domain,type){
+try{
+var url;
+if(resolver.id==='cloudflare'){
+url=resolver.url+'?name='+encodeURIComponent(domain)+'&type='+type;
+var resp=await fetch(url,{headers:{'Accept':'application/dns-json'},mode:'cors'});
+if(!resp.ok)throw new Error('HTTP '+resp.status);
+var data=await resp.json();
+var records=[];
+if(data.Answer)records=data.Answer.map(function(a){return{name:a.name,type:a.type,ttl:a.TTL,value:a.data};});
+return {resolver:resolver,records:records,status:'ok'};
+}else{
+url=resolver.url+'?name='+encodeURIComponent(domain)+'&type='+type;
+var resp2=await fetch(url,{mode:'cors'});
+if(!resp2.ok)throw new Error('HTTP '+resp2.status);
+var data2=await resp2.json();
+var records2=[];
+if(data2.Answer)records2=data2.Answer.map(function(a){return{name:a.name,type:a.type,ttl:a.TTL,value:a.data};});
+if(resolver.id==='ali'&&data2.Answer===undefined&&Array.isArray(data2)){
+records2=data2.map(function(a){return{name:a.name,type:a.type,ttl:a.TTL,value:a.data};});
+}
+return {resolver:resolver,records:records2,status:'ok'};
+}
+}catch(e){
+return {resolver:resolver,error:e.message,records:[],status:'error'};
+}
+}
+
+function renderResults(results,domain,type){
+var totalOk=0,totalErr=0,totalRecords=0;
+var html='';
+results.forEach(function(r){
+var isOk=r.status==='ok'&&r.records.length>0;
+if(isOk){totalOk++;totalRecords+=r.records.length;}else{totalErr++;}
+html+='<div class="result-card">';
+html+='<div class="result-header">';
+html+='<div class="resolver-name">';
+html+='<span class="dot '+(isOk?'ok':'err')+'"></span>';
+html+=r.resolver.name;
+html+='<span class="resolver-loc">'+r.resolver.loc+'</span>';
+html+='</div>';
+if(isOk){
+html+='<span style="font-size:.78rem;color:var(--ok)">'+r.records.length+' 条记录</span>';
+}else{
+html+='<span style="font-size:.78rem;color:var(--err)">'+ (r.error||'无记录') +'</span>';
+}
+html+='</div>';
+if(r.records.length>0){
+html+='<div class="record-list">';
+r.records.forEach(function(rec){
+html+='<div class="record-item">';
+html+='<span class="rtype">'+rec.type+'</span>';
+html+='<span class="rval">'+escapeHtml(rec.value)+'</span>';
+if(rec.ttl)html+='<span class="rttl">TTL: '+formatTTL(rec.ttl)+'</span>';
+html+='<button class="copy-btn" onclick="copyText(\''+escapeJs(rec.value)+'\')">复制</button>';
+html+='</div>';
+});
+html+='</div>';
+}
+html+='</div>';
+});
+
+// Summary
+summaryBar.style.display='flex';
+summaryBar.innerHTML='<div class="stat">📡 <strong>'+totalOk+'/'+results.length+'</strong> 节点响应</div>'+
+'<div class="stat">📋 <strong>'+totalRecords+'</strong> 条记录</div>'+
+'<div class="stat">🔍 类型: <strong>'+type+'</strong></div>'+
+'<div class="stat">🌐 域名: <strong>'+domain+'</strong></div>';
+
+if(totalOk===0){
+resultsDiv.innerHTML='<div class="empty-state"><div class="icon">⚠️</div><p>所有DNS节点查询失败<br><small>请检查域名是否正确、网络是否正常</small></div></div>';
+}else{
+resultsDiv.innerHTML=html;
+}
+emptyState.style.display='none';
+}
+
+function escapeHtml(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function escapeJs(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'\\"');}
+
+window.copyText=function(text){
+navigator.clipboard.writeText(text).then(function(){
+showToast('已复制');
+}).catch(function(){
+showToast('复制失败');
+});
+};
+
+function showToast(msg){
+var t=document.getElementById('toast');
+if(!t){
+t=document.createElement('div');t.id='toast';
+t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--p);color:#fff;padding:10px 24px;border-radius:20px;font-size:.85rem;z-index:999;transition:opacity .3s;pointer-events:none';
+document.body.appendChild(t);
+}
+t.textContent=msg;t.style.opacity='1';
+clearTimeout(t._timer);
+t._timer=setTimeout(function(){t.style.opacity='0';},1500);
+}
+
+async function doQuery(){
+var raw=domainInput.value.trim();
+if(!raw){showToast('请输入域名');return;}
+var domain=parseDomain(raw);
+if(!domain||!domain.includes('.')){showToast('请输入有效域名');return;}
+var type=recordType.value;
+queryBtn.disabled=true;
+queryBtn.innerHTML='⏳ 查询中...';
+resultsDiv.innerHTML='<div style="text-align:center;padding:20px"><div style="font-size:2rem">🔄</div><p>正在查询 '+resolvers.length+' 个DNS节点...</p></div>';
+summaryBar.style.display='none';
+emptyState.style.display='none';
+
+var results=await queryDNS(domain,type);
+renderResults(results,domain,type);
+queryBtn.disabled=false;
+queryBtn.innerHTML='🔍 查询';
+}
+
+window.quickQuery=function(d){
+domainInput.value=d;
+doQuery();
+};
+
+queryBtn.addEventListener('click',doQuery);
+domainInput.addEventListener('keydown',function(e){if(e.key==='Enter')doQuery();});
+
+// Auto-focus and set example
+domainInput.placeholder='输入域名，如 example.com';
+})();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+</html>

@@ -248,6 +248,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'SSH',cls:'tag'},{text:'安全',cls:'tag-red'},{text:'加密',cls:'tag-green'}],
     sourceDir: 'ssh-key-generator', targetSubdir: 'ssh-key-generator', cat:'dev'
   },
+  dns01: {
+    icon: '🌐', iconBg: '#e8eaf6', iconColor: '#5c6bc0',
+    title: 'DNS 传播检测器',
+    desc: '全球多节点DNS解析查询对比。Google/Cloudflare/Quad9/AliDNS四节点，7种记录类型实时检测。',
+    tags: [{text:'DNS',cls:'tag'},{text:'DevOps',cls:'tag-green'},{text:'网络',cls:'tag'}],
+    sourceDir: 'dns-checker', targetSubdir: 'dns-checker', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板

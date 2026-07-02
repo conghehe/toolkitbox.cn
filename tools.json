@@ -798,5 +798,29 @@
     ],
     "url": "/ssh-key-generator/",
     "cat": "dev"
+  },
+  {
+    "id": "dns01",
+    "name": "DNS 传播检测器",
+    "desc": "全球多节点DNS解析查询对比。Google/Cloudflare/Quad9/AliDNS四节点，7种记录类型实时检测。",
+    "icon": "🌐",
+    "iconBg": "#e8eaf6",
+    "iconColor": "#5c6bc0",
+    "tags": [
+      {
+        "text": "DNS",
+        "cls": "tag"
+      },
+      {
+        "text": "DevOps",
+        "cls": "tag-green"
+      },
+      {
+        "text": "网络",
+        "cls": "tag"
+      }
+    ],
+    "url": "/dns-checker/",
+    "cat": "dev"
   }
 ]
