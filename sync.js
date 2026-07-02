@@ -220,6 +220,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'Regex',cls:'tag'},{text:'正则',cls:'tag-green'},{text:'调试',cls:'tag'}],
     sourceDir: 'regex-tester', targetSubdir: 'regex', cat:'dev'
   },
+  unixts01: {
+    icon: '⏱️', iconBg: '#e8eaf6', iconColor: '#5c6bc0',
+    title: 'Unix 时间戳转换器',
+    desc: '时间戳与日期双向转换，支持秒/毫秒/微秒格式，实时当前时间戳，批量转换。开发者/运维必备。',
+    tags: [{text:'Unix',cls:'tag'},{text:'时间戳',cls:'tag-green'},{text:'Epoch',cls:'tag'}],
+    sourceDir: 'unix-timestamp-converter', targetSubdir: 'unix-timestamp', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板
