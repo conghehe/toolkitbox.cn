@@ -136,6 +136,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'FBA',cls:'tag-orange'},{text:'亚马逊',cls:'tag'},{text:'选品',cls:'tag-green'}],
     sourceDir: 'fba-calculator', targetSubdir: 'fba', cat:'business'
   },
+  prompt01: {
+    icon: '📋', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: 'AI Prompt 模板库',
+    desc: '100+精选AI提示词模板，覆盖写作/编程/设计/营销/教育等8大场景。支持ChatGPT/Claude/Midjourney/DALL-E。',
+    tags: [{text:'AI',cls:'tag'},{text:'Prompt',cls:'tag-orange'},{text:'新赛道',cls:'tag-green'}],
+    sourceDir: 'prompt-library', targetSubdir: 'prompts', cat:'ai'
+  },
 };
 
 // 新增工具时的默认模板

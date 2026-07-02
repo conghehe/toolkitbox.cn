@@ -508,5 +508,41 @@
       "被动收入"
     ],
     "cat": "business"
+  },
+  {
+    "id": "prompt01",
+    "name": "AI Prompt 模板库",
+    "desc": "100+精选AI提示词模板，覆盖写作/编程/设计/营销/教育等8大场景。支持ChatGPT/Claude/Midjourney/DALL-E。",
+    "icon": "📋",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "AI",
+        "cls": "tag"
+      },
+      {
+        "text": "Prompt",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "新赛道",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/prompts/",
+    "niche": "ai_services",
+    "keywords": [
+      "AI Prompt",
+      "提示词模板",
+      "Prompt库",
+      "ChatGPT提示词",
+      "Claude提示词",
+      "Midjourney提示词",
+      "AI写作提示词",
+      "prompt engineering",
+      "免费prompt"
+    ],
+    "cat": "ai"
   }
 ]
