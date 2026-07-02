@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文本差异对比工具 - 在线Diff Checker | ToolkitBox</title>
+<meta name="description" content="免费在线文本差异对比工具，支持并排视图和行内统一视图。实时逐行对比、高亮差异、复制结果。代码审查/文档对比/版本比较必备，纯浏览器端处理，数据安全不上传。">
+<meta name="keywords" content="文本差异对比,text diff checker,diff tool,在线diff,文本对比,代码对比,compare text,在线文本对比,文件对比,差异比较">
+<link rel="canonical" href="https://toolkitbox.cn/text-diff/">
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8f9fa; --bg3: #e9ecef;
+  --tx: #1a1a2e; --tx2: #636e72; --tx3: #999;
+  --pr: #6c5ce7; --pr2: #5a4bd1; --su: #00b894; --wa: #fdcb6e; --er: #d63031; --in: #0984e3;
+  --bd: #dfe6e9; --sh: rgba(0,0,0,.06); --rd: 12px;
+  --add-bg: #e6ffed; --add-tx: #1a7f37; --add-hl: #acf2bd;
+  --del-bg: #ffeef0; --del-tx: #cf222e; --del-hl: #fdb8c0;
+  --chg-bg: #fff8e1; --chg-tx: #b08800; --chg-hl: #ffe082;
+  --ln-bg: #f6f8fa; --ln-tx: #8b949e;
+}
+[data-theme="dark"] {
+  --bg: #1a1a2e; --bg2: #16213e; --bg3: #0f3460;
+  --tx: #e0e0e0; --tx2: #a0a0b0; --tx3: #6a6a7a;
+  --pr: #a29bfe; --pr2: #6c5ce7; --bd: #2d2d44; --sh: rgba(0,0,0,.3);
+  --add-bg: #0d2818; --add-tx: #7ee787; --add-hl: #1a4a28;
+  --del-bg: #2d1114; --del-tx: #ff7b72; --del-hl: #4a1a1a;
+  --chg-bg: #2d2000; --chg-tx: #e3b341; --chg-hl: #4a3800;
+  --ln-bg: #1e1e36; --ln-tx: #6e7681;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--tx);min-height:100vh;transition:background .3s}
+[data-theme="dark"] body{background:linear-gradient(135deg,#0c0c1d,#1a1a2e)}
+.wrap{max-width:1200px;margin:0 auto;padding:20px}
+header{text-align:center;padding:36px 20px 20px}
+header h1{font-size:1.8rem;color:var(--pr);margin-bottom:8px}
+header p{color:var(--tx2);font-size:.92rem}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.topbar .tabs{display:flex;gap:0;border-radius:10px;overflow:hidden;border:1px solid var(--bd)}
+.topbar .tabs button{padding:8px 18px;border:none;cursor:pointer;font-size:.84rem;font-weight:600;background:var(--bg2);color:var(--tx2);transition:.2s;border-right:1px solid var(--bd)}
+.topbar .tabs button:last-child{border-right:none}
+.topbar .tabs button.active{background:var(--pr);color:#fff}
+.topbar .actions{display:flex;gap:8px}
+.topbar .actions button{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:7px 14px;cursor:pointer;font-size:.82rem;color:var(--tx2);transition:.2s;display:flex;align-items:center;gap:5px}
+.topbar .actions button:hover{background:var(--pr);color:#fff;border-color:var(--pr)}
+.input-area{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:768px){.input-area{grid-template-columns:1fr}}
+.card{background:var(--bg);border-radius:var(--rd);padding:16px;box-shadow:0 2px 12px var(--sh);border:1px solid var(--bd);display:flex;flex-direction:column}
+.card .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.card .card-header h3{font-size:.88rem;color:var(--pr);font-weight:600}
+.card .card-header .meta{font-size:.75rem;color:var(--tx3)}
+textarea{width:100%;flex:1;min-height:200px;background:var(--bg2);border:2px solid var(--bd);border-radius:8px;padding:12px;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:.83rem;color:var(--tx);resize:vertical;transition:border .2s;line-height:1.5;tab-size:4}
+textarea:focus{outline:none;border-color:var(--pr)}
+.btn-row{display:flex;gap:8px;margin:8px 0 0;flex-wrap:wrap}
+.btn{padding:8px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.83rem;font-weight:600;transition:.2s;display:flex;align-items:center;gap:6px}
+.btn-p{background:var(--pr);color:#fff}.btn-p:hover{background:var(--pr2);transform:translateY(-1px)}
+.btn-s{background:var(--bg2);color:var(--tx);border:1px solid var(--bd)}.btn-s:hover{background:var(--bg3)}
+.btn-sm{padding:5px 10px;font-size:.76rem}
+.result-area{display:none}
+.result-area.show{display:block}
+.result-stats{display:flex;flex-wrap:wrap;gap:10px;padding:12px 0;align-items:center}
+.stat-chip{padding:6px 14px;border-radius:20px;font-size:.78rem;font-weight:600;display:flex;align-items:center;gap:6px}
+.stat-chip.added{background:var(--add-bg);color:var(--add-tx)}
+.stat-chip.removed{background:var(--del-bg);color:var(--del-tx)}
+.stat-chip.changed{background:var(--chg-bg);color:var(--chg-tx)}
+.stat-chip.neutral{background:var(--bg2);color:var(--tx2)}
+.diff-pane{background:var(--bg);border-radius:var(--rd);border:1px solid var(--bd);overflow:hidden;box-shadow:0 2px 12px var(--sh)}
+/* Side-by-side diff */
+.diff-sbs{display:grid;grid-template-columns:1fr 1fr;overflow:auto;max-height:600px;overflow-y:auto}
+@media(max-width:768px){.diff-sbs{grid-template-columns:1fr;max-height:none}}
+.diff-side{border-right:1px solid var(--bd);overflow-x:auto}
+.diff-side:last-child{border-right:none}
+.diff-line{display:flex;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:.78rem;line-height:1.6;min-height:22px;border-bottom:1px solid rgba(128,128,128,.08)}
+.diff-line .ln{min-width:48px;text-align:right;padding:0 10px;color:var(--ln-tx);background:var(--ln-bg);user-select:none;font-size:.72rem;flex-shrink:0}
+.diff-line .code{flex:1;padding:0 10px;white-space:pre-wrap;word-break:break-all}
+.diff-line.add .code{background:var(--add-hl)}
+.diff-line.del .code{background:var(--del-hl)}
+.diff-line.chg .code{background:var(--chg-hl)}
+.diff-line.empty{background:var(--bg2)}
+.diff-line.empty .code{color:var(--tx3)}
+/* Inline diff */
+.diff-inline{max-height:600px;overflow:auto;display:none}
+.diff-inline.show{display:block}
+.il-line{display:flex;font-family:'SF Mono','Fira Code','Consolas',monospace;font-size:.78rem;line-height:1.6;min-height:22px;border-bottom:1px solid rgba(128,128,128,.08)}
+.il-line .il-prefix{min-width:28px;text-align:center;padding:0 6px;font-weight:700;flex-shrink:0;background:var(--ln-bg)}
+.il-line .il-old{min-width:42px;text-align:right;padding:0 8px;color:var(--ln-tx);background:var(--ln-bg);user-select:none;font-size:.72rem;flex-shrink:0}
+.il-line .il-new{min-width:42px;text-align:right;padding:0 8px;color:var(--ln-tx);background:var(--ln-bg);user-select:none;font-size:.72rem;flex-shrink:0}
+.il-line .il-code{flex:1;padding:0 10px;white-space:pre-wrap;word-break:break-all}
+.il-line.add{background:var(--add-bg)}.il-line.add .il-prefix{color:var(--add-tx);background:var(--add-hl)}
+.il-line.del{background:var(--del-bg)}.il-line.del .il-prefix{color:var(--del-tx);background:var(--del-hl)}
+.il-line.chg{background:var(--chg-bg)}.il-line.chg .il-prefix{color:var(--chg-tx);background:var(--chg-hl)}
+/* Toast */
+.toast{position:fixed;top:20px;right:20px;background:var(--pr);color:#fff;padding:12px 20px;border-radius:8px;font-size:.82rem;z-index:99;opacity:0;transform:translateY(-10px);transition:.3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+/* Adsense */
+.adslot{background:var(--bg2);border-radius:var(--rd);padding:16px;text-align:center;margin:20px 0;border:1px dashed var(--bd);color:var(--tx3);font-size:.78rem;min-height:90px;display:flex;align-items:center;justify-content:center}
+/* SEO */
+.seo{background:var(--bg);border-radius:var(--rd);padding:32px 24px;margin-top:24px;box-shadow:0 2px 12px var(--sh);border:1px solid var(--bd)}
+.seo h2{font-size:1.3rem;color:var(--tx);margin-bottom:16px}
+.seo h3{font-size:1rem;color:var(--pr);margin:20px 0 8px}
+.seo p,.seo li{font-size:.88rem;color:var(--tx2);line-height:1.8}
+.seo ul{padding-left:20px;margin:8px 0}
+.seo table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.85rem}
+.seo th,.seo td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--bd)}
+.seo th{background:var(--bg2);color:var(--tx);font-weight:600}
+/* Footer */
+footer{text-align:center;padding:24px;color:var(--tx3);font-size:.78rem;border-top:1px solid var(--bd);margin-top:24px}
+footer a{color:var(--pr);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>文本差异对比工具</h1>
+  <p>在线 Diff Checker — 逐行对比 · 差异高亮 · 并排/行内视图 · 纯本地处理</p>
+</header>
+
+<div class="topbar">
+  <div class="tabs">
+    <button class="active" data-view="side" onclick="switchView('side')">并排视图</button>
+    <button data-view="inline" onclick="switchView('inline')">行内视图</button>
+  </div>
+  <div class="actions">
+    <button onclick="toggleTheme()" title="切换深色/浅色主题">🌓 主题</button>
+    <button onclick="clearAll()" title="清空所有文本">🗑 清空</button>
+    <button onclick="loadDemo()" title="加载示例对比">📋 示例</button>
+  </div>
+</div>
+
+<div class="input-area">
+  <div class="card">
+    <div class="card-header">
+      <h3>📄 原始文本</h3>
+      <span class="meta" id="leftMeta">0 行 / 0 字符</span>
+    </div>
+    <textarea id="leftInput" placeholder="在此粘贴原始文本..." oninput="updateMeta('left')"></textarea>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="doCompare()">🔍 对比差异</button>
+      <button class="btn btn-s btn-sm" onclick="pasteFromClipboard('leftInput')">📋 粘贴</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <h3>📝 修改后文本</h3>
+      <span class="meta" id="rightMeta">0 行 / 0 字符</span>
+    </div>
+    <textarea id="rightInput" placeholder="在此粘贴修改后的文本..." oninput="updateMeta('right')"></textarea>
+    <div class="btn-row">
+      <button class="btn btn-p" onclick="doCompare()">🔍 对比差异</button>
+      <button class="btn btn-s btn-sm" onclick="pasteFromClipboard('rightInput')">📋 粘贴</button>
+      <button class="btn btn-s btn-sm" onclick="swapTexts()">🔄 交换</button>
+    </div>
+  </div>
+</div>
+
+<div class="adslot">Google AdSense — ca-pub-3563043653255879</div>
+
+<div class="result-area" id="resultArea">
+  <div class="result-stats" id="resultStats"></div>
+  <div class="diff-pane">
+    <div class="diff-sbs" id="diffSbs"></div>
+    <div class="diff-inline" id="diffInline"></div>
+  </div>
+  <div class="btn-row" style="margin-top:16px;">
+    <button class="btn btn-p" onclick="copyResult()">📋 复制对比结果</button>
+    <button class="btn btn-s" onclick="downloadResult()">💾 下载 Diff</button>
+  </div>
+</div>
+
+<div class="adslot">Google AdSense — ca-pub-3563043653255879</div>
+
+<section class="seo">
+  <h2>在线文本差异对比工具 — 免费 Diff Checker</h2>
+  <p>本工具提供<strong>实时在线文本差异对比</strong>功能，支持逐行对比、差异高亮、并排视图和行内统一视图。适用于代码审查、文档版本对比、配置文件变更检测等场景。所有处理均在浏览器本地完成，<strong>您的文本数据不会上传到任何服务器</strong>，确保数据安全。</p>
+
+  <h3>核心功能</h3>
+  <ul>
+    <li><strong>双视图切换：</strong>并排视图（Side-by-Side）直观展示左右差异；行内视图（Unified View）像 git diff 一样紧凑展示变更。</li>
+    <li><strong>差异高亮：</strong>新增行以绿色背景标记，删除行以红色背景标记，修改行以黄色背景标记。</li>
+    <li><strong>行号显示：</strong>精确显示每行在原文和修改后文本中的位置。</li>
+    <li><strong>本地处理：</strong>基于 JavaScript LCS（最长公共子序列）算法，纯浏览器端运行，无需网络请求。</li>
+    <li><strong>复制/下载：</strong>一键复制 diff 结果为纯文本，或下载为 .diff 文件。</li>
+    <li><strong>深色主题：</strong>支持浅色/深色两套主题，保护眼睛。</li>
+  </ul>
+
+  <h3>适用场景</h3>
+  <table>
+    <tr><th>场景</th><th>说明</th></tr>
+    <tr><td>代码审查</td><td>对比代码修改前后的差异，快速定位变更点和潜在问题。</td></tr>
+    <tr><td>文档版本对比</td><td>比较两版合同、协议、技术文档的文字差异。</td></tr>
+    <tr><td>配置文件变更</td><td>检测 JSON/YAML/TOML 等配置文件的字段增删改。</td></tr>
+    <tr><td>SQL 脚本审核</td><td>对比 DDL/DML 变更，确保数据库迁移脚本正确。</td></tr>
+    <tr><td>日志分析</td><td>比较两次日志输出的差异，定位异常变化。</td></tr>
+    <tr><td>翻译校对</td><td>对比原文与翻译文本，检查遗漏或错误。</td></tr>
+  </table>
+
+  <h3>使用说明</h3>
+  <p>1. 在左侧文本框粘贴<strong>原始文本</strong>（旧版本）<br>
+  2. 在右侧文本框粘贴<strong>修改后文本</strong>（新版本）<br>
+  3. 点击「对比差异」按钮或使用快捷键 Ctrl+Enter<br>
+  4. 查看差异结果，可切换并排/行内视图<br>
+  5. 点击「复制结果」导出纯文本 diff，或「下载 Diff」保存文件</p>
+
+  <h3>常见问题</h3>
+  <p><strong>Q: 支持多大的文本？</strong><br>
+  A: 建议单侧文本不超过 5000 行或 500KB。超大文本可能影响对比速度，建议分段比较。</p>
+  <p><strong>Q: 数据会上传吗？</strong><br>
+  A: 不会。所有文本处理和对比计算完全在您的浏览器中完成，数据不会离开您的设备。</p>
+  <p><strong>Q: 与 git diff 有什么区别？</strong><br>
+  A: 本工具提供可视化的差异对比界面，操作简单直观。git diff 更适合命令行和版本控制场景，本工具更适合临时快速对比和团队协作演示。</p>
+  <p><strong>Q: 支持哪些文本编码？</strong><br>
+  A: 支持 UTF-8 编码的所有文本，包括中文、英文、代码、JSON 等。</p>
+</section>
+
+<footer>
+  <p>&copy; 2026 <a href="https://toolkitbox.cn">ToolkitBox.cn</a> — 开发者工具箱 · 文本差异对比工具 · 纯本地处理保障数据安全</p>
+</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// === Theme ===
+(function(){
+  var t = localStorage.getItem('tb-theme');
+  if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+})();
+function toggleTheme(){
+  var el = document.documentElement;
+  var cur = el.getAttribute('data-theme');
+  if (cur === 'dark') { el.removeAttribute('data-theme'); localStorage.setItem('tb-theme','light'); }
+  else { el.setAttribute('data-theme','dark'); localStorage.setItem('tb-theme','dark'); }
+}
+
+// === Toast ===
+var toastTimer;
+function showToast(msg){
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2000);
+}
+
+// === Meta counter ===
+function updateMeta(side){
+  var ta = document.getElementById(side === 'left' ? 'leftInput' : 'rightInput');
+  var metaEl = document.getElementById(side === 'left' ? 'leftMeta' : 'rightMeta');
+  var text = ta.value;
+  var lines = text ? text.split('\n').length : 0;
+  var chars = text.length;
+  metaEl.textContent = lines + ' 行 / ' + chars + ' 字符';
+}
+// Init meta
+updateMeta('left'); updateMeta('right');
+
+// === View switch ===
+var currentView = 'side';
+function switchView(view){
+  currentView = view;
+  document.querySelectorAll('.topbar .tabs button').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelector('.topbar .tabs button[data-view="'+view+'"]').classList.add('active');
+  if (view === 'side') {
+    document.getElementById('diffSbs').style.display = 'grid';
+    document.getElementById('diffInline').classList.remove('show');
+  } else {
+    document.getElementById('diffSbs').style.display = 'none';
+    document.getElementById('diffInline').classList.add('show');
+  }
+}
+
+// === Paste from clipboard ===
+function pasteFromClipboard(id){
+  navigator.clipboard.readText().then(function(text){
+    document.getElementById(id).value = text;
+    updateMeta(id === 'leftInput' ? 'left' : 'right');
+    showToast('已粘贴剪贴板内容');
+  }).catch(function(){
+    showToast('无法读取剪贴板，请手动粘贴');
+  });
+}
+
+// === Clear ===
+function clearAll(){
+  document.getElementById('leftInput').value = '';
+  document.getElementById('rightInput').value = '';
+  updateMeta('left'); updateMeta('right');
+  document.getElementById('resultArea').classList.remove('show');
+  showToast('已清空');
+}
+
+// === Swap ===
+function swapTexts(){
+  var l = document.getElementById('leftInput');
+  var r = document.getElementById('rightInput');
+  var tmp = l.value; l.value = r.value; r.value = tmp;
+  updateMeta('left'); updateMeta('right');
+  showToast('已交换文本');
+}
+
+// === Load Demo ===
+function loadDemo(){
+  document.getElementById('leftInput').value = [
+    'function greet(name) {',
+    '  console.log("Hello, " + name);',
+    '}',
+    '',
+    'function add(a, b) {',
+    '  return a + b;',
+    '}',
+    '',
+    'var API_URL = "http://old-api.example.com";',
+    '',
+    '// TODO: add validation',
+    'function process(data) {',
+    '  return data;',
+    '}'
+  ].join('\n');
+  document.getElementById('rightInput').value = [
+    'function greet(name, greeting) {',
+    '  console.log(greeting + ", " + name);',
+    '}',
+    '',
+    'function add(a, b) {',
+    '  if (typeof a !== "number" || typeof b !== "number") {',
+    '    throw new Error("Arguments must be numbers");',
+    '  }',
+    '  return a + b;',
+    '}',
+    '',
+    'var API_URL = "https://api.example.com/v2";',
+    '',
+    'function process(data) {',
+    '  if (!data) return null;',
+    '  return JSON.parse(JSON.stringify(data));',
+    '}',
+    '',
+    'function multiply(a, b) {',
+    '  return a * b;',
+    '}'
+  ].join('\n');
+  updateMeta('left'); updateMeta('right');
+  doCompare();
+  showToast('已加载示例对比');
+}
+
+// === LCS diff algorithm ===
+function lcs(a, b) {
+  var m = a.length, n = b.length;
+  var dp = new Array(m + 1);
+  for (var i = 0; i <= m; i++) { dp[i] = new Array(n + 1); dp[i][0] = 0; }
+  for (var j = 0; j <= n; j++) { dp[0][j] = 0; }
+  for (var i = 1; i <= m; i++) {
+    for (var j = 1; j <= n; j++) {
+      if (a[i-1] === b[j-1]) { dp[i][j] = dp[i-1][j-1] + 1; }
+      else { dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]); }
+    }
+  }
+  // Backtrack
+  var result = [];
+  var i = m, j = n;
+  while (i > 0 && j > 0) {
+    if (a[i-1] === b[j-1]) { result.unshift({type:'same', oldIdx:i-1, newIdx:j-1}); i--; j--; }
+    else if (dp[i-1][j] >= dp[i][j-1]) { result.unshift({type:'del', oldIdx:i-1, newIdx:-1}); i--; }
+    else { result.unshift({type:'add', oldIdx:-1, newIdx:j-1}); j--; }
+  }
+  while (i > 0) { result.unshift({type:'del', oldIdx:i-1, newIdx:-1}); i--; }
+  while (j > 0) { result.unshift({type:'add', oldIdx:-1, newIdx:j-1}); j--; }
+  return result;
+}
+
+// === Merge consecutive add+del into changes ===
+function mergeChanges(ops) {
+  var merged = [];
+  var i = 0;
+  while (i < ops.length) {
+    if (i + 1 < ops.length && ops[i].type === 'del' && ops[i+1].type === 'add') {
+      merged.push({type:'chg', oldIdx:ops[i].oldIdx, newIdx:ops[i+1].newIdx});
+      i += 2;
+    } else if (i + 1 < ops.length && ops[i].type === 'add' && ops[i+1].type === 'del') {
+      merged.push({type:'chg', oldIdx:ops[i+1].oldIdx, newIdx:ops[i].newIdx});
+      i += 2;
+    } else {
+      merged.push(ops[i]);
+      i++;
+    }
+  }
+  return merged;
+}
+
+// === Main compare function ===
+function doCompare(){
+  var left = document.getElementById('leftInput').value;
+  var right = document.getElementById('rightInput').value;
+  var leftLines = left ? left.split('\n') : [''];
+  var rightLines = right ? right.split('\n') : [''];
+
+  var ops = lcs(leftLines, rightLines);
+  ops = mergeChanges(ops);
+
+  // Stats
+  var addCount = 0, delCount = 0, chgCount = 0, sameCount = 0;
+  ops.forEach(function(op){
+    if (op.type === 'add') addCount++;
+    else if (op.type === 'del') delCount++;
+    else if (op.type === 'chg') { delCount++; addCount++; chgCount++; }
+    else if (op.type === 'same') sameCount++;
+  });
+
+  // Render stats
+  var statsHtml = '';
+  if (delCount > 0) statsHtml += '<span class="stat-chip removed">- ' + delCount + ' 删除</span>';
+  if (addCount > 0) statsHtml += '<span class="stat-chip added">+ ' + addCount + ' 新增</span>';
+  if (chgCount > 0) statsHtml += '<span class="stat-chip changed">~ ' + chgCount + ' 修改</span>';
+  if (sameCount > 0) statsHtml += '<span class="stat-chip neutral">= ' + sameCount + ' 未变</span>';
+  if (delCount === 0 && addCount === 0 && chgCount === 0) statsHtml += '<span class="stat-chip neutral">文本内容完全相同</span>';
+  document.getElementById('resultStats').innerHTML = statsHtml;
+
+  // Render side-by-side
+  var sbsHtml = '<div class="diff-side" id="diffLeft">';
+  var oldLineNum = 1;
+  ops.forEach(function(op){
+    if (op.type === 'same') {
+      sbsHtml += '<div class="diff-line"><span class="ln">'+ (oldLineNum++) +'</span><span class="code">'+ escHtml(leftLines[op.oldIdx]) +'</span></div>';
+    } else if (op.type === 'del') {
+      sbsHtml += '<div class="diff-line del"><span class="ln">'+ (oldLineNum++) +'</span><span class="code">'+ escHtml(leftLines[op.oldIdx]) +'</span></div>';
+    } else if (op.type === 'chg') {
+      sbsHtml += '<div class="diff-line del"><span class="ln">'+ (oldLineNum++) +'</span><span class="code">'+ escHtml(leftLines[op.oldIdx]) +'</span></div>';
+    } else if (op.type === 'add') {
+      sbsHtml += '<div class="diff-line empty"><span class="ln"></span><span class="code"></span></div>';
+    }
+  });
+  sbsHtml += '</div><div class="diff-side" id="diffRight">';
+  var newLineNum = 1;
+  ops.forEach(function(op){
+    if (op.type === 'same') {
+      sbsHtml += '<div class="diff-line"><span class="ln">'+ (newLineNum++) +'</span><span class="code">'+ escHtml(rightLines[op.newIdx]) +'</span></div>';
+    } else if (op.type === 'add') {
+      sbsHtml += '<div class="diff-line add"><span class="ln">'+ (newLineNum++) +'</span><span class="code">'+ escHtml(rightLines[op.newIdx]) +'</span></div>';
+    } else if (op.type === 'chg') {
+      sbsHtml += '<div class="diff-line add"><span class="ln">'+ (newLineNum++) +'</span><span class="code">'+ escHtml(rightLines[op.newIdx]) +'</span></div>';
+    } else if (op.type === 'del') {
+      sbsHtml += '<div class="diff-line empty"><span class="ln"></span><span class="code"></span></div>';
+    }
+  });
+  sbsHtml += '</div>';
+  document.getElementById('diffSbs').innerHTML = sbsHtml;
+
+  // Sync scroll for side-by-side
+  var leftSide = document.getElementById('diffLeft');
+  var rightSide = document.getElementById('diffRight');
+  if (leftSide && rightSide) {
+    var syncing = false;
+    leftSide.addEventListener('scroll', function(){ if(!syncing){syncing=true;rightSide.scrollTop=leftSide.scrollTop;rightSide.scrollLeft=leftSide.scrollLeft;syncing=false;} });
+    rightSide.addEventListener('scroll', function(){ if(!syncing){syncing=true;leftSide.scrollTop=rightSide.scrollTop;leftSide.scrollLeft=rightSide.scrollLeft;syncing=false;} });
+  }
+
+  // Render inline (unified)
+  var inlineHtml = '';
+  var oNum = 1, nNum = 1;
+  ops.forEach(function(op){
+    if (op.type === 'same') {
+      inlineHtml += '<div class="il-line"><span class="il-prefix"> </span><span class="il-old">'+ (oNum++) +'</span><span class="il-new">'+ (nNum++) +'</span><span class="il-code">'+ escHtml(leftLines[op.oldIdx]) +'</span></div>';
+    } else if (op.type === 'del') {
+      inlineHtml += '<div class="il-line del"><span class="il-prefix">-</span><span class="il-old">'+ (oNum++) +'</span><span class="il-new"></span><span class="il-code">'+ escHtml(leftLines[op.oldIdx]) +'</span></div>';
+    } else if (op.type === 'add') {
+      inlineHtml += '<div class="il-line add"><span class="il-prefix">+</span><span class="il-old"></span><span class="il-new">'+ (nNum++) +'</span><span class="il-code">'+ escHtml(rightLines[op.newIdx]) +'</span></div>';
+    } else if (op.type === 'chg') {
+      inlineHtml += '<div class="il-line del"><span class="il-prefix">-</span><span class="il-old">'+ (oNum++) +'</span><span class="il-new"></span><span class="il-code">'+ escHtml(leftLines[op.oldIdx]) +'</span></div>';
+      inlineHtml += '<div class="il-line add"><span class="il-prefix">+</span><span class="il-old"></span><span class="il-new">'+ (nNum++) +'</span><span class="il-code">'+ escHtml(rightLines[op.newIdx]) +'</span></div>';
+    }
+  });
+  document.getElementById('diffInline').innerHTML = inlineHtml;
+
+  // Show result
+  document.getElementById('resultArea').classList.add('show');
+
+  // Apply current view
+  if (currentView === 'side') {
+    document.getElementById('diffSbs').style.display = 'grid';
+    document.getElementById('diffInline').classList.remove('show');
+  } else {
+    document.getElementById('diffSbs').style.display = 'none';
+    document.getElementById('diffInline').classList.add('show');
+  }
+}
+
+// === HTML escape ===
+function escHtml(s){
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// === Ctrl+Enter shortcut ===
+document.addEventListener('keydown', function(e){
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault();
+    doCompare();
+  }
+});
+
+// === Copy result as text ===
+function copyResult(){
+  var left = document.getElementById('leftInput').value;
+  var right = document.getElementById('rightInput').value;
+  var leftLines = left ? left.split('\n') : [''];
+  var rightLines = right ? right.split('\n') : [''];
+
+  var ops = lcs(leftLines, rightLines);
+  ops = mergeChanges(ops);
+
+  var lines = [];
+  ops.forEach(function(op){
+    if (op.type === 'same') {
+      lines.push('  ' + leftLines[op.oldIdx]);
+    } else if (op.type === 'del') {
+      lines.push('- ' + leftLines[op.oldIdx]);
+    } else if (op.type === 'add') {
+      lines.push('+ ' + rightLines[op.newIdx]);
+    } else if (op.type === 'chg') {
+      lines.push('- ' + leftLines[op.oldIdx]);
+      lines.push('+ ' + rightLines[op.newIdx]);
+    }
+  });
+
+  var text = '--- 原始文本\n+++ 修改后文本\n@@ diff @@\n' + lines.join('\n');
+  navigator.clipboard.writeText(text).then(function(){
+    showToast('已复制 diff 结果');
+  }).catch(function(){
+    showToast('复制失败，请手动选择复制');
+  });
+}
+
+// === Download as .diff file ===
+function downloadResult(){
+  var left = document.getElementById('leftInput').value;
+  var right = document.getElementById('rightInput').value;
+  var leftLines = left ? left.split('\n') : [''];
+  var rightLines = right ? right.split('\n') : [''];
+
+  var ops = lcs(leftLines, rightLines);
+  ops = mergeChanges(ops);
+
+  var lines = [];
+  ops.forEach(function(op){
+    if (op.type === 'same') {
+      lines.push('  ' + leftLines[op.oldIdx]);
+    } else if (op.type === 'del') {
+      lines.push('- ' + leftLines[op.oldIdx]);
+    } else if (op.type === 'add') {
+      lines.push('+ ' + rightLines[op.newIdx]);
+    } else if (op.type === 'chg') {
+      lines.push('- ' + leftLines[op.oldIdx]);
+      lines.push('+ ' + rightLines[op.newIdx]);
+    }
+  });
+
+  var text = '--- 原始文本\n+++ 修改后文本\n@@ diff @@\n' + lines.join('\n');
+  var blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'diff_' + new Date().toISOString().slice(0,10) + '.diff';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('已下载 diff 文件');
+}
+</script>
+</body>
+</html>
