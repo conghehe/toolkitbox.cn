@@ -238,5 +238,29 @@
     ],
     "url": "/http-status/",
     "cat": "dev"
+  },
+  {
+    "id": "qrcode01",
+    "name": "QR码生成器",
+    "desc": "免费在线生成二维码。支持网址/文本/电话/WiFi/邮件/短信，自定义颜色，一键下载。",
+    "icon": "📱",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "二维码",
+        "cls": "tag"
+      },
+      {
+        "text": "QR",
+        "cls": "tag-green"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/qrcode/",
+    "cat": "dev"
   }
 ]

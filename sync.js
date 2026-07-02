@@ -87,6 +87,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'HTTP',cls:'tag'},{text:'参考',cls:'tag-green'},{text:'新',cls:'tag-orange'}],
     sourceDir: 'http-status', targetSubdir: 'http-status', cat:'dev'
   },
+  qrcode01: {
+    icon: '📱', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: 'QR码生成器',
+    desc: '免费在线生成二维码。支持网址/文本/电话/WiFi/邮件/短信，自定义颜色，一键下载。',
+    tags: [{text:'二维码',cls:'tag'},{text:'QR',cls:'tag-green'},{text:'新',cls:'tag-orange'}],
+    sourceDir: 'qrcode-generator', targetSubdir: 'qrcode', cat:'dev'
+  },
   hash01: {
     icon: '#', iconBg: '#f0edff', iconColor: '#6c5ce7',
     title: '哈希生成器',
