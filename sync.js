@@ -262,6 +262,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'图片',cls:'tag'},{text:'压缩',cls:'tag-green'},{text:'WebP',cls:'tag'}],
     sourceDir: 'image-compressor', targetSubdir: 'image-compressor', cat:'dev'
   },
+  imgfmt01: {
+    icon: '🔄', iconBg: '#e8f5e9', iconColor: '#27ae60',
+    title: '图片格式转换器',
+    desc: 'PNG/JPG/WebP/AVIF格式互转。Canvas API纯前端处理，批量转换，质量可调，拖拽上传。',
+    tags: [{text:'格式转换',cls:'tag'},{text:'WebP',cls:'tag-green'},{text:'AVIF',cls:'tag'}],
+    sourceDir: 'image-format-converter', targetSubdir: 'image-format-converter', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板

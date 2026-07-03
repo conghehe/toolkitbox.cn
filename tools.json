@@ -862,5 +862,29 @@
     ],
     "url": "/image-compressor/",
     "cat": "dev"
+  },
+  {
+    "id": "imgfmt01",
+    "name": "图片格式转换器",
+    "desc": "PNG/JPG/WebP/AVIF格式互转。Canvas API纯前端处理，批量转换，质量可调，拖拽上传。",
+    "icon": "🔄",
+    "iconBg": "#e8f5e9",
+    "iconColor": "#27ae60",
+    "tags": [
+      {
+        "text": "格式转换",
+        "cls": "tag"
+      },
+      {
+        "text": "WebP",
+        "cls": "tag-green"
+      },
+      {
+        "text": "AVIF",
+        "cls": "tag"
+      }
+    ],
+    "url": "/image-format-converter/",
+    "cat": "dev"
   }
 ]
