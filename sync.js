@@ -283,6 +283,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'Lorem',cls:'tag'},{text:'占位文本',cls:'tag-green'},{text:'多语言',cls:'tag'}],
     sourceDir: 'lorem-ipsum-generator', targetSubdir: 'lorem-ipsum', cat:'dev'
   },
+  quote01: {
+    icon: '📋', iconBg: '#fff3e0', iconColor: '#e65100',
+    title: '服务报价单生成器',
+    desc: '12行业报价模板，自定义服务项目+单价+数量，自动计算总额。打印导出PDF，本地服务商必备。',
+    tags: [{text:'报价单',cls:'tag'},{text:'本地服务',cls:'tag-orange'},{text:'导出PDF',cls:'tag-green'}],
+    sourceDir: 'quote-generator', targetSubdir: 'quote', cat:'local'
+  },
 };
 
 // 新增工具时的默认模板
@@ -340,18 +347,18 @@ async function main() {
   for (const a of tk.assets) {
     const d = TOOL_DISPLAY[a.id] || { ...DEFAULT_DISPLAY, title: a.id, desc: '' };
     const src = path.join(CONFIG.toolsiteDir, d.sourceDir || a.dir, 'index.html');
-    const tgtDir = path.join(CONFIG.targetDir, d.targetSubdir || a.sub);
+    const tgtDir = path.join(CONFIG.targetDir, d.targetSubdir || a.sub || a.dir);
     const tgt = path.join(tgtDir, 'index.html');
     if (!fs.existsSync(src)) { warn('missing: ' + src); continue; }
     if (!DRY_RUN) {
       fs.mkdirSync(tgtDir, { recursive: true });
       let html = fs.readFileSync(src, 'utf8');
-      html = html.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://' + CONFIG.domain + '/' + (d.targetSubdir || a.sub) + '/">');
+      html = html.replace(/<link rel="canonical"[^>]*>/, '<link rel="canonical" href="https://' + CONFIG.domain + '/' + (d.targetSubdir || a.sub || a.dir) + '/">');
       html = injectAds(html);
       fs.writeFileSync(tgt, html);
     }
-    toolList.push({ id: a.id, name: d.title, desc: d.desc, icon: d.icon, iconBg: d.iconBg, iconColor: d.iconColor, tags: d.tags, url: '/' + (d.targetSubdir || a.sub) + '/', cat: d.cat || 'other' });
-    log('  ' + d.title + ' -> ' + (d.targetSubdir || a.sub));
+    toolList.push({ id: a.id, name: d.title, desc: d.desc, icon: d.icon, iconBg: d.iconBg, iconColor: d.iconColor, tags: d.tags, url: '/' + (d.targetSubdir || a.sub || a.dir) + '/', cat: d.cat || 'other' });
+    log('  ' + d.title + ' -> ' + (d.targetSubdir || a.sub || a.dir));
   }
 
   if (!DRY_RUN) {
