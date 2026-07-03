@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>报价单生成器 - 在线专业报价单制作工具</title>
+<meta name="description" content="免费在线报价单生成器：自定义公司信息、多项目明细、自动计算总价、导出打印。适合装修/IT/设计/维修等各行业。">
+<link rel="canonical" href="https://toolkitbox.cn/localbiz/quote/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#fff;--t:#1a1a2e;--t2:#636e72;--p:#a29bfe;--b:#e9ecef}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f0ff,#eae4ff);color:var(--t);min-height:100vh}
+.nav{text-align:center;padding:10px;background:#fff;border-bottom:1px solid var(--b)}.nav a{color:var(--p);text-decoration:none;font-size:.85rem}
+.tool{max-width:800px;margin:0 auto;padding:30px 20px}
+h1{text-align:center;font-size:1.5rem;margin-bottom:8px}
+.sub{text-align:center;color:var(--t2);margin-bottom:24px}
+.card{background:var(--bg);border-radius:16px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,.06);border:1px solid var(--b)}
+label{display:block;font-size:.85rem;font-weight:600;margin:10px 0 5px}
+input,textarea{width:100%;padding:10px 14px;border:1.5px solid var(--b);border-radius:8px;font-size:.9rem}
+.row{display:flex;gap:14px}.row>*{flex:1}
+.items{margin-top:16px}
+.item-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
+.item-row .desc{flex:2}.item-row .qty{max-width:80px}.item-row .price{max-width:120px}
+.btn{display:inline-block;padding:10px 24px;background:var(--p);color:#fff;border:none;border-radius:8px;font-size:.9rem;cursor:pointer;font-weight:600;margin-top:12px}
+.total{text-align:right;margin-top:20px;padding-top:12px;border-top:2px solid var(--p)}
+.total .amount{font-size:1.5rem;font-weight:800;color:var(--p)}
+.quote-preview{display:none;margin-top:24px;padding:30px;background:#fff;border:2px dashed var(--b);border-radius:12px}
+@media print{.nav,.tool h1,.sub,.card button{display:none}.quote-preview{display:block!important;border:none}}
+</style>
+</head>
+<body>
+<div class="nav"><a href="/localbiz/">← 本地商家工具箱</a> | <a href="/">工具箱矩阵</a></div>
+<div class="tool">
+<h1>报价单生成器</h1>
+<p class="sub">填写信息，生成专业报价单</p>
+<div class="card">
+<div class="row"><div><label>公司名称</label><input type="text" id="company" placeholder="XX公司"></div><div><label>报价日期</label><input type="date" id="date"></div></div>
+<label>客户名称</label><input type="text" id="client" placeholder="客户公司/姓名">
+<label>报价单标题</label><input type="text" id="title" placeholder="项目报价单" value="项目报价单">
+<div class="items" id="items"><div class="item-row"><input class="desc" placeholder="项目描述"><input class="qty" type="number" placeholder="数量" value="1"><input class="price" type="number" placeholder="单价"><span>¥<b class="subtotal">0</b></span></div></div>
+<button class="btn" onclick="addItem()">+ 添加项目</button>
+<label>备注</label><textarea id="note" rows="2" placeholder="报价有效期、付款方式等..."></textarea>
+<div class="total">合计: <span class="amount">¥<span id="grandTotal">0</span></span></div>
+<button class="btn" style="width:100%;margin-top:16px" onclick="preview()">预览报价单</button>
+</div>
+<div class="quote-preview" id="preview">
+<div style="text-align:center;margin-bottom:20px"><h2 id="pCompany">-</h2><h3 style="color:var(--t2)" id="pTitle">报价单</h3></div>
+<div class="row" style="margin-bottom:16px"><div>致: <span id="pClient">-</span></div><div style="text-align:right">日期: <span id="pDate">-</span></div></div>
+<table style="width:100%;margin:16px 0;border-collapse:collapse" id="pTable"><tr style="border-bottom:2px solid var(--b)"><th style="text-align:left;padding:8px 0">项目</th><th style="text-align:center">数量</th><th style="text-align:right">单价</th><th style="text-align:right">金额</th></tr></table>
+<div style="text-align:right;font-size:1.3rem;font-weight:800;padding:12px 0;border-top:2px solid var(--p)">合计: ¥<span id="pTotal">0</span></div>
+<div id="pNote" style="margin-top:16px;padding:12px;background:#f8f9fa;border-radius:8px;font-size:.85rem;color:var(--t2)"></div>
+<button class="btn" onclick="window.print()" style="margin-top:20px">打印报价单</button>
+</div>
+</div>
+<script>
+document.getElementById('date').valueAsDate=new Date();
+function addItem(){var div=document.createElement('div');div.className='item-row';div.innerHTML='<input class=\"desc\" placeholder=\"项目描述\"><input class=\"qty\" type=\"number\" placeholder=\"数量\" value=\"1\"><input class=\"price\" type=\"number\" placeholder=\"单价\"><span>¥<b class=\"subtotal\">0</b></span>';document.getElementById('items').appendChild(div);}
+function updateTotal(){var rows=document.querySelectorAll('.item-row');var total=0;rows.forEach(r=>{var q=parseFloat(r.querySelector('.qty').value)||0;var p=parseFloat(r.querySelector('.price').value)||0;var s=q*p;r.querySelector('.subtotal').textContent=s.toFixed(2);total+=s;});document.getElementById('grandTotal').textContent=total.toFixed(2);}
+document.getElementById('items').addEventListener('input',updateTotal);
+function preview(){
+  document.getElementById('pCompany').textContent=document.getElementById('company').value||'公司名称';
+  document.getElementById('pTitle').textContent=document.getElementById('title').value||'报价单';
+  document.getElementById('pDate').textContent=document.getElementById('date').value;
+  document.getElementById('pClient').textContent=document.getElementById('client').value||'客户';
+  var rows=document.querySelectorAll('.item-row');
+  var tbody='<tr style="border-bottom:2px solid var(--b)"><th style="text-align:left;padding:8px 0">项目</th><th style="text-align:center">数量</th><th style="text-align:right">单价</th><th style="text-align:right">金额</th></tr>';
+  var total=0;
+  rows.forEach(r=>{var n=r.querySelector('.desc').value||'项目';var q=parseFloat(r.querySelector('.qty').value)||0;var p=parseFloat(r.querySelector('.price').value)||0;var s=q*p;total+=s;tbody+='<tr style="border-bottom:1px solid var(--b)"><td style="padding:6px 0">'+n+'</td><td style="text-align:center">'+q+'</td><td style="text-align:right">¥'+p.toFixed(2)+'</td><td style="text-align:right">¥'+s.toFixed(2)+'</td></tr>';});
+  document.getElementById('pTable').innerHTML=tbody;
+  document.getElementById('pTotal').textContent=total.toFixed(2);
+  document.getElementById('pNote').textContent=document.getElementById('note').value||'';
+  document.getElementById('preview').style.display='block';
+}
+</script>
+</body>
+</html>
