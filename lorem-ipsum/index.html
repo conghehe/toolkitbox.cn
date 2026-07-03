@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lorem Ipsum 占位文本生成器 - 中英文乱数假文在线生成 | ToolkitBox</title>
+<meta name="description" content="免费在线 Lorem Ipsum 乱数假文生成器，支持中文/英文/日文/韩文占位文本，段落/句子/单词多模式，一键复制。设计师和开发者必备的占位文本工具。">
+<meta name="keywords" content="lorem ipsum generator,乱数假文,占位文本,lorem ipsum生成,placeholder text,中文乱数假文,随机文本,在线lorem ipsum">
+<link rel="canonical" href="https://toolkitbox.cn/lorem-ipsum/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root {
+  --bg: #ffffff; --bg2: #f8f9fa; --t: #1a1a2e; --t2: #636e72;
+  --p: #6c5ce7; --p2: #a29bfe; --b: #e0e0e0; --b2: #f0f0f0;
+  --card: #ffffff; --success: #00b894; --warn: #fdcb6e; --err: #e17055;
+  --s: 0 2px 16px rgba(0,0,0,0.06); --sh: 0 4px 24px rgba(108,92,231,0.10);
+  --radius: 12px; --radius-sm: 8px;
+}
+[data-theme="dark"] {
+  --bg: #1a1a2e; --bg2: #16213e; --t: #e8e8e8; --t2: #a0a0a0;
+  --p: #a29bfe; --p2: #6c5ce7; --b: #2d2d4e; --b2: #222244;
+  --card: #16213e; --s: 0 2px 16px rgba(0,0,0,0.3);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif; background:var(--bg2); color:var(--t); min-height:100vh; transition:background .3s,color .3s; }
+.container { max-width:900px; margin:0 auto; padding:20px; }
+
+/* Header */
+.header { text-align:center; padding:40px 20px 24px; }
+.header h1 { font-size:1.8rem; font-weight:800; background:linear-gradient(135deg,var(--p),#e17055); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:6px; }
+.header p { color:var(--t2); font-size:.9rem; }
+.theme-toggle { position:fixed; top:16px; right:16px; width:40px; height:40px; border-radius:50%; border:1.5px solid var(--b); background:var(--card); cursor:pointer; font-size:1.2rem; display:flex; align-items:center; justify-content:center; z-index:100; transition:.2s; }
+.theme-toggle:hover { border-color:var(--p); }
+
+/* Tool Card */
+.tool-card { background:var(--card); border-radius:var(--radius); padding:28px; box-shadow:var(--s); border:1px solid var(--b); margin-bottom:20px; }
+.tool-card h2 { font-size:1.1rem; margin-bottom:16px; color:var(--p); }
+
+/* Controls */
+.controls { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; align-items:end; }
+.control-group { display:flex; flex-direction:column; gap:6px; }
+.control-group label { font-size:.78rem; color:var(--t2); font-weight:600; }
+.control-group select,.control-group input { padding:9px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--b); background:var(--bg); color:var(--t); font-size:.88rem; font-family:inherit; transition:.2s; outline:none; min-width:120px; }
+.control-group select:focus,.control-group input:focus { border-color:var(--p); box-shadow:0 0 0 3px rgba(108,92,231,0.15); }
+.control-group input { width:80px; }
+
+.mode-tabs { display:flex; gap:4px; }
+.mode-tab { padding:8px 18px; border-radius:20px; border:1.5px solid var(--b); background:var(--bg); cursor:pointer; font-size:.82rem; transition:.2s; color:var(--t2); font-family:inherit; }
+.mode-tab:hover { border-color:var(--p); color:var(--p); }
+.mode-tab.active { background:var(--p); color:#fff; border-color:var(--p); font-weight:600; }
+
+.lang-tabs { display:flex; gap:4px; flex-wrap:wrap; }
+.lang-tab { padding:8px 14px; border-radius:20px; border:1.5px solid var(--b); background:var(--bg); cursor:pointer; font-size:.8rem; transition:.2s; color:var(--t2); font-family:inherit; }
+.lang-tab:hover { border-color:var(--p); color:var(--p); }
+.lang-tab.active { background:var(--p); color:#fff; border-color:var(--p); font-weight:600; }
+
+/* Actions */
+.actions { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+.btn { padding:10px 20px; border-radius:var(--radius-sm); border:none; cursor:pointer; font-size:.85rem; font-family:inherit; font-weight:600; transition:.2s; display:flex; align-items:center; gap:6px; }
+.btn-primary { background:var(--p); color:#fff; }
+.btn-primary:hover { background:var(--p2); transform:translateY(-1px); box-shadow:0 4px 12px rgba(108,92,231,0.3); }
+.btn-outline { background:var(--bg); color:var(--p); border:1.5px solid var(--p); }
+.btn-outline:hover { background:var(--p); color:#fff; }
+.btn-ghost { background:transparent; color:var(--t2); border:1.5px solid var(--b); }
+.btn-ghost:hover { border-color:var(--p); color:var(--p); }
+.btn-sm { padding:6px 14px; font-size:.78rem; }
+
+/* Output Area */
+.output-area { background:var(--bg); border:1.5px solid var(--b); border-radius:var(--radius); padding:24px; min-height:200px; max-height:500px; overflow-y:auto; font-size:.92rem; line-height:1.8; color:var(--t); white-space:pre-wrap; word-break:break-word; transition:.2s; position:relative; }
+.output-area p { margin-bottom:12px; }
+.output-area p:last-child { margin-bottom:0; }
+
+/* Toast */
+.toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%); background:var(--t); color:var(--bg); padding:12px 24px; border-radius:24px; font-size:.85rem; z-index:1000; opacity:0; transition:opacity .3s; pointer-events:none; }
+.toast.show { opacity:1; }
+
+/* SEO Content */
+.seo-section { background:var(--card); border-radius:var(--radius); padding:28px; box-shadow:var(--s); border:1px solid var(--b); margin-bottom:20px; }
+.seo-section h2 { font-size:1.15rem; margin-bottom:14px; color:var(--p); }
+.seo-section h3 { font-size:1rem; margin:16px 0 8px; color:var(--t); }
+.seo-section p,.seo-section li { font-size:.85rem; color:var(--t2); line-height:1.75; margin-bottom:8px; }
+.seo-section ul,.seo-section ol { padding-left:20px; margin-bottom:12px; }
+.seo-section ul li,.seo-section ol li { margin-bottom:4px; }
+
+/* Size comparison table */
+.size-table { width:100%; border-collapse:collapse; margin:12px 0; font-size:.82rem; }
+.size-table th { background:var(--bg2); padding:10px 14px; text-align:left; font-weight:600; color:var(--p); border-bottom:2px solid var(--b); }
+.size-table td { padding:10px 14px; border-bottom:1px solid var(--b2); color:var(--t2); }
+.size-table tr:hover td { background:var(--bg2); }
+
+/* Stats bar */
+.stats-bar { display:flex; gap:8px; margin-top:12px; font-size:.75rem; color:var(--t2); flex-wrap:wrap; }
+.stat-item { background:var(--bg2); padding:4px 10px; border-radius:12px; }
+
+/* FAQ */
+.faq-item { margin-bottom:12px; }
+.faq-item h4 { font-size:.88rem; color:var(--t); margin-bottom:4px; cursor:pointer; }
+.faq-item p { font-size:.82rem; color:var(--t2); line-height:1.7; }
+
+/* Footer */
+.footer { text-align:center; padding:20px; color:var(--t2); font-size:.75rem; border-top:1px solid var(--b); margin-top:20px; }
+.footer a { color:var(--p); text-decoration:none; }
+.footer a:hover { text-decoration:underline; }
+
+@media(max-width:600px) {
+  .container { padding:12px; }
+  .header { padding:28px 12px 16px; }
+  .header h1 { font-size:1.4rem; }
+  .tool-card { padding:18px; }
+  .controls { gap:8px; }
+  .mode-tab,.lang-tab { padding:6px 12px; font-size:.76rem; }
+  .output-area { padding:16px; font-size:.85rem; }
+  .control-group select { min-width:100px; }
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()" title="切换主题" aria-label="切换深色/浅色主题">🌓</button>
+
+<div class="container">
+  <div class="header">
+    <h1>Lorem Ipsum 占位文本生成器</h1>
+    <p>中英文多语言乱数假文在线生成 · 段落/句子/单词随心选 · 设计师和开发者的占位文本利器</p>
+  </div>
+
+  <!-- Ad space top -->
+  <div style="text-align:center;margin-bottom:20px;min-height:20px;"></div>
+
+  <div class="tool-card">
+    <h2>⚙️ 生成选项</h2>
+
+    <!-- Language -->
+    <div class="control-group" style="margin-bottom:14px;">
+      <label>🌍 语言选择</label>
+      <div class="lang-tabs" id="langTabs">
+        <button class="lang-tab active" data-lang="zh">🇨🇳 中文乱数假文</button>
+        <button class="lang-tab" data-lang="en">🇺🇸 English Lorem</button>
+        <button class="lang-tab" data-lang="ja">🇯🇵 日本語ダミー</button>
+        <button class="lang-tab" data-lang="ko">🇰🇷 한글 더미</button>
+        <button class="lang-tab" data-lang="mixed">🔀 中英混合</button>
+      </div>
+    </div>
+
+    <!-- Mode -->
+    <div class="controls">
+      <div class="control-group">
+        <label>📐 生成模式</label>
+        <div class="mode-tabs" id="modeTabs">
+          <button class="mode-tab active" data-mode="paragraphs">段落模式</button>
+          <button class="mode-tab" data-mode="sentences">句子模式</button>
+          <button class="mode-tab" data-mode="words">单词模式</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <label>数量</label>
+        <input type="number" id="count" value="5" min="1" max="500">
+      </div>
+      <div class="control-group">
+        <label>每段句子数</label>
+        <select id="sentPerPara">
+          <option value="3">3 句</option>
+          <option value="5" selected>5 句</option>
+          <option value="8">8 句</option>
+          <option value="10">10 句</option>
+          <option value="15">15 句</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary" onclick="generate()">🎲 生成文本</button>
+      <button class="btn btn-outline" onclick="copyText()">📋 一键复制</button>
+      <button class="btn btn-ghost" onclick="downloadText()">💾 下载 TXT</button>
+    </div>
+
+    <!-- Output -->
+    <div class="output-area" id="output">
+      <p style="color:var(--t2);text-align:center;padding:40px 0;">点击「生成文本」开始生成占位文本 👆</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-bar" id="stats" style="display:none;"></div>
+  </div>
+
+  <!-- Ad space mid -->
+  <div style="text-align:center;margin-bottom:20px;min-height:20px;"></div>
+
+  <!-- SEO Content -->
+  <div class="seo-section">
+    <h2>📖 什么是 Lorem Ipsum / 乱数假文？</h2>
+    <p>Lorem Ipsum 是印刷和排版行业的标准占位文本，起源于公元前45年西塞罗的著作《善恶之极限》。自1500年代起被广泛使用，至今仍是设计和开发领域最常用的占位文本。中文"乱数假文"则是根据同样原理——用无实际意义的文字填充页面以预览排版效果。</p>
+    <p>无论是 UI 设计师制作原型、前端开发者调试样式、还是文案编辑检查排版，Lorem Ipsum 和乱数假文都是不可或缺的效率工具。使用占位文本可以让我们在内容就绪前专注视觉呈现，避免因真实内容缺失而影响设计判断。</p>
+
+    <h3>🔤 支持的语言和文本库</h3>
+    <table class="size-table">
+      <thead><tr><th>语言</th><th>文本来源</th><th>字符特点</th><th>词汇量</th></tr></thead>
+      <tbody>
+        <tr><td>🇨🇳 中文乱数假文</td><td>经典中文文学作品片段 + 常用汉字组合</td><td>全角字符、无实际语义</td><td>500+ 词组</td></tr>
+        <tr><td>🇺🇸 English Lorem</td><td>经典 Lorem Ipsum 拉丁文</td><td>拉丁字母、标点规范</td><td>200+ 词汇</td></tr>
+        <tr><td>🇯🇵 日本語ダミー</td><td>日语常用假名 + 汉字</td><td>平假名/片假名/汉字混合</td><td>300+ 词组</td></tr>
+        <tr><td>🇰🇷 한글 더미</td><td>韩语常用词汇 + 谚文</td><td>谚文组合字符</td><td>300+ 词组</td></tr>
+        <tr><td>🔀 中英混合</td><td>中文 + English 混合</td><td>双语混合排版预览</td><td>700+ 词组</td></tr>
+      </tbody>
+    </table>
+
+    <h3>💡 使用场景</h3>
+    <ul>
+      <li><strong>UI/UX 设计：</strong>在 Figma/Sketch 中填充卡片、列表、弹窗等组件的内容预览</li>
+      <li><strong>前端开发：</strong>调试 CSS 排版、测试响应式布局在不同文字量下的表现</li>
+      <li><strong>WordPress/网站建设：</strong>测试主题模板的文章列表、侧边栏、页脚等区域</li>
+      <li><strong>印刷排版：</strong>预览书籍、杂志、宣传册的版面效果</li>
+      <li><strong>PPT/演示文稿：</strong>快速填充幻灯片占位区域，专注版式设计</li>
+      <li><strong>教学演示：</strong>技术写作、编程教学中展示文档结构和格式</li>
+    </ul>
+
+    <h3>🎯 使用建议</h3>
+    <ol>
+      <li><strong>选对语言：</strong>中文项目用乱数假文，英文项目用 Lorem Ipsum。语言不同，排版效果差异很大。</li>
+      <li><strong>控制数量：</strong>段落模式适合长篇内容预览（3-10段），句子模式适合卡片/列表预览（10-30句），单词模式适合标签/按钮。</li>
+      <li><strong>调整密度：</strong>通过"每段句子数"控制文本块的视觉密度，帮助评估不同内容量下的设计。</li>
+      <li><strong>导出备份：</strong>使用「下载TXT」功能保存生成的文本，方便在不同工具间复用。</li>
+      <li><strong>发布前替换：</strong>切记在正式上线前将占位文本替换为真实内容！</li>
+    </ol>
+  </div>
+
+  <div class="seo-section">
+    <h2>❓ 常见问题 (FAQ)</h2>
+    <div class="faq-item"><h4>Lorem Ipsum 是什么意思？</h4><p>Lorem Ipsum 源自拉丁文 "dolorem ipsum"（痛苦本身），是西塞罗《善恶之极限》中的一段文字。经过随机截取和重组后失去了原有含义，被用作无意义的占位文本。现代版 Lorem Ipsum 自1960年代起成为排版行业的标配。</p></div>
+    <div class="faq-item"><h4>中文乱数假文和 Lorem Ipsum 有什么区别？</h4><p>Lorem Ipsum 基于拉丁字母，适合预览西文排版（字母间距、词间距、连字符等）。中文乱数假文基于汉字，适合预览中文排版（字间距、行距、标点悬挂等）。两者在视觉密度和阅读节奏上完全不同，应根据目标语言选择。</p></div>
+    <div class="faq-item"><h4>为什么设计师要用占位文本？</h4><p>占位文本让设计师在内容未就绪时专注视觉呈现——字体、字号、行距、间距、颜色层次。真实内容容易分散注意力并引发无关讨论（"这段文字不对"），占位文本则天然引导讨论聚焦于设计本身。</p></div>
+    <div class="faq-item"><h4>一次能生成多少文本？</h4><p>段落模式最多500段（每段3-15句），句子模式最多500句，单词模式最多500词。足够满足从按钮标签到整篇文章的所有占位需求。</p></div>
+    <div class="faq-item"><h4>生成的文本安全吗？可以商用吗？</h4><p>所有文本均为随机假文，不含任何真实信息、版权内容或敏感数据。可自由用于个人和商业项目。文本在浏览器本地生成，不上传到任何服务器，隐私安全有保障。</p></div>
+    <div class="faq-item"><h4>如何批量导出到 Figma/Sketch？</h4><p>生成文本后点击「下载TXT」保存为 .txt 文件，然后在 Figma 中使用插件（如 Lorem Ipsum、Content Reel）批量导入。也可以直接复制粘贴到设计工具的文本框中。</p></div>
+  </div>
+
+  <div class="seo-section">
+    <h2>📊 Lorem Ipsum 与主流占位文本工具对比</h2>
+    <table class="size-table">
+      <thead><tr><th>功能特性</th><th>本工具</th><th>Lipsum.com</th><th>LoremIpsum.io</th><th>中文乱数假文生成器</th></tr></thead>
+      <tbody>
+        <tr><td>中文乱数假文</td><td>✅ 原生支持</td><td>❌ 不支持</td><td>❌ 不支持</td><td>✅ 支持</td></tr>
+        <tr><td>日文/韩文</td><td>✅ 支持</td><td>❌ 不支持</td><td>❌ 不支持</td><td>❌ 不支持</td></tr>
+        <tr><td>段落/句子/单词模式</td><td>✅ 三模式</td><td>✅ 段落+单词</td><td>✅ 段落+句子</td><td>仅段落</td></tr>
+        <tr><td>每段句子数可调</td><td>✅ 3-15句</td><td>❌ 固定</td><td>❌ 固定</td><td>❌ 固定</td></tr>
+        <tr><td>深色主题</td><td>✅ 支持</td><td>❌ 不支持</td><td>❌ 不支持</td><td>❌ 不支持</td></tr>
+        <tr><td>下载 TXT</td><td>✅ 支持</td><td>❌ 不支持</td><td>❌ 不支持</td><td>❌ 不支持</td></tr>
+        <tr><td>完全免费</td><td>✅ 免费</td><td>✅ 免费</td><td>✅ 免费</td><td>✅ 免费</td></tr>
+        <tr><td>纯本地处理</td><td>✅ 不上传数据</td><td>✅ 本地</td><td>✅ 本地</td><td>✅ 本地</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 <a href="https://toolkitbox.cn">ToolkitBox</a> · Lorem Ipsum / 乱数假文生成器 · 纯浏览器本地生成 · 数据不上传</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── Text Corpora ──────────────────────────────────────────
+const corpora = {
+  zh: {
+    words: ['的','一','是','在','不','了','有','和','人','这','中','大','为','上','个','国','我','以','要','他','时','来','用','们','生','到','作','地','于','出','就','分','对','成','会','可','主','发','年','动','同','工','也','能','下','过','子','说','产','种','面','而','方','后','多','定','行','学','法','所','民','得','经','十','三','之','进','着','等','部','度','家','电','力','里','如','水','化','高','自','二','理','起','小','物','现','实','加','量','都','两','体','制','机','当','使','点','从','业','本','去','把','性','应','开','它','合','因','只','些','想','前','心','样','又','外','与','间','长','关','各','天','全','地','没','很','最','意','道','比','总','品','头','此','公','领','位','法','走','开','真','哪','话','看','再','将','先','花','打','声','白','回','身','相','老','认','树','飞','绿','红','门','问','已','见','明','早','星','笑','马','风','眼','雨','草','虎','水','火','北','东','山','春','夏','秋','冬'],
+    phrases: ['快速发展的互联网时代','随着科技进步不断推进','在这个信息爆炸的年代','越来越多的用户开始关注','经过长期研究和发展','从不同角度深入分析','综合考虑多方面因素','基于大量数据表明','在当今全球化背景下','通过持续不断的努力','根据最新研究报告显示','面对日益复杂的市场环境','充分利用现有资源优势','积极推动产业转型升级','坚持创新驱动发展战略','构建和谐共生的生态系统','打造全新的用户体验','实现可持续高质量发展','深入贯彻新发展理念','全面深化改革创新'],
+    sentences: [
+      '在科技飞速发展的今天，各行各业都在积极探索数字化转型的道路。',
+      '随着人工智能技术的不断突破，越来越多的传统行业迎来了新的发展机遇。',
+      '用户体验设计已经成为现代产品开发中不可或缺的重要环节。',
+      '数据驱动的决策模式正在改变企业的运营方式和管理思维。',
+      '跨平台兼容性和响应式设计是当今Web开发的基本要求。',
+      '云计算技术的普及大大降低了创业公司的技术门槛和运营成本。',
+      '可持续发展和绿色能源正在成为全球关注的焦点议题。',
+      '移动互联网的普及让人们的生活方式发生了翻天覆地的变化。',
+      '开源社区的蓬勃发展推动了软件行业的创新和进步。',
+      '在信息过载的时代，高效的信息筛选和处理能力显得尤为重要。'
+    ]
+  },
+  en: {
+    words: ['lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do','eiusmod','tempor','incididunt','ut','labore','et','dolore','magna','aliqua','enim','ad','minim','veniam','quis','nostrud','exercitation','ullamco','laboris','nisi','ut','aliquip','ex','ea','commodo','consequat','duis','aute','irure','dolor','in','reprehenderit','voluptate','velit','esse','cillum','fugiat','nulla','pariatur','excepteur','sint','occaecat','cupidatat','non','proident','sunt','culpa','qui','officia','deserunt','mollit','anim','id','est','laborum'],
+    phrases: ['the quick brown fox','jumps over the lazy dog','all good things must come','to those who wait patiently','the early bird catches','in the middle of nowhere','beyond the horizon lies','a journey of a thousand miles','when life gives you lemons','every cloud has a silver lining'],
+    sentences: [
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.',
+      'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.',
+      'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.',
+      'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.',
+      'Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae.',
+      'Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut.'
+    ]
+  },
+  ja: {
+    words: ['の','に','は','を','た','が','で','と','し','て','さ','い','な','いる','する','ある','こと','これ','それ','なる','から','よう','また','もの','できる','ため','その','ことば','とき','ところ','こころ','ひと','わたし','あなた','かれ','かのじょ','ここ','そこ','あそこ','どこ','なに','いつ','いく','くる','みる','やる','いう','かく','よむ','はなす','きく','たべる','のむ','あるく','はしる','とぶ','およぐ','ねる','おきる','かう','うる','みせる','おしえる','まなぶ','はたらく','つくる','こわす','なおす','かえる'],
+    phrases: ['急速に発展する技術','新しい時代の幕開け','多様化するニーズに対応','持続可能な社会を目指して','革新的なアプローチで','データに基づいた意思決定','グローバルな視点から','ユーザー体験の最適化'],
+    sentences: [
+      '急速に発展するデジタル技術は、私たちの生活を大きく変えつつあります。',
+      '新しい時代の幕開けとともに、企業は変革を迫られています。',
+      '多様化するユーザーニーズに対応するため、製品開発の在り方も進化しています。',
+      '持続可能な社会の実現に向けて、様々な取り組みが行われています。',
+      '革新的なアプローチで課題解決に挑戦する企業が増えています。',
+      'データに基づいた意思決定が、ビジネスの成功を左右する時代です。',
+      'グローバルな視点から市場を分析し、戦略を立案することが重要です。',
+      'ユーザー体験の最適化は、サービスの差別化要因となっています。'
+    ]
+  },
+  ko: {
+    words: ['이','그','저','것','하다','있다','없다','되다','않다','보다','오다','가다','주다','받다','만들다','사용하다','생각하다','알다','모르다','좋다','싫다','크다','작다','많다','적다','빠르다','느리다','새롭다','오래되다','아름답다','행복하다','슬프다','기쁘다','어렵다','쉽다','중요하다','필요하다','가능하다','불가능하다','우리','나라','사람','세상','기술','발전','미래','과거','현재','변화','혁신','도전','기회','성공'],
+    phrases: ['빠르게 발전하는 기술','새로운 시대의 시작','다양한 요구에 대응','지속 가능한 미래를 위해','혁신적인 접근 방식으로','데이터 기반 의사 결정','글로벌 시각에서 분석','사용자 경험 최적화'],
+    sentences: [
+      '급속도로 발전하는 디지털 기술은 우리의 삶을 크게 변화시키고 있습니다.',
+      '새로운 시대의 시작과 함께 기업들은 변화를 요구받고 있습니다.',
+      '다양한 사용자 요구에 대응하기 위해 제품 개발 방식도 진화하고 있습니다.',
+      '지속 가능한 미래를 위한 다양한 노력이 전 세계적으로 진행되고 있습니다.',
+      '혁신적인 접근 방식으로 문제 해결에 도전하는 기업들이 늘어나고 있습니다.',
+      '데이터 기반 의사 결정이 비즈니스 성공을 좌우하는 시대입니다.',
+      '글로벌 시각에서 시장을 분석하고 전략을 수립하는 것이 중요합니다.',
+      '사용자 경험 최적화는 서비스 차별화의 핵심 요소가 되고 있습니다.'
+    ]
+  }
+};
+
+// ─── State ────────────────────────────────────────────────
+let state = {
+  lang: 'zh',
+  mode: 'paragraphs',
+  count: 5,
+  sentPerPara: 5
+};
+
+// ─── Helper: Random element ───────────────────────────────
+function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function shuffle(arr) { const a = [...arr]; for (let i = a.length-1; i>0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+
+// ─── Generator: Sentence ──────────────────────────────────
+function genSentence(lang) {
+  const c = corpora[lang];
+  // Use pre-built sentences with minor randomization
+  const base = rand(c.sentences);
+  // Occasionally add connecting phrases
+  if (Math.random() < 0.3) {
+    const prefix = rand(c.phrases) + '，';
+    return prefix + base;
+  }
+  return base;
+}
+
+// ─── Generator: Paragraph ─────────────────────────────────
+function genParagraph(lang, sentenceCount) {
+  const sentences = [];
+  for (let i = 0; i < sentenceCount; i++) {
+    sentences.push(genSentence(lang));
+  }
+  return sentences.join('');
+}
+
+// ─── Generator: Words ─────────────────────────────────────
+function genWords(lang, count) {
+  const c = corpora[lang];
+  const words = [];
+  for (let i = 0; i < count; i++) {
+    words.push(rand(c.words));
+  }
+  // Add punctuation for Chinese-like languages
+  if (lang === 'zh' || lang === 'ja' || lang === 'ko') {
+    return words.join('');
+  }
+  return words.join(' ');
+}
+
+// ─── Main: Generate ───────────────────────────────────────
+function generate() {
+  const { lang, mode, count, sentPerPara } = state;
+  const actualCount = Math.min(Math.max(parseInt(count) || 5, 1), 500);
+  state.count = actualCount;
+  document.getElementById('count').value = actualCount;
+
+  let output = '';
+  let charCount = 0;
+
+  if (mode === 'paragraphs') {
+    const paras = [];
+    for (let i = 0; i < actualCount; i++) {
+      const para = genParagraph(lang, parseInt(sentPerPara) || 5);
+      paras.push(para);
+      charCount += para.length;
+    }
+    output = paras.map(p => '<p>' + p + '</p>').join('\n');
+  } else if (mode === 'sentences') {
+    const sentences = [];
+    for (let i = 0; i < actualCount; i++) {
+      const s = genSentence(lang);
+      sentences.push(s);
+      charCount += s.length;
+    }
+    output = '<p>' + sentences.join(' ') + '</p>';
+  } else if (mode === 'words') {
+    const words = genWords(lang, actualCount);
+    charCount = words.length;
+    output = '<p>' + words + '</p>';
+  }
+
+  document.getElementById('output').innerHTML = output;
+  updateStats(actualCount, charCount);
+  showToast('✅ 已生成 ' + actualCount + ' ' + (mode==='paragraphs'?'段':mode==='sentences'?'句':'词'));
+}
+
+// ─── Stats ────────────────────────────────────────────────
+function updateStats(count, chars) {
+  const modeLabel = state.mode === 'paragraphs' ? '段' : state.mode === 'sentences' ? '句' : '词';
+  const langLabel = {zh:'中文',en:'英文',ja:'日文',ko:'韩文',mixed:'中英混合'}[state.lang];
+  document.getElementById('stats').style.display = 'flex';
+  document.getElementById('stats').innerHTML =
+    '<span class="stat-item">📊 ' + count + ' ' + modeLabel + '</span>' +
+    '<span class="stat-item">📝 ' + chars + ' 字符</span>' +
+    '<span class="stat-item">🌍 ' + langLabel + '</span>' +
+    '<span class="stat-item">⏱️ 浏览器本地生成</span>';
+}
+
+// ─── Copy ─────────────────────────────────────────────────
+function copyText() {
+  const el = document.getElementById('output');
+  const text = el.innerText || el.textContent;
+  if (!text || text.includes('点击「生成文本」')) {
+    showToast('⚠️ 请先生成文本');
+    return;
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('📋 已复制到剪贴板！');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('📋 已复制到剪贴板！');
+  });
+}
+
+// ─── Download ─────────────────────────────────────────────
+function downloadText() {
+  const el = document.getElementById('output');
+  const text = el.innerText || el.textContent;
+  if (!text || text.includes('点击「生成文本」')) {
+    showToast('⚠️ 请先生成文本');
+    return;
+  }
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'lorem-ipsum-' + Date.now() + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('💾 已下载 TXT 文件');
+}
+
+// ─── Toast ────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timeout);
+  t._timeout = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ─── Theme ────────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? '' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+(function() {
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+})();
+
+// ─── Event Listeners ──────────────────────────────────────
+document.getElementById('langTabs').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('lang-tab')) return;
+  this.querySelectorAll('.lang-tab').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  state.lang = e.target.dataset.lang;
+  generate();
+});
+
+document.getElementById('modeTabs').addEventListener('click', function(e) {
+  if (!e.target.classList.contains('mode-tab')) return;
+  this.querySelectorAll('.mode-tab').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  state.mode = e.target.dataset.mode;
+  // Adjust count suggestions
+  const countEl = document.getElementById('count');
+  if (state.mode === 'paragraphs') {
+    countEl.value = Math.min(countEl.value, 50) || 5;
+  } else if (state.mode === 'sentences') {
+    countEl.value = Math.min(countEl.value, 100) || 20;
+  } else {
+    countEl.value = Math.min(countEl.value, 200) || 50;
+  }
+  state.count = parseInt(countEl.value);
+  generate();
+});
+
+document.getElementById('count').addEventListener('change', function() {
+  state.count = Math.min(Math.max(parseInt(this.value) || 5, 1), 500);
+  this.value = state.count;
+  generate();
+});
+
+document.getElementById('sentPerPara').addEventListener('change', function() {
+  state.sentPerPara = parseInt(this.value);
+  if (state.mode === 'paragraphs') generate();
+});
+
+// ─── Initial generation ───────────────────────────────────
+setTimeout(generate, 200);
+</script>
+
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+</html>

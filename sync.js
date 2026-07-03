@@ -276,6 +276,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'Favicon',cls:'tag'},{text:'图标',cls:'tag-green'},{text:'设计',cls:'tag'}],
     sourceDir: 'favicon-generator', targetSubdir: 'favicon-generator', cat:'dev'
   },
+  lorem01: {
+    icon: '📄', iconBg: '#e8eaf6', iconColor: '#5c6bc0',
+    title: 'Lorem Ipsum 生成器',
+    desc: '中英日韩多语言乱数假文在线生成。段落/句子/单词三模式，每段句数可调，一键复制下载。',
+    tags: [{text:'Lorem',cls:'tag'},{text:'占位文本',cls:'tag-green'},{text:'多语言',cls:'tag'}],
+    sourceDir: 'lorem-ipsum-generator', targetSubdir: 'lorem-ipsum', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板
