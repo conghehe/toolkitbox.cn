@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>QR码在线生成器 - 免费二维码制作 | 生活工具站</title>
+<meta name="description" content="免费在线QR码生成器，支持文本/网址/电话/WiFi/名片等格式，实时生成下载。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#fff;--t:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--b:#e9ecef}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--t);min-height:100vh}
+.tool{max-width:700px;margin:0 auto;padding:40px 20px}
+h1{text-align:center;font-size:1.5rem;color:var(--p);margin-bottom:8px}
+.sub{text-align:center;color:var(--t2);font-size:.85rem;margin-bottom:30px}
+.card{background:var(--bg);border-radius:16px;padding:30px;box-shadow:0 2px 16px rgba(0,0,0,.06);border:1px solid var(--b)}
+label{display:block;font-size:.85rem;font-weight:600;margin:12px 0 6px;color:var(--t)}
+input,select,textarea{width:100%;padding:10px 14px;border:1.5px solid var(--b);border-radius:8px;font-size:.9rem;font-family:inherit;transition:.2s}
+input:focus,textarea:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(108,92,231,.1)}
+.btn{display:block;width:100%;padding:12px;margin-top:20px;background:var(--p);color:#fff;border:none;border-radius:8px;font-size:.95rem;cursor:pointer;font-weight:600;transition:.2s}
+.btn:hover{opacity:.9}
+.qr-wrap{text-align:center;margin-top:24px}
+.qr-wrap img{max-width:240px;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.download{display:inline-block;margin-top:12px;padding:8px 20px;background:#e8f5e9;color:#2e7d32;border-radius:6px;text-decoration:none;font-size:.85rem;font-weight:600}
+.nav{text-align:center;margin-bottom:8px}.nav a{color:var(--p);text-decoration:none;font-size:.85rem}
+</style>
+</head>
+<body>
+<div class="tool">
+  <div class="nav"><a href="/life/">← 返回生活工具站</a></div>
+  <h1>QR码在线生成器</h1>
+  <p class="sub">免费生成二维码，支持多种格式</p>
+  <div class="card">
+    <label>二维码类型</label>
+    <select id="type"><option value="text">文本</option><option value="url">网址</option><option value="tel">电话</option><option value="wifi">WiFi</option><option value="email">邮箱</option></select>
+    <label>输入内容</label>
+    <textarea id="input" rows="3" placeholder="输入文本或网址..."></textarea>
+    <button class="btn" onclick="generate()">生成二维码</button>
+    <div class="qr-wrap" id="result"></div>
+  </div>
+</div>
+<script>
+function generate(){
+  var t=document.getElementById('type').value;
+  var v=document.getElementById('input').value.trim();
+  if(!v) return;
+  var qr='https://api.qrserver.com/v1/create-qr-code/?size=240x240&data='+encodeURIComponent(v);
+  document.getElementById('result').innerHTML='<img src="'+qr+'" alt="QR Code"><br><a class="download" href="'+qr+'" download>下载二维码</a>';
+}
+</script>
+</body>
+</html>
