@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favicon生成器 - 免费在线网站图标生成工具 | ToolkitBox</title>
+<meta name="description" content="免费在线Favicon生成器，支持文字/Emoji转网站图标。多尺寸输出(16/32/48/64/128/180/192/512px)，自定义颜色字体，一键下载PNG。纯浏览器本地处理，数据不上传。">
+<meta name="keywords" content="favicon生成器,网站图标生成,ico生成,favicon generator,网页图标,在线favicon,favicon制作,icon生成">
+<link rel="canonical" href="https://toolkitbox.cn/favicon-generator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#ffffff;--bg2:#f8f9fa;--t:#1a1a2e;--t2:#636e72;--p:#6366f1;--b:#e2e8f0;--hover:#4f46e5;--card-bg:#ffffff;--input-bg:#f8f9fa;--shadow:0 2px 12px rgba(0,0,0,.06);--radius:12px;}
+.dark{--bg:#1a1a2e;--bg2:#16213e;--t:#e2e8f0;--t2:#94a3b8;--p:#818cf8;--b:#334155;--hover:#6366f1;--card-bg:#1e293b;--input-bg:#1e293b;--shadow:0 2px 12px rgba(0,0,0,.25);}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg2);color:var(--t);min-height:100vh;transition:background .3s,color .3s}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:var(--card-bg);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:10}
+.nav h1{font-size:1.15rem;font-weight:700;color:var(--p)}
+.theme-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--b);background:var(--card-bg);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:.2s;color:var(--t)}
+.theme-btn:hover{border-color:var(--p)}
+.container{max-width:1100px;margin:0 auto;padding:32px 20px}
+.tool-section{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:768px){.tool-section{grid-template-columns:1fr}}
+.card{background:var(--card-bg);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid var(--b)}
+.card h3{font-size:1.05rem;margin-bottom:16px;color:var(--p)}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--t2)}
+.form-group input,.form-group select{width:100%;padding:10px 14px;border:1.5px solid var(--b);border-radius:8px;font-size:.9rem;background:var(--input-bg);color:var(--t);transition:.2s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(99,102,241,.15)}
+.color-row{display:flex;gap:12px;align-items:center}
+.color-row input[type=color]{width:44px;height:44px;border:none;border-radius:8px;cursor:pointer;padding:0;background:transparent}
+.color-row input[type=text]{flex:1}
+.input-row{display:flex;gap:8px}
+.input-row input{flex:1}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:8px;font-size:.88rem;font-weight:600;cursor:pointer;border:none;transition:.2s;font-family:inherit}
+.btn-primary{background:var(--p);color:#fff}
+.btn-primary:hover{background:var(--hover);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--p);border:1.5px solid var(--p)}
+.btn-outline:hover{background:var(--p);color:#fff}
+.btn-sm{padding:6px 12px;font-size:.78rem}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.preview-area{display:flex;flex-direction:column;gap:20px}
+.preview-main{text-align:center;padding:24px;background:var(--bg2);border-radius:var(--radius);border:1px dashed var(--b)}
+.preview-main canvas{border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.preview-label{font-size:.78rem;color:var(--t2);margin-top:8px}
+.size-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:500px){.size-grid{grid-template-columns:repeat(3,1fr)}}
+.size-card{text-align:center;padding:12px 8px;background:var(--bg2);border-radius:8px;border:1px solid var(--b);cursor:pointer;transition:.2s}
+.size-card:hover{border-color:var(--p);background:rgba(99,102,241,.05)}
+.size-card canvas{display:block;margin:0 auto 6px;border-radius:3px}
+.size-card .sz{font-size:.7rem;color:var(--t2);font-weight:600}
+.info-section{margin-top:40px}
+.info-section h2{font-size:1.35rem;margin-bottom:16px;color:var(--t)}
+.info-section p{line-height:1.8;color:var(--t2);margin-bottom:12px}
+.size-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}
+.size-table th,.size-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--b)}
+.size-table th{background:var(--bg2);color:var(--t);font-weight:600;font-size:.8rem;text-transform:uppercase}
+.size-table td{color:var(--t2)}
+.size-table tr:hover td{background:var(--bg2)}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:600}
+.tag-green{background:#d1fae5;color:#065f46}
+.tag-blue{background:#dbeafe;color:#1e40af}
+.faq{margin-top:32px}
+.faq-item{margin-bottom:16px;padding:16px 20px;background:var(--card-bg);border-radius:var(--radius);border:1px solid var(--b)}
+.faq-item h4{font-size:.92rem;color:var(--p);margin-bottom:6px}
+.faq-item p{font-size:.85rem;color:var(--t2);line-height:1.7;margin:0}
+.footer{text-align:center;padding:30px 20px;color:var(--t2);font-size:.78rem;border-top:1px solid var(--b);margin-top:40px}
+.msg{font-size:.78rem;margin-top:6px;min-height:20px}
+.msg-success{color:#10b981}
+.msg-error{color:#ef4444}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <h1>🎯 Favicon 生成器</h1>
+  <button class="theme-btn" onclick="toggleTheme()" title="切换主题">🌓</button>
+</nav>
+
+<div class="container">
+  <div class="tool-section">
+    <!-- Left: Controls -->
+    <div class="card">
+      <h3>⚙️ 设计你的图标</h3>
+      <div class="form-group">
+        <label>图标内容（文字或Emoji）</label>
+        <input type="text" id="iconText" value="TB" maxlength="4" placeholder="输入文字或粘贴Emoji">
+      </div>
+      <div class="form-group">
+        <label>背景颜色</label>
+        <div class="color-row">
+          <input type="color" id="bgColor" value="#6366f1">
+          <input type="text" id="bgColorHex" value="#6366f1" placeholder="#6366f1">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>文字颜色</label>
+        <div class="color-row">
+          <input type="color" id="textColor" value="#ffffff">
+          <input type="text" id="textColorHex" value="#ffffff" placeholder="#ffffff">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>背景形状</label>
+        <select id="bgShape">
+          <option value="rounded">圆角方形</option>
+          <option value="circle">圆形</option>
+          <option value="square">方形</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>预设模板</label>
+        <div class="btn-group">
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('TB','#6366f1','#ffffff')">默认</button>
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('🔥','#ef4444','#ffffff')">火热</button>
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('⭐','#f59e0b','#ffffff')">明星</button>
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('💡','#10b981','#ffffff')">灵感</button>
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('🚀','#8b5cf6','#ffffff')">火箭</button>
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('🐱','#ec4899','#ffffff')">萌宠</button>
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('🌊','#06b6d4','#ffffff')">海洋</button>
+          <button class="btn btn-outline btn-sm" onclick="loadPreset('🛡️','#1e293b','#38bdf8')">科技</button>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="downloadPNG(512)">📥 下载 512x512 PNG</button>
+        <button class="btn btn-primary" onclick="downloadPNG(32)">📥 下载 32x32 PNG</button>
+        <button class="btn btn-primary" onclick="downloadAll()">📦 下载全部尺寸</button>
+      </div>
+      <div class="msg" id="msg"></div>
+    </div>
+
+    <!-- Right: Preview -->
+    <div class="card">
+      <h3>👁️ 实时预览</h3>
+      <div class="preview-area">
+        <div class="preview-main">
+          <canvas id="previewMain" width="512" height="512"></canvas>
+          <div class="preview-label">512 × 512 px（原图）</div>
+        </div>
+        <div class="size-grid" id="sizeGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO Info -->
+  <div class="info-section">
+    <h2>📐 Favicon 尺寸对照表</h2>
+    <p>不同平台和设备需要不同尺寸的网站图标。以下是完整的 Favicon 尺寸参考：</p>
+    <table class="size-table">
+      <thead><tr><th>尺寸</th><th>用途</th><th>说明</th><th>优先级</th></tr></thead>
+      <tbody>
+        <tr><td>16×16</td><td>浏览器标签页</td><td>传统 Favicon，所有浏览器支持</td><td><span class="tag tag-green">必需</span></td></tr>
+        <tr><td>32×32</td><td>浏览器标签页 (Retina)</td><td>高DPI屏幕任务栏和标签页</td><td><span class="tag tag-green">必需</span></td></tr>
+        <tr><td>48×48</td><td>Windows 任务栏</td><td>Windows 桌面快捷方式</td><td><span class="tag tag-blue">推荐</span></td></tr>
+        <tr><td>64×64</td><td>Windows 磁贴</td><td>Windows 开始菜单磁贴</td><td><span class="tag tag-blue">推荐</span></td></tr>
+        <tr><td>128×128</td><td>Chrome Web Store</td><td>Chrome 扩展图标</td><td><span class="tag tag-blue">可选</span></td></tr>
+        <tr><td>180×180</td><td>Apple Touch Icon</td><td>iOS Safari 书签/主屏幕</td><td><span class="tag tag-green">必需</span></td></tr>
+        <tr><td>192×192</td><td>Android/PWA</td><td>Android 主屏幕、PWA 清单</td><td><span class="tag tag-green">必需</span></td></tr>
+        <tr><td>512×512</td><td>PWA Splash</td><td>PWA 启动画面、应用商店</td><td><span class="tag tag-blue">推荐</span></td></tr>
+      </tbody>
+    </table>
+
+    <h2>💡 如何使用生成的 Favicon</h2>
+    <p>下载图标后，将文件放到网站根目录，并在 HTML <code>&lt;head&gt;</code> 中添加以下代码：</p>
+    <pre style="background:var(--input-bg);border:1px solid var(--b);border-radius:8px;padding:16px;overflow-x:auto;font-size:.82rem;line-height:1.8;color:var(--t);margin:12px 0;"><code>&lt;link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"&gt;
+&lt;link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"&gt;
+&lt;link rel="manifest" href="/site.webmanifest"&gt;</code></pre>
+    <p>现代浏览器（Chrome 80+、Firefox 85+、Safari 14+、Edge 80+）均支持 PNG 格式的 Favicon，无需转换为 ICO 格式。</p>
+
+    <h2>🎨 Favicon 设计建议</h2>
+    <p>
+      <strong>简洁优先：</strong>16×16 像素空间极小，复杂的图形会模糊不清。建议使用单个字母、Emoji 或简单几何图形。<br>
+      <strong>高对比度：</strong>确保图标在各种背景（浅色/深色标签栏）下都清晰可见。<br>
+      <strong>品牌一致：</strong>Favicon 应与品牌 Logo 保持风格一致，建议使用品牌主色调。<br>
+      <strong>圆角处理：</strong>圆角图标在大多数平台上显示效果更好（iOS、Android 会自动添加圆角遮罩）。
+    </p>
+
+    <div class="faq">
+      <h2>❓ 常见问题</h2>
+      <div class="faq-item">
+        <h4>Q: 生成的图标能在所有浏览器中显示吗？</h4>
+        <p>A: 是的。本工具生成的是 PNG 格式图标，Chrome、Firefox、Safari、Edge 等主流浏览器的最新版本都完美支持 PNG Favicon。对于极少数老旧浏览器（如 IE），可额外添加 ICO 文件。</p>
+      </div>
+      <div class="faq-item">
+        <h4>Q: 为什么我的 Favicon 没有显示？</h4>
+        <p>A: 常见原因：1) 浏览器缓存，尝试 Ctrl+F5 强制刷新或使用无痕模式；2) HTML 路径不正确；3) 文件未上传到服务器根目录。通常清除浏览器缓存后即可显示。</p>
+      </div>
+      <div class="faq-item">
+        <h4>Q: 需要提供所有尺寸吗？</h4>
+        <p>A: 最低要求是 16×16 和 32×32 像素用于浏览器标签页，以及 180×180 用于 Apple 设备。推荐添加 192×192 用于 Android/PWA，512×512 用于 PWA 启动画面。本工具可一键下载全部尺寸。</p>
+      </div>
+      <div class="faq-item">
+        <h4>Q: 支持生成 ICO 格式吗？</h4>
+        <p>A: 当前版本生成的是 PNG 格式，这是现代 Web 标准推荐的格式。如需 ICO 格式，可以使用下载的 32×32 PNG 图片在本地转换为 ICO。绝大多数现代网站已不再需要 ICO 格式。</p>
+      </div>
+      <div class="faq-item">
+        <h4>Q: 图片处理是在本地还是上传到服务器？</h4>
+        <p>A: 所有图标生成完全在您的浏览器本地完成（使用 Canvas API），图片数据不会上传到任何服务器。您的隐私和数据安全得到充分保障。</p>
+      </div>
+      <div class="faq-item">
+        <h4>Q: 支持上传自定义图片作为 Favicon 吗？</h4>
+        <p>A: 当前版本专注于文字/Emoji 图标生成。如需图片转 Favicon，可以使用我们的<a href="https://toolkitbox.cn/image-format-converter/" style="color:var(--p)">图片格式转换工具</a>调整尺寸后再使用。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">&copy; 2026 ToolkitBox — 免费在线 Favicon 生成器</footer>
+
+<script>
+(function(){
+  const sizes = [16, 32, 48, 64, 128, 180, 192, 512];
+  let currentTheme = 'light';
+
+  // ── Theme ──
+  window.toggleTheme = function(){
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.className = currentTheme;
+    try{ localStorage.setItem('favicon-theme', currentTheme); }catch(e){}
+  };
+  try{ currentTheme = localStorage.getItem('favicon-theme') || 'light'; document.documentElement.className = currentTheme; }catch(e){}
+
+  // ── DOM refs ──
+  const elText = document.getElementById('iconText');
+  const elBg = document.getElementById('bgColor');
+  const elBgHex = document.getElementById('bgColorHex');
+  const elTextC = document.getElementById('textColor');
+  const elTextHex = document.getElementById('textColorHex');
+  const elShape = document.getElementById('bgShape');
+  const elMain = document.getElementById('previewMain');
+  const elGrid = document.getElementById('sizeGrid');
+  const elMsg = document.getElementById('msg');
+
+  // ── Color sync ──
+  elBg.addEventListener('input', function(){ elBgHex.value = this.value; render(); });
+  elBgHex.addEventListener('input', function(){ if(/^#[0-9a-fA-F]{6}$/.test(this.value)){ elBg.value = this.value; render(); } });
+  elTextC.addEventListener('input', function(){ elTextHex.value = this.value; render(); });
+  elTextHex.addEventListener('input', function(){ if(/^#[0-9a-fA-F]{6}$/.test(this.value)){ elTextC.value = this.value; render(); } });
+  elText.addEventListener('input', render);
+  elShape.addEventListener('change', render);
+
+  // ── Preset loader ──
+  window.loadPreset = function(text, bg, tc){
+    elText.value = text;
+    elBg.value = bg; elBgHex.value = bg;
+    elTextC.value = tc; elTextHex.value = tc;
+    render();
+  };
+
+  // ── Draw icon ──
+  function drawIcon(canvas, size){
+    const ctx = canvas.getContext('2d');
+    canvas.width = size; canvas.height = size;
+    const shape = elShape.value;
+
+    // Background
+    ctx.beginPath();
+    if(shape === 'circle'){
+      ctx.arc(size/2, size/2, size/2, 0, Math.PI*2);
+    } else if(shape === 'rounded'){
+      const r = size * 0.2;
+      ctx.moveTo(r, 0);
+      ctx.lineTo(size - r, 0);
+      ctx.quadraticCurveTo(size, 0, size, r);
+      ctx.lineTo(size, size - r);
+      ctx.quadraticCurveTo(size, size, size - r, size);
+      ctx.lineTo(r, size);
+      ctx.quadraticCurveTo(0, size, 0, size - r);
+      ctx.lineTo(0, r);
+      ctx.quadraticCurveTo(0, 0, r, 0);
+    } else {
+      ctx.rect(0, 0, size, size);
+    }
+    ctx.fillStyle = elBg.value;
+    ctx.fill();
+
+    // Text
+    const text = elText.value.trim() || 'TB';
+    ctx.fillStyle = elTextC.value;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    // Detect if emoji
+    const hasEmoji = /(\p{Emoji})/u.test(text);
+    if(hasEmoji){
+      ctx.font = 'bold ' + (size * 0.55) + 'px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+    } else {
+      let fontSize = size * 0.5;
+      if(text.length === 1) fontSize = size * 0.52;
+      else if(text.length === 2) fontSize = size * 0.4;
+      else if(text.length === 3) fontSize = size * 0.32;
+      else fontSize = size * 0.25;
+      ctx.font = 'bold ' + fontSize + 'px -apple-system,"PingFang SC","Microsoft YaHei",sans-serif';
+    }
+    ctx.fillText(text, size/2, size/2);
+  }
+
+  // ── Render ──
+  function render(){
+    // Main canvas
+    drawIcon(elMain, 512);
+
+    // Size grid
+    elGrid.innerHTML = '';
+    sizes.forEach(function(sz){
+      const card = document.createElement('div');
+      card.className = 'size-card';
+      card.onclick = function(){ downloadPNG(sz); };
+      const c = document.createElement('canvas');
+      c.width = sz; c.height = sz;
+      drawIcon(c, sz);
+      const label = document.createElement('div');
+      label.className = 'sz';
+      label.textContent = sz + '×' + sz;
+      card.appendChild(c);
+      card.appendChild(label);
+      elGrid.appendChild(card);
+    });
+  }
+
+  // ── Download ──
+  function getDataURL(size){
+    const c = document.createElement('canvas');
+    drawIcon(c, size);
+    return c.toDataURL('image/png');
+  }
+
+  window.downloadPNG = function(size){
+    const a = document.createElement('a');
+    a.href = getDataURL(size);
+    a.download = 'favicon-' + size + 'x' + size + '.png';
+    a.click();
+    showMsg('已下载 ' + size + '×' + size + ' PNG ✓', 'success');
+  };
+
+  window.downloadAll = function(){
+    showMsg('正在生成全部尺寸...', '');
+    sizes.forEach(function(sz, i){
+      setTimeout(function(){
+        downloadPNG(sz);
+      }, i * 300);
+    });
+    setTimeout(function(){
+      showMsg('全部 ' + sizes.length + ' 个尺寸已下载 ✓', 'success');
+    }, sizes.length * 300 + 200);
+  };
+
+  function showMsg(text, type){
+    elMsg.textContent = text;
+    elMsg.className = 'msg msg-' + (type || '');
+    if(type === 'success'){
+      setTimeout(function(){ elMsg.textContent = ''; elMsg.className = 'msg'; }, 3000);
+    }
+  }
+
+  // ── Init ──
+  render();
+})();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+</html>

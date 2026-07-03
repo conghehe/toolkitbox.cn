@@ -269,6 +269,13 @@ const TOOL_DISPLAY = {
     tags: [{text:'格式转换',cls:'tag'},{text:'WebP',cls:'tag-green'},{text:'AVIF',cls:'tag'}],
     sourceDir: 'image-format-converter', targetSubdir: 'image-format-converter', cat:'dev'
   },
+  favicon01: {
+    icon: '🎯', iconBg: '#f0edff', iconColor: '#6c5ce7',
+    title: 'Favicon 生成器',
+    desc: '文字/Emoji转网站图标，8种尺寸输出。自定义颜色/形状/字体，一键下载全部尺寸。纯本地处理。',
+    tags: [{text:'Favicon',cls:'tag'},{text:'图标',cls:'tag-green'},{text:'设计',cls:'tag'}],
+    sourceDir: 'favicon-generator', targetSubdir: 'favicon-generator', cat:'dev'
+  },
 };
 
 // 新增工具时的默认模板
