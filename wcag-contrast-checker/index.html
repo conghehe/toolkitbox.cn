@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WCAG色彩对比度检测器 - 免费在线无障碍检测工具 | AA/AAA合规</title>
+    <meta name="description" content="免费在线WCAG色彩对比度检测工具，实时计算文字与背景的对比度比率。支持WCAG 2.1 AA/AAA等级判定，帮助设计师和开发者确保网站无障碍合规。支持HEX/RGB/HSL输入，即开即用。">
+    <meta name="keywords" content="WCAG对比度检测, 色彩对比度检查, AA级对比度, AAA级对比度, 无障碍检测, accessibility checker, color contrast checker, WCAG 2.1, 网页无障碍, 颜色对比度计算器, WCAG合规">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="WCAG对比度检测器">
+    <link rel="canonical" href="https://toolkitbox.cn/wcag-contrast-checker/">
+    <meta property="og:title" content="WCAG色彩对比度检测器 - 免费在线无障碍检测">
+    <meta property="og:description" content="实时检测文字与背景的对比度，支持WCAG 2.1 AA/AAA等级判定，确保网站无障碍合规。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://contrastchecker.tools">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WCAG色彩对比度检测器">
+    <meta name="twitter:description" content="免费在线WCAG色彩对比度检测，确保网站无障碍合规。">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "WCAG色彩对比度检测器",
+        "url": "https://contrastchecker.tools",
+        "description": "免费在线WCAG色彩对比度检测工具，支持AA/AAA等级判定，实时对比度计算",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" }
+    }
+    </script>
+    <style>
+        :root {
+            --bg: #0f0f1a;
+            --surface: #1a1a2e;
+            --surface2: #222240;
+            --border: #2a2a4a;
+            --text: #e0e0f0;
+            --text2: #a0a0c0;
+            --accent: #6c5ce7;
+            --accent2: #a29bfe;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #e17055;
+            --pass: #00b894;
+            --fail: #ff7675;
+            --radius: 12px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.3);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #fd79a8 100%);
+            color: white;
+            border-radius: 0 0 24px 24px;
+        }
+        header h1 { font-size: 2em; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.5px; }
+        header p { font-size: 1.05em; opacity: 0.92; max-width: 600px; margin: 0 auto; }
+
+        /* Ad Top */
+        .ad-banner {
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            color: var(--text2);
+            font-size: 0.9em;
+        }
+        .ad-banner span { display: block; font-size: 0.75em; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Main Tool Area */
+        .tool-area {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .tool-area { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.5em; }
+        }
+
+        /* Color Pickers */
+        .color-section {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+        .color-section h3 {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text2);
+            margin-bottom: 16px;
+        }
+
+        .color-input-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .color-swatch {
+            width: 56px; height: 56px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: transform 0.15s;
+        }
+        .color-swatch:hover { transform: scale(1.05); }
+        .color-swatch-wrapper { position: relative; }
+        .color-swatch-wrapper input[type=color] {
+            position: absolute; top: 0; left: 0;
+            width: 56px; height: 56px;
+            opacity: 0; cursor: pointer;
+        }
+
+        .color-fields { flex: 1; min-width: 180px; }
+        .color-fields label {
+            display: block;
+            font-size: 0.72em;
+            color: var(--text2);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .color-fields input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            transition: border-color 0.2s;
+        }
+        .color-fields input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+        }
+
+        .swap-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; height: 40px;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text);
+            font-size: 1.2em;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .swap-btn:hover { background: var(--accent); border-color: var(--accent); color: white; transform: rotate(180deg); }
+
+        /* Results */
+        .results-section {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            grid-column: 1 / -1;
+        }
+
+        .contrast-ratio-display {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: var(--surface2);
+            border-radius: var(--radius);
+        }
+        .ratio-number {
+            font-size: 3.5em;
+            font-weight: 800;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+        .ratio-label {
+            font-size: 0.85em;
+            color: var(--text2);
+            margin-top: 4px;
+        }
+
+        /* WCAG Badges */
+        .wcag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+        .wcag-badge {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 16px;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+        .wcag-badge.pass { border-color: var(--pass); background: rgba(0, 184, 148, 0.08); }
+        .wcag-badge.fail { border-color: var(--fail); }
+        .wcag-badge .level {
+            font-size: 0.7em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+        .wcag-badge .type {
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .wcag-badge .threshold {
+            font-size: 0.75em;
+            color: var(--text2);
+        }
+        .wcag-badge .status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+        }
+        .status-pass { background: var(--pass); color: white; }
+        .status-fail { background: var(--fail); color: white; }
+
+        /* Preview */
+        .preview-section {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+        .preview-section h3 {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text2);
+            margin-bottom: 16px;
+        }
+        .preview-box {
+            padding: 30px;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .preview-normal { font-size: 16px; margin-bottom: 12px; }
+        .preview-large { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+        .preview-ui {
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Color Picker Section */
+        .color-pickers-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 768px) {
+            .color-pickers-row { flex-direction: column; }
+        }
+        .color-picker-col {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        /* SEO Content */
+        .seo-section {
+            margin-top: 40px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow);
+        }
+        .seo-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            color: var(--accent2);
+        }
+        .seo-section h3 {
+            font-size: 1.15em;
+            margin: 20px 0 10px;
+            color: var(--text);
+        }
+        .seo-section p, .seo-section ul {
+            color: var(--text2);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .seo-section ul { padding-left: 20px; }
+        .seo-section ul li { margin-bottom: 6px; }
+        .seo-section code {
+            background: var(--surface2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85em;
+            color: var(--accent2);
+        }
+
+        /* Ad Sidebar */
+        .ad-sidebar {
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text2);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text2);
+            font-size: 0.85em;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        footer a { color: var(--accent2); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        .preset-colors {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .preset-dot {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .preset-dot:hover { border-color: white; transform: scale(1.15); }
+    </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header>
+    <h1>🎨 WCAG 色彩对比度检测器</h1>
+    <p>实时检测文字与背景的对比度比率，判断是否满足 WCAG 2.1 AA/AAA 无障碍标准</p>
+</header>
+
+<div class="container">
+
+    <!-- Ad Banner Top -->
+    <div class="ad-banner">
+        <span>广告位 · Ad Placement</span>
+        您的广告可以展示在这里 —— 接触高价值设计师与开发者用户
+    </div>
+
+    <!-- Main Tool -->
+    <div class="tool-area">
+        <!-- Foreground Picker -->
+        <div class="color-section">
+            <h3>🔤 文字/前景色 (Foreground)</h3>
+            <div class="color-input-group">
+                <div class="color-swatch-wrapper">
+                    <div class="color-swatch" id="fg-swatch" style="background:#ffffff"></div>
+                    <input type="color" id="fg-picker" value="#ffffff" title="选择前景色">
+                </div>
+                <div class="color-fields">
+                    <label>HEX</label>
+                    <input type="text" id="fg-hex" value="#FFFFFF" placeholder="#FFFFFF">
+                    <label>RGB</label>
+                    <input type="text" id="fg-rgb" value="rgb(255, 255, 255)" placeholder="rgb(255, 255, 255)">
+                </div>
+            </div>
+            <div class="preset-colors">
+                <div class="preset-dot" style="background:#FFFFFF" onclick="setFG('#FFFFFF')" title="白色"></div>
+                <div class="preset-dot" style="background:#000000" onclick="setFG('#000000')" title="黑色"></div>
+                <div class="preset-dot" style="background:#333333" onclick="setFG('#333333')" title="深灰"></div>
+                <div class="preset-dot" style="background:#6C5CE7" onclick="setFG('#6C5CE7')" title="紫色"></div>
+                <div class="preset-dot" style="background:#00B894" onclick="setFG('#00B894')" title="绿色"></div>
+                <div class="preset-dot" style="background:#E17055" onclick="setFG('#E17055')" title="红色"></div>
+                <div class="preset-dot" style="background:#0984E3" onclick="setFG('#0984E3')" title="蓝色"></div>
+                <div class="preset-dot" style="background:#FDCB6E" onclick="setFG('#FDCB6E')" title="黄色"></div>
+            </div>
+        </div>
+
+        <!-- Background Picker -->
+        <div class="color-section">
+            <h3>🖼️ 背景色 (Background)</h3>
+            <div class="color-input-group">
+                <div class="color-swatch-wrapper">
+                    <div class="color-swatch" id="bg-swatch" style="background:#0f0f1a"></div>
+                    <input type="color" id="bg-picker" value="#0f0f1a" title="选择背景色">
+                </div>
+                <div class="color-fields">
+                    <label>HEX</label>
+                    <input type="text" id="bg-hex" value="#0F0F1A" placeholder="#0F0F1A">
+                    <label>RGB</label>
+                    <input type="text" id="bg-rgb" value="rgb(15, 15, 26)" placeholder="rgb(15, 15, 26)">
+                </div>
+            </div>
+            <div class="preset-colors">
+                <div class="preset-dot" style="background:#FFFFFF" onclick="setBG('#FFFFFF')" title="白色"></div>
+                <div class="preset-dot" style="background:#000000" onclick="setBG('#000000')" title="黑色"></div>
+                <div class="preset-dot" style="background:#0F0F1A" onclick="setBG('#0F0F1A')" title="深色"></div>
+                <div class="preset-dot" style="background:#DFE6E9" onclick="setBG('#DFE6E9')" title="浅灰"></div>
+                <div class="preset-dot" style="background:#6C5CE7" onclick="setBG('#6C5CE7')" title="紫色"></div>
+                <div class="preset-dot" style="background:#00B894" onclick="setBG('#00B894')" title="绿色"></div>
+                <div class="preset-dot" style="background:#0984E3" onclick="setBG('#0984E3')" title="蓝色"></div>
+                <div class="preset-dot" style="background:#FFEAA7" onclick="setBG('#FFEAA7')" title="浅黄"></div>
+            </div>
+        </div>
+
+        <!-- Swap Button -->
+        <div style="text-align:center;margin:10px 0">
+            <button class="swap-btn" onclick="swapColors()" title="交换前景色与背景色">⇅</button>
+        </div>
+
+        <!-- Results -->
+        <div class="results-section">
+            <div class="contrast-ratio-display">
+                <div class="ratio-number" id="ratio-display">21.00</div>
+                <div class="ratio-label">:1 对比度比率</div>
+            </div>
+
+            <div class="wcag-grid">
+                <!-- AA Normal -->
+                <div class="wcag-badge" id="badge-aa-normal">
+                    <div class="level" style="color:var(--pass)">WCAG AA</div>
+                    <div class="type">普通文本 (Normal Text)</div>
+                    <div class="threshold">要求 ≥ 4.5:1</div>
+                    <div class="status status-pass" id="status-aa-normal">✓ 通过</div>
+                </div>
+                <!-- AA Large -->
+                <div class="wcag-badge" id="badge-aa-large">
+                    <div class="level" style="color:var(--pass)">WCAG AA</div>
+                    <div class="type">大号文本 (Large Text)</div>
+                    <div class="threshold">要求 ≥ 3:1 (≥18pt 或 ≥14pt加粗)</div>
+                    <div class="status status-pass" id="status-aa-large">✓ 通过</div>
+                </div>
+                <!-- AAA Normal -->
+                <div class="wcag-badge" id="badge-aaa-normal">
+                    <div class="level" style="color:#fdcb6e">WCAG AAA</div>
+                    <div class="type">普通文本 (Normal Text)</div>
+                    <div class="threshold">要求 ≥ 7:1</div>
+                    <div class="status status-pass" id="status-aaa-normal">✓ 通过</div>
+                </div>
+                <!-- AAA Large -->
+                <div class="wcag-badge" id="badge-aaa-large">
+                    <div class="level" style="color:#fdcb6e">WCAG AAA</div>
+                    <div class="type">大号文本 (Large Text)</div>
+                    <div class="threshold">要求 ≥ 4.5:1</div>
+                    <div class="status status-pass" id="status-aaa-large">✓ 通过</div>
+                </div>
+                <!-- UI Components -->
+                <div class="wcag-badge" id="badge-ui">
+                    <div class="level" style="color:var(--accent2)">WCAG 2.1</div>
+                    <div class="type">UI组件/图形 (UI Components)</div>
+                    <div class="threshold">要求 ≥ 3:1</div>
+                    <div class="status status-pass" id="status-ui">✓ 通过</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Preview -->
+        <div class="preview-section">
+            <h3>👁️ 实时预览 (Live Preview)</h3>
+            <div class="preview-box" id="preview-box">
+                <div class="preview-normal" id="preview-normal">这是一段16px普通文本。The quick brown fox jumps over the lazy dog.</div>
+                <div class="preview-large" id="preview-large">24px 大号文本 Large Text Sample</div>
+                <div class="preview-ui" id="preview-ui">按钮组件 Button</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ad Sidebar -->
+    <div class="ad-sidebar">
+        <span style="display:block;font-size:0.75em;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">广告位 · Ad Placement</span>
+        视觉设计类工具天然适合展示广告 —— 高停留时间 + 高CPC
+    </div>
+
+    <!-- SEO Content -->
+    <div class="seo-section">
+        <h2>📖 什么是WCAG色彩对比度？</h2>
+        <p>
+            <strong>WCAG（Web Content Accessibility Guidelines，网页内容无障碍指南）</strong> 是由 W3C 发布的国际标准，
+            旨在确保网页内容对视障、色盲等各类用户群体都可访问。其中<strong>色彩对比度</strong>是核心指标之一，
+            直接影响文字的可读性和用户体验。
+        </p>
+
+        <h3>🎯 WCAG 2.1 对比度标准</h3>
+        <ul>
+            <li><strong>AA级 - 普通文本：</strong>对比度需 ≥ <code>4.5:1</code>。适用于小于18pt（或小于14pt粗体）的所有文本。</li>
+            <li><strong>AA级 - 大号文本：</strong>对比度需 ≥ <code>3:1</code>。适用于≥18pt的文字或≥14pt的粗体文字。</li>
+            <li><strong>AAA级 - 普通文本：</strong>对比度需 ≥ <code>7:1</code>。最高无障碍标准，适合有视觉障碍的用户。</li>
+            <li><strong>AAA级 - 大号文本：</strong>对比度需 ≥ <code>4.5:1</code>。适用于≥18pt的大号文字。</li>
+            <li><strong>UI组件：</strong>按钮、输入框边框等交互元素与背景的对比度需 ≥ <code>3:1</code>。</li>
+        </ul>
+
+        <h3>🌍 为什么需要关注无障碍合规？</h3>
+        <p>
+            2025年6月起，<strong>欧洲无障碍法案（EAA）</strong>正式生效，要求所有面向欧盟用户的网站和服务必须符合WCAG 2.1 AA标准。
+            美国<strong>ADA（Americans with Disabilities Act）</strong>也对网站无障碍提出了明确法律要求。
+            不合规可能导致法律诉讼和罚款，全球已有数千起网站无障碍诉讼案例。
+        </p>
+        <p>
+            此外，全球约有<strong>10亿人</strong>存在某种形式的残障，包括2.85亿视障人士和3亿色盲人群。
+            做好无障碍设计不仅是法律要求，更是对用户负责的商业决策——它意味着<strong>扩大15%以上的潜在用户群体</strong>。
+        </p>
+
+        <h3>🔬 对比度是如何计算的？</h3>
+        <p>
+            对比度比率基于<strong>相对亮度（Relative Luminance）</strong>计算，公式来自WCAG 2.1规范：
+        </p>
+        <ul>
+            <li>先将 sRGB 颜色值线性化（Gamma校正）</li>
+            <li>计算相对亮度：<code>L = 0.2126×R + 0.7152×G + 0.0722×B</code></li>
+            <li>对比度比率：<code>(L1 + 0.05) / (L2 + 0.05)</code>，其中L1是较亮的亮度值</li>
+        </ul>
+        <p>对比度范围从 <code>1:1</code>（相同颜色）到 <code>21:1</code>（纯黑 vs 纯白）。</p>
+
+        <h3>💡 提高对比度的实用技巧</h3>
+        <ul>
+            <li><strong>文字颜色：</strong>避免在白色背景上使用浅灰色文字（如<code>#999</code>），改用<code>#595959</code>或更深。</li>
+            <li><strong>链接颜色：</strong>蓝色链接（<code>#0000EE</code>）在白色背景上效果最好，如果改变颜色需要确保对比度≥4.5:1。</li>
+            <li><strong>按钮设计：</strong>CTA按钮文字与背景的对比度应≥4.5:1以确保清晰可读。</li>
+            <li><strong>占位符文本：</strong>输入框的placeholder文字也需满足对比度要求。</li>
+            <li><strong>图表/数据可视化：</strong>图表中相邻颜色应有足够对比度区分，色盲友好配色方案值得采用。</li>
+        </ul>
+
+        <h3>🛠️ 常见色彩搭配与对比度参考</h3>
+        <table style="width:100%;border-collapse:collapse;margin-top:12px;color:var(--text);">
+            <thead>
+                <tr style="background:var(--surface2);">
+                    <th style="padding:10px;text-align:left;border-bottom:1px solid var(--border);">前景色</th>
+                    <th style="padding:10px;text-align:left;border-bottom:1px solid var(--border);">背景色</th>
+                    <th style="padding:10px;text-align:left;border-bottom:1px solid var(--border);">对比度</th>
+                    <th style="padding:10px;text-align:left;border-bottom:1px solid var(--border);">AA</th>
+                    <th style="padding:10px;text-align:left;border-bottom:1px solid var(--border);">AAA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#000000 (黑)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#FFFFFF (白)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);"><strong>21.00:1</strong></td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--pass);">✓</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--pass);">✓</td></tr>
+                <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#333333 (深灰)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#FFFFFF (白)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);"><strong>12.63:1</strong></td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--pass);">✓</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--pass);">✓</td></tr>
+                <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#595959 (中灰)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#FFFFFF (白)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);"><strong>5.66:1</strong></td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--pass);">✓</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--fail);">✗</td></tr>
+                <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#767676 (浅灰)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#FFFFFF (白)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);"><strong>3.79:1</strong></td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--fail);">✗</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--fail);">✗</td></tr>
+                <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#0984E3 (蓝)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#FFFFFF (白)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);"><strong>3.94:1</strong></td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--fail);">✗</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--fail);">✗</td></tr>
+                <tr><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#FFFFFF (白)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);">#6C5CE7 (紫)</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);"><strong>5.49:1</strong></td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--pass);">✓</td><td style="padding:8px 10px;border-bottom:1px solid var(--border);color:var(--fail);">✗</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>© 2026 WCAG对比度检测器 | 所有计算均在浏览器本地完成，数据不上传服务器</p>
+        <p>基于 <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">W3C WCAG 2.1 规范</a> · 免费在线工具 · 无需注册</p>
+    </footer>
+</div>
+
+<script>
+    // WCAG 2.1 Relative Luminance Calculation
+    function linearize(channel) {
+        const c = channel / 255;
+        return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    }
+
+    function relativeLuminance(r, g, b) {
+        return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b);
+    }
+
+    function contrastRatio(rgb1, rgb2) {
+        const l1 = relativeLuminance(rgb1[0], rgb1[1], rgb1[2]);
+        const l2 = relativeLuminance(rgb2[0], rgb2[1], rgb2[2]);
+        const lighter = Math.max(l1, l2);
+        const darker = Math.min(l1, l2);
+        return (lighter + 0.05) / (darker + 0.05);
+    }
+
+    // Parse color inputs
+    function parseHEX(hex) {
+        hex = hex.replace('#', '').trim();
+        if (hex.length === 3) {
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        if (hex.length !== 6) return null;
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        if (isNaN(r) || isNaN(g) || isNaN(b)) return null;
+        return [r, g, b];
+    }
+
+    function parseRGB(str) {
+        const match = str.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);
+        if (!match) return null;
+        const r = parseInt(match[1]), g = parseInt(match[2]), b = parseInt(match[3]);
+        if (r > 255 || g > 255 || b > 255) return null;
+        return [r, g, b];
+    }
+
+    function rgbToHex(r, g, b) {
+        return '#' + [r, g, b].map(x => {
+            const h = x.toString(16).toUpperCase();
+            return h.length === 1 ? '0' + h : h;
+        }).join('');
+    }
+
+    function hexToRgbStr(r, g, b) {
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // Update everything
+    function updateAll() {
+        let fgRgb, bgRgb;
+
+        // Try HEX first for foreground
+        fgRgb = parseHEX(document.getElementById('fg-hex').value);
+        if (!fgRgb) {
+            fgRgb = parseRGB(document.getElementById('fg-rgb').value);
+        }
+        if (!fgRgb) {
+            fgRgb = parseHEX(document.getElementById('fg-picker').value);
+        }
+        if (!fgRgb) fgRgb = [255, 255, 255];
+
+        // Try HEX first for background
+        bgRgb = parseHEX(document.getElementById('bg-hex').value);
+        if (!bgRgb) {
+            bgRgb = parseRGB(document.getElementById('bg-rgb').value);
+        }
+        if (!bgRgb) {
+            bgRgb = parseHEX(document.getElementById('bg-picker').value);
+        }
+        if (!bgRgb) bgRgb = [15, 15, 26];
+
+        // Update swatches and hidden pickers
+        const fgHex = rgbToHex(fgRgb[0], fgRgb[1], fgRgb[2]);
+        const bgHex = rgbToHex(bgRgb[0], bgRgb[1], bgRgb[2]);
+
+        document.getElementById('fg-swatch').style.background = fgHex;
+        document.getElementById('fg-picker').value = fgHex;
+        document.getElementById('fg-hex').value = fgHex;
+        document.getElementById('fg-rgb').value = hexToRgbStr(fgRgb[0], fgRgb[1], fgRgb[2]);
+
+        document.getElementById('bg-swatch').style.background = bgHex;
+        document.getElementById('bg-picker').value = bgHex;
+        document.getElementById('bg-hex').value = bgHex;
+        document.getElementById('bg-rgb').value = hexToRgbStr(bgRgb[0], bgRgb[1], bgRgb[2]);
+
+        // Calculate contrast ratio
+        const ratio = contrastRatio(fgRgb, bgRgb);
+
+        // Update ratio display
+        const ratioDisplay = document.getElementById('ratio-display');
+        ratioDisplay.textContent = ratio.toFixed(2);
+        if (ratio >= 7) ratioDisplay.style.color = 'var(--pass)';
+        else if (ratio >= 4.5) ratioDisplay.style.color = 'var(--warning)';
+        else if (ratio >= 3) ratioDisplay.style.color = '#fdcb6e';
+        else ratioDisplay.style.color = 'var(--fail)';
+
+        // Update WCAG badges
+        updateBadge('badge-aa-normal', 'status-aa-normal', ratio >= 4.5);
+        updateBadge('badge-aa-large', 'status-aa-large', ratio >= 3);
+        updateBadge('badge-aaa-normal', 'status-aaa-normal', ratio >= 7);
+        updateBadge('badge-aaa-large', 'status-aaa-large', ratio >= 4.5);
+        updateBadge('badge-ui', 'status-ui', ratio >= 3);
+
+        // Update preview
+        const previewBox = document.getElementById('preview-box');
+        previewBox.style.background = bgHex;
+        previewBox.style.color = fgHex;
+
+        const previewUI = document.getElementById('preview-ui');
+        previewUI.style.background = fgHex;
+        previewUI.style.color = bgHex;
+        previewUI.style.border = `2px solid ${fgHex}`;
+    }
+
+    function updateBadge(badgeId, statusId, pass) {
+        const badge = document.getElementById(badgeId);
+        const status = document.getElementById(statusId);
+        if (pass) {
+            badge.classList.add('pass');
+            badge.classList.remove('fail');
+            status.classList.add('status-pass');
+            status.classList.remove('status-fail');
+            status.textContent = '✓ 通过';
+        } else {
+            badge.classList.remove('pass');
+            badge.classList.add('fail');
+            status.classList.remove('status-pass');
+            status.classList.add('status-fail');
+            status.textContent = '✗ 未通过';
+        }
+    }
+
+    // Event listeners
+    document.getElementById('fg-picker').addEventListener('input', function() {
+        document.getElementById('fg-hex').value = this.value;
+        updateAll();
+    });
+    document.getElementById('bg-picker').addEventListener('input', function() {
+        document.getElementById('bg-hex').value = this.value;
+        updateAll();
+    });
+    document.getElementById('fg-hex').addEventListener('input', updateAll);
+    document.getElementById('fg-rgb').addEventListener('input', updateAll);
+    document.getElementById('bg-hex').addEventListener('input', updateAll);
+    document.getElementById('bg-rgb').addEventListener('input', updateAll);
+
+    function setFG(hex) {
+        document.getElementById('fg-hex').value = hex;
+        updateAll();
+    }
+    function setBG(hex) {
+        document.getElementById('bg-hex').value = hex;
+        updateAll();
+    }
+    function swapColors() {
+        const fgHex = document.getElementById('fg-hex').value;
+        const bgHex = document.getElementById('bg-hex').value;
+        document.getElementById('fg-hex').value = bgHex;
+        document.getElementById('bg-hex').value = fgHex;
+        updateAll();
+    }
+
+    // Initial calculation
+    updateAll();
+</script>
+
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></body>
+</html>

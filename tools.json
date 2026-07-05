@@ -382,5 +382,293 @@
     ],
     "url": "/favicon-generator/",
     "cat": "dev"
+  },
+  {
+    "id": "base64enc01",
+    "name": "Base64 编解码",
+    "desc": "文本/图片 Base64 互转，支持 URL 安全编码，文件拖拽上传，实时编解码。",
+    "icon": "64",
+    "iconBg": "#e6fff5",
+    "iconColor": "#00b894",
+    "tags": [
+      {
+        "text": "Base64",
+        "cls": "tag"
+      },
+      {
+        "text": "编码",
+        "cls": "tag-green"
+      },
+      {
+        "text": "解码",
+        "cls": "tag"
+      }
+    ],
+    "url": "/base64/",
+    "cat": "dev"
+  },
+  {
+    "id": "codefmt01",
+    "name": "codefmt01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/code-minifier/",
+    "cat": "other"
+  },
+  {
+    "id": "jsonfmt01",
+    "name": "JSON 格式化工具",
+    "desc": "JSON 美化、校验、压缩、转CSV。支持语法高亮和错误定位，开发者高频工具。",
+    "icon": "{ }",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "JSON",
+        "cls": "tag"
+      },
+      {
+        "text": "格式化",
+        "cls": "tag"
+      },
+      {
+        "text": "50万月搜",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/json/",
+    "cat": "dev"
+  },
+  {
+    "id": "regex01",
+    "name": "正则表达式测试器",
+    "desc": "实时正则匹配调试，支持分组提取/高亮显示/批量替换。内置20+常用正则模板，g/i/m/s/u标志。",
+    "icon": "⚡",
+    "iconBg": "#e8eaf6",
+    "iconColor": "#5c6bc0",
+    "tags": [
+      {
+        "text": "Regex",
+        "cls": "tag"
+      },
+      {
+        "text": "正则",
+        "cls": "tag-green"
+      },
+      {
+        "text": "调试",
+        "cls": "tag"
+      }
+    ],
+    "url": "/regex/",
+    "cat": "dev"
+  },
+  {
+    "id": "hash01",
+    "name": "哈希生成器",
+    "desc": "MD5 / SHA-1 / SHA-256 / SHA-384 / SHA-512 五合一哈希。支持文本和文件哈希校验。",
+    "icon": "#",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "MD5",
+        "cls": "tag"
+      },
+      {
+        "text": "SHA256",
+        "cls": "tag"
+      },
+      {
+        "text": "安全",
+        "cls": "tag-red"
+      }
+    ],
+    "url": "/hash/",
+    "cat": "dev"
+  },
+  {
+    "id": "cron01",
+    "name": "Cron 表达式生成器",
+    "desc": "可视化构建Crontab定时任务，实时预览执行时间，内置常用模板。DevOps/SRE必备。",
+    "icon": "⏰",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "Cron",
+        "cls": "tag"
+      },
+      {
+        "text": "Crontab",
+        "cls": "tag"
+      },
+      {
+        "text": "DevOps",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/cron/",
+    "cat": "dev"
+  },
+  {
+    "id": "palette01",
+    "name": "配色方案生成器",
+    "desc": "互补色、类似色、三角色等6种配色模式。一键复制HEX，导出CSS变量。",
+    "icon": "🎨",
+    "iconBg": "#fff8e1",
+    "iconColor": "#e17055",
+    "tags": [
+      {
+        "text": "配色",
+        "cls": "tag"
+      },
+      {
+        "text": "设计",
+        "cls": "tag-orange"
+      },
+      {
+        "text": "CSS",
+        "cls": "tag"
+      }
+    ],
+    "url": "/palette/",
+    "cat": "design"
+  },
+  {
+    "id": "unixconv01",
+    "name": "unixconv01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/unix-timestamp-converter/",
+    "cat": "other"
+  },
+  {
+    "id": "wcag01",
+    "name": "wcag01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/wcag-contrast-checker/",
+    "cat": "other"
+  },
+  {
+    "id": "metatag01",
+    "name": "metatag01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/meta-tag-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "lorem01",
+    "name": "Lorem Ipsum 生成器",
+    "desc": "中英日韩多语言乱数假文在线生成。段落/句子/单词三模式，每段句数可调，一键复制下载。",
+    "icon": "📄",
+    "iconBg": "#e8eaf6",
+    "iconColor": "#5c6bc0",
+    "tags": [
+      {
+        "text": "Lorem",
+        "cls": "tag"
+      },
+      {
+        "text": "占位文本",
+        "cls": "tag-green"
+      },
+      {
+        "text": "多语言",
+        "cls": "tag"
+      }
+    ],
+    "url": "/lorem-ipsum/",
+    "cat": "dev"
+  },
+  {
+    "id": "passgen01",
+    "name": "passgen01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/password-generator/",
+    "cat": "other"
+  },
+  {
+    "id": "qrcode01",
+    "name": "QR码生成器",
+    "desc": "免费在线生成二维码。支持网址/文本/电话/WiFi/邮件/短信，自定义颜色，一键下载。",
+    "icon": "📱",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "二维码",
+        "cls": "tag"
+      },
+      {
+        "text": "QR",
+        "cls": "tag-green"
+      },
+      {
+        "text": "新",
+        "cls": "tag-orange"
+      }
+    ],
+    "url": "/qrcode/",
+    "cat": "dev"
+  },
+  {
+    "id": "tdgen01",
+    "name": "tdgen01",
+    "desc": "",
+    "icon": "🔧",
+    "iconBg": "#f0edff",
+    "iconColor": "#6c5ce7",
+    "tags": [
+      {
+        "text": "NEW",
+        "cls": "tag-green"
+      }
+    ],
+    "url": "/test-data-generator/",
+    "cat": "other"
   }
 ]
