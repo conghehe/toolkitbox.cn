@@ -365,7 +365,7 @@ async function main() {
     fs.writeFileSync(path.join(CONFIG.targetDir, 'tools.json'), JSON.stringify(toolList, null, 2));
     fs.writeFileSync(path.join(CONFIG.targetDir, 'index.html'), generateIndex(toolList));
     fs.writeFileSync(path.join(CONFIG.targetDir, 'CNAME'), CONFIG.domain);
-    fs.writeFileSync(path.join(CONFIG.targetDir, 'ads.txt'), 'google.com, ' + CONFIG.adsClient.replace('ca-', 'pub-') + ', DIRECT, f08c47fec0942fa0');
+    fs.writeFileSync(path.join(CONFIG.targetDir, 'ads.txt'), 'google.com, ' + CONFIG.adsClient.replace('ca-pub-', 'pub-') + ', DIRECT, f08c47fec0942fa0');
   }
 
   if (!DRY_RUN && !NO_PUSH) {
