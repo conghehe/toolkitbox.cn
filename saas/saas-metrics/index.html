@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SaaS指标计算器 | 免费在线SaaS创业指标MRR/Churn/LTV/CAC计算</title>
+<meta name="description" content="免费在线SaaS指标计算器：MRR月度经常收入、客户流失率、LTV客户终身价值、CAC获客成本、烧钱速度与现金跑道、Rule of 40健康度。SaaS创业者必备的六合一指标工具。">
+<meta name="keywords" content="SaaS计算器,MRR计算器,Churn计算器,LTV计算器,CAC计算器,烧钱速度,现金跑道,SaaS指标,创业指标,SaaS KPI">
+<link rel="canonical" href="https://toolkitbox.cn/saas/saas-metrics-calculator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#ffffff;--bg2:#f8f9fc;--t:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--p2:#4834d4;--g:#00b894;--r:#e17055;--b:#dfe6e9;--s:#ffeaa7;--radius:12px;--shadow:0 2px 12px rgba(0,0,0,.06)}
+.dark{--bg:#1a1a2e;--bg2:#16213e;--t:#f0f0f0;--t2:#a0a0b0;--p:#a29bfe;--p2:#6c5ce7;--b:#2d3436}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg2);color:var(--t);min-height:100vh;line-height:1.6;transition:background .3s,color .3s}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+header{text-align:center;padding:36px 20px 16px}
+header h1{font-size:1.8rem;background:linear-gradient(135deg,var(--p),var(--p2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+header p{color:var(--t2);font-size:.9rem;margin-top:6px}
+.toolbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px}
+.btn{background:var(--bg);border:1px solid var(--b);border-radius:8px;padding:6px 14px;font-size:.82rem;cursor:pointer;color:var(--t);transition:.2s}
+.btn:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.btn-sm{padding:4px 10px;font-size:.75rem}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px;overflow-x:auto}
+.tab{padding:8px 18px;border-radius:8px 8px 0 0;border:1px solid var(--b);border-bottom:none;background:var(--bg);cursor:pointer;font-size:.85rem;color:var(--t2);white-space:nowrap;transition:.2s}
+.tab:hover,.tab.active{background:var(--p);color:#fff;border-color:var(--p);font-weight:600}
+.panel{display:none}
+.panel.active{display:block}
+.card{background:var(--bg);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--b);margin-bottom:16px}
+.card h3{font-size:1.1rem;margin-bottom:16px;color:var(--p)}
+.form-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column}
+.form-group label{font-size:.8rem;color:var(--t2);margin-bottom:4px;font-weight:500}
+.form-group input{width:100%;padding:10px 12px;border:2px solid var(--b);border-radius:8px;font-size:.9rem;background:var(--bg);color:var(--t);transition:.2s;outline:none}
+.form-group input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(108,92,231,.1)}
+.form-group input:read-only{background:var(--bg2);border-style:dashed;font-weight:700;color:var(--p)}
+.result-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.result-item{background:var(--bg2);border-radius:10px;padding:14px 16px;text-align:center;border:1px solid var(--b)}
+.result-item .val{font-size:1.4rem;font-weight:700;color:var(--p)}
+.result-item .lbl{font-size:.75rem;color:var(--t2);margin-top:2px}
+.result-item.warn .val{color:var(--r)}
+.result-item.good .val{color:var(--g)}
+.chart-container{width:100%;height:280px;margin-top:16px;position:relative}
+.formula-box{background:var(--bg2);border-left:3px solid var(--p);padding:12px 16px;border-radius:0 8px 8px 0;margin-top:12px;font-size:.82rem;color:var(--t2);font-family:'SF Mono',Consolas,monospace}
+.insight-box{margin-top:12px;padding:12px 16px;background:var(--s);border-radius:8px;font-size:.85rem;line-height:1.7}
+footer{text-align:center;padding:30px;color:var(--t2);font-size:.78rem}
+footer a{color:var(--p);text-decoration:none}
+@media(max-width:640px){
+  .form-row{grid-template-columns:1fr}
+  .result-grid{grid-template-columns:1fr 1fr}
+  header h1{font-size:1.4rem}
+  .tabs{justify-content:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>📊 SaaS指标计算器</h1>
+  <p>六合一SaaS创业指标工具 · MRR · Churn · LTV · CAC · Burn Rate · Rule of 40</p>
+</header>
+<div class="toolbar">
+  <button class="btn btn-sm" onclick="resetAll()">🔄 全部重置</button>
+  <button class="btn btn-sm" id="dmBtn" onclick="toggleDark()">🌙 暗色模式</button>
+</div>
+
+<nav class="tabs">
+  <button class="tab active" onclick="switchTab('mrr')">📈 MRR</button>
+  <button class="tab" onclick="switchTab('churn')">📉 Churn & LTV</button>
+  <button class="tab" onclick="switchTab('cac')">💸 CAC</button>
+  <button class="tab" onclick="switchTab('burn')">🔥 Burn & Runway</button>
+  <button class="tab" onclick="switchTab('r40')">⚖️ Rule of 40</button>
+  <button class="tab" onclick="switchTab('dash')">📋 Dashboard</button>
+</nav>
+
+<!-- MRR Panel -->
+<div class="panel active" id="panel-mrr">
+<div class="card">
+<h3>📈 MRR 月度经常收入计算器</h3>
+<div class="form-row">
+  <div class="form-group"><label>付费客户数（月末）</label><input type="number" id="mrr_cust" value="100" min="0" oninput="calcMRR()" placeholder="例如：100"></div>
+  <div class="form-group"><label>ARPU 每用户平均收入 (¥)</label><input type="number" id="mrr_arpu" value="299" min="0" oninput="calcMRR()" placeholder="例如：299"></div>
+  <div class="form-group"><label>本月新增客户</label><input type="number" id="mrr_new" value="15" min="0" oninput="calcMRR()" placeholder="例如：15"></div>
+  <div class="form-group"><label>本月流失客户</label><input type="number" id="mrr_churn" value="5" min="0" oninput="calcMRR()" placeholder="例如：5"></div>
+  <div class="form-group"><label>扩展收入 (¥)（升级/追加）</label><input type="number" id="mrr_exp" value="2000" min="0" oninput="calcMRR()" placeholder="例如：2000"></div>
+</div>
+<div class="result-grid" id="mrr-results"></div>
+<div class="formula-box">MRR = 付费客户 × ARPU | Net New MRR = (新增×ARPU) + 扩展 - (流失×ARPU)</div>
+</div>
+</div>
+
+<!-- Churn Panel -->
+<div class="panel" id="panel-churn">
+<div class="card">
+<h3>📉 客户流失率 & LTV 计算器</h3>
+<div class="form-row">
+  <div class="form-group"><label>月初客户数</label><input type="number" id="ch_start" value="100" min="1" oninput="calcChurn()" placeholder="例如：100"></div>
+  <div class="form-group"><label>本月流失客户数</label><input type="number" id="ch_lost" value="5" min="0" oninput="calcChurn()" placeholder="例如：5"></div>
+  <div class="form-group"><label>ARPU 月均收入 (¥)</label><input type="number" id="ch_arpu" value="299" min="0" oninput="calcChurn()" placeholder="例如：299"></div>
+  <div class="form-group"><label>毛利率 (%)</label><input type="number" id="ch_gm" value="70" min="0" max="100" oninput="calcChurn()" placeholder="例如：70"></div>
+</div>
+<div class="result-grid" id="churn-results"></div>
+<div class="formula-box">Churn Rate = 流失数 / 月初客户数 × 100% | LTV = ARPU × Gross Margin% / Churn Rate</div>
+</div>
+</div>
+
+<!-- CAC Panel -->
+<div class="panel" id="panel-cac">
+<div class="card">
+<h3>💸 CAC 客户获取成本 & 回收期</h3>
+<div class="form-row">
+  <div class="form-group"><label>月度销售市场总支出 (¥)</label><input type="number" id="cac_spend" value="50000" min="0" oninput="calcCAC()" placeholder="例如：50000"></div>
+  <div class="form-group"><label>月度新获付费客户数</label><input type="number" id="cac_cust" value="20" min="1" oninput="calcCAC()" placeholder="例如：20"></div>
+  <div class="form-group"><label>ARPU 月均收入 (¥)</label><input type="number" id="cac_arpu" value="299" min="0" oninput="calcCAC()" placeholder="例如：299"></div>
+  <div class="form-group"><label>毛利率 (%)</label><input type="number" id="cac_gm" value="70" min="0" max="100" oninput="calcCAC()" placeholder="例如：70"></div>
+</div>
+<div class="result-grid" id="cac-results"></div>
+<div class="formula-box">CAC = 总支出 / 新客户数 | LTV = ARPU × GM% / Churn Rate | CAC回收期 = CAC / (ARPU × GM%)</div>
+</div>
+</div>
+
+<!-- Burn Rate Panel -->
+<div class="panel" id="panel-burn">
+<div class="card">
+<h3>🔥 烧钱速度 & 现金跑道计算器</h3>
+<div class="form-row">
+  <div class="form-group"><label>当前现金余额 (¥)</label><input type="number" id="burn_cash" value="500000" min="0" oninput="calcBurn()" placeholder="例如：500000"></div>
+  <div class="form-group"><label>月收入 MRR (¥)</label><input type="number" id="burn_rev" value="30000" min="0" oninput="calcBurn()" placeholder="例如：30000"></div>
+  <div class="form-group"><label>月支出 (¥)（不含COGS）</label><input type="number" id="burn_exp" value="80000" min="0" oninput="calcBurn()" placeholder="例如：80000"></div>
+  <div class="form-group"><label>COGS 月成本 (¥)</label><input type="number" id="burn_cogs" value="5000" min="0" oninput="calcBurn()" placeholder="例如：5000"></div>
+</div>
+<div class="result-grid" id="burn-results"></div>
+<div class="formula-box">Net Burn = 总支出 - 收入 | Gross Burn = 总支出 | Runway(月) = 现金 / |Net Burn|</div>
+</div>
+</div>
+
+<!-- Rule of 40 Panel -->
+<div class="panel" id="panel-r40">
+<div class="card">
+<h3>⚖️ Rule of 40 健康度评估</h3>
+<div class="form-row">
+  <div class="form-group"><label>年同比增长率 (%)</label><input type="number" id="r40_growth" value="35" oninput="calcR40()" placeholder="例如：35"></div>
+  <div class="form-group"><label>利润率 (%)（EBITDA/净利）</label><input type="number" id="r40_margin" value="-10" oninput="calcR40()" placeholder="例如：-10（亏损填负数）"></div>
+  <div class="form-group"><label>年收入 ARR (¥)</label><input type="number" id="r40_arr" value="1200000" min="0" oninput="calcR40()" placeholder="例如：1200000"></div>
+</div>
+<div class="result-grid" id="r40-results"></div>
+<div class="formula-box">Rule of 40 = 增长率(%) + 利润率(%) | ≥40 = 健康 SaaS | < 40 = 需优化增长或利润</div>
+</div>
+</div>
+
+<!-- Dashboard Panel -->
+<div class="panel" id="panel-dash">
+<div class="card">
+<h3>📋 综合仪表盘</h3>
+<p style="color:var(--t2);font-size:.85rem;margin-bottom:16px">基于各模块输入数据的综合视图。请先在各标签页中填入数据。</p>
+<div class="result-grid" id="dash-results" style="margin-bottom:16px"></div>
+<div class="chart-container"><canvas id="dashChart"></canvas></div>
+<div id="dashInsight" class="insight-box" style="margin-top:12px"></div>
+</div>
+</div>
+
+<footer>
+  <p>SaaS指标计算器 · MoneyMaker v4 自动生成 · 2026</p>
+  <p>纯前端本地计算，数据仅存在您浏览器中</p>
+</footer>
+</div>
+<script>
+const S=id=>document.getElementById(id);
+const dark=localStorage.getItem('dm')==='1';
+if(dark){document.body.classList.add('dark');S('dmBtn').textContent='☀️ 亮色模式';}
+function toggleDark(){
+  const d=document.body.classList.toggle('dark');
+  localStorage.setItem('dm',d?'1':'0');
+  S('dmBtn').textContent=d?'☀️ 亮色模式':'🌙 暗色模式';
+  updateDashChart();
+}
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  S('panel-'+t).classList.add('active');
+  if(t==='dash')updateDashboard();
+}
+
+function fmt(v,p=0){return v.toLocaleString('zh-CN',{minimumFractionDigits:p,maximumFractionDigits:p})}
+function pct(v,p=1){return (v*1).toFixed(p)+'%'}
+
+// Save/load state
+function save(){const d={};
+  document.querySelectorAll('input[type=number]').forEach(inp=>{if(inp.id)d[inp.id]=inp.value});
+  localStorage.setItem('saas_metrics',JSON.stringify(d));
+}
+function load(){try{const d=JSON.parse(localStorage.getItem('saas_metrics')||'{}');
+  Object.entries(d).forEach(([k,v])=>{const el=S(k);if(el&&!el.readOnly)el.value=v})}catch(e){}}
+function resetAll(){if(confirm('确定要清除所有数据吗？')){localStorage.removeItem('saas_metrics');location.reload()}}
+document.addEventListener('input',save);
+load();
+
+// MRR
+function calcMRR(){
+  const c=+S('mrr_cust').value||0,a=+S('mrr_arpu').value||0,n=+S('mrr_new').value||0,l=+S('mrr_churn').value||0,e=+S('mrr_exp').value||0;
+  const mrr=c*a,nnmrr=(n*a)+e-(l*a),arr=mrr*12,gr=c>l?((n-l)/c*100):0;
+  const items=[
+    {l:'月末 MRR',v:'¥'+fmt(mrr),c:''},{l:'ARR (年化)',v:'¥'+fmt(arr),c:''},
+    {l:'Net New MRR',v:'¥'+fmt(nnmrr),c:nnmrr>=0?'good':''},
+    {l:'月增长率',v:pct(gr),c:gr>5?'good':gr<0?'warn':''}
+  ];
+  S('mrr-results').innerHTML=items.map(i=>`<div class="result-item ${i.c}"><div class="val">${i.v}</div><div class="lbl">${i.l}</div></div>`).join('');
+}
+
+// Churn & LTV
+function calcChurn(){
+  const s=+S('ch_start').value||1,l=+S('ch_lost').value||0,a=+S('ch_arpu').value||0,g=+S('ch_gm').value||0;
+  const ch=l/s*100,ltv=ch>0?a*(g/100)/ch*100:0,ann_ch=100-Math.pow(1-ch/100,12)*100;
+  const items=[
+    {l:'月流失率',v:pct(ch),c:ch>5?'warn':'good'},
+    {l:'年化流失率',v:pct(ann_ch),c:ann_ch>40?'warn':''},
+    {l:'平均客户寿命',v:ch>0?fmt(1/ch*100,1)+' 月':'∞',c:''},
+    {l:'LTV 客户终身价值',v:'¥'+fmt(ltv),c:ltv>0?'good':''}
+  ];
+  S('churn-results').innerHTML=items.map(i=>`<div class="result-item ${i.c}"><div class="val">${i.v}</div><div class="lbl">${i.l}</div></div>`).join('');
+}
+
+// CAC
+function calcCAC(){
+  const sp=+S('cac_spend').value||0,cu=+S('cac_cust').value||1,a=+S('cac_arpu').value||0,g=+S('cac_gm').value||0;
+  const cac=sp/cu,gp=a*g/100,pb=cac/gp,ltvcac=cac>0?gp*12/cac:0;
+  const items=[
+    {l:'CAC 获客成本',v:'¥'+fmt(cac),c:cac>gp*3?'warn':'good'},
+    {l:'CAC 回收期',v:fmt(pb,1)+' 月',c:pb>12?'warn':pb<=6?'good':''},
+    {l:'LTV:CAC 比值',v:fmt(ltvcac,1)+'x',c:ltvcac>=3?'good':ltvcac<1?'warn':''},
+    {l:'月度毛利/客户',v:'¥'+fmt(gp),c:''}
+  ];
+  S('cac-results').innerHTML=items.map(i=>`<div class="result-item ${i.c}"><div class="val">${i.v}</div><div class="lbl">${i.l}</div></div>`).join('');
+}
+
+// Burn Rate
+function calcBurn(){
+  const ca=+S('burn_cash').value||0,r=+S('burn_rev').value||0,e=+S('burn_exp').value||0,co=+S('burn_cogs').value||0;
+  const gb=e+co,nb=gb-r,rw=nb>0?ca/nb:Infinity,nm=ca-r,zero=rw!==Infinity?ca/nb:Infinity;
+  const items=[
+    {l:'Gross Burn',v:'¥'+fmt(gb)+'/月',c:''},
+    {l:'Net Burn',v:'¥'+fmt(nb)+'/月',c:nb>r?'warn':'good'},
+    {l:'现金跑道',v:rw===Infinity?'盈利中!':fmt(rw,1)+' 个月',c:rw<6?'warn':rw>=18?'good':''},
+    {l:'月净现金流',v:r>gb?'+¥'+fmt(r-gb):'-¥'+fmt(nb),c:r>gb?'good':'warn'}
+  ];
+  S('burn-results').innerHTML=items.map(i=>`<div class="result-item ${i.c}"><div class="val">${i.v}</div><div class="lbl">${i.l}</div></div>`).join('');
+}
+
+// Rule of 40
+function calcR40(){
+  const g=+S('r40_growth').value||0,m=+S('r40_margin').value||0,arr=+S('r40_arr').value||0;
+  const r40=g+m,status=r40>=40?'🟢 健康':r40>=20?'🟡 一般':'🔴 需改善';
+  const items=[
+    {l:'Rule of 40 得分',v:fmt(r40,0),c:r40>=40?'good':r40>=20?'':'warn'},
+    {l:'健康状态',v:status,c:''},
+    {l:'增长率贡献',v:pct(g,0),c:''},
+    {l:'利润率贡献',v:pct(m,0),c:m>0?'good':''}
+  ];
+  S('r40-results').innerHTML=items.map(i=>`<div class="result-item ${i.c}"><div class="val">${i.v}</div><div class="lbl">${i.l}</div></div>`).join('');
+}
+
+// Dashboard
+function updateDashboard(){
+  // Collect data from all panels
+  calcMRR();calcChurn();calcCAC();calcBurn();calcR40();
+  
+  const a=+S('mrr_arpu').value||0;
+  const mrr=(+S('mrr_cust').value||0)*a;
+  const ch=(+S('ch_lost').value||0)/(+S('ch_start').value||1)*100;
+  const ltv=ch>0?a*(+S('ch_gm').value||0)/100/ch*100:0;
+  const cac=(+S('cac_spend').value||0)/(+S('cac_cust').value||1);
+  const burn=(+S('burn_exp').value||0)+(+S('burn_cogs').value||0)-(+S('burn_rev').value||0);
+  const rw=burn>0?(+S('burn_cash').value||0)/burn:Infinity;
+  const r40=(+S('r40_growth').value||0)+(+S('r40_margin').value||0);
+  const ltvcac=cac>0?(+S('cac_arpu').value||0)*(+S('cac_gm').value||0)/100/cac*12:0;
+  
+  const items=[
+    {l:'MRR',v:'¥'+fmt(mrr),c:''},
+    {l:'客户流失率',v:pct(ch),c:ch>5?'warn':'good'},
+    {l:'LTV:CAC',v:fmt(ltvcac,1)+'x',c:ltvcac>=3?'good':ltvcac<1?'warn':''},
+    {l:'现金跑道',v:rw===Infinity?'盈利中':fmt(rw,1)+'月',c:rw<6?'warn':rw>=12?'good':''},
+    {l:'Rule of 40',v:fmt(r40,0),c:r40>=40?'good':r40>=20?'':'warn'},
+    {l:'CAC回收期',v:fmt(cac>0?cac/(a*(+S('cac_gm').value||0)/100):0,1)+'月',c:''}
+  ];
+  S('dash-results').innerHTML=items.map(i=>`<div class="result-item ${i.c}"><div class="val">${i.v}</div><div class="lbl">${i.l}</div></div>`).join('');
+  
+  // Insights
+  const insights=[];
+  if(ch>5)insights.push('⚠️ 流失率偏高（>5%），建议优先做客户成功和onboarding优化');
+  if(ltvcac<3)insights.push('⚠️ LTV:CAC < 3x，获客效率需改善。考虑提高定价或降低CAC');
+  if(ltvcac>=5)insights.push('✅ LTV:CAC优秀（≥5x），可以加大获客投入加速增长');
+  if(rw!==Infinity&&rw<12)insights.push('🔴 现金跑道不足12个月，需关注融资或降本');
+  if(r40>=40)insights.push('✅ Rule of 40达标，投资人眼中健康的SaaS公司');
+  if(r40<20)insights.push('⚠️ Rule of 40低于20，需在增长和盈利之间找到平衡');
+  if(mrr>100000)insights.push('🎯 MRR超过10万，可以考虑A轮融资或拓展新市场');
+  S('dashInsight').innerHTML=insights.length?insights.map(i=>'<div>'+i+'</div>').join(''):'<div>请在各标签页中填入你的数据，获取个性化洞察。</div>';
+  
+  updateDashChart();
+}
+
+// Chart
+let dashChart=null;
+function updateDashChart(){
+  const ctx=S('dashChart');
+  if(!ctx)return;
+  const isDark=document.body.classList.contains('dark');
+  const tc=isDark?'#f0f0f0':'#1a1a2e';
+  const gc=isDark?'#2d3436':'#dfe6e9';
+  
+  const a=+S('mrr_arpu').value||0;
+  const mrr=(+S('mrr_cust').value||0)*a;
+  const ch=(+S('ch_lost').value||0)/(+S('ch_start').value||1)*100;
+  const cac=(+S('cac_spend').value||0)/(+S('cac_cust').value||1);
+  const burn=(+S('burn_exp').value||0)+(+S('burn_cogs').value||0)-(+S('burn_rev').value||0);
+  const rw=burn>0?(+S('burn_cash').value||0)/burn:24;
+  const r40=(+S('r40_growth').value||0)+(+S('r40_margin').value||0);
+  
+  if(dashChart)dashChart.destroy();
+  dashChart=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels:['MRR','流失率%','CAC','跑道(月)','Rule of 40'],
+      datasets:[{
+        label:'SaaS指标概览',
+        data:[mrr/1000,ch*10,cac/10,Math.min(rw,36),r40],
+        backgroundColor:['rgba(108,92,231,.7)','rgba(225,112,85,.7)','rgba(255,234,167,.7)','rgba(0,184,148,.7)','rgba(108,92,231,.5)'],
+        borderColor:['#6c5ce7','#e17055','#fdcb6e','#00b894','#6c5ce7'],
+        borderWidth:2
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:ctx=>{
+          const i=ctx.dataIndex;
+          if(i===0)return 'MRR: ¥'+fmt(ctx.raw*1000);
+          if(i===1)return '流失率: '+pct(ctx.raw/10,1);
+          if(i===2)return 'CAC: ¥'+fmt(ctx.raw*10);
+          if(i===3)return '跑道: '+fmt(ctx.raw,1)+'月';
+          return 'Rule of 40: '+fmt(ctx.raw,0);
+        }}}
+      },
+      scales:{
+        y:{display:false},
+        x:{ticks:{color:tc},grid:{color:gc}}
+      }
+    }
+  });
+  
+  // Save state
+  save();
+}
+
+// Init
+function init(){
+  calcMRR();calcChurn();calcCAC();calcBurn();calcR40();
+  // Load Chart.js
+  const script=document.createElement('script');
+  script.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+  script.onload=()=>{if(S('panel-dash').classList.contains('active'))updateDashboard()};
+  document.head.appendChild(script);
+}
+init();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></body>
+</html>
