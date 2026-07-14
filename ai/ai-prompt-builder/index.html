@@ -30,15 +30,15 @@
       <div class="card">
         <h3><span class="dot"></span> 主体描述</h3>
         <div class="input-group">
-          <label>画面主体（英文）</label>
-          <input type="text" id="subject" placeholder="例如：a warrior girl with silver armor, standing on a cliff" value="">
+          <label>画面主体 <span style="font-size:.7rem;color:var(--accent2);font-weight:400">— 请用英文输入</span></label>
+          <input type="text" id="subject" placeholder="例如：a warrior girl with silver armor, standing on a cliff" value="a cyberpunk samurai in neon-lit Tokyo streets">
         </div>
         <div class="input-group">
-          <label>场景/环境</label>
-          <input type="text" id="scene" placeholder="例如：ancient ruins at sunset, misty mountains" value="">
+          <label>场景/环境 <span style="font-size:.7rem;color:var(--accent2);font-weight:400">— 请用英文输入</span></label>
+          <input type="text" id="scene" placeholder="例如：ancient ruins at sunset, misty mountains" value="raining, reflections on wet pavement">
         </div>
         <div class="input-group">
-          <label>额外细节（可选）</label>
+          <label>额外细节（可选）<span style="font-size:.7rem;color:var(--accent2);font-weight:400"> — 请用英文输入</span></label>
           <textarea id="details" placeholder="例如：intricate details, volumetric lighting, 8k resolution"></textarea>
         </div>
       </div>
@@ -221,8 +221,8 @@
 (function(){
   var state = {
     platform: 'midjourney',
-    subject: '',
-    scene: '',
+    subject: 'a cyberpunk samurai in neon-lit Tokyo streets',
+    scene: 'raining, reflections on wet pavement',
     details: '',
     style: '',
     artist: '',
@@ -443,11 +443,11 @@
     state.style = '';
     state.artist = '';
     state.lighting = '';
-    $('subject').value = '';
-    $('scene').value = '';
+    $('subject').value = 'a cyberpunk samurai in neon-lit Tokyo streets';
+    $('scene').value = 'raining, reflections on wet pavement';
     $('details').value = '';
-    state.subject = '';
-    state.scene = '';
+    state.subject = 'a cyberpunk samurai in neon-lit Tokyo streets';
+    state.scene = 'raining, reflections on wet pavement';
     state.details = '';
     document.querySelectorAll('.style-chip.selected, .preset-chip.selected').forEach(function(el){ el.classList.remove('selected'); });
     $('promptDisplay').textContent = '在左侧选择风格和参数后，这里将自动生成专业级英文Prompt...';
