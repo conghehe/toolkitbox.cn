@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI图像提示词构建器 | Midjourney/DALL-E/Stable Diffusion/FLUX 中文Prompt生成工具</title>
+<meta name="description" content="免费AI图像提示词构建器，专为中文用户设计。支持Midjourney、DALL-E、Stable Diffusion、FLUX四大平台。内置10+风格选板、艺术家风格预设、参数配置，一键生成并复制专业英文Prompt。">
+<meta name="keywords" content="AI提示词,AI prompt,Midjourney提示词,Stable Diffusion提示词,DALL-E提示词,FLUX提示词,图像生成提示词,AI绘画提示词">
+<link rel="canonical" href="https://toolkitbox.cn/ai/ai-prompt-builder/">
+<style>:root{--bg:#0f0f1a;--card:#1a1a2e;--border:#2a2a4a;--text:#e0e0e8;--text2:#8b8ba8;--accent:#7c5cfc;--accent2:#5ce0d6;--danger:#ff5c7a;--warn:#ffb74d;--green:#4cdf80;--input-bg:#141428;--shadow:0 4px 24px rgba(0,0,0,.3)}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}.container{max-width:1000px;margin:0 auto;padding:20px}.header{text-align:center;padding:40px 20px 30px;background:linear-gradient(135deg,#1a1035,#0d1b2a);border-radius:16px;margin-bottom:24px;border:1px solid var(--border)}.header .icon{font-size:3rem;margin-bottom:12px}.header h1{font-size:2rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}.header p{color:var(--text2);font-size:.95rem;max-width:600px;margin:0 auto}.platform-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}.platform-btn{padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--text2);cursor:pointer;font-size:.85rem;transition:.2s}.platform-btn:hover{border-color:var(--accent);color:var(--text)}.platform-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}.builder-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}@media(max-width:768px){.builder-grid{grid-template-columns:1fr}}.card{background:var(--card);border-radius:14px;padding:20px;border:1px solid var(--border);transition:.2s}.card:hover{border-color:#3a3a5a}.card h3{font-size:1rem;margin-bottom:12px;color:var(--accent2);display:flex;align-items:center;gap:8px}.card h3 .dot{width:8px;height:8px;background:var(--accent2);border-radius:50%;display:inline-block}.input-group{margin-bottom:14px}.input-group label{display:block;font-size:.82rem;color:var(--text2);margin-bottom:6px}.input-group input,.input-group textarea,.input-group select{width:100%;padding:10px 14px;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.9rem;font-family:inherit;transition:.2s}.input-group input:focus,.input-group textarea:focus,.input-group select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,92,252,.15)}.input-group textarea{min-height:70px;resize:vertical}.style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}.style-chip{padding:8px 6px;border-radius:10px;border:1px solid var(--border);background:var(--input-bg);color:var(--text2);cursor:pointer;text-align:center;font-size:.78rem;transition:.2s;display:flex;flex-direction:column;align-items:center;gap:4px}.style-chip .style-emoji{font-size:1.3rem}.style-chip:hover{border-color:var(--accent);color:var(--text)}.style-chip.selected{background:rgba(124,92,252,.15);border-color:var(--accent);color:var(--accent)}.param-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:480px){.param-row{grid-template-columns:1fr}}.preset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}.preset-chip{padding:10px;border-radius:10px;border:1px solid var(--border);background:var(--input-bg);color:var(--text2);cursor:pointer;font-size:.78rem;transition:.2s;text-align:center}.preset-chip:hover{border-color:var(--accent);color:var(--text)}.preset-chip.selected{background:rgba(124,92,252,.15);border-color:var(--accent);color:var(--accent)}.preset-chip .artist{display:block;font-weight:600;color:var(--text);margin-bottom:2px}.preset-chip .desc{display:block;font-size:.7rem;color:var(--text2)}.result-section{background:var(--card);border-radius:14px;padding:20px;border:1px solid var(--accent);border-left:3px solid var(--accent);margin-bottom:24px}.result-section h3{color:var(--accent);font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}.prompt-display{background:var(--input-bg);border:1px solid var(--border);border-radius:10px;padding:16px;font-family:'JetBrains Mono','Fira Code','Consolas',monospace;font-size:.85rem;color:var(--accent2);min-height:60px;word-break:break-word;line-height:1.7;white-space:pre-wrap}.prompt-actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}.btn{padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:.85rem;font-weight:600;transition:.2s;display:flex;align-items:center;gap:6px}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#6a4de6;transform:translateY(-1px)}.btn-secondary{background:var(--input-bg);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-success{background:var(--green);color:#000}.btn-success:hover{opacity:.9}.copied-toast{position:fixed;top:20px;right:20px;background:var(--green);color:#000;padding:12px 24px;border-radius:8px;font-weight:600;z-index:1000;opacity:0;transform:translateY(-20px);transition:.3s;pointer-events:none}.copied-toast.show{opacity:1;transform:translateY(0)}.guide-section{margin-bottom:24px}.guide-section h2{font-size:1.3rem;color:var(--text);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}.guide-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:24px}.guide-step{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border)}.guide-step .step-num{display:inline-block;width:28px;height:28px;background:var(--accent);color:#fff;border-radius:50%;text-align:center;line-height:28px;font-size:.8rem;font-weight:700;margin-bottom:8px}.guide-step h4{font-size:.9rem;color:var(--text);margin-bottom:4px}.guide-step p{font-size:.78rem;color:var(--text2);line-height:1.5}.faq-section{margin-bottom:24px}.faq-section h2{font-size:1.3rem;color:var(--text);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}.faq-item{background:var(--card);border-radius:12px;padding:16px;border:1px solid var(--border);margin-bottom:10px;cursor:pointer;transition:.2s}.faq-item:hover{border-color:var(--accent)}.faq-item h4{font-size:.92rem;color:var(--accent2);margin-bottom:6px;display:flex;align-items:center;gap:8px}.faq-item p{font-size:.82rem;color:var(--text2);display:none;line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px solid var(--border)}.faq-item.open p{display:block}.info-bar{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;padding:16px;background:var(--card);border-radius:10px;border:1px solid var(--border);margin-bottom:16px;font-size:.82rem;color:var(--text2)}.info-bar span{display:flex;align-items:center;gap:4px}.footer{text-align:center;padding:30px 20px;color:var(--text2);font-size:.78rem;border-top:1px solid var(--border);margin-top:40px}</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="icon">🎨</div>
+    <h1>AI图像提示词构建器</h1>
+    <p>专为中文用户设计的AI绘画提示词生成工具 — 支持 Midjourney / DALL·E / Stable Diffusion / FLUX 四大平台，内置10+风格选板与艺术家预设，一键生成专业英文Prompt</p>
+    <div class="platform-bar">
+      <button class="platform-btn active" data-platform="midjourney">🤖 Midjourney</button>
+      <button class="platform-btn" data-platform="dalle">🧠 DALL·E</button>
+      <button class="platform-btn" data-platform="sd">🎯 Stable Diffusion</button>
+      <button class="platform-btn" data-platform="flux">⚡ FLUX</button>
+    </div>
+  </div>
+
+  <div class="builder-grid">
+    <!-- 左列 -->
+    <div>
+      <div class="card">
+        <h3><span class="dot"></span> 主体描述</h3>
+        <div class="input-group">
+          <label>画面主体（英文）</label>
+          <input type="text" id="subject" placeholder="例如：a warrior girl with silver armor, standing on a cliff" value="">
+        </div>
+        <div class="input-group">
+          <label>场景/环境</label>
+          <input type="text" id="scene" placeholder="例如：ancient ruins at sunset, misty mountains" value="">
+        </div>
+        <div class="input-group">
+          <label>额外细节（可选）</label>
+          <textarea id="details" placeholder="例如：intricate details, volumetric lighting, 8k resolution"></textarea>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3><span class="dot"></span> 风格选择</h3>
+        <div class="style-grid" id="styleGrid">
+          <div class="style-chip" data-style="Photorealistic"><span class="style-emoji">📷</span>写实摄影</div>
+          <div class="style-chip" data-style="Anime/Manga"><span class="style-emoji">🎌</span>日系动漫</div>
+          <div class="style-chip" data-style="Oil Painting"><span class="style-emoji">🖼️</span>古典油画</div>
+          <div class="style-chip" data-style="3D Render"><span class="style-emoji">💎</span>3D渲染</div>
+          <div class="style-chip" data-style="Watercolor"><span class="style-emoji">🎨</span>水彩手绘</div>
+          <div class="style-chip" data-style="Cyberpunk"><span class="style-emoji">🌃</span>赛博朋克</div>
+          <div class="style-chip" data-style="Sketch/Line Art"><span class="style-emoji">✏️</span>素描线稿</div>
+          <div class="style-chip" data-style="Pixel Art"><span class="style-emoji">👾</span>像素艺术</div>
+          <div class="style-chip" data-style="Fantasy Art"><span class="style-emoji">🧙</span>奇幻插画</div>
+          <div class="style-chip" data-style="Minimalist"><span class="style-emoji">⚪</span>极简主义</div>
+          <div class="style-chip" data-style="Baroque"><span class="style-emoji">🏛️</span>巴洛克风</div>
+          <div class="style-chip" data-style="Surrealism"><span class="style-emoji">🌀</span>超现实主义</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右列 -->
+    <div>
+      <div class="card">
+        <h3><span class="dot"></span> 参数配置</h3>
+        <div class="input-group">
+          <label>画面比例</label>
+          <select id="aspectRatio">
+            <option value="16:9">16:9 — 宽屏/桌面壁纸</option>
+            <option value="1:1" selected>1:1 — 正方形/头像</option>
+            <option value="3:2">3:2 — 经典摄影</option>
+            <option value="4:3">4:3 — 标准比例</option>
+            <option value="9:16">9:16 — 竖屏/手机壁纸</option>
+            <option value="2:3">2:3 — 肖像/海报</option>
+            <option value="21:9">21:9 — 超宽屏/电影</option>
+          </select>
+        </div>
+        <div class="param-row">
+          <div class="input-group">
+            <label>画质</label>
+            <select id="quality">
+              <option value="1">标准</option>
+              <option value="2" selected>高清</option>
+              <option value="3">超高清</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>风格化强度</label>
+            <select id="stylize">
+              <option value="100">低 (100)</option>
+              <option value="250" selected>中 (250)</option>
+              <option value="500">高 (500)</option>
+              <option value="750">极高 (750)</option>
+              <option value="1000">最大 (1000)</option>
+            </select>
+          </div>
+        </div>
+        <div class="param-row">
+          <div class="input-group">
+            <label>混沌度 (Chaos)</label>
+            <select id="chaos">
+              <option value="0" selected>精确 (0)</option>
+              <option value="25">微变 (25)</option>
+              <option value="50">中等 (50)</option>
+              <option value="75">多变 (75)</option>
+              <option value="100">随机 (100)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>版本</label>
+            <select id="version">
+              <option value="6.1" selected>Midjourney v6.1</option>
+              <option value="6.0">Midjourney v6.0</option>
+              <option value="5.2">Midjourney v5.2</option>
+              <option value="niji 6">Niji v6 (动漫)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3><span class="dot"></span> 艺术家风格预设</h3>
+        <div class="preset-grid" id="presetGrid">
+          <div class="preset-chip" data-artist="Greg Rutkowski"><span class="artist">Greg Rutkowski</span><span class="desc">史诗奇幻·光影大师</span></div>
+          <div class="preset-chip" data-artist="Studio Ghibli, Hayao Miyazaki"><span class="artist">宫崎骏/吉卜力</span><span class="desc">温暖治愈·手绘风</span></div>
+          <div class="preset-chip" data-artist="Alphonse Mucha"><span class="artist">Alphonse Mucha</span><span class="desc">新艺术·装饰线条</span></div>
+          <div class="preset-chip" data-artist="Makoto Shinkai"><span class="artist">新海诚</span><span class="desc">唯美天空·光影</span></div>
+          <div class="preset-chip" data-artist="WLOP"><span class="artist">WLOP</span><span class="desc">厚涂·冷艳少女</span></div>
+          <div class="preset-chip" data-artist="H.R. Giger"><span class="artist">H.R. Giger</span><span class="desc">暗黑机械·异形风</span></div>
+          <div class="preset-chip" data-artist="Yoshitaka Amano"><span class="artist">天野喜孝</span><span class="desc">幻想华丽·最终幻想</span></div>
+          <div class="preset-chip" data-artist="Moebius (Jean Giraud)"><span class="artist">Moebius</span><span class="desc">科幻·线条干净</span></div>
+          <div class="preset-chip" data-artist="James Gurney"><span class="artist">James Gurney</span><span class="desc">写实幻想·Dinotopia</span></div>
+          <div class="preset-chip" data-artist="Craig Mullins"><span class="artist">Craig Mullins</span><span class="desc">数字绘画先驱</span></div>
+          <div class="preset-chip" data-artist="Syd Mead"><span class="artist">Syd Mead</span><span class="desc">未来主义·工业设计</span></div>
+          <div class="preset-chip" data-artist="Loish (Lois van Baarle)"><span class="artist">Loish</span><span class="desc">柔和女性·流行色</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3><span class="dot"></span> 光照与氛围（可选）</h3>
+        <div class="style-grid" id="lightingGrid">
+          <div class="style-chip" data-lighting="Golden Hour, warm sunlight"><span class="style-emoji">🌅</span>黄金时刻</div>
+          <div class="style-chip" data-lighting="Cinematic Lighting"><span class="style-emoji">🎬</span>电影打光</div>
+          <div class="style-chip" data-lighting="Volumetric Lighting"><span class="style-emoji">💡</span>体积光</div>
+          <div class="style-chip" data-lighting="Neon Lights"><span class="style-emoji">💜</span>霓虹灯效</div>
+          <div class="style-chip" data-lighting="Rembrandt Lighting"><span class="style-emoji">🕯️</span>伦勃朗光</div>
+          <div class="style-chip" data-lighting="Studio Lighting"><span class="style-emoji">📸</span>影棚光</div>
+          <div class="style-chip" data-lighting="Backlight, Rim Light"><span class="style-emoji">✨</span>逆光轮廓</div>
+          <div class="style-chip" data-lighting="Moody, Dark Atmosphere"><span class="style-emoji">🌑</span>暗黑氛围</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-section">
+    <h3>✨ 生成的 Prompt</h3>
+    <div class="prompt-display" id="promptDisplay">在左侧选择风格和参数后，这里将自动生成专业级英文Prompt...</div>
+    <div class="prompt-actions">
+      <button class="btn btn-primary" id="copyBtn">📋 一键复制完整Prompt</button>
+      <button class="btn btn-secondary" id="copyEnOnly">📝 仅复制英文Prompt</button>
+      <button class="btn btn-secondary" id="resetBtn">🔄 全部重置</button>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <span>🖼️ 平台：<strong id="currentPlatform">Midjourney</strong></span>
+    <span>🎨 风格：<strong id="currentStyle">未选择</strong></span>
+    <span>📐 比例：<strong id="currentRatio">1:1</strong></span>
+    <span>⭐ 画质：<strong id="currentQuality">高清</strong></span>
+  </div>
+
+  <!-- 使用指南 -->
+  <div class="guide-section">
+    <h2>📖 使用指南</h2>
+    <div class="guide-steps">
+      <div class="guide-step"><div class="step-num">1</div><h4>选择平台</h4><p>在顶部选择你要使用的AI图像生成平台：Midjourney、DALL·E、Stable Diffusion或FLUX。不同平台的参数格式会自动适配。</p></div>
+      <div class="guide-step"><div class="step-num">2</div><h4>填写主体描述</h4><p>用简单英文描述你想生成的画面主体和场景。例如："a cyberpunk samurai in neon-lit Tokyo streets"</p></div>
+      <div class="guide-step"><div class="step-num">3</div><h4>选择风格与艺术家</h4><p>从12种视觉风格中挑选，再搭配艺术家预设，AI会自动融合多种风格元素生成独特画风。</p></div>
+      <div class="guide-step"><div class="step-num">4</div><h4>调整参数</h4><p>设置画面比例、画质、风格化强度等参数。Midjourney用户还可调节Chaos（多样性）和选择模型版本。</p></div>
+      <div class="guide-step"><div class="step-num">5</div><h4>复制Prompt</h4><p>点击「一键复制」，将完整的英文Prompt粘贴到对应平台即可生成图像。支持带参数后缀的完整格式。</p></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <h2>❓ 常见问题</h2>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <h4>🔹 为什么生成的Prompt是英文的？</h4>
+      <p>Midjourney、DALL·E、Stable Diffusion、FLUX等主流AI图像生成模型的训练数据以英文为主，英文Prompt的生成效果远超中文。本工具帮您自动翻译/构建高质量英文Prompt，您只需用中文思维描述想法即可。如果您需要中文理解辅助，可以在主体描述栏先用中文输入，我们会提示您转换为英文关键词。</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <h4>🔹 不同平台的Prompt格式有什么区别？</h4>
+      <p><strong>Midjourney：</strong>使用 <code>--ar</code>、<code>--q</code>、<code>--s</code>、<code>--c</code>、<code>--v</code> 等参数后缀。<br><strong>DALL·E：</strong>支持自然语言描述，无需特殊参数格式，在ChatGPT或DALL·E界面直接输入即可。<br><strong>Stable Diffusion：</strong>使用逗号分隔的关键词格式，正面提示词(Positive)和负面提示词(Negative)分开。<br><strong>FLUX：</strong>支持自然语言，效果接近Midjourney v6.1水平，对长Prompt理解能力强。本工具会自动根据所选平台调整输出格式。</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <h4>🔹 如何获得更好的生成效果？</h4>
+      <p>1. <strong>具体而非抽象：</strong>"a red fox in snow" 比 "an animal" 效果好得多。<br>2. <strong>使用艺术家参考：</strong>选择一位知名艺术家的风格作为基准，AI会向其风格靠拢。<br>3. <strong>描述光照和氛围：</strong>加入 "cinematic lighting"、"golden hour" 等词汇大幅提升画面质感。<br>4. <strong>迭代优化：</strong>第一次不满意？微调描述词或换一种风格组合再试。<br>5. <strong>善用负面提示词：</strong>(Stable Diffusion/FLUX)排除不想要的元素，如 "ugly, blurry, low quality"。</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <h4>🔹 这个工具免费吗？</h4>
+      <p>完全免费！AI图像提示词构建器是一个纯前端工具，所有处理都在您的浏览器中完成。我们不收集任何数据，不需要注册登录，也没有使用次数限制。如果您觉得有帮助，欢迎分享给朋友！</p>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <h4>🔹 支持哪些艺术风格？</h4>
+      <p>目前支持12种核心风格：写实摄影、日系动漫、古典油画、3D渲染、水彩手绘、赛博朋克、素描线稿、像素艺术、奇幻插画、极简主义、巴洛克风、超现实主义。同时内置12位知名艺术家/工作室风格预设，从宫崎骏的温暖治愈到H.R. Giger的暗黑机械风，覆盖主流审美偏好。</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>AI图像提示词构建器 &copy; 2026 ToolkitBox — 免费在线工具，所有处理在浏览器本地完成</p>
+    <p style="margin-top:6px;color:#666">Midjourney® 是 Midjourney Inc. 的注册商标 · DALL·E 是 OpenAI 的商标 · Stable Diffusion 是 Stability AI 的商标</p>
+  </div>
+</div>
+
+<div class="copied-toast" id="toast">✅ 已复制到剪贴板！</div>
+
+<script>
+(function(){
+  var state = {
+    platform: 'midjourney',
+    subject: '',
+    scene: '',
+    details: '',
+    style: '',
+    artist: '',
+    lighting: '',
+    aspectRatio: '1:1',
+    quality: '2',
+    stylize: '250',
+    chaos: '0',
+    version: '6.1'
+  };
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  // Platform selection
+  document.querySelectorAll('.platform-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.platform-btn').forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      state.platform = this.dataset.platform;
+      $('currentPlatform').textContent = this.textContent.trim().replace(/^[^ ]+\s*/, '');
+      updatePlatformUI();
+      generatePrompt();
+    });
+  });
+
+  function updatePlatformUI(){
+    var isMJ = state.platform === 'midjourney';
+    var isSD = state.platform === 'sd';
+    document.querySelectorAll('[id="chaos"], [for="chaos"]').forEach(function(el){ el.style.display = isMJ ? '' : 'none'; });
+    document.querySelectorAll('[id="version"], [for="version"]').forEach(function(el){ el.style.display = isMJ ? '' : 'none'; });
+    document.querySelectorAll('[id="stylize"], [for="stylize"]').forEach(function(el){
+      if (isSD) {
+        el.style.display = 'none';
+      } else {
+        el.style.display = '';
+      }
+    });
+  }
+
+  // Style selection
+  $('styleGrid').addEventListener('click', function(e){
+    var chip = e.target.closest('.style-chip');
+    if (!chip) return;
+    document.querySelectorAll('#styleGrid .style-chip').forEach(function(c){ c.classList.remove('selected'); });
+    chip.classList.add('selected');
+    state.style = chip.dataset.style;
+    $('currentStyle').textContent = chip.textContent.trim().replace(/^[^\u4e00-\u9fa5]+/, '');
+    generatePrompt();
+  });
+
+  // Artist selection
+  $('presetGrid').addEventListener('click', function(e){
+    var chip = e.target.closest('.preset-chip');
+    if (!chip) return;
+    if (chip.classList.contains('selected')) {
+      chip.classList.remove('selected');
+      state.artist = '';
+    } else {
+      document.querySelectorAll('#presetGrid .preset-chip').forEach(function(c){ c.classList.remove('selected'); });
+      chip.classList.add('selected');
+      state.artist = chip.dataset.artist;
+    }
+    generatePrompt();
+  });
+
+  // Lighting selection
+  $('lightingGrid').addEventListener('click', function(e){
+    var chip = e.target.closest('.style-chip');
+    if (!chip) return;
+    if (chip.classList.contains('selected')) {
+      chip.classList.remove('selected');
+      state.lighting = '';
+    } else {
+      document.querySelectorAll('#lightingGrid .style-chip').forEach(function(c){ c.classList.remove('selected'); });
+      chip.classList.add('selected');
+      state.lighting = chip.dataset.lighting;
+    }
+    generatePrompt();
+  });
+
+  // Input changes
+  ['subject','scene','details','aspectRatio','quality','stylize','chaos','version'].forEach(function(id){
+    var el = $(id);
+    if (!el) return;
+    el.addEventListener('input', function(){
+      state[id] = this.value;
+      if (id === 'aspectRatio') $('currentRatio').textContent = this.value;
+      if (id === 'quality') $('currentQuality').textContent = this.options[this.selectedIndex].text;
+      generatePrompt();
+    });
+    el.addEventListener('change', function(){
+      state[id] = this.value;
+      if (id === 'aspectRatio') $('currentRatio').textContent = this.value;
+      if (id === 'quality') $('currentQuality').textContent = this.options[this.selectedIndex].text;
+      generatePrompt();
+    });
+  });
+
+  function generatePrompt(){
+    var parts = [];
+    var subject = state.subject.trim();
+    var scene = state.scene.trim();
+    var details = state.details.trim();
+    var platform = state.platform;
+
+    // Build main description
+    var mainDesc = [];
+    if (subject) mainDesc.push(subject);
+    if (scene) mainDesc.push(scene);
+    if (mainDesc.length === 0) {
+      $('promptDisplay').textContent = '请先在左侧输入画面主体描述...';
+      return;
+    }
+    parts.push(mainDesc.join(', '));
+
+    // Style
+    if (state.style) {
+      parts.push('in the style of ' + state.style);
+    }
+
+    // Artist
+    if (state.artist) {
+      parts.push('by ' + state.artist);
+    }
+
+    // Lighting
+    if (state.lighting) {
+      parts.push(state.lighting);
+    }
+
+    // Details
+    if (details) {
+      parts.push(details);
+    }
+
+    // Quality keywords
+    var qualityWords = [];
+    var q = parseInt(state.quality);
+    if (q >= 2) qualityWords.push('highly detailed');
+    if (q >= 3) qualityWords.push('8k, masterpiece, best quality, sharp focus');
+
+    if (qualityWords.length) {
+      parts.push(qualityWords.join(', '));
+    }
+
+    var basePrompt = parts.join('. ') + (parts.length > 0 ? '' : '');
+
+    // Platform-specific suffix
+    var fullPrompt = '';
+    var enPrompt = '';
+
+    if (platform === 'midjourney') {
+      var params = [];
+      params.push('--ar ' + state.aspectRatio);
+      params.push('--q ' + state.quality);
+      params.push('--s ' + state.stylize);
+      if (state.chaos !== '0') params.push('--c ' + state.chaos);
+      params.push('--v ' + state.version);
+      fullPrompt = '/imagine ' + basePrompt + ' ' + params.join(' ');
+      enPrompt = basePrompt + ' ' + params.join(' ');
+    } else if (platform === 'dalle') {
+      fullPrompt = basePrompt;
+      enPrompt = basePrompt;
+    } else if (platform === 'sd') {
+      fullPrompt = basePrompt + '\n\nNegative: ugly, blurry, low quality, bad anatomy, deformed, watermark, text, cropped';
+      enPrompt = basePrompt;
+    } else if (platform === 'flux') {
+      var arNote = '';
+      if (state.aspectRatio !== '1:1') {
+        arNote = ' [Aspect ratio: ' + state.aspectRatio + ']';
+      }
+      fullPrompt = basePrompt + arNote;
+      enPrompt = basePrompt;
+    }
+
+    $('promptDisplay').textContent = fullPrompt;
+    $('promptDisplay').dataset.fullPrompt = fullPrompt;
+    $('promptDisplay').dataset.enPrompt = enPrompt;
+  }
+
+  // Copy buttons
+  $('copyBtn').addEventListener('click', function(){
+    var text = $('promptDisplay').dataset.fullPrompt || $('promptDisplay').textContent;
+    copyText(text);
+  });
+
+  $('copyEnOnly').addEventListener('click', function(){
+    var text = $('promptDisplay').dataset.enPrompt || $('promptDisplay').textContent;
+    copyText(text);
+  });
+
+  function copyText(text){
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(function(){
+        showToast();
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast();
+    }
+  }
+
+  function showToast(){
+    var toast = $('toast');
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2000);
+  }
+
+  // Reset
+  $('resetBtn').addEventListener('click', function(){
+    state.style = '';
+    state.artist = '';
+    state.lighting = '';
+    $('subject').value = '';
+    $('scene').value = '';
+    $('details').value = '';
+    state.subject = '';
+    state.scene = '';
+    state.details = '';
+    document.querySelectorAll('.style-chip.selected, .preset-chip.selected').forEach(function(el){ el.classList.remove('selected'); });
+    $('promptDisplay').textContent = '在左侧选择风格和参数后，这里将自动生成专业级英文Prompt...';
+    $('currentStyle').textContent = '未选择';
+  });
+
+  // FAQ toggle is inline onclick
+  // Initial generate
+  generatePrompt();
+  updatePlatformUI();
+})();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+</body>
+</html>
