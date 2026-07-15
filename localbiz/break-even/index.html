@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盈亏平衡计算器 — 免费在线盈亏平衡分析工具 | 本地商家工具箱</title>
+<meta name="description" content="免费在线盈亏平衡计算器，小企业和创业者必备。输入固定成本、变动成本、售价，自动计算盈亏平衡点、安全边际、利润预测。可视化图表+多场景对比，无需注册，纯浏览器本地处理。">
+<meta name="keywords" content="盈亏平衡计算器,盈亏平衡点,break even calculator,保本点计算,盈亏平衡分析,成本分析,利润预测,小企业财务工具,本量利分析,创业成本分析">
+<link rel="canonical" href="https://toolkitbox.cn/break-even-calculator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>:root{--bg:#fff;--t:#1a1a2e;--t2:#636e72;--p:#e65100;--ps:#ff9800;--b:#e0e0e0;--bg2:#f8f9fa;--card-bg:#fff;--shadow:0 1px 3px rgba(0,0,0,.08);--profit:#2e7d32;--loss:#c62828;--chart-line:#e65100;--chart-area:rgba(230,81,0,.12);--chart-grid:#e8e8e8}[data-theme=dark]{--bg:#1a1a2e;--t:#e8e8e8;--t2:#a0a0b0;--p:#ff9800;--ps:#ffb74d;--b:#333;--bg2:#222240;--card-bg:#252540;--shadow:0 1px 3px rgba(0,0,0,.3);--profit:#66bb6a;--loss:#ef5350;--chart-line:#ff9800;--chart-area:rgba(255,152,0,.12);--chart-grid:#333}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--t);min-height:100vh;transition:background .3s}[data-theme=dark] body{background:linear-gradient(135deg,#141428,#1a1a2e)}.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--bg);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}.topbar .logo{font-size:1.1rem;font-weight:700;color:var(--p)}.topbar .actions{display:flex;gap:8px;align-items:center}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:500;transition:.2s}.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--ps)}.btn-o{border:1px solid var(--b);background:transparent;color:var(--t)}.btn-o:hover{background:var(--bg2)}.btn-s{padding:4px 8px;font-size:.75rem;border-radius:6px}.theme-toggle{border:none;background:none;cursor:pointer;font-size:1.2rem;padding:4px}.container{max-width:1200px;margin:0 auto;padding:20px;display:grid;grid-template-columns:1fr 440px;gap:24px}@media(max-width:960px){.container{grid-template-columns:1fr}}.panel{background:var(--card-bg);border-radius:14px;padding:24px;box-shadow:var(--shadow)}.panel h3{font-size:.95rem;color:var(--t);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--p);display:inline-block}.form-group{margin-bottom:14px}.form-group label{display:block;font-size:.8rem;color:var(--t2);margin-bottom:4px;font-weight:500}.form-group input{width:100%;padding:10px 12px;border:1px solid var(--b);border-radius:8px;font-size:.9rem;background:var(--bg);color:var(--t);transition:border .2s}.form-group input:focus{border-color:var(--p);outline:none;box-shadow:0 0 0 3px rgba(230,81,0,.1)}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:500px){.row{grid-template-columns:1fr}}.unit-label{display:inline-block;font-size:.75rem;color:var(--t2);margin-left:4px}.result-hero{text-align:center;padding:20px;background:var(--bg2);border-radius:12px;margin-bottom:16px}.result-hero .big-number{font-size:2.4rem;font-weight:800;color:var(--p);line-height:1.2}.result-hero .big-label{font-size:.8rem;color:var(--t2);margin-top:4px}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}.result-card{background:var(--bg2);border-radius:10px;padding:14px;text-align:center}.result-card .val{font-size:1.3rem;font-weight:700}.result-card .lbl{font-size:.72rem;color:var(--t2);margin-top:2px}.val-profit{color:var(--profit)}.val-loss{color:var(--loss)}.val-neutral{color:var(--p)}.chart-wrap{position:relative;width:100%;height:280px;margin:16px 0}.chart-wrap canvas{width:100%;height:100%}.scenario-section{margin-top:16px;padding-top:16px;border-top:1px solid var(--b)}.scenario-row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap;margin-bottom:8px}.scenario-row input{width:100px;padding:8px;border:1px solid var(--b);border-radius:6px;font-size:.8rem;background:var(--bg);color:var(--t)}.scenario-row label{font-size:.75rem;color:var(--t2)}.scenario-results{margin-top:12px}.scenario-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--b);font-size:.82rem}.scenario-item .sc-label{color:var(--t2)}.scenario-item .sc-val{font-weight:600}.usage-tip{background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:10px;padding:12px 16px;font-size:.8rem;color:#8a4a00;margin-top:16px}[data-theme=dark] .usage-tip{background:linear-gradient(135deg,#3e2800,#4a3000);color:#ffb74d}.usage-tip strong{display:block;margin-bottom:4px}.ad-placeholder{text-align:center;padding:16px;background:var(--bg2);border-radius:10px;margin-top:16px;font-size:.75rem;color:var(--t2);border:1px dashed var(--b)}.footer{max-width:1200px;margin:20px auto;padding:20px;text-align:center;font-size:.75rem;color:var(--t2)}.footer a{color:var(--p);text-decoration:none}</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">📊 盈亏平衡计算器</div>
+  <div class="actions">
+    <button class="btn btn-o btn-s" onclick="loadSample()">📋 示例数据</button>
+    <button class="btn btn-o btn-s" onclick="resetAll()">🔄 重置</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">🌓</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Left: Inputs -->
+  <div class="panel">
+    <h3>💰 成本与定价</h3>
+    <div class="row">
+      <div class="form-group">
+        <label>固定成本（月）<span class="unit-label">¥</span></label>
+        <input type="number" id="fixedCost" value="30000" min="0" step="100" placeholder="房租、工资、水电等" oninput="calculate()">
+      </div>
+      <div class="form-group">
+        <label>单位变动成本<span class="unit-label">¥</span></label>
+        <input type="number" id="varCost" value="25" min="0" step="0.5" placeholder="每件产品的材料/运输成本" oninput="calculate()">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label>单位售价<span class="unit-label">¥</span></label>
+        <input type="number" id="price" value="80" min="0.01" step="0.5" placeholder="每件产品的销售价格" oninput="calculate()">
+      </div>
+      <div class="form-group">
+        <label>当前月销量<span class="unit-label">件</span></label>
+        <input type="number" id="volume" value="800" min="0" step="1" placeholder="实际每月销售数量" oninput="calculate()">
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">📈 多场景对比（快速分析）</h3>
+    <div class="scenario-section">
+      <div class="scenario-row">
+        <label>场景1销量:</label><input type="number" id="sc1" value="400" min="0" oninput="calcScenarios()" placeholder="件">
+        <label>场景2销量:</label><input type="number" id="sc2" value="600" min="0" oninput="calcScenarios()" placeholder="件">
+        <label>场景3销量:</label><input type="number" id="sc3" value="1000" min="0" oninput="calcScenarios()" placeholder="件">
+      </div>
+      <div class="scenario-results" id="scenarioResults"></div>
+    </div>
+
+    <div class="usage-tip">
+      <strong>💡 使用说明</strong>
+      固定成本：不随产量变化的月固定支出（房租、固定工资、设备折旧等）。<br>
+      变动成本：每件产品的直接成本（原材料、包装、运费、计件工资等）。<br>
+      盈亏平衡点 = 固定成本 ÷ (售价 - 变动成本)，即"卖多少件才能回本"。
+    </div>
+  </div>
+
+  <!-- Right: Results -->
+  <div class="panel">
+    <h3>📊 分析结果</h3>
+
+    <div class="result-hero" id="resultHero">
+      <div class="big-number" id="bepUnits">545</div>
+      <div class="big-label">盈亏平衡月销量（件）</div>
+    </div>
+
+    <div class="result-hero" style="background:var(--bg2)">
+      <div class="big-number" style="color:var(--p)" id="bepRevenue">¥43,636</div>
+      <div class="big-label">盈亏平衡月收入</div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="val val-neutral" id="contribMargin">¥55.00</div>
+        <div class="lbl">单位边际贡献</div>
+      </div>
+      <div class="result-card">
+        <div class="val val-neutral" id="marginRatio">68.8%</div>
+        <div class="lbl">边际贡献率</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="currentProfit" style="color:var(--profit)">¥14,000</div>
+        <div class="lbl" id="currentProfitLabel">当前月利润</div>
+      </div>
+      <div class="result-card">
+        <div class="val val-neutral" id="safetyMargin">31.9%</div>
+        <div class="lbl">安全边际率</div>
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="breakEvenChart"></canvas>
+    </div>
+
+    <div class="ad-placeholder">[广告位 — Google AdSense]</div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>盈亏平衡计算器 — 本地商家工具箱 · 数据仅在浏览器本地处理，不上传服务器</p>
+  <p><a href="https://toolkitbox.cn/">ToolkitBox 工具站</a> · 免费在线工具</p>
+</div>
+
+<script>
+function toggleTheme(){const b=document.documentElement;b.dataset.theme=b.dataset.theme==='dark'?'':'dark';localStorage.setItem('be-theme',b.dataset.theme);drawChart()}
+
+(function(){const s=localStorage.getItem('be-theme');if(s)document.documentElement.dataset.theme=s})();
+
+function getVals(){
+  return{
+    fc:parseFloat(document.getElementById('fixedCost').value)||0,
+    vc:parseFloat(document.getElementById('varCost').value)||0,
+    p:parseFloat(document.getElementById('price').value)||0,
+    v:parseFloat(document.getElementById('volume').value)||0
+  }
+}
+
+function calculate(){
+  const {fc,vc,p,v}=getVals();
+  const cm=p-vc; // contribution margin
+  if(cm<=0){
+    document.getElementById('bepUnits').textContent='--';
+    document.getElementById('bepRevenue').textContent='定价需>变动成本';
+    document.getElementById('contribMargin').textContent='¥0.00';
+    document.getElementById('marginRatio').textContent='0%';
+    document.getElementById('currentProfit').textContent='--';
+    document.getElementById('currentProfitLabel').textContent='定价无效';
+    document.getElementById('safetyMargin').textContent='--';
+    calcScenarios();
+    drawChart();
+    return;
+  }
+  const bepUnits=Math.ceil(fc/cm);
+  const bepRevenue=bepUnits*p;
+  const marginRatio=(cm/p*100);
+  const currentProfit=(v*p)-(fc+v*vc);
+  const safetyMargin=v>0?((v-bepUnits)/v*100):0;
+
+  document.getElementById('bepUnits').textContent=bepUnits.toLocaleString();
+  document.getElementById('bepRevenue').textContent='¥'+bepRevenue.toLocaleString('zh-CN',{minimumFractionDigits:0,maximumFractionDigits:0});
+  document.getElementById('contribMargin').textContent='¥'+cm.toFixed(2);
+  document.getElementById('marginRatio').textContent=marginRatio.toFixed(1)+'%';
+  
+  const cp=document.getElementById('currentProfit');
+  const cpl=document.getElementById('currentProfitLabel');
+  if(currentProfit>=0){
+    cp.textContent='¥'+currentProfit.toLocaleString('zh-CN',{minimumFractionDigits:0,maximumFractionDigits:0});
+    cp.style.color=getComputedStyle(document.documentElement).getPropertyValue('--profit').trim();
+    cpl.textContent='当前月利润';
+  }else{
+    cp.textContent='-¥'+Math.abs(currentProfit).toLocaleString('zh-CN',{minimumFractionDigits:0,maximumFractionDigits:0});
+    cp.style.color=getComputedStyle(document.documentElement).getPropertyValue('--loss').trim();
+    cpl.textContent='当前月亏损';
+  }
+  
+  const sm=document.getElementById('safetyMargin');
+  if(safetyMargin>=30){
+    sm.style.color=getComputedStyle(document.documentElement).getPropertyValue('--profit').trim();
+  }else if(safetyMargin>=10){
+    sm.style.color=getComputedStyle(document.documentElement).getPropertyValue('--p').trim();
+  }else if(safetyMargin>=0){
+    sm.style.color=getComputedStyle(document.documentElement).getPropertyValue('--loss').trim();
+  }
+  if(safetyMargin<0){
+    sm.textContent='亏损区';
+    sm.style.color=getComputedStyle(document.documentElement).getPropertyValue('--loss').trim();
+  }else{
+    sm.textContent=safetyMargin.toFixed(1)+'%';
+  }
+
+  calcScenarios();
+  drawChart();
+}
+
+function calcScenarios(){
+  const {fc,vc,p}=getVals();
+  const cm=p-vc;
+  const vols=[parseFloat(document.getElementById('sc1').value)||0,parseFloat(document.getElementById('sc2').value)||0,parseFloat(document.getElementById('sc3').value)||0];
+  const labels=['场景1','场景2','场景3'];
+  let html='';
+  vols.forEach((v,i)=>{
+    if(cm<=0||v<=0)return;
+    const revenue=v*p;
+    const totalCost=fc+v*vc;
+    const profit=revenue-totalCost;
+    const bepUnits=fc/cm;
+    const status=v>=bepUnits?'✅ 盈利':'⚠️ 亏损';
+    const pColor=v>=bepUnits?'var(--profit)':'var(--loss)';
+    html+=`<div class="scenario-item"><span class="sc-label">${labels[i]}（月销${v}件）</span><span>收入¥${revenue.toLocaleString()} · 成本¥${totalCost.toLocaleString()} · <b style="color:${pColor}">¥${profit.toLocaleString()}</b> ${status}</span></div>`;
+  });
+  document.getElementById('scenarioResults').innerHTML=html||'<div class="scenario-item"><span class="sc-label">请输入销量数据</span></div>';
+}
+
+function drawChart(){
+  const canvas=document.getElementById('breakEvenChart');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.parentElement.getBoundingClientRect();
+  canvas.width=rect.width*dpr;
+  canvas.height=280*dpr;
+  canvas.style.width=rect.width+'px';
+  canvas.style.height='280px';
+  ctx.scale(dpr,dpr);
+  const W=rect.width,H=280;
+  ctx.clearRect(0,0,W,H);
+
+  const {fc,vc,p,v}=getVals();
+  const cm=p-vc;
+  if(cm<=0){
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim();
+    ctx.font='14px sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('售价需大于变动成本才能计算盈亏平衡点',W/2,H/2);
+    return;
+  }
+  const bepUnits=fc/cm;
+  const maxUnits=Math.max(bepUnits*2.5,v*1.5,100);
+  const step=Math.pow(10,Math.floor(Math.log10(maxUnits/5)));
+  const roundedMax=Math.ceil(maxUnits/step)*step;
+  
+  const maxRevenue=roundedMax*p;
+  const maxCost=fc+roundedMax*vc;
+  const yMax=Math.max(maxRevenue,maxCost)*1.15;
+
+  const pad={top:30,right:30,bottom:50,left:75};
+  const pw=W-pad.left-pad.right;
+  const ph=H-pad.top-pad.bottom;
+
+  function x(u){return pad.left+(u/roundedMax)*pw}
+  function y(v){return pad.top+ph-(v/yMax)*ph}
+
+  // Grid
+  ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim();
+  ctx.lineWidth=0.5;
+  const ySteps=5;
+  for(let i=0;i<=ySteps;i++){
+    const val=(yMax/ySteps)*i;
+    const yi=y(val);
+    ctx.beginPath();ctx.moveTo(pad.left,yi);ctx.lineTo(W-pad.right,yi);ctx.stroke();
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim();
+    ctx.font='11px sans-serif';ctx.textAlign='right';
+    ctx.fillText('¥'+(val/1000).toFixed(0)+'k',pad.left-8,yi+4);
+  }
+  const xSteps=5;
+  for(let i=0;i<=xSteps;i++){
+    const val=(roundedMax/xSteps)*i;
+    const xi=x(val);
+    ctx.beginPath();ctx.moveTo(xi,pad.top);ctx.lineTo(xi,pad.top+ph);ctx.stroke();
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim();
+    ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText(Math.round(val),xi,pad.top+ph+16);
+  }
+
+  // Axes
+  ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim();
+  ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(pad.left,pad.top);ctx.lineTo(pad.left,pad.top+ph);ctx.lineTo(W-pad.right,pad.top+ph);ctx.stroke();
+
+  // Axis labels
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim();
+  ctx.font='12px sans-serif';ctx.textAlign='center';
+  ctx.fillText('月销量（件）',W/2,H-6);
+  ctx.save();ctx.translate(14,H/2);ctx.rotate(-Math.PI/2);
+  ctx.fillText('金额（¥）',0,0);ctx.restore();
+
+  // Fixed cost line (horizontal)
+  ctx.strokeStyle='#999';
+  ctx.lineWidth=1;
+  ctx.setLineDash([5,5]);
+  ctx.beginPath();ctx.moveTo(pad.left,y(fc));ctx.lineTo(W-pad.right,y(fc));ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#999';ctx.font='11px sans-serif';ctx.textAlign='left';
+  ctx.fillText('固定成本 ¥'+fc.toLocaleString(),pad.left+6,y(fc)-6);
+
+  // Total cost line
+  ctx.strokeStyle='#e74c3c';
+  ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(pad.left,y(fc));ctx.lineTo(x(roundedMax),y(fc+roundedMax*vc));ctx.stroke();
+
+  // Revenue line
+  ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--chart-line').trim();
+  ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(pad.left,y(0));ctx.lineTo(x(roundedMax),y(roundedMax*p));ctx.stroke();
+
+  // Break-even point
+  const bepx=x(bepUnits),bepy=y(bepUnits*p);
+  ctx.fillStyle='#fff';
+  ctx.beginPath();ctx.arc(bepx,bepy,7,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#e74c3c';ctx.lineWidth=3;
+  ctx.beginPath();ctx.arc(bepx,bepy,7,0,Math.PI*2);ctx.stroke();
+  
+  // BEP label
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t').trim();
+  ctx.font='bold 12px sans-serif';ctx.textAlign='left';
+  const bepLabelX=bepx+12, bepLabelY=bepy-12;
+  ctx.fillText('BEP: '+bepUnits+'件',bepLabelX,bepLabelY);
+  ctx.fillText('¥'+(bepUnits*p).toLocaleString(),bepLabelX,bepLabelY+16);
+
+  // Profit zone fill
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--chart-area').trim();
+  ctx.beginPath();
+  ctx.moveTo(bepx,bepy);
+  for(let u=bepUnits;u<=roundedMax;u+=roundedMax/100){
+    ctx.lineTo(x(u),y(fc+u*vc));
+  }
+  ctx.lineTo(x(roundedMax),y(roundedMax*p));
+  for(let u=roundedMax;u>=bepUnits;u-=roundedMax/100){
+    ctx.lineTo(x(u),y(u*p));
+  }
+  ctx.closePath();ctx.fill();
+
+  // Loss zone fill
+  ctx.fillStyle='rgba(231,76,60,.06)';
+  ctx.beginPath();
+  ctx.moveTo(bepx,bepy);
+  for(let u=bepUnits;u>=0;u-=bepUnits/50){
+    if(u<0)u=0;
+    ctx.lineTo(x(u),y(fc+u*vc));
+  }
+  ctx.lineTo(x(0),y(0));
+  for(let u=0;u<=bepUnits;u+=bepUnits/50){
+    ctx.lineTo(x(u),y(u*p));
+  }
+  ctx.closePath();ctx.fill();
+
+  // Legend
+  const lx=W-pad.right-140,ly=pad.top+10;
+  ctx.fillStyle='#e74c3c';ctx.fillRect(lx,ly,16,3);
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t2').trim();
+  ctx.font='11px sans-serif';ctx.textAlign='left';
+  ctx.fillText('总成本',lx+22,ly+3);
+  
+  ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--chart-line').trim();
+  ctx.fillRect(lx,ly+16,16,3);
+  ctx.fillText('销售收入',lx+22,ly+19);
+
+  // Current volume marker
+  if(v>0){
+    const vx=x(Math.min(v,roundedMax));
+    ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--p').trim();
+    ctx.lineWidth=1.5;ctx.setLineDash([4,3]);
+    ctx.beginPath();ctx.moveTo(vx,y(0));ctx.lineTo(vx,y(v*p));ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--p').trim();
+    ctx.beginPath();ctx.arc(vx,y(v*p),5,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--t').trim();
+    ctx.font='11px sans-serif';ctx.textAlign='center';
+    ctx.fillText('当前销量',vx,pad.top-8);
+  }
+}
+
+function loadSample(){
+  document.getElementById('fixedCost').value='30000';
+  document.getElementById('varCost').value='25';
+  document.getElementById('price').value='80';
+  document.getElementById('volume').value='800';
+  document.getElementById('sc1').value='400';
+  document.getElementById('sc2').value='600';
+  document.getElementById('sc3').value='1000';
+  calculate();
+}
+
+function resetAll(){
+  document.getElementById('fixedCost').value='30000';
+  document.getElementById('varCost').value='25';
+  document.getElementById('price').value='80';
+  document.getElementById('volume').value='800';
+  document.getElementById('sc1').value='400';
+  document.getElementById('sc2').value='600';
+  document.getElementById('sc3').value='1000';
+  calculate();
+}
+
+// Initial calculation
+calculate();
+
+// Handle resize
+let resizeTimer;
+window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(drawChart,150)});
+</script>
+
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></body>
+</html>
