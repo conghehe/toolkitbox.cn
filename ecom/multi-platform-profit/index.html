@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>跨境电商全平台利润对比器 — 一图看清5大平台谁最赚钱</title>
+<meta name="description" content="免费跨境电商利润对比计算器：亚马逊FBA、Shopify、TikTok Shop、Temu、Shopee五平台一键对比净利润、毛利率、ROI。含2026年最新费率，支持ROAS盈亏平衡计算。">
+<link rel="canonical" href="https://toolkitbox.cn/ecom/multi-platform-profit/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--t:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--p2:#a29bfe;--g:#00b894;--r:#e17055;--b:#dfe6e9;--amz:#ff9900;--shopify:#96bf48;--tt:#ff0050;--temu:#ff5a00;--shopee:#ee4d2d;--radius:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+.hero{text-align:center;padding:30px 20px 10px}
+.hero h1{font-size:1.7rem;color:var(--p);margin-bottom:6px}
+.hero p{color:var(--t2);font-size:.9rem;line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:768px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.05);border:1px solid var(--b)}
+.card h2{font-size:1rem;color:var(--p);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--p)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.fld{margin-bottom:10px}
+.fld label{display:block;font-size:.78rem;color:var(--t2);margin-bottom:4px;font-weight:500}
+.fld input,.fld select{width:100%;padding:10px 12px;border:1.5px solid var(--b);border-radius:8px;font-size:.9rem;font-family:inherit;transition:.2s;background:var(--bg)}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(108,92,231,.1)}
+.fld .unit{position:relative}
+.fld .unit::after{content:attr(data-unit);position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--t2);font-size:.78rem;pointer-events:none}
+.fld .unit input{padding-right:36px}
+.platform-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.platform-tab{padding:7px 14px;border-radius:20px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid var(--b);background:var(--bg);transition:.2s;color:var(--t2)}
+.platform-tab.active{color:#fff;border-color:transparent}
+.platform-tab.amazon.active{background:var(--amz)}
+.platform-tab.shopify.active{background:var(--shopify)}
+.platform-tab.tiktok.active{background:var(--tt)}
+.platform-tab.temu.active{background:var(--temu)}
+.platform-tab.shopee.active{background:var(--shopee)}
+.results-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:10px}
+.results-table th{text-align:left;padding:10px 12px;background:var(--bg);font-weight:600;color:var(--t2);font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--b)}
+.results-table th:first-child{border-radius:8px 0 0 0}
+.results-table th:last-child{border-radius:0 8px 0 0}
+.results-table td{padding:12px;border-bottom:1px solid var(--b);font-weight:500}
+.results-table .best{color:var(--g);font-weight:700}
+.results-table .worst{color:var(--r)}
+.results-table .platform-name{display:flex;align-items:center;gap:8px;font-weight:700}
+.results-table .dot-platform{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:700}
+.badge.best{background:#e6fff3;color:#00b894}
+.badge.norm{background:var(--bg);color:var(--t2)}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:768px){.charts-row{grid-template-columns:1fr}}
+.chart-box{background:var(--card);border-radius:var(--radius);padding:16px;border:1px solid var(--b)}
+.chart-box h3{font-size:.82rem;color:var(--t2);margin-bottom:10px;text-align:center}
+.roas-info{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.roas-item{text-align:center;padding:10px;background:var(--bg);border-radius:8px}
+.roas-item .val{font-size:1.2rem;font-weight:700;color:var(--p)}
+.roas-item .lbl{font-size:.7rem;color:var(--t2)}
+.feedback{text-align:center;padding:12px;margin-top:10px;border-radius:8px;font-size:.85rem;font-weight:600}
+.feedback.green{background:#e6fff3;color:#00b894}
+.feedback.yellow{background:#fff8e1;color:#e65100}
+.feedback.red{background:#fdecea;color:var(--r)}
+.tip{background:#f0edff;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:.78rem;color:#5c6bc0;line-height:1.5}
+.footer-note{text-align:center;padding:30px 20px;color:var(--t2);font-size:.75rem;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="hero">
+  <h1>🌐 跨境电商全平台利润对比器</h1>
+  <p>输入一次产品参数，一键对比 Amazon FBA / Shopify / TikTok Shop / Temu / Shopee 五大平台的真实净利润。<br>含2026年最新费率，帮你找到最赚钱的卖货渠道。</p>
+</div>
+
+<div class="grid2" style="margin-bottom:16px">
+  <div class="card">
+    <h2><span class="dot"></span>产品参数</h2>
+    <div class="row">
+      <div class="fld"><label>产品成本 (¥)</label><input type="number" id="productCost" value="50" step="0.01" min="0"></div>
+      <div class="fld"><label>国内物流/包装 (¥)</label><input type="number" id="domesticShipping" value="8" step="0.01" min="0"></div>
+    </div>
+    <div class="row">
+      <div class="fld"><label>目标售价 (¥)</label><input type="number" id="sellingPrice" value="129" step="0.01" min="0"></div>
+      <div class="fld"><label>产品重量 (g)</label><input type="number" id="weight" value="500" step="1" min="0"></div>
+    </div>
+    <div class="row">
+      <div class="fld"><label>每单广告预算 (¥)</label><input type="number" id="adCost" value="15" step="0.01" min="0"></div>
+      <div class="fld"><label>月预估销量 (件)</label><input type="number" id="monthlySales" value="100" step="1" min="0"></div>
+    </div>
+    <div class="fld"><label>跨境物流方式</label>
+      <select id="shippingType">
+        <option value="air">空运小包 (¥45/kg)</option>
+        <option value="sea">海运拼柜 (¥8/kg)</option>
+        <option value="express">国际快递 (¥80/kg)</option>
+        <option value="fba_air">FBA空运头程 (¥28/kg)</option>
+      </select>
+    </div>
+    <div class="tip">💡 <b>提示：</b>修改任何参数后，下方利润对比自动更新。建议尝试不同售价和物流方式查看利润变化。</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>各平台费率参考（2026最新）</h2>
+    <table style="width:100%;font-size:.78rem;border-collapse:collapse">
+      <tr style="border-bottom:2px solid var(--b)"><th style="text-align:left;padding:6px 4px">平台</th><th style="text-align:center;padding:6px 4px">佣金率</th><th style="text-align:center;padding:6px 4px">物流费</th><th style="text-align:center;padding:6px 4px">支付费率</th><th style="text-align:center;padding:6px 4px">月租费</th></tr>
+      <tr><td style="padding:6px 4px">🟠 Amazon FBA</td><td style="text-align:center">15%</td><td style="text-align:center">FBA配送$4-8</td><td style="text-align:center">—</td><td style="text-align:center">$39.99</td></tr>
+      <tr><td style="padding:6px 4px">🟢 Shopify</td><td style="text-align:center">—</td><td style="text-align:center">第三方物流</td><td style="text-align:center">2.9%+$0.30</td><td style="text-align:center">$29</td></tr>
+      <tr><td style="padding:6px 4px">🔴 TikTok Shop</td><td style="text-align:center">8%</td><td style="text-align:center">平台物流</td><td style="text-align:center">2%</td><td style="text-align:center">—</td></tr>
+      <tr><td style="padding:6px 4px">🟠 Temu</td><td style="text-align:center">15%</td><td style="text-align:center">平台承担</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+      <tr><td style="padding:6px 4px;border-bottom:none">🔴 Shopee</td><td style="text-align:center;border-bottom:none">8%</td><td style="text-align:center;border-bottom:none">SLS物流</td><td style="text-align:center;border-bottom:none">2%</td><td style="text-align:center;border-bottom:none">—</td></tr>
+    </table>
+    <div class="tip" style="margin-top:8px">⚠️ 费率为参考值，实际以平台最新政策为准。亚马逊佣金按类目15%估算(电子类8%、服装类17%)。</div>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:16px">
+  <h2><span class="dot"></span>📊 五平台利润对比</h2>
+  <table class="results-table" id="resultsTable">
+    <thead><tr><th>平台</th><th>单件利润</th><th>毛利率</th><th>投资回报率</th><th>月净利润</th><th>年净利润</th><th>综合评价</th></tr></thead>
+    <tbody id="resultsBody"></tbody>
+  </table>
+  <div class="feedback" id="feedback"></div>
+</div>
+
+<div class="charts-row">
+  <div class="chart-box">
+    <h3>📈 各平台月净利润对比</h3>
+    <canvas id="profitChart" width="400" height="220"></canvas>
+  </div>
+  <div class="chart-box">
+    <h3>📊 各平台毛利率对比</h3>
+    <canvas id="marginChart" width="400" height="220"></canvas>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <h2><span class="dot"></span>🎯 ROAS 盈亏平衡计算</h2>
+  <p style="font-size:.82rem;color:var(--t2);margin-bottom:12px">ROAS = 广告收入 / 广告花费。盈亏平衡ROAS = 你最少需要多少倍广告回报才能不亏本。</p>
+  <div class="roas-info" id="roasInfo"></div>
+  <div style="margin-top:8px">
+    <div class="row3">
+      <div class="fld"><label>目标ROAS倍数</label><input type="number" id="targetRoas" value="3" step="0.1" min="0.1"></div>
+      <div class="fld"><label>日广告预算 (¥)</label><input type="number" id="dailyAdBudget" value="100" step="1" min="0"></div>
+      <div class="fld"><label>转化率 (%)</label><input type="number" id="convRate" value="3" step="0.1" min="0.1"></div>
+    </div>
+    <div class="roas-info" id="roasResult" style="margin-top:12px"></div>
+  </div>
+</div>
+
+<div class="footer-note">
+  <strong>跨境电商全平台利润对比器</strong> — 数据仅在浏览器本地计算，不会上传到任何服务器。<br>
+  费率为2026年参考值，实际以各平台官网最新公告为准。汇率按 1 USD ≈ 7.2 CNY 估算。<br>
+  Powered by MoneyMaker v4 · 更多工具即将上线
+</div>
+</div>
+
+<script>
+const PLATFORMS = [
+  { id:'amazon', name:'Amazon FBA', color:'#ff9900', icon:'🟠',
+    commissionRate:0.15, paymentRate:0, paymentFixed:0,
+    monthlyFee:39.99*7.2, hasFba:true },
+  { id:'shopify', name:'Shopify独立站', color:'#96bf48', icon:'🟢',
+    commissionRate:0, paymentRate:0.029, paymentFixed:0.3*7.2,
+    monthlyFee:29*7.2, hasFba:false },
+  { id:'tiktok', name:'TikTok Shop', color:'#ff0050', icon:'🔴',
+    commissionRate:0.08, paymentRate:0.02, paymentFixed:0,
+    monthlyFee:0, hasFba:false },
+  { id:'temu', name:'Temu半托管', color:'#ff5a00', icon:'🟠',
+    commissionRate:0.15, paymentRate:0, paymentFixed:0,
+    monthlyFee:0, hasFba:false },
+  { id:'shopee', name:'Shopee', color:'#ee4d2d', icon:'🔴',
+    commissionRate:0.08, paymentRate:0.02, paymentFixed:0,
+    monthlyFee:0, hasFba:false }
+];
+
+function getShippingCost(weightG, type, isFba){
+  const kg=weightG/1000;
+  if(isFba){
+    if(type==='fba_air') return kg*28;
+    if(type==='sea') return kg*8+5;
+    return kg*45;
+  }
+  if(type==='air') return kg*45;
+  if(type==='sea') return kg*8;
+  return kg*80;
+}
+
+function getFbaFulfillment(weightG){
+  const lb=weightG/453.592;
+  if(lb<=0.5) return 3.22*7.2;
+  if(lb<=1) return 3.86*7.2;
+  if(lb<=2) return 4.75*7.2;
+  if(lb<=3) return 5.40*7.2;
+  return (5.40+(lb-3)*0.38)*7.2;
+}
+
+function getShopeeLogistics(weightG){
+  const g=weightG;
+  if(g<=100) return 12;
+  if(g<=300) return 18;
+  if(g<=500) return 25;
+  if(g<=1000) return 35;
+  return 35+(g-1000)/1000*15;
+}
+
+function calcPlatform(p, cost, domShip, price, weight, shipType, adCost){
+  let totalCost=cost+domShip;
+  let shipping=0;
+  if(p.id==='amazon'){
+    shipping=getShippingCost(weight,shipType,true);
+    totalCost+=shipping+getFbaFulfillment(weight);
+    if(adCost) totalCost+=adCost;
+  }else if(p.id==='shopify'){
+    shipping=getShippingCost(weight,shipType,false);
+    totalCost+=shipping;
+    if(adCost) totalCost+=adCost;
+  }else if(p.id==='tiktok'){
+    shipping=getShippingCost(weight,'air',false);
+    totalCost+=shipping;
+    if(adCost) totalCost+=adCost;
+  }else if(p.id==='temu'){
+    if(adCost) totalCost+=adCost;
+  }else if(p.id==='shopee'){
+    shipping=getShopeeLogistics(weight);
+    totalCost+=shipping;
+    if(adCost) totalCost+=adCost;
+  }
+  const commission=price*p.commissionRate;
+  const paymentFee=price*p.paymentRate+p.paymentFixed;
+  totalCost+=commission+paymentFee;
+  const profit=price-totalCost;
+  const margin=price>0?(profit/price*100):0;
+  const roi=totalCost>0?(profit/totalCost*100):0;
+  const monthlyFixed=p.monthlyFee;
+  return{profit,margin,roi,totalCost,commission,paymentFee,shipping,monthlyFixed};
+}
+
+function formatMoney(v,currency){return currency+(Math.abs(v)<0.01?'0.00':v.toFixed(2))}
+function formatPct(v){return (Math.abs(v)<0.1?'0.00':v.toFixed(1))+'%'}
+
+function update(){
+  const cost=parseFloat(document.getElementById('productCost').value)||0;
+  const domShip=parseFloat(document.getElementById('domesticShipping').value)||0;
+  const price=parseFloat(document.getElementById('sellingPrice').value)||0;
+  const weight=parseFloat(document.getElementById('weight').value)||0;
+  const shipType=document.getElementById('shippingType').value;
+  const adCost=parseFloat(document.getElementById('adCost').value)||0;
+  const monthly=parseInt(document.getElementById('monthlySales').value)||0;
+
+  const results=PLATFORMS.map(p=>({
+    ...p,
+    calc:calcPlatform(p,cost,domShip,price,weight,shipType,adCost),
+    monthlyProfit:0,yearlyProfit:0
+  }));
+  results.forEach(r=>{
+    r.monthlyProfit=r.calc.profit*monthly-r.calc.monthlyFixed;
+    r.yearlyProfit=r.monthlyProfit*12;
+  });
+
+  const best=results.reduce((a,b)=>a.calc.profit>b.calc.profit?a:b);
+  const worst=results.reduce((a,b)=>a.calc.profit<b.calc.profit?a:b);
+
+  let bodyHTML='';
+  results.forEach(r=>{
+    const isB=r.id===best.id;
+    const isW=r.id===worst.id;
+    bodyHTML+=`<tr>
+      <td><div class="platform-name"><span class="dot-platform" style="background:${r.color}"></span>${r.icon} ${r.name}</div></td>
+      <td class="${isB?'best':''}${isW?'worst':''}">${formatMoney(r.calc.profit,'¥')}</td>
+      <td>${formatPct(r.calc.margin)}</td>
+      <td>${formatPct(r.calc.roi)}</td>
+      <td>${formatMoney(r.monthlyProfit,'¥')}</td>
+      <td>${formatMoney(r.yearlyProfit,'¥')}</td>
+      <td>${isB?'<span class="badge best">🥇 最赚钱</span>':isW?'<span class="badge norm">需要优化</span>':'<span class="badge norm">一般</span>'}</td>
+    </tr>`;
+  });
+  document.getElementById('resultsBody').innerHTML=bodyHTML;
+
+  const fb=document.getElementById('feedback');
+  if(best.calc.profit>0){
+    fb.className='feedback green';
+    fb.innerHTML=`✅ <b>最佳选择：${best.icon} ${best.name}</b> — 单件利润 <b>¥${best.calc.profit.toFixed(2)}</b>，毛利率 <b>${best.calc.margin.toFixed(1)}%</b>。${best.id!=='temu'?'建议优先通过该渠道上架测试。':'Temu利润虽高但定价权在平台，建议同时布局自有渠道。'}`;
+  }else if(worst.calc.profit>0){
+    fb.className='feedback yellow';
+    fb.innerHTML=`⚠️ 所有平台均有盈利，但利润较薄。建议检查产品成本或提高售价。当前最低利润平台：${worst.name} (¥${worst.calc.profit.toFixed(2)})。`;
+  }else{
+    fb.className='feedback red';
+    fb.innerHTML=`🔴 <b>部分平台亏损！</b>当前售价 ¥${price.toFixed(2)} 不足以覆盖成本。建议提高售价或降低产品成本后再分析。`;
+  }
+
+  drawCharts(results);
+  updateRoas(results[0]);
+}
+
+function drawCharts(results){
+  drawProfitChart(results);
+  drawMarginChart(results);
+}
+
+function drawProfitChart(results){
+  const canvas=document.getElementById('profitChart');
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.parentElement.clientWidth-32;
+  canvas.width=W*dpr;canvas.height=220*dpr;
+  canvas.style.width=W+'px';canvas.style.height='220px';
+  ctx.scale(dpr,dpr);
+
+  const w=W-60,h=180,left=60,top=20;
+  ctx.clearRect(0,0,W,220);
+  const maxP=Math.max(...results.map(r=>r.monthlyProfit),1);
+  const barW=(w/results.length)*0.6;
+  const gap=w/results.length;
+
+  ctx.fillStyle='#636e72';ctx.font='10px sans-serif';ctx.textAlign='right';
+  for(let i=0;i<=4;i++){
+    const v=maxP*i/4;
+    const y=top+h-h*i/4;
+    ctx.fillText('¥'+(v/1000).toFixed(1)+'k',left-6,y+4);
+    ctx.strokeStyle='#dfe6e9';ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(left+w,y);ctx.stroke();
+  }
+  results.forEach((r,i)=>{
+    const x=left+gap*i+gap*0.2;
+    const bh=Math.max(r.monthlyProfit/maxP*h,2);
+    const y=top+h-bh;
+    ctx.fillStyle=r.color;
+    ctx.beginPath();roundRect(ctx,x,y,barW,bh,4);ctx.fill();
+    ctx.fillStyle='#1a1a2e';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+    ctx.fillText('¥'+(r.monthlyProfit/1000).toFixed(1)+'k',x+barW/2,y-8);
+    ctx.fillStyle='#636e72';ctx.font='9px sans-serif';
+    ctx.fillText(r.name.split(' ')[0],x+barW/2,top+h+14);
+  });
+}
+
+function drawMarginChart(results){
+  const canvas=document.getElementById('marginChart');
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const W=canvas.parentElement.clientWidth-32;
+  canvas.width=W*dpr;canvas.height=220*dpr;
+  canvas.style.width=W+'px';canvas.style.height='220px';
+  ctx.scale(dpr,dpr);
+
+  const w=W-60,h=180,left=60,top=20;
+  ctx.clearRect(0,0,W,220);
+  const barW=(w/results.length)*0.6;
+  const gap=w/results.length;
+
+  ctx.fillStyle='#636e72';ctx.font='10px sans-serif';ctx.textAlign='right';
+  for(let i=0;i<=4;i++){
+    const v=100*i/4;
+    const y=top+h-h*i/4;
+    ctx.fillText(v+'%',left-6,y+4);
+    ctx.strokeStyle='#dfe6e9';ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(left+w,y);ctx.stroke();
+  }
+  results.forEach((r,i)=>{
+    const x=left+gap*i+gap*0.2;
+    const bh=Math.max(r.calc.margin/100*h,2);
+    const y=top+h-bh;
+    const grad=ctx.createLinearGradient(x,y,x+barW,top+h);
+    grad.addColorStop(0,r.color);grad.addColorStop(1,r.color+'88');
+    ctx.fillStyle=grad;
+    ctx.beginPath();roundRect(ctx,x,y,barW,bh,4);ctx.fill();
+    ctx.fillStyle='#1a1a2e';ctx.font='bold 10px sans-serif';ctx.textAlign='center';
+    ctx.fillText(r.calc.margin.toFixed(1)+'%',x+barW/2,y-8);
+    ctx.fillStyle='#636e72';ctx.font='9px sans-serif';
+    ctx.fillText(r.name.split(' ')[0],x+barW/2,top+h+14);
+  });
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+function updateRoas(bestResult){
+  const cost=parseFloat(document.getElementById('productCost').value)||0;
+  const domShip=parseFloat(document.getElementById('domesticShipping').value)||0;
+  const price=parseFloat(document.getElementById('sellingPrice').value)||0;
+  const adCost=parseFloat(document.getElementById('adCost').value)||0;
+  const targetRoas=parseFloat(document.getElementById('targetRoas').value)||3;
+  const dailyBudget=parseFloat(document.getElementById('dailyAdBudget').value)||100;
+  const convRate=parseFloat(document.getElementById('convRate').value)||3;
+
+  const allCost=cost+domShip+0.15*price;
+  const grossMarginPerUnit=price-allCost;
+  const marginRate=price>0?grossMarginPerUnit/price:0;
+  const breakEvenRoas=marginRate>0?(1/marginRate).toFixed(2):'∞';
+  const maxCPA=grossMarginPerUnit.toFixed(2);
+  const dailyClicks=dailyBudget/(adCost>0?adCost/10:1);
+  const dailySales=dailyClicks*convRate/100;
+  const dailyProfit=dailySales*grossMarginPerUnit-dailyBudget;
+
+  const ri=document.getElementById('roasInfo');
+  ri.innerHTML=`
+    <div class="roas-item"><div class="val">${breakEvenRoas}x</div><div class="lbl">盈亏平衡 ROAS</div></div>
+    <div class="roas-item"><div class="val">¥${maxCPA}</div><div class="lbl">最高可承受CPA</div></div>
+    <div class="roas-item"><div class="val">${marginRate>0?(marginRate*100).toFixed(1):0}%</div><div class="lbl">毛利率(不含广告)</div></div>
+    <div class="roas-item"><div class="val">${targetRoas>breakEvenRoas?'✅ 有利可图':'⚠️ 可能亏损'}</div><div class="lbl">目标 ROAS ${targetRoas}x 判断</div></div>
+  `;
+
+  const rr=document.getElementById('roasResult');
+  rr.innerHTML=`
+    <div class="roas-item"><div class="val">${Math.round(dailyClicks)}</div><div class="lbl">日预估点击量</div></div>
+    <div class="roas-item"><div class="val">${dailySales.toFixed(1)} 单</div><div class="lbl">日预估销量</div></div>
+    <div class="roas-item"><div class="val">¥${(dailySales*price).toFixed(0)}</div><div class="lbl">日预估GMV</div></div>
+    <div class="roas-item" style="background:${dailyProfit>=0?'#e6fff3':'#fdecea'}"><div class="val" style="color:${dailyProfit>=0?'#00b894':'#e17055'}">¥${dailyProfit.toFixed(0)}</div><div class="lbl">日预估净利润</div></div>
+  `;
+}
+
+document.querySelectorAll('input,select').forEach(el=>{
+  el.addEventListener('input',update);el.addEventListener('change',update);
+});
+
+update();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></body>
+</html>

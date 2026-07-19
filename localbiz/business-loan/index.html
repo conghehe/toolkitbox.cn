@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商业贷款计算器 — 免费在线企业贷款还款分析工具 | 本地商家工具箱</title>
+<meta name="description" content="免费在线商业贷款计算器，支持等额本息/等额本金双模式对比、DSCR债务偿还覆盖率分析、提前还款节省计算。小企业经营贷、设备贷、信用贷全场景覆盖。纯浏览器本地处理，无需注册。">
+<meta name="keywords" content="商业贷款计算器,企业贷款计算器,等额本息计算,等额本金计算,贷款还款计算,DSCR,债务覆盖率,提前还款计算,经营贷款计算,设备贷款,小企业贷款">
+<link rel="canonical" href="https://toolkitbox.cn/business-loan-calculator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>:root{--bg:#fff;--t:#1a1a2e;--t2:#636e72;--p:#e65100;--ps:#ff9800;--b:#e0e0e0;--bg2:#f8f9fa;--card-bg:#fff;--shadow:0 1px 3px rgba(0,0,0,.08);--profit:#2e7d32;--loss:#c62828;--accent:#1565c0;--accent2:#e3f2fd}[data-theme=dark]{--bg:#1a1a2e;--t:#e8e8e8;--t2:#a0a0b0;--p:#ff9800;--ps:#ffb74d;--b:#333;--bg2:#222240;--card-bg:#252540;--shadow:0 1px 3px rgba(0,0,0,.3);--profit:#66bb6a;--loss:#ef5350;--accent:#42a5f5;--accent2:#1a2744}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--t);min-height:100vh;transition:background .3s}[data-theme=dark] body{background:linear-gradient(135deg,#141428,#1a1a2e)}.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--bg);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}.topbar .logo{font-size:1.1rem;font-weight:700;color:var(--p)}.topbar .actions{display:flex;gap:8px;align-items:center}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:500;transition:.2s;font-family:inherit}.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--ps)}.btn-o{border:1px solid var(--b);background:transparent;color:var(--t)}.btn-o:hover{background:var(--bg2)}.btn-s{padding:4px 10px;font-size:.75rem;border-radius:6px}.btn-active{background:var(--p);color:#fff;border-color:var(--p)}.theme-toggle{border:none;background:none;cursor:pointer;font-size:1.2rem;padding:4px}.container{max-width:1200px;margin:0 auto;padding:20px;display:grid;grid-template-columns:1fr 460px;gap:24px}@media(max-width:960px){.container{grid-template-columns:1fr}}.panel{background:var(--card-bg);border-radius:14px;padding:24px;box-shadow:var(--shadow)}.panel h3{font-size:.95rem;color:var(--t);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--p);display:inline-block}.form-group{margin-bottom:14px}.form-group label{display:block;font-size:.8rem;color:var(--t2);margin-bottom:4px;font-weight:500}.form-group input,.form-group select{width:100%;padding:10px 12px;border:1px solid var(--b);border-radius:8px;font-size:.9rem;background:var(--bg);color:var(--t);font-family:inherit;transition:border-color .2s}.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--p)}.unit-label{color:var(--p);font-weight:600;margin-left:2px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mode-tabs{display:flex;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid var(--b)}.mode-tab{flex:1;padding:10px 12px;text-align:center;cursor:pointer;font-size:.82rem;font-weight:500;background:var(--bg2);color:var(--t2);transition:.2s;border:none;font-family:inherit}.mode-tab.active{background:var(--p);color:#fff}.result-hero{text-align:center;padding:20px;background:var(--accent2);border-radius:12px;margin-bottom:16px}.big-number{font-size:2rem;font-weight:800;color:var(--accent)}.big-label{font-size:.8rem;color:var(--t2);margin-top:4px}.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.result-card{background:var(--bg2);padding:14px;border-radius:10px;text-align:center}.result-card .val{font-size:1.1rem;font-weight:700;color:var(--t)}.result-card .lbl{font-size:.7rem;color:var(--t2);margin-top:2px}.comparison-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.comp-card{background:var(--bg2);padding:16px;border-radius:10px}.comp-card h4{font-size:.82rem;color:var(--t);margin-bottom:8px}.comp-card .item{display:flex;justify-content:space-between;padding:3px 0;font-size:.8rem;border-bottom:1px dashed var(--b)}.comp-card .item:last-child{border:none}.comp-card .item .k{color:var(--t2)}.comp-card .item .v{font-weight:600}.winner{color:var(--profit)}.chart-container{position:relative;height:240px;margin:16px 0}.slider-group{margin:16px 0}.slider-group label{display:block;font-size:.8rem;color:var(--t2);margin-bottom:4px}.slider-group input[type=range]{width:100%}.slider-group .slider-val{float:right;font-weight:700;color:var(--accent)}.info-box{background:var(--accent2);border-radius:10px;padding:16px;margin-top:16px;font-size:.82rem;line-height:1.7;color:var(--t)}.info-box strong{color:var(--accent)}.disclaimer-box{background:#fff3e0;border-left:3px solid var(--p);border-radius:0 8px 8px 0;padding:14px 16px;margin-top:16px;font-size:.78rem;line-height:1.6;color:var(--t)}[data-theme=dark] .disclaimer-box{background:#2a1f10}.disclaimer-box strong{color:var(--p)}.faq-section{margin-top:32px;background:var(--card-bg);border-radius:14px;padding:24px;box-shadow:var(--shadow)}.faq-section h2{font-size:1.1rem;color:var(--t);margin-bottom:16px}.faq-item{margin-bottom:16px}.faq-item .q{font-weight:600;font-size:.9rem;color:var(--p);cursor:pointer;padding:8px 0}.faq-item .a{font-size:.85rem;color:var(--t2);line-height:1.7;padding:0 0 8px}.prepay-sim{background:var(--bg2);border-radius:10px;padding:16px;margin-top:16px}.prepay-sim .prepay-row{display:flex;gap:12px;align-items:flex-end;margin-bottom:10px}.prepay-sim .prepay-row .form-group{margin-bottom:0;flex:1}.prepay-sim .highlight{color:var(--profit);font-weight:700}canvas{width:100%!important;height:100%!important}</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">🏦 商业贷款计算器</div>
+  <div class="actions">
+    <button class="btn btn-o btn-s" onclick="loadSample()">📋 示例数据</button>
+    <button class="btn btn-o btn-s" onclick="resetAll()">🔄 重置</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">🌓</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Left: Inputs -->
+  <div class="panel">
+    <h3>📋 贷款参数</h3>
+    <div class="row">
+      <div class="form-group">
+        <label>贷款金额 <span class="unit-label">¥</span></label>
+        <input type="number" id="loanAmount" value="1000000" min="10000" step="10000" placeholder="贷款总额" oninput="calculate()">
+      </div>
+      <div class="form-group">
+        <label>年利率 <span class="unit-label">%</span></label>
+        <input type="number" id="annualRate" value="4.35" min="0.1" max="30" step="0.01" placeholder="年化利率" oninput="calculate()">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label>贷款期限</label>
+        <select id="loanTerm" onchange="calculate()">
+          <option value="12">1年 (12期)</option>
+          <option value="24">2年 (24期)</option>
+          <option value="36">3年 (36期)</option>
+          <option value="60" selected>5年 (60期)</option>
+          <option value="120">10年 (120期)</option>
+          <option value="180">15年 (180期)</option>
+          <option value="240">20年 (240期)</option>
+          <option value="360">30年 (360期)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>还款方式</label>
+        <div class="mode-tabs">
+          <button class="mode-tab active" id="tabEqualInstallment" onclick="switchMode('installment')">等额本息</button>
+          <button class="mode-tab" id="tabEqualPrincipal" onclick="switchMode('principal')">等额本金</button>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">📈 DSCR 债务偿还能力分析</h3>
+    <div class="form-group">
+      <label>月经营净收入 <span class="unit-label">¥</span></label>
+      <input type="number" id="noi" value="30000" min="0" step="1000" placeholder="企业每月税后经营净收入" oninput="calculate()">
+    </div>
+    <div class="form-group" style="margin-bottom:0">
+      <label>其他月债务还款 <span class="unit-label">¥</span></label>
+      <input type="number" id="otherDebt" value="0" min="0" step="1000" placeholder="已有其他贷款的月还款额" oninput="calculate()">
+    </div>
+
+    <h3 style="margin-top:20px">⚡ 提前还款模拟</h3>
+    <div class="prepay-sim">
+      <div class="prepay-row">
+        <div class="form-group">
+          <label>第几期后提前还款</label>
+          <input type="number" id="prepayMonth" value="0" min="0" max="360" step="1" placeholder="0=不提前还" oninput="calculate()">
+        </div>
+        <div class="form-group">
+          <label>提前还款金额 <span class="unit-label">¥</span></label>
+          <input type="number" id="prepayAmount" value="0" min="0" step="10000" placeholder="额外还本金" oninput="calculate()">
+        </div>
+      </div>
+      <div class="prepay-result" id="prepayResult" style="font-size:.82rem;color:var(--t2)"></div>
+    </div>
+  </div>
+
+  <!-- Right: Results -->
+  <div class="panel">
+    <h3 id="resultTitle">📊 等额本息 — 还款分析</h3>
+
+    <div class="result-hero">
+      <div class="big-number" id="monthlyPayment">¥19,320</div>
+      <div class="big-label">月还款额</div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="val" id="totalPayment">¥1,159,200</div>
+        <div class="lbl">总还款额</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="totalInterest">¥159,200</div>
+        <div class="lbl">总利息</div>
+      </div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="val" id="dscrValue">1.55</div>
+        <div class="lbl">DSCR 覆盖率</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="dscrRating">安全</div>
+        <div class="lbl">评级</div>
+      </div>
+    </div>
+
+    <!-- Comparison Chart -->
+    <div class="chart-container">
+      <canvas id="comparisonChart"></canvas>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="comparison-row" id="comparisonTable"></div>
+
+    <!-- Calculation Explanation (E-E-A-T) -->
+    <div class="info-box" id="calcExplanation">
+      <strong>📐 计算说明</strong><br>
+      <span id="formulaText">等额本息月还款额 = P × r × (1+r)<sup>n</sup> ÷ ((1+r)<sup>n</sup> − 1)，其中P=贷款本金，r=月利率（年利率÷12），n=还款期数。</span>
+    </div>
+
+    <!-- Disclaimer (YMYL) -->
+    <div class="disclaimer-box">
+      <strong>⚠️ 免责声明</strong><br>
+      本工具仅供估算参考，不构成贷款建议。实际贷款利率、还款方式和审批结果以银行或贷款机构最终审批为准。不同银行产品利率可能不同，建议多方比较。本工具使用的利率数据基于当前市场参考值，可能因政策调整而变化。
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="faq-section" style="max-width:1200px;margin:0 auto 40px;padding:24px 20px;">
+  <h2>❓ 常见问题</h2>
+  <div class="faq-item">
+    <div class="q">▸ 等额本息和等额本金有什么区别？</div>
+    <div class="a">等额本息每月还款金额固定，前期利息占比高、本金占比低，总利息较高；等额本金每月还款本金固定、利息逐月递减，前期还款压力大但总利息更低。企业经营贷通常推荐等额本金以降低总融资成本。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">▸ DSCR多少才算合格？</div>
+    <div class="a">DSCR（债务偿还覆盖率）= 月经营净收入 ÷ 月债务还款总额。银行通常要求DSCR≥1.25（经营贷）或≥1.5（设备贷）。DSCR<1说明当前收入无法覆盖还款，需要调整贷款金额或期限。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">▸ 提前还款能省多少利息？</div>
+    <div class="a">提前还款可以显著减少剩余期限的利息支出。等额本金方式下提前还款节省的利息相对较少（因为前期利息已经较低），等额本息方式下提前还款节省更多（因为前期利息占比较高）。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">▸ 2026年企业经营贷款利率大概多少？</div>
+    <div class="a">根据2026年央行LPR基准：1年期LPR约3.1%、5年期以上LPR约3.6%。实际企业经营贷利率通常在LPR基础上加点0.5-1.5个百分点，即3.6%-5.1%。小微企业信用贷利率可能更高（4%-8%）。具体以银行审批为准。</div>
+  </div>
+  <div class="faq-item">
+    <div class="q">▸ 这个计算器适用于哪些贷款类型？</div>
+    <div class="a">适用于企业经营贷、设备融资贷、小微企业信用贷、商业房产按揭贷等固定利率或浮动利率贷款的还款测算。消费贷和房贷也可参考使用，但利率政策不同。</div>
+  </div>
+</div>
+
+<script>
+(function(){
+var currentMode = 'installment'; // 'installment' or 'principal'
+var currentTerm = 60;
+var chart = null;
+
+function calculate(){
+  var P = parseFloat(document.getElementById('loanAmount').value) || 0;
+  var annualR = parseFloat(document.getElementById('annualRate').value) || 0;
+  var term = parseInt(document.getElementById('loanTerm').value) || 60;
+  var noi = parseFloat(document.getElementById('noi').value) || 0;
+  var otherDebt = parseFloat(document.getElementById('otherDebt').value) || 0;
+  var prepayMonth = parseInt(document.getElementById('prepayMonth').value) || 0;
+  var prepayAmount = parseFloat(document.getElementById('prepayAmount').value) || 0;
+  currentTerm = term;
+  
+  if (P <= 0 || annualR <= 0) {
+    document.getElementById('monthlyPayment').textContent = '¥0';
+    document.getElementById('totalPayment').textContent = '¥0';
+    document.getElementById('totalInterest').textContent = '¥0';
+    document.getElementById('dscrValue').textContent = 'N/A';
+    document.getElementById('dscrRating').textContent = '—';
+    return;
+  }
+
+  var r = annualR / 100 / 12; // monthly rate
+  var n = term;
+  
+  var monthlyPayment, totalPayment, totalInterest, schedule;
+  
+  if (currentMode === 'installment') {
+    // 等额本息 PMT formula
+    if (r === 0) {
+      monthlyPayment = P / n;
+      totalPayment = P;
+      totalInterest = 0;
+    } else {
+      var factor = Math.pow(1 + r, n);
+      monthlyPayment = P * r * factor / (factor - 1);
+      totalPayment = monthlyPayment * n;
+      totalInterest = totalPayment - P;
+    }
+    schedule = calcInstallmentSchedule(P, r, n, monthlyPayment);
+  } else {
+    // 等额本金
+    var monthlyPrincipal = P / n;
+    totalInterest = 0;
+    schedule = [];
+    var remaining = P;
+    for (var i = 0; i < n; i++) {
+      var interest = remaining * r;
+      totalInterest += interest;
+      schedule.push({principal: monthlyPrincipal, interest: interest, payment: monthlyPrincipal + interest, remaining: remaining - monthlyPrincipal});
+      remaining -= monthlyPrincipal;
+    }
+    monthlyPayment = schedule[0].payment; // first month (highest)
+    totalPayment = P + totalInterest;
+  }
+
+  // Prepayment calculation
+  var prepaySavings = 0;
+  if (prepayMonth > 0 && prepayMonth < n && prepayAmount > 0) {
+    var remainingAtPrepay = 0;
+    if (currentMode === 'installment') {
+      remainingAtPrepay = schedule[prepayMonth - 1] ? schedule[prepayMonth - 1].remaining - schedule[prepayMonth - 1].principal : P;
+    } else {
+      remainingAtPrepay = P - (P / n) * prepayMonth;
+    }
+    var newRemaining = Math.max(0, remainingAtPrepay - prepayAmount);
+    var remainingMonths = n - prepayMonth;
+    
+    if (currentMode === 'installment') {
+      if (r === 0) {
+        prepaySavings = 0;
+      } else {
+        var factor2 = Math.pow(1 + r, remainingMonths);
+        var newMonthly = newRemaining > 0 ? newRemaining * r * factor2 / (factor2 - 1) : 0;
+        var oldRemainingInterest = monthlyPayment * remainingMonths - Math.max(0, remainingAtPrepay);
+        var newRemainingInterest = newMonthly * remainingMonths - Math.max(0, newRemaining);
+        prepaySavings = oldRemainingInterest - newRemainingInterest;
+      }
+    } else {
+      var oldRemainingInterest = 0;
+      var tmpRemaining = remainingAtPrepay;
+      for (var j = 0; j < remainingMonths; j++) {
+        oldRemainingInterest += tmpRemaining * r;
+        tmpRemaining -= (remainingAtPrepay / remainingMonths);
+      }
+      var newRemainingInterest = 0;
+      var newMonthlyPrincipal = newRemaining / remainingMonths;
+      var tmpNew = newRemaining;
+      for (var k = 0; k < remainingMonths; k++) {
+        newRemainingInterest += tmpNew * r;
+        tmpNew -= newMonthlyPrincipal;
+      }
+      prepaySavings = oldRemainingInterest - newRemainingInterest;
+    }
+    prepaySavings = Math.max(0, prepaySavings);
+  }
+
+  // DSCR
+  var effectiveMonthlyPayment = (prepayMonth > 0 && prepayAmount > 0) ? 
+    (currentMode === 'installment' ? monthlyPayment : schedule[Math.min(prepayMonth, n-1)].payment) : monthlyPayment;
+  var totalDebtService = effectiveMonthlyPayment + otherDebt;
+  var dscr = totalDebtService > 0 ? noi / totalDebtService : 0;
+  var dscrRating = dscr >= 1.5 ? '✅ 优秀' : (dscr >= 1.25 ? '✅ 合格' : (dscr >= 1.0 ? '⚠️ 勉强' : '❌ 不足'));
+
+  // Update UI
+  document.getElementById('monthlyPayment').textContent = '¥' + formatNum(monthlyPayment);
+  document.getElementById('totalPayment').textContent = '¥' + formatNum(totalPayment);
+  document.getElementById('totalInterest').textContent = '¥' + formatNum(totalInterest);
+  document.getElementById('dscrValue').textContent = dscr > 0 ? dscr.toFixed(2) : 'N/A';
+  document.getElementById('dscrRating').textContent = dscrRating;
+  document.getElementById('dscrRating').style.color = dscr >= 1.25 ? 'var(--profit)' : (dscr >= 1.0 ? 'var(--p)' : 'var(--loss)');
+
+  // Prepayment result
+  var prepayEl = document.getElementById('prepayResult');
+  if (prepayMonth > 0 && prepayAmount > 0 && prepayMonth < n) {
+    prepayEl.innerHTML = '<span class="highlight">💰 提前还款可节省利息约 ¥' + formatNum(prepaySavings) + '</span>（第' + prepayMonth + '期后额外还¥' + formatNum(prepayAmount) + '本金）';
+  } else if (prepayMonth > 0 && prepayAmount > 0) {
+    prepayEl.innerHTML = '<span style="color:var(--loss)">提前还款期数不能超过贷款总期数</span>';
+  } else {
+    prepayEl.innerHTML = '设置提前还款期数和金额，查看可节省的利息';
+  }
+
+  // Formula text
+  document.getElementById('formulaText').innerHTML = currentMode === 'installment' ?
+    '等额本息月还款额 = P × r × (1+r)<sup>n</sup> ÷ ((1+r)<sup>n</sup> − 1)，其中 P=贷款本金¥'+formatNum(P)+'，r=月利率'+(annualR/100/12*100).toFixed(4)+'%，n='+n+'期。' :
+    '等额本金每月还款 = (P÷n) + (P−已还本金累计)×r，其中 P=贷款本金¥'+formatNum(P)+'，r=月利率'+(annualR/100/12*100).toFixed(4)+'%，n='+n+'期。每月偿还固定本金¥'+formatNum(P/n)+'，利息逐月递减。';
+
+  // Comparison table
+  updateComparisonTable(P, annualR, n, monthlyPayment, totalInterest, schedule);
+
+  // Chart
+  drawChart(schedule, n);
+
+  // Build opposite mode schedule for comparison
+  var oppSchedule, oppTotalInterest;
+  if (currentMode === 'installment') {
+    oppSchedule = calcPrincipalSchedule(P, r, n);
+    oppTotalInterest = oppSchedule.reduce(function(s, x){return s + x.interest;}, 0);
+    var oppMonthlyFirst = oppSchedule[0].payment;
+    var oppMonthlyLast = oppSchedule[oppSchedule.length-1].payment;
+    var oppTotal = P + oppTotalInterest;
+    updateComparisonTableForOpponent('等额本金（对比）', oppMonthlyFirst, oppMonthlyLast, oppTotal, oppTotalInterest);
+  } else {
+    if (r === 0) {
+      oppSchedule = [];
+      oppTotalInterest = 0;
+      updateComparisonTableForOpponent('等额本息（对比）', P/n, P/n, P, 0);
+    } else {
+      var factor = Math.pow(1 + r, n);
+      var oppMonthly = P * r * factor / (factor - 1);
+      var oppTotal = oppMonthly * n;
+      oppTotalInterest = oppTotal - P;
+      updateComparisonTableForOpponent('等额本息（对比）', oppMonthly, oppMonthly, oppTotal, oppTotalInterest);
+    }
+  }
+}
+
+function calcInstallmentSchedule(P, r, n, monthly) {
+  var schedule = [];
+  var remaining = P;
+  for (var i = 0; i < n; i++) {
+    var interest = remaining * r;
+    var principal = monthly - interest;
+    remaining -= principal;
+    schedule.push({principal: principal, interest: interest, payment: monthly, remaining: Math.max(0, remaining)});
+  }
+  return schedule;
+}
+
+function calcPrincipalSchedule(P, r, n) {
+  var schedule = [];
+  var remaining = P;
+  var monthlyPrincipal = P / n;
+  for (var i = 0; i < n; i++) {
+    var interest = remaining * r;
+    schedule.push({principal: monthlyPrincipal, interest: interest, payment: monthlyPrincipal + interest, remaining: remaining - monthlyPrincipal});
+    remaining -= monthlyPrincipal;
+  }
+  return schedule;
+}
+
+function updateComparisonTable(P, annualR, n, monthly, totalInterest, schedule) {
+  var tbl = document.getElementById('comparisonTable');
+  tbl.innerHTML = ''; // will be filled by updateComparisonTableForOpponent
+}
+
+function updateComparisonTableForOpponent(modeLabel, firstMonth, lastMonth, totalPayment, totalInt) {
+  var tbl = document.getElementById('comparisonTable');
+  var currentLabel = currentMode === 'installment' ? '等额本息' : '等额本金';
+  
+  var html = '<div class="comp-card"><h4>' + currentLabel + '</h4>';
+  html += '<div class="item"><span class="k">月还款（首月）</span><span class="v">¥' + formatNum(document.getElementById('monthlyPayment').textContent.replace('¥','')) + '</span></div>';
+  html += '<div class="item"><span class="k">总还款额</span><span class="v">' + document.getElementById('totalPayment').textContent + '</span></div>';
+  html += '<div class="item"><span class="k">总利息</span><span class="v">' + document.getElementById('totalInterest').textContent + '</span></div>';
+  html += '</div>';
+  
+  html += '<div class="comp-card"><h4>' + modeLabel + '</h4>';
+  html += '<div class="item"><span class="k">月还款（首月）</span><span class="v">¥' + formatNum(firstMonth) + '</span></div>';
+  html += '<div class="item"><span class="k">总还款额</span><span class="v">¥' + formatNum(totalPayment) + '</span></div>';
+  html += '<div class="item"><span class="k">总利息</span><span class="v">¥' + formatNum(totalInt) + '</span></div>';
+  html += '</div>';
+  
+  tbl.innerHTML = html;
+  
+  // Highlight winner
+  var currentInterest = parseFloat(document.getElementById('totalInterest').textContent.replace(/[^0-9.]/g,'')) || 0;
+  if (totalInt < currentInterest) {
+    // opponent wins on interest
+  }
+}
+
+function drawChart(schedule, n) {
+  var canvas = document.getElementById('comparisonChart');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  var rect = canvas.parentElement.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = 240 * dpr;
+  canvas.style.width = rect.width + 'px';
+  canvas.style.height = '240px';
+  ctx.scale(dpr, dpr);
+  
+  var W = rect.width;
+  var H = 240;
+  var pad = {top: 20, right: 20, bottom: 40, left: 60};
+  var pw = W - pad.left - pad.right;
+  var ph = H - pad.top - pad.bottom;
+  
+  ctx.clearRect(0, 0, W, H);
+  
+  // Background
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--card-bg').trim() || '#fff';
+  ctx.fillRect(0, 0, W, H);
+  
+  // Sample data points (max 24 for readability)
+  var step = Math.max(1, Math.floor(n / 24));
+  var points = [];
+  var maxVal = 0;
+  for (var i = 0; i < n; i += step) {
+    var interest = 0, principal = 0;
+    if (i < schedule.length) {
+      interest = schedule[i].interest;
+      principal = schedule[i].principal;
+    }
+    points.push({idx: i + 1, interest: interest, principal: principal, total: interest + principal});
+    maxVal = Math.max(maxVal, interest + principal);
+  }
+  
+  // Grid
+  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--b').trim() || '#e0e0e0';
+  ctx.lineWidth = 0.5;
+  var gridLines = 5;
+  for (var g = 0; g <= gridLines; g++) {
+    var y = pad.top + (ph / gridLines) * g;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(W - pad.right, y);
+    ctx.stroke();
+    
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--t2').trim() || '#636e72';
+    ctx.font = '10px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('¥' + formatNumShort(maxVal * (1 - g / gridLines)), pad.left - 6, y + 4);
+  }
+  
+  // X axis labels
+  ctx.textAlign = 'center';
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--t2').trim() || '#636e72';
+  var labelStep = Math.max(1, Math.floor(points.length / 6));
+  for (var l = 0; l < points.length; l += labelStep) {
+    var x = pad.left + (pw / (points.length - 1)) * l;
+    ctx.fillText(points[l].idx + '期', x, H - pad.bottom + 16);
+  }
+  
+  // Lines
+  function drawLine(dataKey, color) {
+    ctx.beginPath();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    var firstPoint = true;
+    for (var i = 0; i < points.length; i++) {
+      var x = pad.left + (pw / (points.length - 1)) * i;
+      var y = pad.top + ph - (points[i][dataKey] / maxVal) * ph;
+      if (firstPoint) { ctx.moveTo(x, y); firstPoint = false; }
+      else { ctx.lineTo(x, y); }
+    }
+    ctx.stroke();
+  }
+  
+  drawLine('principal', '#e65100'); // principal
+  drawLine('interest', '#1565c0'); // interest
+  drawLine('total', '#666'); // total (dashed)
+  
+  // Legend
+  var legendY = pad.top - 2;
+  ctx.font = '11px sans-serif';
+  ctx.fillStyle = '#e65100';
+  ctx.textAlign = 'left';
+  ctx.fillRect(W - 260, legendY - 8, 10, 10);
+  ctx.fillText('每月本金', W - 245, legendY);
+  ctx.fillStyle = '#1565c0';
+  ctx.fillRect(W - 170, legendY - 8, 10, 10);
+  ctx.fillText('每月利息', W - 155, legendY);
+}
+
+function formatNum(n) {
+  return (Math.round(n * 100) / 100).toLocaleString('zh-CN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+function formatNumShort(n) {
+  if (n >= 10000) return (n / 10000).toFixed(1) + '万';
+  return Math.round(n).toLocaleString('zh-CN');
+}
+
+function switchMode(mode) {
+  currentMode = mode;
+  document.getElementById('tabEqualInstallment').classList.toggle('active', mode === 'installment');
+  document.getElementById('tabEqualPrincipal').classList.toggle('active', mode === 'principal');
+  document.getElementById('resultTitle').textContent = mode === 'installment' ? '📊 等额本息 — 还款分析' : '📊 等额本金 — 还款分析';
+  calculate();
+}
+
+function loadSample() {
+  document.getElementById('loanAmount').value = '1000000';
+  document.getElementById('annualRate').value = '4.35';
+  document.getElementById('loanTerm').value = '60';
+  document.getElementById('noi').value = '30000';
+  document.getElementById('otherDebt').value = '0';
+  document.getElementById('prepayMonth').value = '0';
+  document.getElementById('prepayAmount').value = '0';
+  switchMode('installment');
+  calculate();
+}
+
+function resetAll() {
+  document.getElementById('loanAmount').value = '0';
+  document.getElementById('annualRate').value = '0';
+  document.getElementById('loanTerm').value = '60';
+  document.getElementById('noi').value = '0';
+  document.getElementById('otherDebt').value = '0';
+  document.getElementById('prepayMonth').value = '0';
+  document.getElementById('prepayAmount').value = '0';
+  switchMode('installment');
+  calculate();
+}
+
+function toggleTheme() {
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? '' : 'dark');
+  localStorage.setItem('theme', current === 'dark' ? 'light' : 'dark');
+  setTimeout(function(){ calculate(); }, 100);
+}
+
+// Init
+(function init() {
+  var saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  calculate();
+})();
+})();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></body>
+</html>

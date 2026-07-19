@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>打工vs自由职业薪资换算器 | 辞职做自由职业赚多少才不亏</title>
+<meta name="description" content="输入你的月薪，自动计算五险一金、年终奖、年假等隐藏福利的真实价值，得出你作为自由职业者需要收取的最低时薪。帮你做出理性的职业决策。">
+<meta name="keywords" content="打工vs自由职业,自由职业时薪计算,辞职做自由职业,薪资换算,自由职业收入,时薪计算器,五险一金计算,自由职业值不值">
+<link rel="canonical" href="https://toolkitbox.cn/freelance/salary-to-freelance/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg2: #f8f9fa;
+  --text: #1a1a2e;
+  --text2: #636e72;
+  --primary: #6c5ce7;
+  --primary-light: #a29bfe;
+  --accent: #00b894;
+  --accent2: #e17055;
+  --border: #e9ecef;
+  --card: #fff;
+  --shadow: 0 2px 12px rgba(0,0,0,.06);
+  --input-bg: #f8f9fa;
+  --highlight: #fff3e0;
+}
+body.dark {
+  --bg: #1a1a2e;
+  --bg2: #16213e;
+  --text: #e0e0e0;
+  --text2: #a0a0b0;
+  --primary: #a29bfe;
+  --primary-light: #6c5ce7;
+  --accent: #00b894;
+  --accent2: #e17055;
+  --border: #2d3436;
+  --card: #222244;
+  --shadow: 0 2px 12px rgba(0,0,0,.25);
+  --input-bg: #2d2d50;
+  --highlight: #2d2d20;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+body.dark{background:linear-gradient(135deg,#0f0f23,#1a1a2e)}
+.container{max-width:860px;margin:0 auto;padding:20px}
+header{text-align:center;padding:40px 20px 20px}
+header h1{font-size:1.8rem;color:var(--primary);margin-bottom:8px}
+header p{color:var(--text2);font-size:.95rem;line-height:1.6}
+.theme-toggle{position:fixed;top:20px;right:20px;width:44px;height:44px;border-radius:50%;border:2px solid var(--border);background:var(--card);cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;z-index:100;transition:.2s;box-shadow:var(--shadow)}
+.theme-toggle:hover{transform:scale(1.1)}
+.input-section{background:var(--card);border-radius:16px;padding:28px;margin:20px 0;box-shadow:var(--shadow);border:1px solid var(--border)}
+.input-section h2{font-size:1.2rem;margin-bottom:20px;color:var(--primary)}
+.input-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.input-group label{display:block;font-size:.85rem;color:var(--text2);margin-bottom:6px;font-weight:500}
+.input-group input,.input-group select{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:10px;font-size:.95rem;background:var(--input-bg);color:var(--text);transition:.2s;font-family:inherit}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(108,92,231,.15)}
+.preset-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.preset-btn{padding:8px 16px;border:1.5px solid var(--border);border-radius:20px;background:var(--bg2);color:var(--text);cursor:pointer;font-size:.82rem;transition:.2s;font-family:inherit}
+.preset-btn:hover,.preset-btn.active{border-color:var(--primary);background:rgba(108,92,231,.08);color:var(--primary)}
+.result-section{background:var(--card);border-radius:16px;padding:28px;margin:20px 0;box-shadow:var(--shadow);border:1px solid var(--border)}
+.result-section h2{font-size:1.2rem;margin-bottom:20px;color:var(--primary)}
+.comparison{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.comp-card{padding:24px;border-radius:12px;text-align:center}
+.comp-card.employee{background:linear-gradient(135deg,#e8eaf6,#f0edff);border:2px solid var(--primary-light)}
+body.dark .comp-card.employee{background:linear-gradient(135deg,#1a1a4e,#222260)}
+.comp-card.freelancer{background:linear-gradient(135deg,#e8f5e9,#e0f2f1);border:2px solid var(--accent)}
+body.dark .comp-card.freelancer{background:linear-gradient(135deg,#1a3a2e,#1a4a3e)}
+.comp-card .label{font-size:.85rem;color:var(--text2);margin-bottom:8px}
+.comp-card .amount{font-size:2rem;font-weight:700;margin-bottom:4px}
+.comp-card.employee .amount{color:#5c6bc0}
+body.dark .comp-card.employee .amount{color:#a29bfe}
+.comp-card.freelancer .amount{color:var(--accent)}
+.comp-card .sub{font-size:.8rem;color:var(--text2)}
+.vs-badge{display:flex;align-items:center;justify-content:center;padding:8px 0}
+.vs-badge span{background:var(--primary);color:#fff;padding:6px 16px;border-radius:20px;font-weight:600;font-size:.85rem}
+.breakdown{margin-top:20px}
+.breakdown h3{font-size:1rem;margin-bottom:12px;color:var(--text)}
+.breakdown-item{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;margin-bottom:6px;background:var(--bg2);border-radius:8px;font-size:.9rem}
+.breakdown-item .key{color:var(--text2);display:flex;align-items:center;gap:8px}
+.breakdown-item .val{font-weight:600;color:var(--text)}
+.breakdown-item .val.positive{color:var(--accent)}
+.breakdown-item .val.negative{color:var(--accent2)}
+.breakdown-item.highlight{background:var(--highlight);border-left:3px solid var(--accent2)}
+.insight-box{background:var(--bg2);border-radius:12px;padding:20px;margin-top:20px;border-left:4px solid var(--primary)}
+.insight-box h3{font-size:1rem;margin-bottom:10px;color:var(--primary)}
+.insight-box ul{list-style:none;padding:0}
+.insight-box li{padding:6px 0;font-size:.88rem;color:var(--text);line-height:1.6;display:flex;align-items:flex-start;gap:8px}
+.insight-box li::before{content:'→';color:var(--primary);flex-shrink:0}
+.assumptions{font-size:.8rem;color:var(--text2);margin-top:16px;line-height:1.6}
+.assumptions strong{color:var(--text)}
+footer{text-align:center;padding:30px 20px;color:var(--text2);font-size:.75rem}
+.chart-container{width:100%;max-width:400px;margin:20px auto}
+canvas{width:100%;height:auto}
+@media(max-width:600px){
+  .comparison{grid-template-columns:1fr}
+  .input-row{grid-template-columns:1fr}
+  header h1{font-size:1.4rem}
+  .comp-card .amount{font-size:1.5rem}
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" id="themeToggle" title="切换暗色模式">🌙</button>
+<div class="container">
+<header>
+  <h1>💰 打工 vs 自由职业 薪资换算器</h1>
+  <p>输入你的月薪，自动计算五险一金、年终奖、年假等隐藏福利。<br>告诉你：「辞职做自由职业，时薪多少才不亏？」</p>
+</header>
+
+<div class="input-section">
+  <h2>📋 输入你的情况</h2>
+  <div class="input-row">
+    <div class="input-group">
+      <label>期望月薪（税前）</label>
+      <input type="number" id="salary" value="20000" min="3000" max="200000" step="500">
+    </div>
+    <div class="input-group">
+      <label>城市</label>
+      <select id="city">
+        <option value="tier1">一线城市（北京/上海/广州/深圳）</option>
+        <option value="tier2" selected>新一线/二线（杭州/成都/武汉等）</option>
+        <option value="tier3">三线及以下</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>年终奖（月数）</label>
+      <input type="number" id="bonus" value="2" min="0" max="24" step="0.5">
+    </div>
+    <div class="input-group">
+      <label>年假天数</label>
+      <input type="number" id="annualLeave" value="10" min="0" max="30" step="1">
+    </div>
+    <div class="input-group">
+      <label>每日通勤时间（小时）</label>
+      <input type="number" id="commuteHours" value="1.5" min="0" max="5" step="0.5">
+    </div>
+    <div class="input-group">
+      <label>月通勤费用（元）</label>
+      <input type="number" id="commuteCost" value="300" min="0" max="5000" step="50">
+    </div>
+    <div class="input-group">
+      <label>自由职业 年可计费天数</label>
+      <input type="number" id="billableDays" value="200" min="100" max="260" step="5">
+    </div>
+    <div class="input-group">
+      <label>每日可计费小时</label>
+      <input type="number" id="billableHours" value="6" min="3" max="10" step="0.5">
+    </div>
+  </div>
+  <div class="preset-btns">
+    <span style="font-size:.82rem;color:var(--text2);line-height:32px;margin-right:4px">快速预设：</span>
+    <button class="preset-btn" data-preset="junior">应届生 8K</button>
+    <button class="preset-btn" data-preset="mid">3年经验 15K</button>
+    <button class="preset-btn active" data-preset="senior">5年+ 20K</button>
+    <button class="preset-btn" data-preset="lead">技术主管 35K</button>
+    <button class="preset-btn" data-preset="arch">架构师 50K</button>
+  </div>
+</div>
+
+<div class="result-section" id="results">
+  <h2>📊 收入对比</h2>
+  <div class="comparison">
+    <div class="comp-card employee">
+      <div class="label">🏢 打工年真实收入</div>
+      <div class="amount" id="empTotal">¥0</div>
+      <div class="sub">含五险一金+年终奖+福利</div>
+    </div>
+    <div class="comp-card freelancer">
+      <div class="label">🚀 自由职业需要赚到</div>
+      <div class="amount" id="freeTotal">¥0</div>
+      <div class="sub">才能和打工持平</div>
+    </div>
+  </div>
+  <div class="vs-badge"><span id="rateResult">你需要收取 ¥0 / 小时</span></div>
+  
+  <div class="chart-container"><canvas id="pieChart"></canvas></div>
+
+  <div class="breakdown">
+    <h3>🔍 详细拆解</h3>
+    <div id="breakdownItems"></div>
+  </div>
+
+  <div class="insight-box">
+    <h3>💡 关键洞察</h3>
+    <ul id="insights"></ul>
+  </div>
+
+  <div class="assumptions" id="assumptions"></div>
+</div>
+<footer>打工vs自由职业薪资换算器 · 数据仅供参考 · 实际决策请结合个人情况</footer>
+</div>
+
+<script>
+(function(){
+  const els={
+    salary:document.getElementById('salary'),
+    city:document.getElementById('city'),
+    bonus:document.getElementById('bonus'),
+    annualLeave:document.getElementById('annualLeave'),
+    commuteHours:document.getElementById('commuteHours'),
+    commuteCost:document.getElementById('commuteCost'),
+    billableDays:document.getElementById('billableDays'),
+    billableHours:document.getElementById('billableHours'),
+    empTotal:document.getElementById('empTotal'),
+    freeTotal:document.getElementById('freeTotal'),
+    rateResult:document.getElementById('rateResult'),
+    breakdownItems:document.getElementById('breakdownItems'),
+    insights:document.getElementById('insights'),
+    assumptions:document.getElementById('assumptions'),
+    pieChart:document.getElementById('pieChart')
+  };
+
+  // Social insurance rates by city tier
+  const SOCIAL_RATES={
+    tier1:{pension:0.16,medical:0.098,unemployment:0.005,injury:0.004,maternity:0.008,housing:0.12},
+    tier2:{pension:0.16,medical:0.08,unemployment:0.005,injury:0.004,maternity:0.008,housing:0.10},
+    tier3:{pension:0.16,medical:0.065,unemployment:0.005,injury:0.003,maternity:0.007,housing:0.08}
+  };
+  const SOCIAL_CAPS={tier1:34188,tier2:25000,tier3:18000};
+
+  function fmt(v){return '¥'+v.toLocaleString('zh-CN',{minimumFractionDigits:0,maximumFractionDigits:0})}
+
+  function calc(){
+    const salary=parseFloat(els.salary.value)||20000;
+    const city=els.city.value;
+    const bonusMonths=parseFloat(els.bonus.value)||2;
+    const annualLeave=parseFloat(els.annualLeave.value)||10;
+    const commuteH=parseFloat(els.commuteHours.value)||1.5;
+    const commuteC=parseFloat(els.commuteCost.value)||300;
+    const billableD=parseFloat(els.billableDays.value)||200;
+    const billableH=parseFloat(els.billableHours.value)||6;
+    const rates=SOCIAL_RATES[city];
+    const cap=SOCIAL_CAPS[city];
+    const socialBase=Math.min(salary,cap);
+
+    // === Employee side ===
+    // Social insurance employer portion
+    const empPension=socialBase*rates.pension;
+    const empMedical=socialBase*rates.medical;
+    const empUnemployment=socialBase*rates.unemployment;
+    const empInjury=socialBase*rates.injury;
+    const empMaternity=socialBase*rates.maternity;
+    const empHousing=socialBase*rates.housing;
+    const empSocialTotal=empPension+empMedical+empUnemployment+empInjury+empMaternity+empHousing;
+
+    // Social insurance employee portion (deducted from salary, so no need to add to total)
+    // Just for display: employee pays roughly 10.5% pension + 2% medical + 0.5% unemployment + housing
+    const eePension=socialBase*0.08;
+    const eeMedical=socialBase*0.02;
+    const eeUnemployment=socialBase*0.005;
+    const eeHousing=socialBase*rates.housing;
+    const eeSocialTotal=eePension+eeMedical+eeUnemployment+eeHousing;
+
+    // Annual bonus
+    const bonusAmount=salary*bonusMonths;
+
+    // Total employer cost
+    const annualBase=salary*12;
+    const employerCost=annualBase+empSocialTotal*12+bonusAmount;
+
+    // Paid leave value
+    const publicHolidays=11;
+    const totalPaidLeave=annualLeave+publicHolidays;
+    const paidLeaveValue=(salary/21.75)*totalPaidLeave;
+
+    // Commute cost (annual)
+    const annualCommuteCost=commuteC*12;
+
+    // Commute time value (opportunity cost)
+    const commuteHoursPerYear=commuteH*21.75*12;
+    const commuteTimeValue=(salary/21.75/8)*commuteHoursPerYear*0.5;
+
+    // Job security premium (risk of getting fired, severance N+1)
+    const jobSecurityPremium=salary*3;
+
+    // Other benefits: team building, training, equipment provided, free meals etc
+    const otherBenefits=salary*0.5;
+
+    // Total employee true value
+    const empTotalValue=employerCost+paidLeaveValue+annualCommuteCost+commuteTimeValue+jobSecurityPremium+otherBenefits;
+
+    // === Freelancer side ===
+    // Office & equipment cost
+    const officeCost=salary*0.08*12;
+
+    // Software & tools
+    const softwareCost=salary*0.02*12;
+
+    // Self-employment tax / 个税 (simplified: ~5-10% effective rate)
+    const freelanceTaxRate=0.08;
+    
+    // Insurance (self-paid)
+    const selfInsurance=salary*0.06*12;
+
+    // Non-billable time cost: admin, marketing, learning
+    const nonBillableOverhead=0.3;
+
+    // Total annual freelance cost to match
+    const freelancerCosts=officeCost+softwareCost+selfInsurance;
+    const totalFreelanceNeed=empTotalValue+freelancerCosts;
+
+    // Required hourly rate
+    const totalBillableHours=billableD*billableH;
+    const requiredHourlyRate=(totalFreelanceNeed/(totalBillableHours*(1-nonBillableOverhead)))*(1+freelanceTaxRate);
+
+    // === Display ===
+    els.empTotal.textContent=fmt(empTotalValue);
+    els.freeTotal.textContent=fmt(totalFreelanceNeed);
+    els.rateResult.textContent='你需要收取 '+fmt(requiredHourlyRate)+' / 小时';
+    if(requiredHourlyRate>=500)els.rateResult.textContent+=' 🔥';
+    else if(requiredHourlyRate>=200)els.rateResult.textContent+=' ⚡';
+
+    // Breakdown
+    const items=[
+      {key:'🏢 年度工资',val:annualBase,positive:false},
+      {key:'📊 企业五险一金（年）',val:empSocialTotal*12,positive:false,detail:'养老'+rates.pension*100+'%+医疗'+rates.medical*100+'%+失业'+rates.unemployment*100+'%+工伤'+rates.injury*100+'%+生育'+rates.maternity*100+'%+公积金'+rates.housing*100+'%'},
+      {key:'🎁 年终奖（'+bonusMonths+'个月）',val:bonusAmount,positive:false},
+      {key:'🏖️ 带薪假期价值（'+totalPaidLeave+'天）',val:paidLeaveValue,positive:false,detail:'年假'+annualLeave+'天+法定'+publicHolidays+'天'},
+      {key:'🚗 通勤费用（年）',val:annualCommuteCost,positive:false},
+      {key:'⏰ 通勤时间机会成本',val:commuteTimeValue,positive:false},
+      {key:'🛡️ 工作稳定性溢价（裁员补偿）',val:jobSecurityPremium,positive:false},
+      {key:'🎉 其他福利（团建/设备/餐补）',val:otherBenefits,positive:false},
+      {key:'💼 自由职业办公成本（年）',val:officeCost,negative:true},
+      {key:'💻 软件工具费（年）',val:softwareCost,negative:true},
+      {key:'🏥 自缴保险（年）',val:selfInsurance,negative:true},
+    ];
+    let html='';
+    items.forEach(it=>{
+      const cls=it.negative?'negative':(it.positive?'positive':'');
+      html+='<div class="breakdown-item'+(it.key.includes('稳定性')?' highlight':'')+'"><span class="key">'+it.key+(it.detail?' <small style="color:var(--text2);font-size:.75rem">('+it.detail+')</small>':'')+'</span><span class="val'+(cls?' '+cls:'')+'">'+(it.negative?'+':'')+fmt(it.val)+'</span></div>';
+    });
+    els.breakdownItems.innerHTML=html;
+
+    // Insights
+    const monthlyProjects=Math.ceil(requiredHourlyRate*billableH*22/salary);
+    const hourlyVsSalary=requiredHourlyRate/(salary/21.75/8);
+    const insightsArr=[
+      '你的<b>真实打工年收入</b>是 '+fmt(empTotalValue)+'，不是你想象中的 '+fmt(annualBase)+'。<b>隐藏福利占 '+Math.round((empTotalValue-annualBase)/empTotalValue*100)+'%</b>。',
+      '做自由职业，你需要<b>每月至少收入 '+fmt(totalFreelanceNeed/12)+'</b> 才能维持同等生活水平。',
+      '你的<b>最低时薪 = '+fmt(requiredHourlyRate)+'</b>（约是打工时薪的 '+hourlyVsSalary.toFixed(1)+' 倍）。低于这个数就是在「用自由换降薪」。',
+      '按每个项目 '+fmt(salary)+' 元估算，你每月需要接 <b>约 '+monthlyProjects+' 个项目</b>。',
+      totalPaidLeave>=15?'你有 '+totalPaidLeave+' 天带薪假期——自由职业没有带薪假，生病=没收入。':'你的带薪假期不多，转自由职业的假期损失相对较小。',
+      requiredHourlyRate>300?'⚡ 你的时薪要求较高（>300元/小时），建议聚焦<b>高客单价领域</b>（企业咨询、技术架构、产品设计），避开低价竞标平台。':'你的时薪在合理范围内，可以在主流自由职业平台（Upwork、程序员客栈）找到匹配项目。',
+      '年可计费天数假设为 '+billableD+' 天——实际自由职业者平均只有160-200天。如果低估了非计费时间，你的真实时薪需求会更高。'
+    ];
+    els.insights.innerHTML=insightsArr.map(i=>'<li>'+i+'</li>').join('');
+
+    // Assumptions
+    els.assumptions.innerHTML='<strong>计算假设：</strong>基于'+(city==='tier1'?'一线':(city==='tier2'?'新一线/二线':'三线'))+'城市五险一金比例（企业部分合计约'+(Math.round((rates.pension+rates.medical+rates.unemployment+rates.injury+rates.maternity+rates.housing)*100))+'%）。自由职业个税按综合所得约8%估算。年可计费天数'+billableD+'天，每日可计费'+billableH+'小时。通勤时间按时薪50%折价。未含自由职业获客成本（平台抽成/营销费用）。'+'社保缴费基数上限'+fmt(cap)+'。';
+
+    // Pie chart
+    drawPie(empTotalValue,totalFreelanceNeed-empTotalValue);
+  }
+
+  function drawPie(empVal,extraVal){
+    const canvas=els.pieChart;
+    if(!canvas)return;
+    const dpr=window.devicePixelRatio||1;
+    const w=400,h=280;
+    canvas.width=w*dpr;canvas.height=h*dpr;
+    canvas.style.width=w+'px';canvas.style.height=h+'px';
+    const ctx=canvas.getContext('2d');
+    ctx.scale(dpr,dpr);
+    ctx.clearRect(0,0,w,h);
+
+    const total=empVal+extraVal;
+    const cx=150,cy=140,r=90;
+    
+    // Pie slices
+    const empAngle=empVal/total*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,-Math.PI/2,-Math.PI/2+empAngle);
+    ctx.fillStyle='#6c5ce7';ctx.fill();
+    
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,r,-Math.PI/2+empAngle,-Math.PI/2+Math.PI*2);
+    ctx.fillStyle='#e17055';ctx.fill();
+
+    // Legend
+    const lx=270,ly=100;
+    ctx.fillStyle='#6c5ce7';
+    ctx.fillRect(lx,ly,14,14);
+    ctx.fillStyle=document.body.classList.contains('dark')?'#e0e0e0':'#1a1a2e';
+    ctx.font='13px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillText('打工收入',lx+20,ly+12);
+
+    ctx.fillStyle='#e17055';
+    ctx.fillRect(lx,ly+28,14,14);
+    ctx.fillText('自由职业需额外赚',lx+20,ly+40);
+
+    ctx.fillStyle='#6c5ce7';
+    ctx.font='bold 14px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText(Math.round(empVal/total*100)+'%',cx,cy-4);
+    ctx.fillText(Math.round(extraVal/total*100)+'%',cx+90,cy+20);
+    ctx.textAlign='start';
+  }
+
+  function save(){try{
+    const data={salary:els.salary.value,city:els.city.value,bonus:els.bonus.value,annualLeave:els.annualLeave.value,commuteHours:els.commuteHours.value,commuteCost:els.commuteCost.value,billableDays:els.billableDays.value,billableHours:els.billableHours.value};
+    localStorage.setItem('salary2freelance',JSON.stringify(data));
+  }catch(e){}}
+
+  function load(){try{
+    const d=JSON.parse(localStorage.getItem('salary2freelance'));
+    if(d){
+      if(d.salary)els.salary.value=d.salary;
+      if(d.city)els.city.value=d.city;
+      if(d.bonus)els.bonus.value=d.bonus;
+      if(d.annualLeave)els.annualLeave.value=d.annualLeave;
+      if(d.commuteHours)els.commuteHours.value=d.commuteHours;
+      if(d.commuteCost)els.commuteCost.value=d.commuteCost;
+      if(d.billableDays)els.billableDays.value=d.billableDays;
+      if(d.billableHours)els.billableHours.value=d.billableHours;
+    }
+  }catch(e){}}
+
+  // Theme
+  const themeToggle=document.getElementById('themeToggle');
+  function setTheme(dark){
+    document.body.classList.toggle('dark',dark);
+    themeToggle.textContent=dark?'☀️':'🌙';
+    try{localStorage.setItem('salary2freelance_theme',dark?'dark':'light')}catch(e){}
+    calc();
+  }
+  themeToggle.onclick=()=>setTheme(!document.body.classList.contains('dark'));
+  try{setTheme(localStorage.getItem('salary2freelance_theme')==='dark')}catch(e){}
+
+  // Presets
+  const presets={
+    junior:{salary:8000,bonus:1,annualLeave:5,commuteHours:1.5,commuteCost:200,billableDays:180},
+    mid:{salary:15000,bonus:2,annualLeave:7,commuteHours:1.5,commuteCost:300,billableDays:200},
+    senior:{salary:20000,bonus:2,annualLeave:10,commuteHours:1.5,commuteCost:300,billableDays:200},
+    lead:{salary:35000,bonus:3,annualLeave:12,commuteHours:1,commuteCost:500,billableDays:210},
+    arch:{salary:50000,bonus:4,annualLeave:15,commuteHours:1,commuteCost:800,billableDays:220}
+  };
+  document.querySelectorAll('.preset-btn').forEach(btn=>{
+    btn.onclick=function(){
+      document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active'));
+      this.classList.add('active');
+      const p=presets[this.dataset.preset];
+      if(p){
+        Object.entries(p).forEach(([k,v])=>{if(els[k])els[k].value=v});
+        calc();save();
+      }
+    };
+  });
+
+  // Events
+  [els.salary,els.city,els.bonus,els.annualLeave,els.commuteHours,els.commuteCost,els.billableDays,els.billableHours].forEach(el=>{
+    el.addEventListener('input',()=>{calc();save()});
+    el.addEventListener('change',()=>{calc();save()});
+  });
+
+  load();calc();
+})();
+</script>
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></body>
+</html>

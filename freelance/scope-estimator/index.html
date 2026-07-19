@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>项目工时报价估算器 - 自由职业者项目报价工具 | Project Scope Estimator</title>
+<meta name="description" content="自由职业者和独立开发者专用的项目工时报价估算工具。拆分项目任务→估算工时→自动计算总报价。支持复杂度调节、修改缓冲、沟通开销。告别拍脑袋报价,让每个项目有理有据。">
+<meta name="keywords" content="项目报价,工时估算,自由职业报价,项目预算,scope estimator,project estimate,工时计算,项目评估,独立开发者报价,接私活估价">
+<link rel="canonical" href="https://toolkitbox.cn/freelance/project-scope-estimator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root{--bg:#fff;--bg2:#f8f9fb;--t:#1a1a2e;--t2:#636e72;--t3:#999;--p:#6c5ce7;--p2:#a29bfe;--p3:#f0edff;--accent:#e17055;--green:#00b894;--green2:#55efc4;--green3:#e6fff5;--orange:#fdcb6e;--orange3:#fff8e1;--b:#e2e5ea;--b2:#ced4da;--s:0 2px 12px rgba(0,0,0,.06);--r:10px;--r2:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#e8f5e9,#e3f2fd);color:var(--t);min-height:100vh;line-height:1.6}
+.header{background:var(--bg);padding:12px 24px;border-bottom:1px solid var(--b);position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.header a{color:var(--p);text-decoration:none;font-weight:600;font-size:.88rem}
+.header .sep{color:var(--t3)}
+.container{max-width:780px;margin:0 auto;padding:16px}
+h1{text-align:center;font-size:1.6rem;margin:4px 0;color:#1565c0;font-weight:800}
+.sub{text-align:center;color:var(--t2);margin-bottom:18px;font-size:.85rem}
+
+.card{background:var(--bg);border-radius:var(--r2);padding:20px;box-shadow:var(--s);margin-bottom:14px;border:1px solid var(--b)}
+.card h3{font-size:.92rem;margin-bottom:12px;color:#1565c0;display:flex;align-items:center;gap:6px}
+.fg{margin-bottom:10px}
+.fg label{display:block;font-size:.78rem;font-weight:600;margin-bottom:4px;color:var(--t2)}
+.fg input,.fg select{width:100%;padding:9px 12px;border:1.5px solid var(--b);border-radius:8px;font-size:.85rem;outline:none;background:var(--bg);color:var(--t);transition:.2s}
+.fg input:focus,.fg select:focus{border-color:var(--p);box-shadow:0 0 0 3px var(--p3)}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:500px){.row2,.row3{grid-template-columns:1fr}}
+
+.task-list{margin-bottom:8px}
+.task-item{display:grid;grid-template-columns:2fr 1fr 100px 32px;gap:6px;align-items:center;margin-bottom:8px;padding:8px;background:var(--bg2);border-radius:8px;border:1px solid var(--b)}
+.task-item input,.task-item select{border:1.5px solid var(--b);border-radius:6px;padding:7px 8px;font-size:.82rem;background:var(--bg);color:var(--t);width:100%}
+.task-item input:focus,.task-item select:focus{outline:none;border-color:var(--p)}
+.task-item .del-btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:7px 10px;cursor:pointer;font-size:.82rem;transition:.15s}
+.task-item .del-btn:hover{opacity:.85}
+@media(max-width:500px){.task-item{grid-template-columns:1fr 80px 28px;gap:4px}.task-item select{font-size:.75rem}}
+
+.btn{display:inline-flex;align-items:center;gap:4px;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;transition:.2s}
+.btn-primary{background:var(--p);color:#fff}
+.btn-primary:hover{background:#5a4bd1}
+.btn-outline{background:var(--bg);color:var(--p);border:1.5px solid var(--p)}
+.btn-outline:hover{background:var(--p3)}
+.btn-sm{padding:5px 10px;font-size:.76rem}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+
+.buffer-slider{width:100%;margin:8px 0;-webkit-appearance:none;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--green),var(--accent));outline:none}
+.buffer-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--p);cursor:pointer;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+.buffer-val{text-align:center;font-weight:700;color:var(--p);font-size:.95rem;margin-top:2px}
+
+.result-card{background:linear-gradient(135deg,#e8f5e9,#e3f2fd);border-radius:var(--r2);padding:20px;text-align:center;border:1.5px solid var(--b)}
+.result-card .big{font-size:2.2rem;font-weight:800;color:#1565c0}
+.result-card .unit{color:var(--t2);font-size:.82rem;margin-top:2px}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.result-grid .item{background:var(--bg);padding:12px;border-radius:10px;text-align:center;font-size:.76rem;color:var(--t2);border:1px solid var(--b)}
+.result-grid .item .val{font-size:1.2rem;font-weight:700;color:var(--p)}
+@media(max-width:500px){.result-grid{grid-template-columns:1fr}}
+
+.breakdown-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:10px}
+.breakdown-table th{text-align:left;padding:8px 6px;border-bottom:2px solid var(--b);color:var(--t2);font-size:.75rem;font-weight:600}
+.breakdown-table td{padding:8px 6px;border-bottom:1px solid var(--b)}
+.breakdown-table .total-row{font-weight:700;color:var(--p);font-size:.9rem}
+.breakdown-table .total-row td{border-top:2px solid var(--p);padding-top:10px}
+.breakdown-table .complexity-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:600}
+.breakdown-table .tag-easy{background:var(--green3);color:var(--green)}
+.breakdown-table .tag-mid{background:var(--orange3);color:#e17055}
+.breakdown-table .tag-hard{background:#ffeaea;color:var(--accent)}
+
+.info-block{background:var(--bg);padding:18px;border-radius:var(--r2);box-shadow:var(--s);border:1px solid var(--b);font-size:.82rem;color:var(--t2);line-height:1.7}
+.info-block p{margin-bottom:6px}
+.info-block strong{color:var(--t)}
+
+.empty-state{text-align:center;padding:24px;color:var(--t3);font-size:.85rem}
+.empty-state .emoji{font-size:2rem;margin-bottom:8px}
+
+.price-input-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 14px;background:var(--bg2);border-radius:8px;border:1px dashed var(--b)}
+.price-input-row label{font-size:.8rem;color:var(--t2);white-space:nowrap}
+.price-input-row input{width:120px;padding:7px 10px;border:1.5px solid var(--b);border-radius:6px;font-size:.85rem;text-align:center;background:var(--bg)}
+.price-input-row .price-result{font-weight:700;color:var(--accent);font-size:1.1rem}
+
+.footer{text-align:center;padding:20px;color:var(--t3);font-size:.75rem}
+ins.adsbygoogle{display:block;min-height:0;max-height:0;overflow:hidden}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/">&#x1F9F0; ToolkitBox</a><span class="sep">/</span><span>&#x1F4CA; 项目工时报价估算器</span>
+</header>
+
+<div class="container">
+  <h1>&#x1F4CA; 项目工时报价估算器</h1>
+  <p class="sub">拆分任务 &#x2192; 估算工时 &#x2192; 加上缓冲 &#x2192; 有理有据的项目报价</p>
+
+  <!-- Project Info -->
+  <div class="card">
+    <h3>&#x1F4CB; 项目信息</h3>
+    <div class="row2">
+      <div class="fg">
+        <label>项目名称</label>
+        <input type="text" id="projectName" placeholder="例如：电商网站开发" oninput="updateResult()">
+      </div>
+      <div class="fg">
+        <label>项目类型</label>
+        <select id="projectType" onchange="updateResult()">
+          <option value="web">&#x1F310; 网站开发</option>
+          <option value="app">&#x1F4F1; App开发</option>
+          <option value="design">&#x1F3A8; UI/UX设计</option>
+          <option value="content">&#x270D;&#xFE0F; 内容创作</option>
+          <option value="consulting">&#x1F4BC; 咨询服务</option>
+          <option value="other">&#x1F4E6; 其他项目</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks -->
+  <div class="card">
+    <h3>&#x2705; 项目任务拆分</h3>
+    <div class="task-list" id="taskList">
+      <div class="empty-state">
+        <div class="emoji">&#x1F4DD;</div>
+        <p>还没有添加任务。点击下方按钮添加。</p>
+      </div>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="addTask()">&#xFF0B; 添加任务</button>
+    <div style="margin-top:10px;padding:8px 12px;background:var(--bg2);border-radius:8px;font-size:.76rem;color:var(--t2)">
+      &#x1F4A1; <b>复杂度说明：</b>简单=熟练可快速完成 &nbsp;|&nbsp; 中等=需要一定研究和调试 &nbsp;|&nbsp; 复杂=技术难点或大量未知因素
+    </div>
+  </div>
+
+  <!-- Buffers -->
+  <div class="card">
+    <h3>&#x1F504; 缓冲设置</h3>
+    <div class="row2">
+      <div class="fg">
+        <label>&#x1F503; 客户修改缓冲 (%)</label>
+        <input type="range" class="buffer-slider" id="revisionBuffer" min="0" max="50" value="20" step="5" oninput="document.getElementById('revVal').textContent=this.value+'%';updateResult()">
+        <div class="buffer-val" id="revVal">20%</div>
+        <div style="font-size:.72rem;color:var(--t2);margin-top:4px">客户通常会要求2-3轮修改</div>
+      </div>
+      <div class="fg">
+        <label>&#x1F4AC; 沟通/管理开销 (%)</label>
+        <input type="range" class="buffer-slider" id="commBuffer" min="0" max="40" value="15" step="5" oninput="document.getElementById('commVal').textContent=this.value+'%';updateResult()">
+        <div class="buffer-val" id="commVal">15%</div>
+        <div style="font-size:.72rem;color:var(--t2);margin-top:4px">会议、邮件、需求澄清等</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="result-card">
+    <div class="big" id="totalHours">0</div>
+    <div class="unit">预估总工时（小时）</div>
+    <div class="result-grid">
+      <div class="item">
+        <div class="val" id="optHours">0</div>
+        乐观估计（小时）
+      </div>
+      <div class="item">
+        <div class="val" id="realHours">0</div>
+        现实估计（小时）
+      </div>
+      <div class="item">
+        <div class="val" id="pessHours">0</div>
+        悲观估计（小时）
+      </div>
+    </div>
+    <div class="result-grid" style="margin-top:10px">
+      <div class="item">
+        <div class="val" id="taskCount" style="color:var(--green)">0</div>
+        任务数
+      </div>
+      <div class="item">
+        <div class="val" id="baseHours" style="color:var(--accent)">0</div>
+        基础工时（小时）
+      </div>
+      <div class="item">
+        <div class="val" id="bufferHours" style="color:#f39c12">0</div>
+        缓冲工时（小时）
+      </div>
+    </div>
+    <div class="price-input-row">
+      <label>&#x1F4B0; 时薪（元/小时）：</label>
+      <input type="number" id="hourlyRate" placeholder="例：200" min="0" step="10" oninput="updateResult()">
+      <span style="font-size:.8rem;color:var(--t2)">&#x2192; 项目总报价：</span>
+      <span class="price-result" id="totalPrice">&#xFFE5;0</span>
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <div class="card" id="breakdownCard" style="display:none">
+    <h3>&#x1F4CA; 工时明细</h3>
+    <div style="overflow-x:auto">
+      <table class="breakdown-table" id="breakdownTable">
+        <thead><tr><th>任务</th><th>复杂度</th><th>基础工时</th><th>权重后</th></tr></thead>
+        <tbody id="breakdownBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="info-block">
+    <h3 style="color:var(--t);margin-bottom:8px;font-size:.92rem">&#x1F4D6; 报价策略指南</h3>
+    <p><strong>1. 不要报单一数字：</strong>给客户一个范围（如 ¥15,000-20,000），既显得专业又留有谈判空间。</p>
+    <p><strong>2. 固定价 vs 按时计费：</strong>需求明确的项目用固定价（客户喜欢确定性），需求模糊的项目按时计费（保护自己不被无限修改消耗）。</p>
+    <p><strong>3. 首付30-50%：</strong>新客户务必收首付款再开工。老客户可以放宽到项目完成后再付款，但也要有书面约定。</p>
+    <p><strong>4. 超出范围另算：</strong>合同里明确写明"超出本报价单范围的需求按 ¥xxx/小时 另计"。这是自由职业者最重要的自我保护条款。</p>
+    <p><strong>5. 配合时薪计算器使用：</strong>先用本站的 <a href="/freelance/" style="color:var(--p)">自由职业报价计算器</a> 算出你的合理时薪，再到这里估算项目总报价。</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>项目工时报价估算器 | 数据仅保存在浏览器本地 | &copy; 2026</p>
+</footer>
+
+<ins class="adsbygoogle" style="display:block;min-height:0;max-height:0;overflow:hidden" data-ad-client="ca-pub-3563043653255879" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+
+<script>
+var tasks = [];
+
+function addTask() {
+  tasks.push({ name: '', hours: 4, complexity: 'medium' });
+  renderTasks();
+  updateResult();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  renderTasks();
+  updateResult();
+}
+
+function updateTask(index, field, value) {
+  tasks[index][field] = value;
+  updateResult();
+}
+
+function renderTasks() {
+  var list = document.getElementById('taskList');
+  if (tasks.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div class="emoji">&#x1F4DD;</div><p>还没有添加任务。点击下方按钮添加。</p></div>';
+    return;
+  }
+  var html = '';
+  var cOpts = '<option value="easy">&#x1F7E2; 简单</option><option value="medium" selected>&#x1F7E1; 中等</option><option value="hard">&#x1F534; 复杂</option>';
+  tasks.forEach(function(t, i) {
+    var selE = t.complexity === 'easy' ? 'selected' : '';
+    var selM = t.complexity === 'medium' ? 'selected' : '';
+    var selH = t.complexity === 'hard' ? 'selected' : '';
+    html += '<div class="task-item">'
+      + '<input type="text" placeholder="任务名称" value="' + escHtml(t.name) + '" oninput="updateTask(' + i + ',\'name\',this.value)" onchange="updateTask(' + i + ',\'name\',this.value)">'
+      + '<input type="number" placeholder="工时" value="' + t.hours + '" min="0.5" step="0.5" style="text-align:center" oninput="updateTask(' + i + ',\'hours\',parseFloat(this.value)||0)" onchange="updateTask(' + i + ',\'hours\',parseFloat(this.value)||0)">'
+      + '<select onchange="updateTask(' + i + ',\'complexity\',this.value)">'
+      + '<option value="easy"' + selE + '>简单</option>'
+      + '<option value="medium"' + selM + '>中等</option>'
+      + '<option value="hard"' + selH + '>复杂</option>'
+      + '</select>'
+      + '<button class="del-btn" onclick="removeTask(' + i + ')" title="删除">&#xD7;</button>'
+      + '</div>';
+  });
+  list.innerHTML = html;
+}
+
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+var COMPLEXITY = { easy: 0.8, medium: 1.0, hard: 1.5 };
+
+function updateResult() {
+  // Calculate base hours
+  var base = 0;
+  tasks.forEach(function(t) {
+    var factor = COMPLEXITY[t.complexity] || 1.0;
+    base += (t.hours || 0) * factor;
+  });
+
+  var revPct = parseInt(document.getElementById('revisionBuffer').value) / 100;
+  var commPct = parseInt(document.getElementById('commBuffer').value) / 100;
+  var totalBuffer = revPct + commPct;
+
+  var bufferHours = Math.round(base * totalBuffer * 10) / 10;
+  var realTotal = Math.round((base + bufferHours) * 10) / 10;
+
+  var optTotal = Math.round(base * 0.85 * 10) / 10;  // 85% of base = optimistic
+  var pessTotal = Math.round(realTotal * 1.3 * 10) / 10;  // 130% of realistic = pessimistic
+
+  document.getElementById('baseHours').textContent = base.toFixed(1);
+  document.getElementById('bufferHours').textContent = bufferHours.toFixed(1);
+  document.getElementById('totalHours').textContent = realTotal > 0 ? realTotal.toFixed(1) : '0';
+  document.getElementById('optHours').textContent = optTotal > 0 ? optTotal.toFixed(1) : '0';
+  document.getElementById('realHours').textContent = realTotal > 0 ? realTotal.toFixed(1) : '0';
+  document.getElementById('pessHours').textContent = pessTotal > 0 ? pessTotal.toFixed(1) : '0';
+  document.getElementById('taskCount').textContent = tasks.length;
+
+  // Price
+  var rate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+  var price = Math.round(realTotal * rate);
+  document.getElementById('totalPrice').textContent = price > 0 ? '\uFFE5' + price.toLocaleString() : '\uFFE5 0';
+
+  // Breakdown table
+  var breakdownCard = document.getElementById('breakdownCard');
+  var breakdownBody = document.getElementById('breakdownBody');
+  if (tasks.length > 0) {
+    breakdownCard.style.display = '';
+    var bhtml = '';
+    tasks.forEach(function(t) {
+      var factor = COMPLEXITY[t.complexity] || 1.0;
+      var weighted = (t.hours || 0) * factor;
+      var tagClass = t.complexity === 'easy' ? 'tag-easy' : t.complexity === 'hard' ? 'tag-hard' : 'tag-mid';
+      var tagText = t.complexity === 'easy' ? '简单' : t.complexity === 'hard' ? '复杂' : '中等';
+      bhtml += '<tr><td>' + escHtml(t.name || '(未命名)') + '</td>'
+        + '<td><span class="complexity-tag ' + tagClass + '">' + tagText + '</span></td>'
+        + '<td>' + (t.hours || 0) + 'h</td>'
+        + '<td>' + weighted.toFixed(1) + 'h</td></tr>';
+    });
+    bhtml += '<tr class="total-row"><td colspan="3">基础工时小计</td><td>' + base.toFixed(1) + 'h</td></tr>';
+    bhtml += '<tr class="total-row"><td colspan="3">+ 缓冲 (' + Math.round(totalBuffer*100) + '%)</td><td>' + bufferHours.toFixed(1) + 'h</td></tr>';
+    bhtml += '<tr class="total-row"><td colspan="3">= 合计</td><td>' + realTotal.toFixed(1) + 'h</td></tr>';
+    breakdownBody.innerHTML = bhtml;
+  } else {
+    breakdownCard.style.display = 'none';
+  }
+}
+
+// Initialize with sample task
+tasks.push({ name: '需求分析与沟通', hours: 4, complexity: 'medium' });
+tasks.push({ name: 'UI/UX设计', hours: 12, complexity: 'medium' });
+tasks.push({ name: '前端开发', hours: 24, complexity: 'hard' });
+tasks.push({ name: '后端API开发', hours: 20, complexity: 'hard' });
+tasks.push({ name: '测试与修复', hours: 8, complexity: 'medium' });
+tasks.push({ name: '部署上线', hours: 3, complexity: 'easy' });
+renderTasks();
+updateResult();
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"项目工时报价估算器","applicationCategory":"BusinessApplication","description":"自由职业者项目工时和报价估算工具"}</script>
+</body>
+</html>
