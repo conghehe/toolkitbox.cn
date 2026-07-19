@@ -79,6 +79,24 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://toolkitbox.cn/blog/author/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://toolkitbox.cn/blog/ecommerce-profit-guide/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://toolkitbox.cn/blog/freelance-profit-guide/</loc>
+    <lastmod>2026-07-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://toolkitbox.cn/carbon-calculator/</loc>
     <lastmod>2026-07-19</lastmod>
     <changefreq>weekly</changefreq>
