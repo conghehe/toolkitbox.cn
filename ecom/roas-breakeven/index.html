@@ -273,11 +273,11 @@ function calculate(){
   document.getElementById('ltvCacRs').querySelector('.val').textContent=fmt(ltvCac)+'x';
 
   // 颜色标记
-  var beRoas=document.getElementById('beRoasRs');
-  var actualRoas=document.getElementById('roasRs');
-  if(netProfit>0){actualRoas.className='rs good';beRoas.className='rs good';}
-  else if(netProfit>-adSpend*0.1){actualRoas.className='rs warn';beRoas.className='rs warn';}
-  else{actualRoas.className='rs good';beRoas.className='rs warn';}
+  var beRoasEl=document.getElementById('beRoasRs');
+  var actualRoasEl=document.getElementById('roasRs');
+  if(netProfit>0){actualRoasEl.className='rs good';beRoasEl.className='rs good';}
+  else if(netProfit>-adSpend*0.1){actualRoasEl.className='rs warn';beRoasEl.className='rs warn';}
+  else{actualRoasEl.className='rs good';beRoasEl.className='rs warn';}
 
   var nr=document.getElementById('netRoiRs');
   if(netRoi>0.5){nr.className='rs good';}
