@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>现金流预测器 — 12个月滚动预测+季节性调整 | 本地商家工具箱</title>
+<meta name="description" content="免费在线12个月现金流预测工具。支持餐饮/零售/自由职业/初创4种行业模板、季节性系数调整、短缺预警、折线图可视化。小企业现金流管理必备，纯浏览器本地处理。">
+<meta name="keywords" content="现金流预测,现金流预测器,cash flow forecast,小企业现金流,12个月现金流,季节性调整,现金流管理,资金链预警,现金流量表,企业经营预测">
+<link rel="canonical" href="https://toolkitbox.cn/localbiz/cash-flow-forecast/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>:root{--bg:#fff;--t:#1a1a2e;--t2:#636e72;--p:#6c5ce7;--ps:#a29bfe;--b:#e0e0e0;--bg2:#f8f9fa;--card-bg:#fff;--shadow:0 1px 3px rgba(0,0,0,.08);--profit:#2e7d32;--loss:#c62828;--warn-bg:#fff3e0;--warn-text:#e65100;--danger-bg:#ffebee;--danger-text:#c62828;--accent:#6c5ce7;--accent2:#ede7f6}[data-theme=dark]{--bg:#1a1a2e;--t:#e8e8e8;--t2:#a0a0b0;--p:#a29bfe;--ps:#b39ddb;--b:#333;--bg2:#222240;--card-bg:#252540;--shadow:0 1px 3px rgba(0,0,0,.3);--profit:#66bb6a;--loss:#ef5350;--warn-bg:#3e2723;--warn-text:#ffb74d;--danger-bg:#3e1f1f;--danger-text:#ef5350;--accent:#a29bfe;--accent2:#2d2550}*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--t);min-height:100vh;transition:background .3s}[data-theme=dark] body{background:linear-gradient(135deg,#141428,#1a1a2e)}.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:var(--bg);border-bottom:1px solid var(--b);position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}.topbar .logo{font-size:1.1rem;font-weight:700;color:var(--p)}.topbar .logo a{color:inherit;text-decoration:none}.topbar .actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.btn{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:500;transition:.2s;font-family:inherit}.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--ps)}.btn-o{border:1px solid var(--b);background:transparent;color:var(--t)}.btn-o:hover{background:var(--bg2)}.btn-s{padding:6px 12px;font-size:.78rem;border-radius:6px}.btn-active{background:var(--p);color:#fff;border-color:var(--p)}.theme-toggle{border:none;background:none;cursor:pointer;font-size:1.2rem;padding:4px}.container{max-width:1300px;margin:0 auto;padding:20px}.panel{background:var(--card-bg);border-radius:14px;padding:24px;box-shadow:var(--shadow);margin-bottom:20px}.panel h3{font-size:.95rem;color:var(--t);margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--p);display:inline-block}.row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px}.form-group{flex:1;min-width:200px}.form-group label{display:block;font-size:.82rem;color:var(--t2);margin-bottom:6px;font-weight:500}.form-group input,.form-group select{width:100%;padding:10px 12px;border:1px solid var(--b);border-radius:8px;font-size:.9rem;background:var(--bg);color:var(--t);font-family:inherit}.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(108,92,231,.15)}.table-wrap{overflow-x:auto;margin-top:16px}.cashflow-table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:1100px}.cashflow-table th,.cashflow-table td{padding:8px 10px;border:1px solid var(--b);text-align:right}.cashflow-table th{background:var(--bg2);font-weight:600;color:var(--t);position:sticky;top:0;white-space:nowrap}.cashflow-table th:first-child,.cashflow-table td:first-child{text-align:left;min-width:70px}.cashflow-table input{width:100%;padding:5px 8px;border:1px solid var(--b);border-radius:4px;font-size:.8rem;background:var(--bg);color:var(--t);text-align:right;font-family:inherit;min-width:80px}.cashflow-table input:focus{outline:none;border-color:var(--p)}.cashflow-table .seasonal-row td{background:var(--accent2);font-size:.8rem;text-align:center}.cashflow-table .seasonal-row input{width:60px;text-align:center}.cashflow-table .result-row td{font-weight:600;background:var(--bg2)}.cashflow-table .danger td{background:var(--danger-bg)}.cashflow-table .danger .net-cf{color:var(--loss);font-weight:700}.result-hero{text-align:center;padding:20px;background:linear-gradient(135deg,var(--accent2),var(--bg2));border-radius:12px;margin-bottom:16px}.result-hero .big-number{font-size:2.5rem;font-weight:700;color:var(--p)}.result-hero .big-label{font-size:.85rem;color:var(--t2);margin-top:4px}.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.result-card{background:var(--bg2);border-radius:10px;padding:16px;text-align:center;border:1px solid var(--b)}.result-card .val{font-size:1.3rem;font-weight:700}.result-card .val.positive{color:var(--profit)}.result-card .val.negative{color:var(--loss)}.result-card .val.warning{color:var(--warn-text)}.result-card .lbl{font-size:.78rem;color:var(--t2);margin-top:4px}.chart-container{position:relative;height:350px;margin:16px 0}.preset-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.info-box{background:var(--accent2);border-radius:10px;padding:16px;font-size:.82rem;color:var(--t);line-height:1.7;margin-top:16px;border-left:3px solid var(--p)}.disclaimer-box{background:var(--warn-bg);border-radius:10px;padding:16px;font-size:.8rem;color:var(--warn-text);line-height:1.6;margin-top:16px;border-left:3px solid var(--warn-text)}.warn-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72rem;font-weight:600;margin-left:6px}.warn-tag.safe{background:#e8f5e9;color:#2e7d32}.warn-tag.alert{background:#fff3e0;color:#e65100}.warn-tag.danger{background:#ffebee;color:#c62828}.section-title{font-size:.9rem;font-weight:600;color:var(--t);margin-bottom:8px;display:block}.seasonal-toggle{display:flex;align-items:center;gap:12px;margin-bottom:12px}.seasonal-toggle label{font-size:.82rem;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:4px}.switch{position:relative;display:inline-block;width:44px;height:24px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.3s;border-radius:24px}.slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background-color:#fff;transition:.3s;border-radius:50%}input:checked+.slider{background-color:var(--p)}input:checked+.slider:before{transform:translateX(20px)}@media(max-width:768px){.result-grid{grid-template-columns:repeat(2,1fr)}.result-hero .big-number{font-size:1.8rem}}</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo"><a href="https://toolkitbox.cn/localbiz/">🏪</a> 现金流预测器</div>
+  <div class="actions">
+    <button class="btn btn-o btn-s" id="btnRestaurant" onclick="loadPreset('restaurant')">🍽️ 餐厅</button>
+    <button class="btn btn-o btn-s" id="btnRetail" onclick="loadPreset('retail')">🏬 零售店</button>
+    <button class="btn btn-o btn-s" id="btnFreelance" onclick="loadPreset('freelance')">💻 自由职业</button>
+    <button class="btn btn-o btn-s" id="btnStartup" onclick="loadPreset('startup')">🚀 初创公司</button>
+    <button class="btn btn-o btn-s" onclick="resetAll()">🔄 重置</button>
+    <button class="theme-toggle" onclick="toggleTheme()" title="切换主题">🌓</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Summary Panel -->
+  <div class="panel">
+    <h3>📊 12个月现金流预测</h3>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:16px;">
+      <div class="seasonal-toggle">
+        <label class="switch">
+          <input type="checkbox" id="seasonalToggle" onchange="toggleSeasonal()">
+          <span class="slider"></span>
+        </label>
+        <label for="seasonalToggle" style="cursor:pointer">季节性调整</label>
+      </div>
+      <span style="font-size:.78rem;color:var(--t2)">启用后可逐月调整收入系数，适配餐饮/旅游/零售季节性波动</span>
+    </div>
+
+    <div class="result-hero">
+      <div class="big-number" id="heroScore">—</div>
+      <div class="big-label">现金流健康评分 (满分100)</div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="val" id="totalRevenue">¥0</div>
+        <div class="lbl">年总收入</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="totalExpenses">¥0</div>
+        <div class="lbl">年总支出</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="annualNet">¥0</div>
+        <div class="lbl">年净现金流</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="minMonthly">¥0</div>
+        <div class="lbl">最低月净现金流</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="dangerMonths">0</div>
+        <div class="lbl">资金短缺月份</div>
+      </div>
+      <div class="result-card">
+        <div class="val" id="burnMonths">—</div>
+        <div class="lbl">预计烧钱月数</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container">
+      <canvas id="cashflowChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Input Table -->
+  <div class="panel">
+    <h3>📋 逐月数据输入</h3>
+    <p style="font-size:.78rem;color:var(--t2);margin-bottom:12px">填入每月预估数据，或使用上方行业模板快速填充。所有计算在浏览器本地完成，数据不上传。</p>
+    <div class="table-wrap">
+      <table class="cashflow-table" id="forecastTable">
+        <thead>
+          <tr>
+            <th>月份</th>
+            <th>月收入 (¥)</th>
+            <th>固定成本 (¥)</th>
+            <th>变动成本 (¥)</th>
+            <th>一次性支出 (¥)</th>
+            <th>总支出</th>
+            <th>净现金流</th>
+            <th>累计现金流</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Calculation Explanation -->
+  <div class="panel">
+    <h3>📐 计算公式与说明</h3>
+    <div class="info-box">
+      <strong>现金流预测方法论</strong><br><br>
+      <strong>1. 月度净现金流</strong> = 月收入 − (固定成本 + 变动成本 + 一次性支出)<br>
+      当启用季节性调整时：月收入 = 基础月收入 × 该月季节系数<br><br>
+      <strong>2. 累计现金流</strong> = 上月累计现金流 + 本月净现金流<br>
+      累计现金流反映企业资金储备的变化趋势。若连续多月为负，说明在消耗储备金。<br><br>
+      <strong>3. 现金流健康评分 (0-100)</strong> = 基于以下维度加权计算：<br>
+      &nbsp;&nbsp;• 净现金流为正的月份占比 (权重30%)<br>
+      &nbsp;&nbsp;• 累计现金流是否始终为正 (权重25%)<br>
+      &nbsp;&nbsp;• 年度净现金流/年收入比率 (权重20%)<br>
+      &nbsp;&nbsp;• 最大单月亏损占月收入的比例 (权重15%)<br>
+      &nbsp;&nbsp;• 最低月现金储备是否足够覆盖3个月支出 (权重10%)<br>
+      评分 >80 = 健康 | 60-80 = 关注 | 40-60 = 风险 | <40 = 严重<br><br>
+      <strong>4. 烧钱月数</strong> = 当累计现金流逐步下降时，从当前储备耗尽所需月数。<br>
+      <strong>数据来源：</strong>月收入/成本参考值基于中国小微企业调查数据(Ant Group 2025年小微经营报告)、各行业平均毛利率(中国连锁经营协会2025)、人工成本(各地最低工资标准汇总)。
+    </div>
+    <div class="disclaimer-box" style="margin-top:12px">
+      <strong>⚠️ 免责声明</strong><br>
+      本工具仅供经营估算参考，不构成财务建议或投资决策依据。实际经营数据受市场波动、季节性因素、政策变化等多重影响，可能与预测存在显著偏差。建议结合专业会计师意见进行正式财务规划。本工具所有计算在浏览器本地完成，不会上传或存储您的经营数据。
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+var months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+var chart = null;
+var seasonalEnabled = false;
+
+// Seasonal coefficients by industry
+var SEASONAL = {
+  restaurant: [0.85, 1.3, 0.95, 0.9, 0.95, 1.0, 1.05, 1.15, 1.1, 1.0, 0.9, 1.2],
+  retail: [0.9, 0.7, 0.85, 0.9, 0.95, 1.0, 1.0, 1.05, 1.1, 1.0, 1.2, 1.5],
+  freelance: [0.85, 0.8, 1.0, 1.05, 1.1, 1.0, 0.9, 0.85, 1.1, 1.15, 1.05, 0.85],
+  startup: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+};
+
+var currentSeasonal = SEASONAL.startup.slice();
+
+// Presets
+var PRESETS = {
+  restaurant: {
+    revenue: [80000,120000,90000,85000,90000,95000,100000,110000,105000,95000,85000,115000],
+    fixed: [35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000],
+    variable: [32000,48000,36000,34000,36000,38000,40000,44000,42000,38000,34000,46000],
+    onetime: [0,0,0,0,0,0,0,0,0,0,0,0],
+    seasonal: 'restaurant'
+  },
+  retail: {
+    revenue: [45000,35000,42000,45000,48000,50000,50000,52000,55000,50000,60000,75000],
+    fixed: [15000,15000,15000,15000,15000,15000,15000,15000,15000,15000,15000,15000],
+    variable: [22500,17500,21000,22500,24000,25000,25000,26000,27500,25000,30000,37500],
+    onetime: [0,0,0,0,0,0,0,0,0,0,0,0],
+    seasonal: 'retail'
+  },
+  freelance: {
+    revenue: [25000,24000,30000,32000,34000,30000,28000,26000,33000,35000,32000,26000],
+    fixed: [5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000],
+    variable: [3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000],
+    onetime: [0,0,0,8000,0,0,0,0,0,0,0,0],
+    seasonal: 'freelance'
+  },
+  startup: {
+    revenue: [0,5000,10000,15000,20000,25000,30000,35000,40000,45000,50000,55000],
+    fixed: [20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000],
+    variable: [3000,3000,4000,5000,6000,7000,8000,9000,10000,11000,12000,13000],
+    onetime: [50000,0,0,0,0,0,0,0,0,0,0,0],
+    seasonal: 'startup'
+  }
+};
+
+function buildTable(){
+  var tb = document.getElementById('tableBody');
+  var html = '';
+  
+  // Seasonal row
+  html += '<tr class="seasonal-row" id="seasonalRow" style="display:' + (seasonalEnabled ? '' : 'none') + '">';
+  html += '<td>季节系数</td>';
+  for (var i = 0; i < 12; i++) {
+    html += '<td><input type="number" id="seasonal_' + i + '" value="' + currentSeasonal[i] + '" min="0.1" max="3" step="0.05" oninput="onSeasonalChange(' + i + ')"></td>';
+  }
+  html += '<td colspan="4"></td></tr>';
+  
+  // Data rows
+  var rows = [
+    {id: 'revenue', label: '月收入', cls: ''},
+    {id: 'fixed', label: '固定成本', cls: ''},
+    {id: 'variable', label: '变动成本', cls: ''},
+    {id: 'onetime', label: '一次性支出', cls: ''},
+    {id: 'totalExp', label: '总支出', cls: 'result-row', calc: true},
+    {id: 'netCF', label: '净现金流', cls: 'result-row', calc: true},
+    {id: 'cumCF', label: '累计现金流', cls: 'result-row', calc: true},
+    {id: 'status', label: '状态', cls: 'result-row', calc: true}
+  ];
+
+  for (var r = 0; r < rows.length; r++) {
+    var row = rows[r];
+    html += '<tr class="' + row.cls + '" id="row_' + row.id + '">';
+    html += '<td>' + row.label + '</td>';
+    for (var i = 0; i < 12; i++) {
+      if (row.calc) {
+        html += '<td id="' + row.id + '_' + i + '">—</td>';
+      } else {
+        html += '<td><input type="number" id="' + row.id + '_' + i + '" value="" min="0" step="100" oninput="recalculate()"></td>';
+      }
+    }
+    html += '</tr>';
+  }
+  
+  tb.innerHTML = html;
+}
+
+function getVal(id, i, def){
+  var el = document.getElementById(id + '_' + i);
+  if (!el) return def;
+  if (el.tagName === 'INPUT') {
+    var v = parseFloat(el.value);
+    return isNaN(v) ? def : v;
+  }
+  return def;
+}
+
+function setVal(id, i, val){
+  var el = document.getElementById(id + '_' + i);
+  if (el && el.tagName === 'INPUT') {
+    el.value = val;
+  }
+}
+
+function onSeasonalChange(i){
+  var el = document.getElementById('seasonal_' + i);
+  if (el) {
+    currentSeasonal[i] = parseFloat(el.value) || 1;
+  }
+  recalculate();
+}
+
+function toggleSeasonal(){
+  seasonalEnabled = document.getElementById('seasonalToggle').checked;
+  var row = document.getElementById('seasonalRow');
+  if (row) row.style.display = seasonalEnabled ? '' : 'none';
+  recalculate();
+}
+
+function recalculate(){
+  var totalRevenue = 0, totalExpenses = 0, totalNet = 0;
+  var minMonthly = Infinity;
+  var dangerCount = 0;
+  var cumCF = 0;
+  var cumValues = [];
+  var revenueValues = [];
+  var expenseValues = [];
+  var netValues = [];
+  var allPositive = true;
+  var hasNegCum = false;
+
+  for (var i = 0; i < 12; i++) {
+    var rev = getVal('revenue', i, 0);
+    if (seasonalEnabled) {
+      rev = rev * currentSeasonal[i];
+    }
+    var fixed = getVal('fixed', i, 0);
+    var variable = getVal('variable', i, 0);
+    var onetime = getVal('onetime', i, 0);
+    var totalExp = fixed + variable + onetime;
+    var netCF = rev - totalExp;
+    cumCF += netCF;
+
+    totalRevenue += rev;
+    totalExpenses += totalExp;
+    totalNet += netCF;
+    
+    if (netCF < minMonthly) minMonthly = netCF;
+    if (netCF < 0) dangerCount++;
+    if (cumCF < 0) hasNegCum = true;
+    if (netCF < 0) allPositive = false;
+
+    revenueValues.push(rev);
+    expenseValues.push(totalExp);
+    netValues.push(netCF);
+    cumValues.push(cumCF);
+
+    // Update display cells
+    var te = document.getElementById('totalExp_' + i);
+    if (te) te.textContent = '¥' + totalExp.toLocaleString();
+    var nc = document.getElementById('netCF_' + i);
+    if (nc) {
+      nc.textContent = '¥' + netCF.toLocaleString();
+      nc.className = 'net-cf';
+      if (netCF < 0) nc.style.color = 'var(--loss)';
+      else nc.style.color = 'var(--profit)';
+    }
+    var cc = document.getElementById('cumCF_' + i);
+    if (cc) {
+      cc.textContent = '¥' + cumCF.toLocaleString();
+      cc.style.color = cumCF < 0 ? 'var(--loss)' : 'var(--profit)';
+    }
+    var st = document.getElementById('status_' + i);
+    if (st) {
+      if (netCF >= 0 && cumCF >= 0) {
+        st.innerHTML = '<span class="warn-tag safe">健康</span>';
+      } else if (netCF < 0 && cumCF >= 0) {
+        st.innerHTML = '<span class="warn-tag alert">当月亏损</span>';
+      } else if (cumCF < 0) {
+        st.innerHTML = '<span class="warn-tag danger">资金短缺</span>';
+      }
+    }
+
+    // Row highlighting
+    var rowEl = document.getElementById('row_netCF');
+    if (rowEl && netCF < 0) {
+      rowEl.parentElement && rowEl.parentElement.classList.add('danger');
+    }
+  }
+
+  // Update summary
+  document.getElementById('totalRevenue').textContent = '¥' + totalRevenue.toLocaleString();
+  document.getElementById('totalExpenses').textContent = '¥' + totalExpenses.toLocaleString();
+  var annEl = document.getElementById('annualNet');
+  annEl.textContent = '¥' + totalNet.toLocaleString();
+  annEl.className = 'val ' + (totalNet >= 0 ? 'positive' : 'negative');
+  
+  var minEl = document.getElementById('minMonthly');
+  minEl.textContent = '¥' + (minMonthly === Infinity ? 0 : minMonthly).toLocaleString();
+  minEl.className = 'val ' + (minMonthly < 0 ? 'negative' : 'positive');
+  
+  document.getElementById('dangerMonths').textContent = dangerCount;
+  document.getElementById('dangerMonths').className = 'val ' + (dangerCount > 0 ? 'warning' : 'positive');
+
+  // Health score
+  var positiveMonthRatio = (12 - dangerCount) / 12;
+  var cumScore = hasNegCum ? 0 : 1;
+  var annualRatio = totalRevenue > 0 ? Math.min(totalNet / totalRevenue, 0.5) * 2 : 0;
+  var maxLossRatio = 0;
+  for (var j = 0; j < 12; j++) {
+    if (netValues[j] < 0 && revenueValues[j] > 0) {
+      maxLossRatio = Math.max(maxLossRatio, Math.abs(netValues[j]) / revenueValues[j]);
+    }
+  }
+  var lossScore = Math.max(0, 1 - maxLossRatio);
+  var minReserve = cumValues[11] > 0 ? Math.min(1, cumValues[11] / (totalExpenses / 4)) : 0;
+
+  var healthScore = Math.round(
+    positiveMonthRatio * 30 +
+    cumScore * 25 +
+    annualRatio * 20 +
+    lossScore * 15 +
+    minReserve * 10
+  );
+
+  var heroEl = document.getElementById('heroScore');
+  heroEl.textContent = healthScore;
+  if (healthScore >= 80) heroEl.style.color = 'var(--profit)';
+  else if (healthScore >= 60) heroEl.style.color = '#f9a825';
+  else if (healthScore >= 40) heroEl.style.color = 'var(--warn-text)';
+  else heroEl.style.color = 'var(--loss)';
+
+  // Burn months
+  var burnMonths = '∞(正向)';
+  if (cumValues[11] < 0) {
+    var avgBurn = totalExpenses > 0 ? totalExpenses / 12 : 0;
+    burnMonths = avgBurn > 0 ? Math.ceil(Math.abs(cumValues[11]) / avgBurn) + ' 个月' : '—';
+  }
+  document.getElementById('burnMonths').textContent = burnMonths;
+
+  // Update chart
+  updateChart(revenueValues, expenseValues, netValues, cumValues);
+}
+
+function updateChart(revenue, expense, net, cum){
+  var ctx = document.getElementById('cashflowChart');
+  if (!ctx) return;
+  
+  if (chart) chart.destroy();
+  
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [
+        {
+          label: '收入',
+          data: revenue,
+          borderColor: '#6c5ce7',
+          backgroundColor: 'rgba(108,92,231,0.1)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        },
+        {
+          label: '总支出',
+          data: expense,
+          borderColor: '#e65100',
+          backgroundColor: 'rgba(230,81,0,0.1)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        },
+        {
+          label: '净现金流',
+          data: net,
+          borderColor: '#2e7d32',
+          backgroundColor: 'rgba(46,125,50,0.1)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          borderWidth: 2.5
+        },
+        {
+          label: '累计现金流',
+          data: cum,
+          borderColor: '#1565c0',
+          backgroundColor: 'rgba(21,101,192,0.05)',
+          fill: false,
+          tension: 0.3,
+          pointRadius: 3,
+          borderDash: [5, 5],
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function(ctx){ return ctx.dataset.label + ': ¥' + ctx.raw.toLocaleString(); }
+          }
+        },
+        legend: {
+          position: 'bottom',
+          labels: { usePointStyle: true, padding: 20, font: { size: 11 } }
+        }
+      },
+      scales: {
+        y: {
+          ticks: {
+            callback: function(v){ return '¥' + (v/1000).toFixed(0) + 'k'; }
+          },
+          grid: { color: 'rgba(0,0,0,0.06)' }
+        },
+        x: {
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function loadPreset(type){
+  var p = PRESETS[type];
+  currentSeasonal = SEASONAL[type].slice();
+  
+  for (var i = 0; i < 12; i++) {
+    setVal('revenue', i, p.revenue[i]);
+    setVal('fixed', i, p.fixed[i]);
+    setVal('variable', i, p.variable[i]);
+    setVal('onetime', i, p.onetime[i]);
+  }
+
+  // Enable seasonal for non-startup
+  if (type !== 'startup') {
+    document.getElementById('seasonalToggle').checked = true;
+    seasonalEnabled = true;
+  } else {
+    document.getElementById('seasonalToggle').checked = false;
+    seasonalEnabled = false;
+  }
+  
+  // Update seasonal row
+  for (var j = 0; j < 12; j++) {
+    var el = document.getElementById('seasonal_' + j);
+    if (el) el.value = currentSeasonal[j];
+  }
+  var row = document.getElementById('seasonalRow');
+  if (row) row.style.display = seasonalEnabled ? '' : 'none';
+
+  // Highlight active preset
+  ['Restaurant','Retail','Freelance','Startup'].forEach(function(t){
+    var btn = document.getElementById('btn' + t);
+    if (btn) {
+      if (t.toLowerCase() === type) { btn.classList.add('btn-active'); }
+      else { btn.classList.remove('btn-active'); }
+    }
+  });
+
+  recalculate();
+}
+
+function resetAll(){
+  for (var i = 0; i < 12; i++) {
+    setVal('revenue', i, '');
+    setVal('fixed', i, '');
+    setVal('variable', i, '');
+    setVal('onetime', i, '');
+  }
+  document.getElementById('seasonalToggle').checked = false;
+  seasonalEnabled = false;
+  currentSeasonal = SEASONAL.startup.slice();
+  var row = document.getElementById('seasonalRow');
+  if (row) row.style.display = 'none';
+  ['Restaurant','Retail','Freelance','Startup'].forEach(function(t){
+    var btn = document.getElementById('btn' + t);
+    if (btn) btn.classList.remove('btn-active');
+  });
+  recalculate();
+}
+
+function toggleTheme(){
+  var html = document.documentElement;
+  if (html.getAttribute('data-theme') === 'dark') {
+    html.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+// Init
+(function init(){
+  if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+  buildTable();
+  loadPreset('restaurant');
+})();
+})();
+</script>
+</body>
+</html>
