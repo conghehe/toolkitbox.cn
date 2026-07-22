@@ -1,23 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- ===== P0: 首页 ===== -->
   <url><loc>https://toolkitbox.cn/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
-  <!-- ===== P1: 六大分类页 ===== -->
-  <url><loc>https://toolkitbox.cn/dev/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolkitbox.cn/about/author/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/affiliate/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/affiliate-niches/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/ai/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://toolkitbox.cn/ecom/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://toolkitbox.cn/life/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://toolkitbox.cn/freelance/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://toolkitbox.cn/localbiz/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <!-- ===== P2: 工具页（开发者工具 26个） ===== -->
+  <url><loc>https://toolkitbox.cn/ai-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/ai-tools-review/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/ai-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/ai-prompt-builder/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/ai-tools/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/ai-tools-review/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/llm-compare/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/prompts/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/token/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ai/tools/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/base64/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/blog/author/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/blog/ecommerce-profit-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/blog/freelance-profit-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/carbon-calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/case-converter/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/code-minifier/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/contrast/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/cron/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/cron-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/css-gradient-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/custom/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/dev/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://toolkitbox.cn/dns-checker/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ecom/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolkitbox.cn/ecom/affiliate/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ecom/blog/roas-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/ecom/fba/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ecom/multi-platform-profit/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ecom/profit/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/ecom/roas-breakeven/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/email-validator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/favicon-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/fba-calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/form-builder/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance-calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance/calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance/price-calc/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance/project-profitability-analyzer/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance/salary-to-freelance/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance/scope-estimator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/freelance/standalone/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://toolkitbox.cn/hash/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/http-status/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/image-compressor/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
@@ -25,40 +56,56 @@
   <url><loc>https://toolkitbox.cn/ip-lookup/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/json/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/jwt-decoder/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/keyword/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolkitbox.cn/life/carbon/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/carbon-calc/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/custom-service/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/email/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/email-check/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/life/keyword-density/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/qrcode/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/quiz/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/seo-checker/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/life/seo-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://toolkitbox.cn/life/title-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/llm/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/localbiz/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolkitbox.cn/localbiz/break-even/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/localbiz/business-loan/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/localbiz/business-loan-calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/localbiz/quote/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/localbiz/receipt/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/lorem-ipsum/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/markdown-editor/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/meta/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/meta-tag-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/minify/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/palette/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/password/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/password-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/profit-calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/prompt-library/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/qrcode/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/quiz-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/regex/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/remote/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolkitbox.cn/remote/remote-tools-hub/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/saas/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://toolkitbox.cn/saas/burn-rate-calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/saas/saas-metrics/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/seo-checker/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/seo-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://toolkitbox.cn/ssh-key-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/test-data-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/text-diff/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/title/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/token/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/unit-converter/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/unix-timestamp-converter/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/url-encoder/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/uuid-generator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://toolkitbox.cn/wcag-contrast-checker/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
   <url><loc>https://toolkitbox.cn/word-counter/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <!-- ===== P2: 工具页（AI子页） ===== -->
-  <url><loc>https://toolkitbox.cn/ai/ai-tools/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ai/llm-compare/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ai/prompts/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ai/token/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ai/tools/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <!-- ===== P2: 工具页（电商子页） ===== -->
-  <url><loc>https://toolkitbox.cn/ecom/affiliate/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ecom/fba/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ecom/profit/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ecom/multi-platform-profit/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/ecom/roas-breakeven/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <!-- ===== P3: Blog页 ===== -->
-  <url><loc>https://toolkitbox.cn/ecom/blog/roas-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://toolkitbox.cn/ecom/blog/ecommerce-profit-guide/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <!-- ===== P2: 工具页（生活子页） ===== -->
-  <url><loc>https://toolkitbox.cn/life/carbon-calc/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/life/email-check/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/life/qrcode/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/life/quiz/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <!-- ===== P2: 工具页（独立开发者子页） ===== -->
-  <url><loc>https://toolkitbox.cn/freelance/calculator/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://toolkitbox.cn/freelance/standalone/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
-  <!-- ===== P2: 其他 ===== -->
-  <url><loc>https://toolkitbox.cn/affiliate/</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>
