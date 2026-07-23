@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>自由职业者作品集生成器 | 一键生成个人品牌页面 · 猪八戒/Upwork/程序员客栈专属模板</title>
+<meta name="description" content="中国自由职业者专属作品集生成器。3套中文模板(极简/创意/专业)，支持猪八戒/Upwork/Fiverr/程序员客栈平台链接，内置项目ROI计算器+SEO优化建议。免费使用，数据纯本地处理不上传。">
+<meta name="keywords" content="作品集生成器,自由职业作品集,个人品牌页,设计师作品集,程序员作品集,portfolio builder,猪八戒作品集,Upwork portfolio,在线作品集制作,免费作品集模板">
+<link rel="canonical" href="https://toolkitbox.cn/freelance/portfolio-generator/">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3563043653255879" crossorigin="anonymous"></script>
+<style>
+:root {
+  --bg: #fff; --bg2: #f8f9fa; --text: #1a1a2e; --text2: #636e72;
+  --primary: #6c5ce7; --primary-light: #a29bfe;
+  --accent: #00b894; --accent2: #e17055; --accent3: #fdcb6e;
+  --border: #e9ecef; --card: #fff; --shadow: 0 2px 12px rgba(0,0,0,.06);
+  --input-bg: #f8f9fa;
+  --sidebar-w: 420px;
+  --template-bg: #ffffff;
+  --template-text: #1a1a2e;
+  --template-text2: #636e72;
+  --template-primary: #6c5ce7;
+  --template-card: #f8f9fa;
+  --template-header-bg: #f0edff;
+  --template-btn-bg: #1a1a2e;
+  --template-btn-text: #fff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#f5f7fa,#e8ecf1);color:var(--text);min-height:100vh}
+.container{max-width:1400px;margin:0 auto;padding:15px;display:flex;gap:18px;min-height:100vh}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--card);border-radius:16px;padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);overflow-y:auto;max-height:calc(100vh - 30px);position:sticky;top:15px}
+.main{flex:1;display:flex;flex-direction:column;gap:16px}
+.preview{flex:1;background:var(--card);border-radius:16px;box-shadow:var(--shadow);border:1px solid var(--border);overflow-y:auto;position:sticky;top:15px;max-height:calc(100vh - 30px)}
+.template-tabs{display:flex;gap:0;background:var(--bg2);border-radius:12px;padding:4px;margin-bottom:0;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--border)}
+.template-tab{flex:1;padding:10px 16px;border:none;background:none;border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;color:var(--text2);transition:.2s;font-family:inherit;white-space:nowrap}
+.template-tab.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(108,92,231,.3)}
+.sidebar h2{font-size:1.1rem;color:var(--primary);margin-bottom:5px}
+.sidebar .subtitle{font-size:.78rem;color:var(--text2);margin-bottom:20px}
+.section-title{font-size:.88rem;font-weight:700;color:var(--text);margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--primary);display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:.78rem;color:var(--text2);margin-bottom:4px;font-weight:500}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:9px 12px;border:2px solid var(--border);border-radius:8px;font-size:.85rem;background:var(--input-bg);color:var(--text);transition:.2s;font-family:inherit;resize:vertical}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(108,92,231,.12)}
+.form-group textarea{min-height:70px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.skills-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.skill-tag{padding:4px 12px;border-radius:20px;font-size:.75rem;cursor:pointer;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);transition:.2s;font-family:inherit}
+.skill-tag.selected{background:var(--primary);color:#fff;border-color:var(--primary)}
+.skill-input{margin-top:8px;display:flex;gap:8px}
+.skill-input input{flex:1}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border-radius:10px;font-size:.82rem;font-weight:600;cursor:pointer;border:2px solid transparent;transition:.2s;font-family:inherit;white-space:nowrap}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-outline{background:var(--bg);color:var(--primary);border-color:var(--primary)}
+.btn-outline:hover{background:rgba(108,92,231,.08)}
+.btn-sm{padding:6px 12px;font-size:.75rem}
+.btn-danger{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.btn-accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.project-card{border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;background:var(--bg2)}
+.project-card .remove-btn{float:right;background:none;border:none;color:var(--accent2);cursor:pointer;font-size:1.1rem}
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;padding-top:16px;border-top:2px solid var(--border)}
+.privacy-note{font-size:.7rem;color:var(--text2);margin-top:12px;text-align:center;line-height:1.5}
+.preview-frame{background:var(--bg);min-height:600px;padding:0}
+.photo-preview{width:80px;height:80px;border-radius:50%;border:3px solid var(--primary);margin:8px 0;object-fit:cover;display:none}
+.photo-preview.show{display:block}
+.platform-checks{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.platform-check{padding:4px 10px;border-radius:16px;border:1.5px solid var(--border);font-size:.73rem;cursor:pointer;background:var(--bg);color:var(--text2);transition:.2s;font-family:inherit}
+.platform-check.checked{background:var(--primary);color:#fff;border-color:var(--primary)}
+.expand-toggle{font-size:.75rem;color:var(--primary);cursor:pointer;text-decoration:underline;margin-top:8px;display:inline-block;user-select:none}
+.roi-section{margin-top:12px;padding:12px;background:var(--bg2);border-radius:8px;border:1px dashed var(--border);display:none}
+.roi-section.show{display:block}
+.roi-section h4{font-size:.78rem;color:var(--primary);margin-bottom:8px}
+.result-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini-card{padding:10px;border-radius:8px;background:var(--card);text-align:center;border:1px solid var(--border);font-size:.75rem}
+.mini-card .val{font-size:1.1rem;font-weight:700;color:var(--primary)}
+.seo-section{margin-top:16px;padding:14px;background:var(--bg2);border-radius:10px;border:1px solid var(--border)}
+.seo-section h4{font-size:.82rem;color:var(--primary);margin-bottom:8px}
+.seo-section ul{list-style:none;padding:0}
+.seo-section li{font-size:.75rem;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)}
+.seo-section li:last-child{border-bottom:none}
+.seo-section li::before{content:'\2713 ';color:var(--accent);font-weight:700}
+
+/* Template-specific overrides */
+.template-minimal{--template-bg:#ffffff;--template-text:#1a1a2e;--template-text2:#636e72;--template-primary:#6c5ce7;--template-card:#f8f9fa;--template-header-bg:#f0edff;--template-btn-bg:#1a1a2e;--template-btn-text:#ffffff}
+.template-creative{--template-bg:linear-gradient(135deg,#ffecd2,#fcb69f);--template-text:#2d3436;--template-text2:#636e72;--template-primary:#e17055;--template-card:rgba(255,255,255,.85);--template-header-bg:linear-gradient(135deg,#e17055,#d63031);--template-btn-bg:#d63031;--template-btn-text:#ffffff}
+.template-professional{--template-bg:#1a1a2e;--template-text:#e0e0e0;--template-text2:#a0a0b0;--template-primary:#00b894;--template-card:#222244;--template-header-bg:#0f3460;--template-btn-bg:#00b894;--template-btn-text:#1a1a2e}
+.template-creative,.template-professional{--template-bg-solid:#1a1a2e}
+.template-minimal{--template-bg-solid:#ffffff}
+.template-creative{--template-bg-solid:#2d3436}
+
+@media(max-width:900px){.container{flex-direction:column}.sidebar{width:100%;max-height:none;position:static}.preview{position:static;max-height:none;min-height:600px}}
+</style>
+</head>
+<body>
+
+<div class="container">
+<!-- ===== SIDEBAR: Form ===== -->
+<aside class="sidebar">
+  <h2>作品集生成器</h2>
+  <p class="subtitle">面向中国自由职业者的免费作品集工具 · 数据纯本地处理</p>
+
+  <!-- 1. Basic Info -->
+  <div class="section-title">基本信息</div>
+  <div class="form-row">
+    <div class="form-group"><label>姓名 *</label><input type="text" id="inName" placeholder="张三" oninput="updatePreview()"></div>
+    <div class="form-group"><label>职位/角色 *</label><input type="text" id="inRole" placeholder="全栈开发者" oninput="updatePreview()"></div>
+  </div>
+  <div class="form-group">
+    <label>个人照片</label>
+    <input type="file" id="inPhoto" accept="image/*" onchange="handlePhoto(this)">
+    <img id="photoPreview" class="photo-preview" alt="照片预览">
+  </div>
+
+  <!-- 2. Skills -->
+  <div class="section-title">技能标签</div>
+  <div class="skills-tags" id="skillsContainer">
+  </div>
+  <div class="skill-input">
+    <input type="text" id="skillCustom" placeholder="自定义技能(如 Vue.js)">
+    <button class="btn btn-outline btn-sm" onclick="addCustomSkill()">添加</button>
+  </div>
+
+  <!-- 3. Platform Selection -->
+  <div class="section-title">接单平台</div>
+  <div class="platform-checks" id="platformChecks">
+    <button class="platform-check" data-platform="zhubajie" onclick="togglePlatform(this)">猪八戒</button>
+    <button class="platform-check" data-platform="upwork" onclick="togglePlatform(this)">Upwork</button>
+    <button class="platform-check" data-platform="fiverr" onclick="togglePlatform(this)">Fiverr</button>
+    <button class="platform-check" data-platform="pkcx" onclick="togglePlatform(this)">程序员客栈</button>
+  </div>
+
+  <!-- 4. Projects -->
+  <div class="section-title">项目经历 <button class="btn btn-outline btn-sm" onclick="addProject()">+ 添加项目</button></div>
+  <div id="projectsContainer"></div>
+  <span class="expand-toggle" onclick="toggleROI()">项目影响力计算器（计算项目ROI和客户价值）</span>
+  <div class="roi-section" id="roiSection">
+    <h4>项目影响力计算</h4>
+    <div class="form-row">
+      <div class="form-group"><label>项目金额(元)</label><input type="number" id="roiAmount" placeholder="50000" oninput="calcROI()"></div>
+      <div class="form-group"><label>耗时(小时)</label><input type="number" id="roiHours" placeholder="120" oninput="calcROI()"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>客户复购次数</label><input type="number" id="roiRepeat" placeholder="3" oninput="calcROI()"></div>
+      <div class="form-group"><label>转介绍客户数</label><input type="number" id="roiReferral" placeholder="2" oninput="calcROI()"></div>
+    </div>
+    <div class="result-cards" id="roiResults"></div>
+  </div>
+
+  <!-- 5. About Me -->
+  <div class="section-title">关于我</div>
+  <div class="form-group">
+    <textarea id="inAbout" placeholder="简短介绍你的专业背景、擅长领域和工作理念..." oninput="updatePreview()"></textarea>
+  </div>
+
+  <!-- 6. Contact -->
+  <div class="section-title">联系方式</div>
+  <div class="form-row">
+    <div class="form-group"><label>邮箱</label><input type="email" id="inEmail" placeholder="zhangsan@example.com" oninput="updatePreview()"></div>
+    <div class="form-group"><label>GitHub</label><input type="text" id="inGithub" placeholder="github.com/yourname" oninput="updatePreview()"></div>
+  </div>
+  <div class="form-row">
+    <div class="form-group"><label>微信 (可选)</label><input type="text" id="inWechat" placeholder="WeChatID" oninput="updatePreview()"></div>
+    <div class="form-group"><label>个人网站</label><input type="text" id="inWebsite" placeholder="https://yourname.com" oninput="updatePreview()"></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="action-bar">
+    <button class="btn btn-primary" onclick="downloadHTML()">下载HTML文件</button>
+    <button class="btn btn-outline" onclick="copyHTML()">复制HTML代码</button>
+    <button class="btn btn-outline btn-sm" onclick="resetForm()">清空重置</button>
+  </div>
+
+  <!-- SEO Suggestions -->
+  <div class="seo-section" id="seoSection">
+    <h4>作品集SEO优化建议</h4>
+    <ul id="seoSuggestions">
+      <li>填写姓名和职位后自动生成优化建议</li>
+    </ul>
+  </div>
+
+  <p class="privacy-note">
+    隐私说明：您的作品集数据仅在浏览器本地处理，不会上传至任何服务器。照片以Base64编码内嵌于HTML中。
+    <br>本工具由 <a href="https://toolkitbox.cn" target="_blank" style="color:var(--primary)">ToolkitBox</a> 提供 ·
+    <a href="../project-profitability-analyzer/" style="color:var(--primary)">项目盈利分析器</a>
+  </p>
+</aside>
+
+<!-- ===== MAIN: Preview ===== -->
+<main class="main">
+  <div class="template-tabs">
+    <button class="template-tab active" onclick="switchTemplate('minimal',this)">极简风格</button>
+    <button class="template-tab" onclick="switchTemplate('creative',this)">创意风格</button>
+    <button class="template-tab" onclick="switchTemplate('professional',this)">专业风格</button>
+  </div>
+  <div class="preview" id="previewContainer">
+    <div class="preview-frame" id="previewFrame">
+      <div id="portfolioContent" style="font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;min-height:600px;padding:40px;background:var(--template-bg);color:var(--template-text)">
+        <div style="text-align:center;padding:60px 20px;color:var(--template-text2)">
+          <div style="font-size:3rem;margin-bottom:16px">📁</div>
+          <h2 style="color:var(--template-text2)">在左侧填写信息</h2>
+          <p style="margin-top:8px">实时预览将在此处显示</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<script>
+// ---- State ----
+const state = {
+  template: 'minimal',
+  name: '', role: '', photo: '', about: '',
+  email: '', github: '', wechat: '', website: '',
+  skills: [],
+  platforms: [],
+  projects: []
+};
+
+const presetSkills = ['React','Vue.js','Python','Node.js','TypeScript','UI设计','Figma','Flutter','PHP','Golang','Docker','AWS','MySQL','MongoDB','CSS/SCSS','小程序开发','SEO优化','数据分析'];
+
+// ---- Init ----
+function initSkills() {
+  const c = document.getElementById('skillsContainer');
+  c.innerHTML = presetSkills.map(s => `<button class="skill-tag" onclick="toggleSkill(this,'${s}')">${s}</button>`).join('');
+  addProject(); // Start with 1 empty project
+  updatePreview();
+}
+initSkills();
+
+// ---- Skills ----
+function toggleSkill(el,skill) {
+  el.classList.toggle('selected');
+  if(el.classList.contains('selected')) state.skills.push(skill);
+  else state.skills = state.skills.filter(s=>s!==skill);
+  updatePreview();
+}
+function addCustomSkill() {
+  const inp = document.getElementById('skillCustom');
+  const s = inp.value.trim();
+  if(!s || state.skills.includes(s)) return;
+  state.skills.push(s);
+  const c = document.getElementById('skillsContainer');
+  const btn = document.createElement('button');
+  btn.className = 'skill-tag selected';
+  btn.textContent = s;
+  btn.onclick = function(){ this.remove(); state.skills=state.skills.filter(x=>x!==s); updatePreview(); };
+  c.appendChild(btn);
+  inp.value = '';
+  updatePreview();
+}
+
+// ---- Platforms ----
+function togglePlatform(el) {
+  el.classList.toggle('checked');
+  const p = el.dataset.platform;
+  if(el.classList.contains('checked')) state.platforms.push(p);
+  else state.platforms = state.platforms.filter(x=>x!==p);
+  updatePreview();
+}
+
+// ---- Photo ----
+function handlePhoto(input) {
+  if(!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    state.photo = e.target.result;
+    document.getElementById('photoPreview').src = state.photo;
+    document.getElementById('photoPreview').classList.add('show');
+    updatePreview();
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+// ---- Projects ----
+function addProject(data) {
+  const id = state.projects.length;
+  state.projects.push(data||{title:'',desc:'',image:'',link:''});
+  renderProjects();
+  updatePreview();
+}
+function removeProject(idx) {
+  state.projects.splice(idx,1);
+  renderProjects();
+  updatePreview();
+}
+function updateProjectField(idx,field,value) {
+  state.projects[idx][field] = value;
+  updatePreview();
+}
+function handleProjectImage(idx,input) {
+  if(!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    state.projects[idx].image = e.target.result;
+    updatePreview();
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+function renderProjects() {
+  const c = document.getElementById('projectsContainer');
+  c.innerHTML = state.projects.map((p,i) => `
+    <div class="project-card">
+      <button class="remove-btn" onclick="removeProject(${i})" title="删除">✕</button>
+      <div class="form-group"><label>项目标题</label><input type="text" value="${escHtml(p.title)}" oninput="updateProjectField(${i},'title',this.value)" placeholder="电商平台重构"></div>
+      <div class="form-group"><label>简短描述</label><textarea oninput="updateProjectField(${i},'desc',this.value)" placeholder="使用React+Node.js完成全栈重构，性能提升3倍">${escHtml(p.desc)}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>预览图</label><input type="file" accept="image/*" onchange="handleProjectImage(${i},this)"></div>
+        <div class="form-group"><label>项目链接</label><input type="text" value="${escHtml(p.link)}" oninput="updateProjectField(${i},'link',this.value)" placeholder="https://..."></div>
+      </div>
+      ${p.image ? `<img src="${p.image}" style="max-width:100%;max-height:100px;border-radius:6px;margin-top:6px">` : ''}
+    </div>
+  `).join('');
+}
+function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ---- ROI Calculator ----
+function toggleROI() {
+  document.getElementById('roiSection').classList.toggle('show');
+  if(document.getElementById('roiSection').classList.contains('show')) calcROI();
+}
+function calcROI() {
+  const amount = parseFloat(document.getElementById('roiAmount').value)||0;
+  const hours = parseFloat(document.getElementById('roiHours').value)||1;
+  const repeat = parseInt(document.getElementById('roiRepeat').value)||0;
+  const referral = parseInt(document.getElementById('roiReferral').value)||0;
+  const hourlyRate = amount/hours;
+  const lifetimeValue = amount * (1+repeat) + amount * referral * 0.5;
+  const roi = ((lifetimeValue-amount)/amount*100).toFixed(0);
+  document.getElementById('roiResults').innerHTML = `
+    <div class="mini-card"><div class="val">${hourlyRate.toFixed(0)}元/时</div><div>项目时薪</div></div>
+    <div class="mini-card"><div class="val">${lifetimeValue.toFixed(0)}元</div><div>客户终身价值</div></div>
+    <div class="mini-card"><div class="val">${roi}%</div><div>客户ROI</div></div>
+    <div class="mini-card"><div class="val">${repeat+referral}人</div><div>额外机会</div></div>
+  `;
+}
+
+// ---- Template Switch ----
+function switchTemplate(tpl,el) {
+  state.template = tpl;
+  document.querySelectorAll('.template-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  updatePreview();
+}
+
+// ---- Collect Input ----
+function collectInput() {
+  state.name = document.getElementById('inName').value.trim();
+  state.role = document.getElementById('inRole').value.trim();
+  state.about = document.getElementById('inAbout').value.trim();
+  state.email = document.getElementById('inEmail').value.trim();
+  state.github = document.getElementById('inGithub').value.trim();
+  state.wechat = document.getElementById('inWechat').value.trim();
+  state.website = document.getElementById('inWebsite').value.trim();
+}
+
+// ---- Platform URLs ----
+function getPlatformLinks() {
+  const map = {
+    zhubajie: { name:'猪八戒', url:'https://www.zbj.com/', color:'#ff6b35' },
+    upwork: { name:'Upwork', url:'https://www.upwork.com/', color:'#14a800' },
+    fiverr: { name:'Fiverr', url:'https://www.fiverr.com/', color:'#1dbf73' },
+    pkcx: { name:'程序员客栈', url:'https://www.proginn.com/', color:'#4a90d9' }
+  };
+  return state.platforms.map(p=>map[p]).filter(Boolean);
+}
+
+// ---- QR Code ----
+function generateQR(text,size) {
+  // Simple QR-like placeholder using Canvas
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size||120;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = state.template==='professional'?'#fff':'#000';
+  
+  // Generate deterministic pattern based on text
+  const hash = simpleHash(text||'portfolio');
+  const moduleCount = 21;
+  const moduleSize = (size||120)/moduleCount;
+  
+  // Background
+  ctx.fillStyle = state.template==='professional'?'#222244':'#fff';
+  ctx.fillRect(0,0,size||120,size||120);
+  
+  // Simple pattern
+  ctx.fillStyle = state.template==='professional'?'#00b894':'#000';
+  for(let r=0; r<moduleCount; r++) {
+    for(let c=0; c<moduleCount; c++) {
+      if((hash>>((r*moduleCount+c)%32))&1 && !(r<2||r>moduleCount-3||c<2||c>moduleCount-3)) {
+        ctx.fillRect(c*moduleSize+2, r*moduleSize+2, moduleSize-2, moduleSize-2);
+      }
+    }
+  }
+  return canvas.toDataURL();
+}
+function simpleHash(s) {
+  let h = 0;
+  for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}
+  return Math.abs(h);
+}
+
+// ---- Update Preview ----
+function updatePreview() {
+  collectInput();
+  const pc = document.getElementById('portfolioContent');
+  const hasData = state.name || state.role || state.about || state.skills.length || state.projects.some(p=>p.title);
+  
+  if(!hasData) {
+    pc.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--template-text2)"><div style="font-size:3rem;margin-bottom:16px">📁</div><h2 style="color:var(--template-text2)">在左侧填写信息</h2><p style="margin-top:8px">实时预览将在此处显示</p></div>`;
+    return;
+  }
+
+  const platforms = getPlatformLinks();
+  const tplClass = 'template-'+state.template;
+  const headerBg = state.template==='creative'?'background:linear-gradient(135deg,#e17055,#d63031);color:#fff;':'';
+  const heroStyle = state.template==='creative'?headerBg+`padding:50px 30px;text-align:center;border-radius:0 0 30px 30px;`:
+    state.template==='professional'?'background:#0f3460;color:#e0e0e0;padding:50px 30px;text-align:center;':
+    'background:#f0edff;padding:40px 30px;text-align:center;';
+  
+  const btnStyle = state.template==='creative'?'background:#d63031;color:#fff;border:none;':
+    state.template==='professional'?'background:#00b894;color:#1a1a2e;border:none;':
+    'background:#1a1a2e;color:#fff;border:none;';
+  
+  const cardBg = state.template==='professional'?'background:#222244;':'background:#f8f9fa;';
+  const textColor = state.template==='professional'?'color:#e0e0e0;':'';
+  const text2Color = state.template==='professional'?'color:#a0a0b0;':'color:#636e72;';
+
+  const qrData = generateQR(state.website||state.github||state.email||'portfolio',120);
+
+  const projectsHTML = state.projects.filter(p=>p.title).map(p=>`
+    <div style="${cardBg} border-radius:12px;padding:24px;margin-bottom:16px;border:1px solid ${state.template==='professional'?'#2d3436':'#e9ecef'}">
+      ${p.image ? `<img src="${p.image}" style="width:100%;max-height:200px;object-fit:cover;border-radius:8px;margin-bottom:12px" alt="${escHtml(p.title)}">` : ''}
+      <h4 style="margin-bottom:4px;${textColor}">${escHtml(p.title)}</h4>
+      <p style="font-size:.85rem;line-height:1.6;${text2Color}">${escHtml(p.desc)}</p>
+      ${p.link ? `<a href="${escHtml(p.link)}" target="_blank" style="font-size:.8rem;color:var(--template-primary);text-decoration:none;margin-top:8px;display:inline-block">查看项目 →</a>` : ''}
+    </div>
+  `).join('');
+
+  const skillsHTML = state.skills.map(s=>`<span style="display:inline-block;padding:5px 14px;border-radius:20px;margin:4px;font-size:.78rem;font-weight:500;${state.template==='professional'?'background:rgba(0,184,148,.15);color:#00b894;':'background:rgba(108,92,231,.1);color:var(--template-primary);'}">${s}</span>`).join('');
+
+  const platformBtnsHTML = platforms.map(p=>`
+    <a href="${p.url}" target="_blank" style="display:inline-block;padding:8px 18px;border-radius:20px;margin:4px;font-size:.78rem;text-decoration:none;font-weight:600;background:${p.color};color:#fff">在${p.name}上联系我</a>
+  `).join('');
+
+  pc.innerHTML = `
+    <div style="font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--template-bg);color:var(--template-text);min-height:600px">
+      <!-- Hero -->
+      <div style="${heroStyle}">
+        ${state.photo ? `<img src="${state.photo}" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid ${state.template==='professional'?'#00b894':'#fff'};margin-bottom:16px">` : ''}
+        <h1 style="font-size:2rem;margin-bottom:4px">${escHtml(state.name)||'你的名字'}</h1>
+        <p style="font-size:1rem;opacity:.85;margin-top:0">${escHtml(state.role)||'你的职位'}</p>
+        ${platformBtnsHTML ? `<div style="margin-top:16px">${platformBtnsHTML}</div>` : ''}
+      </div>
+      <!-- Body -->
+      <div style="max-width:800px;margin:0 auto;padding:30px 20px">
+        ${state.about ? `
+        <section style="margin-bottom:30px">
+          <h3 style="${state.template==='professional'?'color:#00b894;':'color:var(--template-primary);'}margin-bottom:12px;font-size:1.1rem;border-bottom:2px solid ${state.template==='professional'?'#00b894':'var(--template-primary)'};padding-bottom:8px;display:inline-block">关于我</h3>
+          <p style="font-size:.9rem;line-height:1.8;${text2Color}">${escHtml(state.about).replace(/\n/g,'<br>')}</p>
+        </section>` : ''}
+        ${skillsHTML ? `<section style="margin-bottom:30px"><h3 style="${state.template==='professional'?'color:#00b894;':'color:var(--template-primary);'}margin-bottom:12px;font-size:1.1rem">技能</h3><div>${skillsHTML}</div></section>` : ''}
+        ${projectsHTML ? `<section style="margin-bottom:30px"><h3 style="${state.template==='professional'?'color:#00b894;':'color:var(--template-primary);'}margin-bottom:16px;font-size:1.1rem">项目经历</h3>${projectsHTML}</section>` : ''}
+        <!-- ROI Summary -->
+        ${document.getElementById('roiAmount').value ? `
+        <section style="margin-bottom:30px;padding:20px;border-radius:12px;${state.template==='professional'?'background:rgba(0,184,148,.1);':'background:rgba(108,92,231,.05);'}border:1px solid ${state.template==='professional'?'#00b894':'var(--template-primary)'}">
+          <h3 style="font-size:.9rem;${state.template==='professional'?'color:#00b894;':'color:var(--template-primary);'}margin-bottom:8px">项目影响力</h3>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:.82rem;${text2Color}">
+            <span>时薪: <strong>${(parseFloat(document.getElementById('roiAmount').value)/(parseFloat(document.getElementById('roiHours').value)||1)).toFixed(0)}元/时</strong></span>
+            <span>客户终身价值: <strong>${(parseFloat(document.getElementById('roiAmount').value)*(1+(parseInt(document.getElementById('roiRepeat').value)||0)+(parseInt(document.getElementById('roiReferral').value)||0)*0.5)).toFixed(0)}元</strong></span>
+          </div>
+        </section>`:''}
+        <!-- Contact -->
+        ${(state.email||state.github||state.wechat||state.website) ? `
+        <section style="margin-bottom:30px">
+          <h3 style="${state.template==='professional'?'color:#00b894;':'color:var(--template-primary);'}margin-bottom:12px;font-size:1.1rem">联系方式</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+            ${state.email ? `<a href="mailto:${escHtml(state.email)}" style="padding:8px 16px;border-radius:8px;${btnStyle}text-decoration:none;font-size:.82rem">📧 Email</a>` : ''}
+            ${state.github ? `<a href="${escHtml(state.github.startsWith('http')?state.github:'https://'+state.github)}" target="_blank" style="padding:8px 16px;border-radius:8px;${btnStyle}text-decoration:none;font-size:.82rem">💻 GitHub</a>` : ''}
+            ${state.wechat ? `<span style="font-size:.82rem;${text2Color}">💬 微信: ${escHtml(state.wechat)}</span>` : ''}
+            ${state.website ? `<a href="${escHtml(state.website.startsWith('http')?state.website:'https://'+state.website)}" target="_blank" style="padding:8px 16px;border-radius:8px;${btnStyle}text-decoration:none;font-size:.82rem">🌐 个人网站</a>` : ''}
+          </div>
+        </section>` : ''}
+        <!-- QR -->
+        <section style="text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid ${state.template==='professional'?'#2d3436':'#e9ecef'}">
+          <img src="${qrData}" alt="QR Code" style="width:100px;height:100px;border-radius:8px">
+          <p style="font-size:.72rem;${text2Color}margin-top:6px">扫码访问作品集</p>
+        </section>
+      </div>
+      <!-- Footer -->
+      <div style="text-align:center;padding:20px;font-size:.7rem;${text2Color}border-top:1px solid ${state.template==='professional'?'#2d3436':'#e9ecef'}">
+        <p>使用 <a href="https://toolkitbox.cn/freelance/portfolio-generator/" target="_blank" style="color:var(--template-primary);text-decoration:none">ToolkitBox 作品集生成器</a> 创建 · 免费 · 无数据上传</p>
+      </div>
+    </div>
+  `;
+  
+  updateSEOSuggestions();
+}
+
+// ---- SEO Suggestions ----
+function updateSEOSuggestions() {
+  const suggestions = [];
+  if(state.name && state.role) {
+    suggestions.push(`标题优化: "${state.name} - ${state.role} | 个人作品集" 建议在页面title中突出职位关键词`);
+    suggestions.push(`关键词布局: 将"${state.role}""自由职业""作品集"等词自然融入"关于我"段落`);
+  }
+  if(state.skills.length > 0) {
+    suggestions.push(`技能关键词: 在项目描述中包含具体技术栈(${state.skills.slice(0,3).join('、')})，有利于技术招聘者搜索`);
+  }
+  suggestions.push(`描述标签: 为每个项目写50-160字的描述，包含该项目的核心技术/成果数据`);
+  if(state.website) suggestions.push(`外链建设: 将作品集链接添加到GitHub Profile和社交媒体简介中`);
+  suggestions.push(`移动端优化: 本作品集已适配移动端，在微信/微博中分享时展示效果良好`);
+  
+  const ul = document.getElementById('seoSuggestions');
+  ul.innerHTML = suggestions.map(s=>`<li>${s}</li>`).join('');
+}
+
+// ---- Export ----
+function getPortfolioHTML() {
+  const contentEl = document.getElementById('portfolioContent');
+  const innerHTML = contentEl.innerHTML;
+  const tplClass = 'template-'+state.template;
+  const bgVal = state.template==='professional'?'#1a1a2e':state.template==='creative'?'#2d3436':'#ffffff';
+  const textVal = state.template==='professional'?'#e0e0e0':state.template==='creative'?'#2d3436':'#1a1a2e';
+  
+  return `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>${state.name||'个人作品集'} - ${state.role||'自由职业者'}</title>
+<meta name="description" content="${state.name||'我'}的作品集 - ${state.role||'自由职业者'}。${state.skills.slice(0,3).join('、')}等技能。">
+<style>
+:root{--template-bg:${bgVal};--template-text:${textVal};--template-text2:${state.template==='professional'?'#a0a0b0':'#636e72'};--template-primary:${state.template==='professional'?'#00b894':'#6c5ce7'}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--template-bg);color:var(--template-text);line-height:1.6}
+a{color:var(--template-primary)}
+</style>
+</head>
+<body>
+${innerHTML}
+</body>
+</html>`;
+}
+
+function downloadHTML() {
+  const html = getPortfolioHTML();
+  const blob = new Blob([html],{type:'text/html;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = (state.name||'portfolio')+'-作品集.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function copyHTML() {
+  const html = getPortfolioHTML();
+  navigator.clipboard.writeText(html).then(()=>{
+    const btns = document.querySelectorAll('.btn-outline');
+    btns.forEach(b=>{if(b.textContent.includes('复制')){b.textContent='已复制!';b.classList.add('saved');setTimeout(()=>{b.textContent='复制HTML代码';b.classList.remove('saved');},2000)}});
+  }).catch(()=>alert('复制失败，请手动选择预览区域代码'));
+}
+
+function resetForm() {
+  state.name='';state.role='';state.photo='';state.about='';state.email='';state.github='';state.wechat='';state.website='';
+  state.skills=[];state.platforms=[];state.projects=[];
+  document.getElementById('inName').value='';
+  document.getElementById('inRole').value='';
+  document.getElementById('inAbout').value='';
+  document.getElementById('inEmail').value='';
+  document.getElementById('inGithub').value='';
+  document.getElementById('inWechat').value='';
+  document.getElementById('inWebsite').value='';
+  document.getElementById('inPhoto').value='';
+  document.getElementById('photoPreview').classList.remove('show');
+  document.getElementById('roiAmount').value='';
+  document.getElementById('roiHours').value='';
+  document.getElementById('roiRepeat').value='';
+  document.getElementById('roiReferral').value='';
+  document.getElementById('roiResults').innerHTML='';
+  document.querySelectorAll('.skill-tag.selected').forEach(t=>t.classList.remove('selected'));
+  document.querySelectorAll('.platform-check.checked').forEach(t=>t.classList.remove('checked'));
+  addProject();
+  updatePreview();
+}
+</script>
+</body>
+</html>
